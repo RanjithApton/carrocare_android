@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary"
+        tools:context=".activity.MyOrdersDetailActivity">
+        <LinearLayout
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize">
+
+            <ImageView
+                android:layout_gravity="left|center_vertical|center_horizontal|center"
+                android:id="@+id/back"
+                android:padding="@dimen/padding"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_margin="10dp"
+                android:src="@drawable/back"/>
+
+            <TextView
+                android:textSize="@dimen/heading"
+                android:textColor="@color/white"
+                android:layout_gravity="left|center_vertical|center_horizontal|center"
+                android:id="@+id/header_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Order Details"
+                android:layout_weight="1"
+                android:textAllCaps="true"
+                android:fontFamily="@font/josefinsans_bold"/>
+
+        </LinearLayout>
+        <ScrollView
+            android:background="@drawable/bg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/header">
+
+            <RelativeLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent">
+                    <androidx.cardview.widget.CardView android:id="@+id/card" android:fitsSystemWindows="true" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_margin="@dimen/margin" android:elevation="7dp" app:cardBackgroundColor="@color/white" app:cardCornerRadius="9dp" app:cardElevation="5dp" app:cardPreventCornerOverlap="true" app:cardUseCompatPadding="true">
+                        <LinearLayout android:layout_gravity="center" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content">
+                            <LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/margin" android:layout_marginRight="@dimen/margin">
+                                <LinearLayout android:layout_gravity="center" android:orientation="horizontal" android:id="@+id/date_field" android:layout_width="match_parent" android:layout_height="wrap_content">
+                                    <TextView android:textSize="@dimen/bigtext" android:textColor="@color/black" android:gravity="left|center_vertical|center_horizontal|center" android:layout_gravity="left|center_vertical|center_horizontal|center" android:padding="@dimen/padding" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Date : " android:layout_weight="1" android:fontFamily="@font/josefinsans_regular"/>
+                                    <TextView android:textSize="@dimen/bigtext" android:textColor="@color/black" android:gravity="left|center_vertical|center_horizontal|center" android:layout_gravity="left|center_vertical|center_horizontal|center" android:id="@+id/date" android:padding="@dimen/padding" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_weight="1" android:fontFamily="@font/josefinsans_regular"/>
+                                </LinearLayout>
+                                <LinearLayout android:layout_gravity="center" android:orientation="horizontal" android:id="@+id/paymentid_field" android:layout_width="match_parent" android:layout_height="wrap_content">
+                                    <TextView android:textSize="@dimen/bigtext" android:textColor="@color/black" android:gravity="left|center_vertical|center_horizontal|center" android:layout_gravity="left|center_vertical|center_horizontal|center" android:padding="@dimen/padding" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Payment ID : " android:layout_weight="1" android:fontFamily="@font/josefinsans_regular"/>
+                                    <TextView android:textSize="@dimen/bigtext" android:textColor="@color/black" android:gravity="left|center_vertical|center_horizontal|center" android:layout_gravity="left|center_vertical|center_horizontal|center" android:id="@+id/payment_id" android:padding="@dimen/padding" android:layout_width="match_parent" android:layout_height="wrap_content" android:singleLine="true" android:layout_weight="1" android:fontFamily="@font/josefinsans_semibold"/>
+                                </LinearLayout>
+                            </LinearLayout>
+                            <LinearLayout android:layout_gravity="center" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/margin" android:layout_marginRight="@dimen/margin">
+                                <LinearLayout android:layout_gravity="center" android:orientation="horizontal" android:id="@+id/servicetype_field" android:layout_width="match_parent" android:layout_height="wrap_content">
+                                    <TextView android:textSize="@dimen/bigtext" android:textColor="@color/black" android:gravity="left|center_vertical|center_horizontal|center" android:layout_gravity="left|center_vertical|center_horizontal|center" android:padding="@dimen/padding" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Service Type : " android:layout_weight="1" android:fontFamily="@font/josefinsans_regular"/>
+                                    <TextView android:textSize="@dimen/bigtext" android:textColor="@color/black" android:gravity="left" android:layout_gravity="left|center_vertical|center_horizontal|center" android:id="@+id/service_type" android:padding="@dimen/padding" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="" android:layout_weight="1" android:fontFamily="@font/josefinsans_regular"/>
+                                </LinearLayout>
+                                <LinearLayout android:layout_gravity="center" android:orientation="horizontal" android:id="@+id/paymenttype_field" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_weight="0.5">
+                                    <TextView android:textSize="@dimen/bigtext" android:textColor="@color/black" android:gravity="left|center_vertical|center_horizontal|center" android:layout_gravity="left|center_vertical|center_horizontal|center" android:padding="@dimen/padding" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Payment Type : " android:layout_weight="1" android:fontFamily="@font/josefinsans_regular"/>
+                                    <TextView android:textSize="@dimen/bigtext" android:textColor="@color/black" android:gravity="left" android:layout_gravity="left|center_vertical|center_horizontal|center" android:id="@+id/payment_type" android:padding="@dimen/padding" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="" android:layout_weight="1" android:fontFamily="@font/josefinsans_regular"/>
+                                </LinearLayout>
+                            </LinearLayout>
+                            <LinearLayout android:layout_gravity="center" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/margin" android:layout_marginRight="@dimen/margin">
+                                <LinearLayout android:layout_gravity="center" android:orientation="horizontal" android:id="@+id/packagetype_field" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_weight="0.5">
+                                    <TextView android:textSize="@dimen/bigtext" android:textColor="@color/black" android:gravity="left|center_vertical|center_horizontal|center" android:layout_gravity="left|center_vertical|center_horizontal|center" android:padding="@dimen/padding" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Package Type : " android:layout_weight="1" android:fontFamily="@font/josefinsans_regular"/>
+                                    <TextView android:textSize="@dimen/bigtext" android:textColor="@color/black" android:gravity="left" android:layout_gravity="left|center_vertical|center_horizontal|center" android:id="@+id/package_type" android:padding="@dimen/padding" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="" android:layout_weight="1" android:fontFamily="@font/josefinsans_regular"/>
+                                </LinearLayout>
+                                <LinearLayout android:layout_gravity="center" android:orientation="horizontal" android:id="@+id/vehiclemake_field" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_weight="0.5">
+                                    <TextView android:textSize="@dimen/bigtext" android:textColor="@color/black" android:gravity="left|center_vertical|center_horizontal|center" android:layout_gravity="left|center_vertical|center_horizontal|center" android:padding="@dimen/padding" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Vehicle Make : " android:layout_weight="1" android:fontFamily="@font/josefinsans_regular"/>
+                                    <TextView android:textSize="@dimen/bigtext" android:textColor="@color/black" android:gravity="left" android:layout_gravity="left|center_vertical|center_horizontal|center" android:id="@+id/vec_make" android:padding="@dimen/padding" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="" android:layout_weight="1" android:fontFamily="@font/josefinsans_regular"/>
+                                </LinearLayout>
+                            </LinearLayout>
+                            <LinearLayout android:layout_gravity="center" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/margin" android:layout_marginRight="@dimen/margin">
+                                <LinearLayout android:layout_gravity="center" android:orientation="horizontal" android:id="@+id/vehiclemodel_field" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_weight="0.5">
+                                    <TextView android:textSize="@dimen/bigtext" android:textColor="@color/black" android:gravity="left|center_vertical|center_horizontal|center" android:layout_gravity="left|center_vertical|center_horizontal|center" android:padding="@dimen/padding" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Vehicle Model : " android:layout_weight="1" android:fontFamily="@font/josefinsans_regular"/>
+                                    <TextView android:textSize="@dimen/bigtext" android:textColor="@color/black" android:gravity="left" android:layout_gravity="left|center_vertical|center_horizontal|center" android:id="@+id/vec_model" android:padding="@dimen/padding" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="" android:layout_weight="1" android:fontFamily="@font/josefinsans_regular"/>
+                                </LinearLayout>
+                                <LinearLayout android:layout_gravity="center" android:orientation="horizontal" android:id="@+id/vehicleno_field" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_weight="0.5">
+                                    <TextView android:textSize="@dimen/bigtext" android:textColor="@color/black" android:gravity="left|center_vertical|center_horizontal|center" android:layout_gravity="left|center_vertical|center_horizontal|center" android:padding="@dimen/padding" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Vehicle No. : " android:layout_weight="1" android:fontFamily="@font/josefinsans_regular"/>
+                                    <TextView android:textSize="@dimen/bigtext" android:textColor="@color/black" android:gravity="left" android:layout_gravity="left|center_vertical|center_horizontal|center" android:id="@+id/vec_no" android:padding="@dimen/padding" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="" android:layout_weight="1" android:fontFamily="@font/josefinsans_regular"/>
+                                </LinearLayout>
+                                <LinearLayout android:layout_gravity="center" android:orientation="horizontal" android:id="@+id/vehicleid_field" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_weight="0.5">
+                                    <TextView android:textSize="@dimen/bigtext" android:textColor="@color/black" android:gravity="left|center_vertical|center_horizontal|center" android:layout_gravity="left|center_vertical|center_horizontal|center" android:padding="@dimen/padding" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Vehicle Id : " android:layout_weight="1" android:fontFamily="@font/josefinsans_regular"/>
+                                    <TextView android:textSize="@dimen/bigtext" android:textColor="@color/black" android:gravity="left" android:layout_gravity="left|center_vertical|center_horizontal|center" android:id="@+id/vec_id" android:padding="@dimen/padding" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="" android:layout_weight="1" android:fontFamily="@font/josefinsans_regular"/>
+                                </LinearLayout>
+                            </LinearLayout>
+                            <LinearLayout android:layout_gravity="center" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/margin" android:layout_marginRight="@dimen/margin">
+                                <LinearLayout android:layout_gravity="center" android:orientation="horizontal" android:id="@+id/packagevalue_field" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_weight="0.5">
+                                    <TextView android:textSize="@dimen/bigtext" android:textColor="@color/black" android:gravity="left|center_vertical|center_horizontal|center" android:layout_gravity="left|center_vertical|center_horizontal|center" android:padding="@dimen/padding" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Package Value : " android:layout_weight="1" android:fontFamily="@font/josefinsans_regular"/>
+                                    <TextView android:textSize="@dimen/bigtext" android:textColor="@color/black" android:gravity="left" android:layout_gravity="left|center_vertical|center_horizontal|center" android:id="@+id/package_value" android:padding="@dimen/padding" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="" android:layout_weight="1" android:fontFamily="@font/josefinsans_regular"/>
+                                </LinearLayout>
+                                <LinearLayout android:layout_gravity="center" android:orientation="horizontal" android:id="@+id/discount_field" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_weight="0.5">
+                                    <TextView android:textSize="@dimen/bigtext" android:textColor="@color/black" android:gravity="left|center_vertical|center_horizontal|center" android:layout_gravity="left|center_vertical|center_horizontal|center" android:padding="@dimen/padding" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Discount Amount : " android:layout_weight="1" android:fontFamily="@font/josefinsans_regular"/>
+                                    <TextView android:textSize="@dimen/bigtext" android:textColor="@color/black" android:gravity="left" android:layout_gravity="left|center_vertical|center_horizontal|center" android:id="@+id/discount_amount" android:padding="@dimen/padding" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="" android:layout_weight="1" android:fontFamily="@font/josefinsans_regular"/>
+                                </LinearLayout>
+                                <LinearLayout android:layout_gravity="center" android:orientation="horizontal" android:id="@+id/totalamount_field" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_weight="0.5">
+                                    <TextView android:textSize="@dimen/bigtext" android:textColor="@color/black" android:gravity="left|center_vertical|center_horizontal|center" android:layout_gravity="left|center_vertical|center_horizontal|center" android:padding="@dimen/padding" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Total Amount : " android:layout_weight="1" android:fontFamily="@font/josefinsans_regular"/>
+                                    <TextView android:textSize="@dimen/bigtext" android:textColor="@color/black" android:gravity="left" android:layout_gravity="left|center_vertical|center_horizontal|center" android:id="@+id/total_amount" android:padding="@dimen/padding" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="" android:layout_weight="1" android:fontFamily="@font/josefinsans_regular"/>
+                                </LinearLayout>
+                            </LinearLayout>
+                            <LinearLayout android:layout_gravity="center" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/margin" android:layout_marginRight="@dimen/margin">
+                                <LinearLayout android:layout_gravity="center" android:orientation="horizontal" android:id="@+id/paymentmode_field" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_weight="0.5">
+                                    <TextView android:textSize="@dimen/bigtext" android:textColor="@color/black" android:gravity="left|center_vertical|center_horizontal|center" android:layout_gravity="left|center_vertical|center_horizontal|center" android:padding="@dimen/padding" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Payment Mode : " android:layout_weight="1" android:fontFamily="@font/josefinsans_regular"/>
+                                    <TextView android:textSize="@dimen/bigtext" android:textColor="@color/black" android:gravity="left" android:layout_gravity="left|center_vertical|center_horizontal|center" android:id="@+id/payment_mode" android:padding="@dimen/padding" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_weight="1" android:fontFamily="@font/josefinsans_regular"/>
+                                </LinearLayout>
+                                <LinearLayout android:layout_gravity="center" android:orientation="horizontal" android:id="@+id/paidcount_field" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_weight="0.5">
+                                    <TextView android:textSize="@dimen/bigtext" android:textColor="@color/black" android:gravity="left|center_vertical|center_horizontal|center" android:layout_gravity="left|center_vertical|center_horizontal|center" android:padding="@dimen/padding" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Paid Count : " android:layout_weight="1" android:fontFamily="@font/josefinsans_regular"/>
+                                    <TextView android:textSize="@dimen/bigtext" android:textColor="@color/black" android:gravity="left" android:layout_gravity="left|center_vertical|center_horizontal|center" android:id="@+id/paid_count" android:padding="@dimen/padding" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="" android:layout_weight="1" android:fontFamily="@font/josefinsans_regular"/>
+                                </LinearLayout>
+                            </LinearLayout>
+                            <LinearLayout android:layout_gravity="center" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/margin" android:layout_marginRight="@dimen/margin">
+                                <LinearLayout android:layout_gravity="center" android:orientation="horizontal" android:id="@+id/valid_field" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_weight="0.5">
+                                    <TextView android:textSize="@dimen/bigtext" android:textColor="@color/black" android:gravity="left|center_vertical|center_horizontal|center" android:layout_gravity="left|center_vertical|center_horizontal|center" android:padding="@dimen/padding" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Valid : " android:layout_weight="1" android:fontFamily="@font/josefinsans_regular"/>
+                                    <TextView android:textSize="@dimen/bigtext" android:textColor="@color/black" android:gravity="left" android:layout_gravity="left|center_vertical|center_horizontal|center" android:id="@+id/valid" android:padding="@dimen/padding" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="" android:layout_weight="1" android:fontFamily="@font/josefinsans_regular"/>
+                                </LinearLayout>
+                                <LinearLayout android:layout_gravity="center" android:orientation="horizontal" android:id="@+id/status_field" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_weight="0.5">
+                                    <TextView android:textSize="@dimen/bigtext" android:textColor="@color/black" android:gravity="left|center_vertical|center_horizontal|center" android:layout_gravity="left|center_vertical|center_horizontal|center" android:padding="@dimen/padding" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Status : " android:layout_weight="1" android:fontFamily="@font/josefinsans_regular"/>
+                                    <TextView android:textSize="@dimen/bigtext" android:textColor="@color/black" android:gravity="left" android:layout_gravity="left|center_vertical|center_horizontal|center" android:id="@+id/status" android:padding="@dimen/padding" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="" android:layout_weight="1" android:fontFamily="@font/josefinsans_regular"/>
+                                </LinearLayout>
+                                <LinearLayout android:layout_gravity="center" android:orientation="horizontal" android:id="@+id/schedule_field" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_weight="0.5">
+                                    <TextView android:textSize="@dimen/bigtext" android:textColor="@color/black" android:gravity="left|center_vertical|center_horizontal|center" android:layout_gravity="left|center_vertical|center_horizontal|center" android:padding="@dimen/padding" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Schedule Date : " android:layout_weight="1" android:fontFamily="@font/josefinsans_regular"/>
+                                    <TextView android:textSize="@dimen/bigtext" android:textColor="@color/black" android:gravity="left" android:layout_gravity="left|center_vertical|center_horizontal|center" android:id="@+id/schedule_date" android:padding="@dimen/padding" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="" android:layout_weight="1" android:fontFamily="@font/josefinsans_regular"/>
+                                </LinearLayout>
+                                <LinearLayout android:layout_gravity="center" android:orientation="horizontal" android:id="@+id/workdone_field" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_weight="0.5">
+                                    <TextView android:textSize="@dimen/bigtext" android:textColor="@color/black" android:gravity="left|center_vertical|center_horizontal|center" android:layout_gravity="left|center_vertical|center_horizontal|center" android:padding="@dimen/padding" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Work Done : " android:layout_weight="1" android:fontFamily="@font/josefinsans_regular"/>
+                                    <TextView android:textSize="@dimen/bigtext" android:textColor="@color/black" android:gravity="left" android:layout_gravity="left|center_vertical|center_horizontal|center" android:id="@+id/work_done" android:padding="@dimen/padding" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="" android:layout_weight="1" android:fontFamily="@font/josefinsans_regular"/>
+                                </LinearLayout>
+                            </LinearLayout>
+                            <LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content">
+                                <LinearLayout android:layout_gravity="center" android:orientation="horizontal" android:id="@+id/wash_ll" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/margin" android:layout_marginRight="@dimen/margin" android:layout_weight="1">
+                                    <Button android:textSize="@dimen/bigtext" android:textStyle="bold" android:textColor="@color/white" android:gravity="center" android:layout_gravity="center" android:id="@+id/view_washdetails" android:background="@drawable/login_bg" android:layout_width="match_parent" android:layout_height="40dp" android:layout_marginTop="@dimen/marginmed" android:layout_marginBottom="@dimen/marginmed" android:text="Wash Details" android:fontFamily="@font/josefinsans_bold"/>
+                                </LinearLayout>
+                                <LinearLayout android:layout_gravity="center" android:orientation="horizontal" android:id="@+id/extra_ll" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/margin" android:layout_marginRight="@dimen/margin" android:layout_weight="1">
+                                    <Button android:textSize="@dimen/bigtext" android:textStyle="bold" android:textColor="@color/white" android:gravity="center" android:layout_gravity="center" android:id="@+id/view_extrainterior" android:background="@drawable/login_bg" android:layout_width="match_parent" android:layout_height="40dp" android:layout_marginTop="@dimen/marginmed" android:layout_marginBottom="@dimen/marginmed" android:text="Extra Interior" android:fontFamily="@font/josefinsans_bold"/>
+                                </LinearLayout>
+                            </LinearLayout>
+                            <LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content">
+                                <Button android:textSize="@dimen/bigtext" android:textStyle="bold" android:textColor="@color/white" android:gravity="center" android:layout_gravity="center" android:id="@+id/cancel" android:background="@drawable/login_bg" android:layout_width="match_parent" android:layout_height="40dp" android:layout_marginLeft="@dimen/margin" android:layout_marginTop="@dimen/margin" android:layout_marginRight="@dimen/margin" android:layout_marginBottom="@dimen/margin" android:text="Cancel Subscription" android:layout_weight="1" android:fontFamily="@font/josefinsans_bold"/>
+                                <Button android:textSize="@dimen/bigtext" android:textStyle="bold" android:textColor="@color/white" android:gravity="center" android:layout_gravity="center" android:id="@+id/viewhistory" android:background="@drawable/rzp_green_button" android:layout_width="match_parent" android:layout_height="40dp" android:layout_marginLeft="@dimen/margin" android:layout_marginTop="@dimen/margin" android:layout_marginRight="@dimen/margin" android:layout_marginBottom="@dimen/margin" android:text="View History" android:layout_weight="1" android:fontFamily="@font/josefinsans_bold"/>
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="@dimen/margin"
+                                android:layout_marginRight="@dimen/margin"
+                                android:visibility="gone"
+                                android:id="@+id/image_field"
+                                android:orientation="vertical"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <LinearLayout android:layout_gravity="center" android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_weight="0.5">
+                                    <TextView android:textSize="@dimen/bigtext" android:textColor="@color/black" android:gravity="left|center_vertical|center_horizontal|center" android:layout_gravity="left|center_vertical|center_horizontal|center" android:padding="@dimen/padding" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Image Date : " android:layout_weight="1" android:fontFamily="@font/josefinsans_regular"/>
+                                    <TextView android:textSize="@dimen/bigtext" android:textColor="@color/black" android:gravity="left" android:layout_gravity="left|center_vertical|center_horizontal|center" android:id="@+id/image_date" android:padding="@dimen/padding" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="" android:layout_weight="1" android:fontFamily="@font/josefinsans_regular"/>
+                                </LinearLayout>
+
+                                <ImageView
+                                    android:id="@+id/vec_image"
+                                    android:padding="50dp"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="250dp"/>
+
+
+                            </LinearLayout>
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+                </LinearLayout>
+            </RelativeLayout>
+        </ScrollView>
+        <RelativeLayout android:id="@+id/paymrnt_detail_rl" android:background="@color/lightgray" android:visibility="gone" android:layout_width="match_parent" android:layout_height="match_parent">
+            <androidx.cardview.widget.CardView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_centerInParent="true" android:elevation="7dp" app:cardBackgroundColor="@color/white" app:cardCornerRadius="9dp" app:cardElevation="5dp" app:cardPreventCornerOverlap="true" app:cardUseCompatPadding="true">
+                <LinearLayout android:layout_gravity="center" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content">
+                    <TextView android:textSize="@dimen/bigtext" android:textColor="@color/white" android:gravity="center" android:layout_gravity="center" android:background="@color/colorPrimaryDark" android:padding="@dimen/marginmed" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="View Payment Details" android:fontFamily="@font/josefinsans_bold"/>
+                    <LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content">
+                        <TextView android:textSize="@dimen/bigtext" android:textColor="@color/black" android:gravity="center" android:layout_gravity="left|center_vertical|center_horizontal|center" android:padding="@dimen/padding" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Date" android:layout_weight="1" android:fontFamily="@font/josefinsans_regular"/>
+                        <View android:background="@color/gray" android:layout_width="1dp" android:layout_height="match_parent"/>
+                        <TextView android:textSize="@dimen/bigtext" android:textColor="@color/black" android:gravity="center" android:layout_gravity="left|center_vertical|center_horizontal|center" android:padding="@dimen/padding" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Payment ID" android:layout_weight="1" android:fontFamily="@font/josefinsans_regular"/>
+                        <View android:background="@color/gray" android:layout_width="1dp" android:layout_height="match_parent"/>
+                        <TextView android:textSize="@dimen/bigtext" android:textColor="@color/black" android:gravity="center" android:layout_gravity="left|center_vertical|center_horizontal|center" android:padding="@dimen/padding" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Amount" android:layout_weight="1.1" android:fontFamily="@font/josefinsans_regular"/>
+                        <View android:background="@color/gray" android:layout_width="1dp" android:layout_height="match_parent"/>
+                        <TextView android:textSize="@dimen/bigtext" android:textColor="@color/black" android:gravity="center" android:layout_gravity="left|center_vertical|center_horizontal|center" android:padding="@dimen/padding" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Status" android:layout_weight="1.1" android:fontFamily="@font/josefinsans_regular"/>
+                        <View android:background="@color/gray" android:layout_width="1dp" android:layout_height="match_parent"/>
+                    </LinearLayout>
+                    <View android:background="@color/gray" android:layout_width="match_parent" android:layout_height="1dp"/>
+                    <androidx.recyclerview.widget.RecyclerView android:id="@+id/payment_details_rc" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </RelativeLayout>
+
+    </RelativeLayout>
+</layout>

@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Carro Care</string>
+    <string name="signin"><u>Sign In</u></string>
+    <string name="signup"><u>Sign Up</u></string>
+    <string name="splash_text">We Are Proud Informing You That We \n
+    Have 5yrs Of Experience In Car Wash, \n
+    Mastered From Automobile Industry And \n
+    Various Background Experts.</string>
+    <string name="address">No 3pc1, Kambar Salai,\nMogappair West,\nChennai, Tamil Nadu 600036</string>
+    <string name="phone">7904015630</string>
+    <string name="email">info@carrocare.com</string>
+    <string name="develop">App developed by \n
+        \n<b> Muviereck Technologies Pvt. Ltd</b></string>
+    <string name="exit_msg">Please click BACK again to exit</string>
+    <string name="update_alert">Update Alert</string>
+    <string name="update_msg_1">Update the app for a better experience!</string>
+    <string name="not_now">Not Now</string>
+    <string name="update_now">Update</string>
+</resources>

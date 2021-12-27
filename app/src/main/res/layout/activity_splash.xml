@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".activity.SplashActivity"
+        android:background="@color/colorPrimary">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="5">
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/white" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:layout_marginBottom="20dp"
+            app:layout_constraintBottom_toTopOf="@+id/bottom"
+            android:layout_above="@+id/bottom"
+            android:id="@+id/layoutDots"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/colorTrans"
+            android:gravity="center|top"
+            android:orientation="horizontal"
+            tools:ignore="MissingConstraints" />
+
+        <LinearLayout
+            android:id="@+id/bottom"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_marginBottom="@dimen/marginhigh"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_height="?attr/actionBarSize"
+            android:orientation="horizontal"
+            android:background="@color/colorTrans"
+            tools:ignore="MissingConstraints">
+
+            <Button
+                android:layout_marginLeft="@dimen/marginlowheight"
+                android:id="@+id/btn_skip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Skip"
+                android:textColor="@color/colorPrimary"
+                android:paddingLeft="@dimen/marginlowheight"
+                android:paddingRight="@dimen/marginlowheight"
+                android:textAllCaps="false"
+                android:fontFamily="@font/roboto_bold"
+                android:layout_gravity="left|center_vertical"
+                android:drawableRight="@drawable/ic_double_arrow"
+                android:background="@drawable/btn_rounded_white" />
+
+            <Button
+                android:visibility="invisible"
+                android:id="@+id/btn_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="login"
+                android:textColor="@color/colorPrimary"
+                android:paddingLeft="@dimen/marginlowheight"
+                android:paddingRight="@dimen/marginlowheight"
+                android:fontFamily="@font/roboto_bold"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:drawableLeft="@drawable/ic_login"
+                android:background="@drawable/btn_rounded_white" />
+
+            <Button
+                android:layout_marginRight="@dimen/marginlowheight"
+                android:id="@+id/btn_next"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Next"
+                android:textColor="@color/colorPrimary"
+                android:paddingLeft="@dimen/marginlowheight"
+                android:paddingRight="@dimen/marginlowheight"
+                android:textAllCaps="false"
+                android:fontFamily="@font/roboto_bold"
+                android:layout_gravity="right|center_vertical"
+                android:drawableRight="@drawable/ic_arrow_forward"
+                android:background="@drawable/btn_rounded_white" />
+
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

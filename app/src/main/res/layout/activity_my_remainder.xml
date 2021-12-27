@@ -1,0 +1,640 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<RelativeLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.MyRemainderActivity">
+
+    <LinearLayout
+        android:gravity="center"
+        android:orientation="vertical"
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:background="@color/colorPrimary"
+        android:layout_height="?attr/actionBarSize">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_gravity="left|center_vertical|center_horizontal|center"
+                android:id="@+id/back"
+                android:padding="5dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_margin="10dp"
+                android:src="@drawable/back"/>
+            <TextView
+                android:textSize="@dimen/heading"
+                android:textColor="@color/white"
+                android:layout_gravity="left|center_vertical|center_horizontal|center"
+                android:id="@+id/header_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="My Remainder"
+                android:layout_weight="1"
+                android:textAllCaps="true"
+                android:fontFamily="@font/josefinsans_bold"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/select_reminder"
+        android:layout_below="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edit_bg"
+            android:layout_margin="@dimen/marginhalf">
+            <TextView
+                android:id="@+id/reminder_edt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:textSize="@dimen/bigtext"
+                android:padding="@dimen/paddinghigh"
+                android:inputType="text"
+                android:singleLine="true"
+                android:textColor="@color/black"
+                android:background="@color/white"
+                android:fontFamily="@font/josefinsans_light"
+                android:layout_marginRight="35dp"
+                android:layout_marginLeft="3dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginBottom="3dp"
+                android:hint="Select Reminder"/>
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/down_arrow"
+                android:layout_centerVertical="true"
+                android:padding="@dimen/paddinglow"
+                android:layout_alignParentRight="true"/>
+
+        </RelativeLayout>
+
+        <View
+            android:layout_marginTop="@dimen/margin"
+            android:layout_marginBottom="@dimen/margin"
+            android:layout_marginLeft="@dimen/margin"
+            android:layout_marginRight="@dimen/margin"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/black" />
+
+    </LinearLayout>
+
+    <ScrollView
+        android:visibility="gone"
+        android:id="@+id/reminder_service"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/select_reminder"
+        android:background="@drawable/bg">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/marginlow"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_bg"
+                android:layout_margin="@dimen/marginhalf">
+                <TextView
+                    android:id="@+id/service_count_edt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:textSize="@dimen/bigtext"
+                    android:padding="@dimen/paddinghigh"
+                    android:inputType="text"
+                    android:singleLine="true"
+                    android:textColor="@color/black"
+                    android:background="@color/white"
+                    android:fontFamily="@font/josefinsans_light"
+                    android:layout_marginRight="35dp"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginBottom="3dp"
+                    android:hint="Services"/>
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/down_arrow"
+                    android:layout_centerVertical="true"
+                    android:padding="@dimen/paddinglow"
+                    android:layout_alignParentRight="true"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_bg"
+                android:layout_margin="@dimen/marginhalf">
+                <TextView
+                    android:id="@+id/last_ser_date_edt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:textSize="@dimen/bigtext"
+                    android:padding="@dimen/paddinghigh"
+                    android:inputType="text"
+                    android:singleLine="true"
+                    android:textColor="@color/black"
+                    android:background="@color/white"
+                    android:fontFamily="@font/josefinsans_light"
+                    android:layout_marginRight="35dp"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginBottom="3dp"
+                    android:hint="Last Serviced Date"/>
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_calendar_24"
+                    android:layout_centerVertical="true"
+                    android:padding="@dimen/paddinglow"
+                    android:layout_alignParentRight="true"/>
+
+            </RelativeLayout>
+
+            <EditText
+                android:id="@+id/last_dri_kms_edt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:textSize="@dimen/bigtext"
+                android:padding="@dimen/paddinghigh"
+                android:background="@drawable/edit_bg"
+                android:inputType="number"
+                android:singleLine="true"
+                android:layout_margin="@dimen/marginhalf"
+                android:textColor="@color/black"
+                android:imeOptions="actionNext"
+                android:fontFamily="@font/josefinsans_light"
+                android:hint="Last Driven Kms"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_bg"
+                android:layout_margin="@dimen/marginhalf">
+                <TextView
+                    android:id="@+id/next_ser_date_edt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:textSize="@dimen/bigtext"
+                    android:padding="@dimen/paddinghigh"
+                    android:inputType="text"
+                    android:singleLine="true"
+                    android:textColor="@color/black"
+                    android:background="@color/white"
+                    android:fontFamily="@font/josefinsans_light"
+                    android:layout_marginRight="35dp"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginBottom="3dp"
+                    android:hint="Next Serviced Date"/>
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_calendar_24"
+                    android:layout_centerVertical="true"
+                    android:padding="@dimen/paddinglow"
+                    android:layout_alignParentRight="true"/>
+
+            </RelativeLayout>
+
+            <EditText
+                android:id="@+id/next_dri_kms_edt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:textSize="@dimen/bigtext"
+                android:padding="@dimen/paddinghigh"
+                android:background="@drawable/edit_bg"
+                android:inputType="number"
+                android:singleLine="true"
+                android:layout_margin="@dimen/marginhalf"
+                android:textColor="@color/black"
+                android:imeOptions="actionNext"
+                android:fontFamily="@font/josefinsans_light"
+                android:hint="Next Driven Kms"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_bg"
+                android:layout_margin="@dimen/marginhalf">
+                <TextView
+                    android:id="@+id/set_ser_reminder"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:textSize="@dimen/bigtext"
+                    android:padding="@dimen/paddinghigh"
+                    android:inputType="text"
+                    android:singleLine="true"
+                    android:textColor="@color/black"
+                    android:background="@color/white"
+                    android:fontFamily="@font/josefinsans_light"
+                    android:layout_marginRight="35dp"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginBottom="3dp"
+                    android:hint="Set Remainder"/>
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/down_arrow"
+                    android:layout_centerVertical="true"
+                    android:padding="@dimen/paddinglow"
+                    android:layout_alignParentRight="true"/>
+
+            </RelativeLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="95dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/bg"
+                android:layout_margin="@dimen/marginmed">
+                <Button
+                    android:id="@+id/ser_cancel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Cancel"
+                    android:fontFamily="@font/josefinsans_bold"
+                    android:textColor="@color/white"
+                    android:layout_gravity="center"
+                    android:textSize="@dimen/bigtext"
+                    android:layout_weight="1"
+                    android:background="@drawable/login_bg"
+                    android:textAllCaps="true"
+                    android:layout_margin="@dimen/margin" />
+                <Button
+                    android:id="@+id/ser_submit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Submit"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/josefinsans_bold"
+                    android:textColor="@color/white"
+                    android:layout_gravity="center"
+                    android:textSize="@dimen/bigtext"
+                    android:background="@drawable/login_bg"
+                    android:textAllCaps="true"
+                    android:layout_margin="@dimen/margin" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <ScrollView
+        android:visibility="gone"
+        android:id="@+id/reminder_insurance"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/select_reminder"
+        android:background="@drawable/bg">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/marginlow"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:visibility="visible"
+                android:layout_height="wrap_content">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edit_bg"
+                    android:layout_margin="@dimen/marginhalf">
+                    <TextView
+                        android:id="@+id/ins_brnd_edt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:textSize="@dimen/bigtext"
+                        android:padding="@dimen/paddinghigh"
+                        android:inputType="text"
+                        android:singleLine="true"
+                        android:textColor="@color/black"
+                        android:background="@color/white"
+                        android:fontFamily="@font/josefinsans_light"
+                        android:layout_marginRight="35dp"
+                        android:layout_marginLeft="3dp"
+                        android:layout_marginTop="3dp"
+                        android:layout_marginBottom="3dp"
+                        android:hint="Insurance Brand"/>
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/down_arrow"
+                        android:layout_centerVertical="true"
+                        android:padding="@dimen/paddinglow"
+                        android:layout_alignParentRight="true"/>
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <EditText
+                android:id="@+id/policy_no_edt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:textSize="@dimen/bigtext"
+                android:padding="@dimen/paddinghigh"
+                android:background="@drawable/edit_bg"
+                android:inputType="text"
+                android:singleLine="true"
+                android:layout_margin="@dimen/marginhalf"
+                android:textColor="@color/black"
+                android:imeOptions="actionNext"
+                android:fontFamily="@font/josefinsans_light"
+                android:hint="Policy Number"/>
+
+            <EditText
+                android:id="@+id/enginee_no_edt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:textSize="@dimen/bigtext"
+                android:padding="@dimen/paddinghigh"
+                android:background="@drawable/edit_bg"
+                android:inputType="text"
+                android:singleLine="true"
+                android:layout_margin="@dimen/marginhalf"
+                android:textColor="@color/black"
+                android:imeOptions="actionNext"
+                android:fontFamily="@font/josefinsans_light"
+                android:hint="Chasis No/Engine No"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:visibility="visible"
+                android:layout_height="wrap_content">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edit_bg"
+                    android:layout_margin="@dimen/marginhalf">
+                    <TextView
+                        android:id="@+id/paid_date_edt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:textSize="@dimen/bigtext"
+                        android:padding="@dimen/paddinghigh"
+                        android:inputType="text"
+                        android:singleLine="true"
+                        android:textColor="@color/black"
+                        android:background="@color/white"
+                        android:fontFamily="@font/josefinsans_light"
+                        android:layout_marginRight="35dp"
+                        android:layout_marginLeft="3dp"
+                        android:layout_marginTop="3dp"
+                        android:layout_marginBottom="3dp"
+                        android:hint="Paid on"/>
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_calendar_24"
+                        android:layout_centerVertical="true"
+                        android:padding="@dimen/paddinglow"
+                        android:layout_alignParentRight="true"/>
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <EditText
+                android:id="@+id/paid_amount_edt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:textSize="@dimen/bigtext"
+                android:padding="@dimen/paddinghigh"
+                android:background="@drawable/edit_bg"
+                android:inputType="number"
+                android:singleLine="true"
+                android:layout_margin="@dimen/marginhalf"
+                android:textColor="@color/black"
+                android:imeOptions="actionNext"
+                android:fontFamily="@font/josefinsans_light"
+                android:hint="Paid Amount"/>
+
+            <EditText
+                android:id="@+id/vec_reg_edt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:textSize="@dimen/bigtext"
+                android:padding="@dimen/paddinghigh"
+                android:background="@drawable/edit_bg"
+                android:inputType="number"
+                android:singleLine="true"
+                android:layout_margin="@dimen/marginhalf"
+                android:textColor="@color/black"
+                android:imeOptions="actionNext"
+                android:fontFamily="@font/josefinsans_light"
+                android:hint="Vehicle Registration Number"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:visibility="visible"
+                android:layout_height="wrap_content">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edit_bg"
+                    android:layout_margin="@dimen/marginhalf">
+                    <TextView
+                        android:id="@+id/renewal_date_edt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:textSize="@dimen/bigtext"
+                        android:padding="@dimen/paddinghigh"
+                        android:inputType="text"
+                        android:singleLine="true"
+                        android:textColor="@color/black"
+                        android:background="@color/white"
+                        android:fontFamily="@font/josefinsans_light"
+                        android:layout_marginRight="35dp"
+                        android:layout_marginLeft="3dp"
+                        android:layout_marginTop="3dp"
+                        android:layout_marginBottom="3dp"
+                        android:hint="Next Renewal"/>
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_calendar_24"
+                        android:layout_centerVertical="true"
+                        android:padding="@dimen/paddinglow"
+                        android:layout_alignParentRight="true"/>
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_bg"
+                android:layout_margin="@dimen/marginhalf">
+                <TextView
+                    android:id="@+id/set_ins_reminder"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:textSize="@dimen/bigtext"
+                    android:padding="@dimen/paddinghigh"
+                    android:inputType="text"
+                    android:singleLine="true"
+                    android:textColor="@color/black"
+                    android:background="@color/white"
+                    android:fontFamily="@font/josefinsans_light"
+                    android:layout_marginRight="35dp"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginBottom="3dp"
+                    android:hint="Set Remainder"/>
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/down_arrow"
+                    android:layout_centerVertical="true"
+                    android:padding="@dimen/paddinglow"
+                    android:layout_alignParentRight="true"/>
+
+            </RelativeLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="95dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/bg"
+                android:layout_margin="@dimen/marginmed">
+                <Button
+                    android:id="@+id/ins_cancel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Cancel"
+                    android:fontFamily="@font/josefinsans_bold"
+                    android:textColor="@color/white"
+                    android:layout_gravity="center"
+                    android:textSize="@dimen/bigtext"
+                    android:layout_weight="1"
+                    android:background="@drawable/login_bg"
+                    android:textAllCaps="true"
+                    android:layout_margin="@dimen/margin" />
+                <Button
+                    android:id="@+id/ins_submit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Submit"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/josefinsans_bold"
+                    android:textColor="@color/white"
+                    android:layout_gravity="center"
+                    android:textSize="@dimen/bigtext"
+                    android:background="@drawable/login_bg"
+                    android:textAllCaps="true"
+                    android:layout_margin="@dimen/margin" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+
+
+    <RelativeLayout
+        android:id="@+id/apart_rl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/trans"
+            android:gravity="center">
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="11dp"
+                app:cardBackgroundColor="@color/white"
+                android:elevation="7dp"
+                android:fitsSystemWindows="true"
+                app:cardUseCompatPadding="true"
+                android:layout_margin="@dimen/margin"
+                app:cardPreventCornerOverlap="true"
+                app:cardElevation="5dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/remin_type_rc"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:layout_margin="@dimen/marginmed">
+
+                    </androidx.recyclerview.widget.RecyclerView>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/ser_count_rc"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:layout_margin="@dimen/marginmed">
+
+                    </androidx.recyclerview.widget.RecyclerView>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/set_remainder_rc"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:layout_margin="@dimen/marginmed">
+
+                    </androidx.recyclerview.widget.RecyclerView>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/ins_brnd_rc"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:layout_margin="@dimen/marginmed">
+
+                    </androidx.recyclerview.widget.RecyclerView>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+    </RelativeLayout>
+
+</RelativeLayout>
+</layout>

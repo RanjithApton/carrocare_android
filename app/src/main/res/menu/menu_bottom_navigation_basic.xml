@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/my_orders"
+        android:icon="@drawable/botmnav_order"
+        android:title="Orders"/>
+
+    <item
+        android:id="@+id/internal_car_wash"
+        android:icon="@drawable/botmnav_carwash"
+        android:title="Internal Car Wash"/>
+
+    <item
+        android:id="@+id/profile"
+        android:icon="@drawable/botmnav_profile"
+        android:title="Profile"/>
+
+</menu>

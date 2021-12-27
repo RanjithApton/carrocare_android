@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="heading">18sp</dimen>
+    <dimen name="bigtext">15sp</dimen>
+    <dimen name="medtext">13sp</dimen>
+    <dimen name="lighttext">12sp</dimen>
+    <dimen name="lowtext">11sp</dimen>
+    <dimen name="paratext">21sp</dimen>
+    <dimen name="ultrapara">25sp</dimen>
+    <dimen name="marginhigh">30dp</dimen>
+    <dimen name="marginlowheight">20dp</dimen>
+    <dimen name="marginmed">10dp</dimen>
+    <dimen name="marginlow">7dp</dimen>
+    <dimen name="marginhalf">15dp</dimen>
+    <dimen name="margin">5dp</dimen>
+    <dimen name="log_top">4dp</dimen>
+    <dimen name="marginverylow">2dp</dimen>
+    <dimen name="padding">5sp</dimen>
+    <dimen name="paddinglow">7sp</dimen>
+    <dimen name="paddinghigh">10sp</dimen>
+    <dimen name="hun">100dp</dimen>
+    <dimen name="eighty">80dp</dimen>
+    <dimen name="fifty">50dp</dimen>
+    <dimen name="onefifty">150dp</dimen>
+</resources>

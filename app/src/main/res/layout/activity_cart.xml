@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<RelativeLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.CartActivity">
+
+    <LinearLayout
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:id="@+id/header"
+        android:background="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize">
+
+        <ImageView
+            android:layout_gravity="left|center_vertical|center_horizontal|center"
+            android:id="@+id/back"
+            android:padding="@dimen/padding"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_margin="10dp"
+            android:src="@drawable/back"/>
+
+        <TextView
+            android:textSize="@dimen/heading"
+            android:textColor="#fff"
+            android:layout_gravity="left|center_vertical|center_horizontal"
+            android:id="@+id/header_name"
+            android:layout_width="wrap_content"
+            android:text="Cart"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textAllCaps="true"
+            android:fontFamily="@font/josefinsans_bold"/>
+    </LinearLayout>
+
+    <ScrollView
+        android:background="@drawable/bg"
+        android:clipToPadding="false"
+        android:layout_above="@+id/foot_top"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/header">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_cartitem"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_below="@+id/header"
+        android:id="@+id/novehicle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:orientation="vertical">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@drawable/tyre"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|left"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="No vehicles added yet"
+            android:fontFamily="@font/josefinsans_regular"
+            android:layout_marginBottom="@dimen/margin"
+            android:layout_marginTop="@dimen/marginhalf"
+            android:layout_marginLeft="@dimen/margin"
+            android:textSize="@dimen/heading"/>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_above="@+id/footer"
+        android:id="@+id/foot_top"
+        android:background="@color/lightgray"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize">
+
+        <TextView
+            android:text="Sub Total"
+            android:layout_centerVertical="true"
+            android:textColor="#000"
+            android:fontFamily="@font/josefinsans_bold"
+            android:textSize="@dimen/bigtext"
+            android:layout_marginLeft="@dimen/margin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+        <TextView
+            android:id="@+id/tv_totals"
+            android:text="0"
+            android:layout_centerVertical="true"
+            android:textColor="#000"
+            android:fontFamily="@font/josefinsans_bold"
+            android:textSize="@dimen/bigtext"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/margin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/footer"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_checkout"
+            android:text="Checkout"
+            android:textAllCaps="true"
+            android:fontFamily="@font/josefinsans_bold"
+            android:textSize="@dimen/bigtext"
+            android:textColor="@color/white"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </LinearLayout>
+
+</RelativeLayout>
+</layout>

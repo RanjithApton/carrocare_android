@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/rn_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="7dp"
+        app:cardBackgroundColor="@color/white"
+        android:elevation="5dp"
+        android:fitsSystemWindows="true"
+        app:cardUseCompatPadding="true"
+        app:cardPreventCornerOverlap="true"
+        app:cardElevation="3dp">
+        <LinearLayout
+            android:padding="@dimen/margin"
+            android:layout_margin="@dimen/marginlow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="left|center"
+            android:orientation="vertical">
+
+            <CheckBox
+                android:textSize="12sp"
+                android:id="@+id/rn_check_smart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="Add to smart checkout"
+                android:fontFamily="@font/josefinsans_bold"
+                style="@style/CustomCheckbox"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/bg_color"
+                android:layout_margin="2dp"/>
+
+            <LinearLayout
+                android:id="@+id/ll_top"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|left"
+                        android:layout_weight="1"
+                        android:text="Status :"
+                        android:fontFamily="@font/josefinsans_regular"
+                        android:textSize="@dimen/lighttext"/>
+
+                    <TextView
+                        android:id="@+id/rn_status"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|left"
+                        android:layout_weight="1"
+                        android:textColor="@color/colorPrimary"
+                        android:fontFamily="@font/josefinsans_bold"
+                        android:textSize="@dimen/medtext" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|left"
+                        android:layout_weight="1"
+                        android:text="Valid :"
+                        android:fontFamily="@font/josefinsans_regular"
+                        android:textSize="@dimen/lighttext"/>
+                    <TextView
+                        android:id="@+id/rn_valid"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|left"
+                        android:layout_weight="1"
+                        android:textColor="#000"
+                        android:fontFamily="@font/josefinsans_regular"
+                        android:textSize="@dimen/medtext"/>
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/bg_color"
+                android:layout_margin="2dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|left"
+                        android:layout_weight="1"
+                        android:text="Vehicle Model :"
+                        android:fontFamily="@font/josefinsans_regular"
+                        android:textSize="@dimen/lighttext"/>
+
+                    <TextView
+                        android:id="@+id/rn_vec_model"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|left"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/josefinsans_regular"
+                        android:textColor="#000"
+                        android:textSize="@dimen/medtext" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|left"
+                        android:layout_weight="1"
+                        android:text="Package Type :"
+                        android:fontFamily="@font/josefinsans_regular"
+                        android:textSize="@dimen/lighttext"/>
+                    <TextView
+                        android:id="@+id/rn_pack_type"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|left"
+                        android:layout_weight="1"
+                        android:textColor="#000"
+                        android:fontFamily="@font/josefinsans_regular"
+                        android:textSize="@dimen/medtext"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/bg_color"
+                android:layout_margin="2dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|left"
+                        android:layout_weight="1"
+                        android:text="Vehicle No. :"
+                        android:fontFamily="@font/josefinsans_regular"
+                        android:textSize="@dimen/lighttext"/>
+
+                    <TextView
+                        android:id="@+id/rn_vec_no"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|left"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/josefinsans_regular"
+                        android:textColor="#000"
+                        android:textSize="@dimen/medtext" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|left"
+                        android:layout_weight="1"
+                        android:text="Serive Type :"
+                        android:fontFamily="@font/josefinsans_regular"
+                        android:textSize="@dimen/lighttext"/>
+                    <TextView
+                        android:id="@+id/rn_service_type"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|left"
+                        android:layout_weight="1"
+                        android:textColor="#000"
+                        android:fontFamily="@font/josefinsans_regular"
+                        android:textSize="@dimen/medtext"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/bg_color"
+                android:layout_margin="2dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|left"
+                        android:layout_weight="1"
+                        android:text="Last Payment :"
+                        android:fontFamily="@font/josefinsans_regular"
+                        android:textSize="@dimen/lighttext"/>
+
+                    <TextView
+                        android:id="@+id/rn_pay_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|left"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/josefinsans_regular"
+                        android:textColor="#000"
+                        android:textSize="@dimen/medtext" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|left"
+                        android:layout_weight="1"
+                        android:text="Pack Amount :"
+                        android:fontFamily="@font/josefinsans_regular"
+                        android:textSize="@dimen/lighttext"/>
+                    <TextView
+                        android:id="@+id/rn_pack_amount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|left"
+                        android:layout_weight="1"
+                        android:textColor="#000"
+                        android:fontFamily="@font/josefinsans_regular"
+                        android:textSize="@dimen/medtext"/>
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+
+
+</RelativeLayout>
