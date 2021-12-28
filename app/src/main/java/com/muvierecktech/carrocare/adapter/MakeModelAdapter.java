@@ -11,9 +11,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.muvierecktech.carrocare.R;
 import com.muvierecktech.carrocare.activity.AddVehicleActivity;
+import com.muvierecktech.carrocare.activity.MapAddVechileActivity;
 import com.muvierecktech.carrocare.activity.MyVechiclesAddActivity;
 import com.muvierecktech.carrocare.model.MakeModelList;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MakeModelAdapter extends RecyclerView.Adapter {
@@ -64,11 +66,28 @@ public class MakeModelAdapter extends RecyclerView.Adapter {
                     ((MyVechiclesAddActivity) context).makeStr = makemodel.get(pos).vehicle_make;
                     ((MyVechiclesAddActivity) context).modelStr = makemodel.get(pos).vehicle_model;
                     ((MyVechiclesAddActivity) context).binding.apartRl.setVisibility(View.GONE);
+                }else if (type.equalsIgnoreCase("3")) {
+                    MyViewHolder viewHolder1 = (MyViewHolder) view.getTag();
+                    int pos = viewHolder1.getAdapterPosition();
+                    lastSelectedPosition = pos;
+                    notifyDataSetChanged();
+                    ((MapAddVechileActivity) context).binding.makeModelEdt.setText(makemodel.get(pos).vehicle_make + "-" + makemodel.get(pos).vehicle_model);
+                    ((MapAddVechileActivity) context).binding.makemodelRc.setVisibility(View.GONE);
+                    ((MapAddVechileActivity) context).makeStr = makemodel.get(pos).vehicle_make;
+                    ((MapAddVechileActivity) context).modelStr = makemodel.get(pos).vehicle_model;
+                    ((MapAddVechileActivity) context).binding.apartRl.setVisibility(View.GONE);
                 }
 
             }
         });
     }
+
+    public void updateList(List<MakeModelList.Vehicle> list) {
+        makemodel = new ArrayList<>();
+        makemodel.addAll(list);
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getItemCount() {
         return makemodel.size();

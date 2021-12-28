@@ -149,8 +149,8 @@ public class CarPolishActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = new Intent(CarPolishActivity.this,MainActivity.class);
-        startActivity(intent);
+//        Intent intent = new Intent(CarPolishActivity.this,MainActivity.class);
+//        startActivity(intent);
         finish();
     }
 }

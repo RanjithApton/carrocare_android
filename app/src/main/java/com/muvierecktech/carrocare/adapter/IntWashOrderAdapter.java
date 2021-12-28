@@ -54,58 +54,58 @@ public class IntWashOrderAdapter extends RecyclerView.Adapter {
         }else if(ordersList.get(position).service_type.equalsIgnoreCase("AddOn")){
             viewHolder.order_lay.setVisibility(View.GONE);
         }else if(ordersList.get(position).service_type.equalsIgnoreCase("Wash")){
-            viewHolder.order_lay.setVisibility(View.VISIBLE);
-            viewHolder.payment_id.setText(payid.order_id);
-            viewHolder.payment_id.setTag(viewHolder);
-            viewHolder.payment_id.setChecked(lastSelectedPosition == position);
-            viewHolder.payment_id.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    MyViewHolder viewHolder1 = (MyViewHolder) v.getTag();
-                    int pos = viewHolder1.getAdapterPosition();
-                    lastSelectedPosition = pos;
-                    notifyDataSetChanged();
+                viewHolder.order_lay.setVisibility(View.VISIBLE);
+                viewHolder.payment_id.setText(payid.order_id);
+                viewHolder.payment_id.setTag(viewHolder);
+                viewHolder.payment_id.setChecked(lastSelectedPosition == position);
+                viewHolder.payment_id.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        MyViewHolder viewHolder1 = (MyViewHolder) v.getTag();
+                        int pos = viewHolder1.getAdapterPosition();
+                        lastSelectedPosition = pos;
+                        notifyDataSetChanged();
 //                        Intent intent = new Intent(context, InternalwashActivity.class);
 //                        intent.putExtra(Constant.DE_ORDERID ,ordersList.get(pos).order_id);
 //                        intent.putExtra(Constant.DE_VECID,ordersList.get(pos).vehicle_id);
-                    ((MainActivity)context).binding.orderEdt.setText(ordersList.get(pos).order_id);
-                    //((InternalwashActivity)context).binding.vehicleId.setText(ordersList.get(pos).vehicle_id);
-                    //InternalwashActivity.order_id=(ordersList.get(pos).order_id);
-                    ((MainActivity)context).binding.orderrl.setVisibility(View.GONE);
+                        ((MainActivity)context).binding.orderEdt.setText(ordersList.get(pos).order_id);
+                        //((InternalwashActivity)context).binding.vehicleId.setText(ordersList.get(pos).vehicle_id);
+                        //InternalwashActivity.order_id=(ordersList.get(pos).order_id);
+                        ((MainActivity)context).binding.orderrl.setVisibility(View.GONE);
 
 
-                    Intent intent = new Intent(context, InternalwashActivity.class);
-                    intent.putExtra(Constant.DE_DATE,ordersList.get(pos).date_and_time);
-                    intent.putExtra(Constant.DE_ORDERID ,ordersList.get(pos).order_id);
-                    intent.putExtra(Constant.DE_SERVTYPE,ordersList.get(pos).service_type);
-                    intent.putExtra(Constant.DE_PAYTYPE ,ordersList.get(pos).payment_type);
-                    intent.putExtra(Constant.DE_PACKTYPE,ordersList.get(pos).package_type);
-                    intent.putExtra(Constant.DE_VECMAKE ,ordersList.get(pos).vehicle_make);
-                    intent.putExtra(Constant.DE_VECMODEL,ordersList.get(pos).vehicle_model);
-                    intent.putExtra(Constant.DE_VECNO ,ordersList.get(pos).vehicle_no);
-                    intent.putExtra(Constant.DE_VECID ,ordersList.get(pos).vehicle_id);
-                    intent.putExtra(Constant.DE_PACKVALUE,ordersList.get(pos).package_value);
-                    intent.putExtra(Constant.DE_TOTAMOUNT,ordersList.get(pos).total_amount);
-                    intent.putExtra(Constant.DE_DISCOUNTMOUNT,ordersList.get(pos).discount_amount);
-                    intent.putExtra(Constant.DE_PAYMODE ,ordersList.get(pos).payment_mode);
-                    intent.putExtra(Constant.DE_PACKMONTH,ordersList.get(pos).paid_count);
-                    intent.putExtra(Constant.DE_VALID,ordersList.get(pos).valid);
-                    intent.putExtra(Constant.DE_NEXTDUE,ordersList.get(pos).next_due);
-                    intent.putExtra(Constant.DE_STATUS,ordersList.get(pos).status);
-                    intent.putExtra(Constant.DE_WASHDET,ordersList.get(pos).wash_details);
-                    intent.putExtra(Constant.DE_EXTRADET,ordersList.get(pos).extra_interior);
-                    intent.putExtra(Constant.DE_CANCEL,ordersList.get(pos).cancel_subscription);
-                    intent.putExtra(Constant.DE_PAYMENT_HISTORY,ordersList.get(pos).payment_history);
-                    intent.putExtra(Constant.DE_PAYMENTDETAILS,(Serializable) ordersList.get(pos).payment_details);
-                    context.startActivity(intent);
+                        Intent intent = new Intent(context, InternalwashActivity.class);
+                        intent.putExtra(Constant.DE_DATE,ordersList.get(pos).date_and_time);
+                        intent.putExtra(Constant.DE_ORDERID ,ordersList.get(pos).order_id);
+                        intent.putExtra(Constant.DE_SERVTYPE,ordersList.get(pos).service_type);
+                        intent.putExtra(Constant.DE_PAYTYPE ,ordersList.get(pos).payment_type);
+                        intent.putExtra(Constant.DE_PACKTYPE,ordersList.get(pos).package_type);
+                        intent.putExtra(Constant.DE_VECMAKE ,ordersList.get(pos).vehicle_make);
+                        intent.putExtra(Constant.DE_VECMODEL,ordersList.get(pos).vehicle_model);
+                        intent.putExtra(Constant.DE_VECNO ,ordersList.get(pos).vehicle_no);
+                        intent.putExtra(Constant.DE_VECID ,ordersList.get(pos).vehicle_id);
+                        intent.putExtra(Constant.DE_PACKVALUE,ordersList.get(pos).package_value);
+                        intent.putExtra(Constant.DE_TOTAMOUNT,ordersList.get(pos).total_amount);
+                        intent.putExtra(Constant.DE_DISCOUNTMOUNT,ordersList.get(pos).discount_amount);
+                        intent.putExtra(Constant.DE_PAYMODE ,ordersList.get(pos).payment_mode);
+                        intent.putExtra(Constant.DE_PACKMONTH,ordersList.get(pos).paid_count);
+                        intent.putExtra(Constant.DE_VALID,ordersList.get(pos).valid);
+                        intent.putExtra(Constant.DE_NEXTDUE,ordersList.get(pos).next_due);
+                        intent.putExtra(Constant.DE_STATUS,ordersList.get(pos).status);
+                        intent.putExtra(Constant.DE_WASHDET,ordersList.get(pos).wash_details);
+                        intent.putExtra(Constant.DE_EXTRADET,ordersList.get(pos).extra_interior);
+                        intent.putExtra(Constant.DE_CANCEL,ordersList.get(pos).cancel_subscription);
+                        intent.putExtra(Constant.DE_PAYMENT_HISTORY,ordersList.get(pos).payment_history);
+                        intent.putExtra(Constant.DE_PAYMENTDETAILS,(Serializable) ordersList.get(pos).payment_details);
+                        context.startActivity(intent);
 
-                    ((MainActivity)context).binding.detailrl.setVisibility(View.GONE);
-                    ((MainActivity)context).binding.orderrl.setVisibility(View.GONE);
-                    ((MainActivity)context).binding.popupinternal.setVisibility(View.GONE);
+                        ((MainActivity)context).binding.detailrl.setVisibility(View.GONE);
+                        ((MainActivity)context).binding.orderrl.setVisibility(View.GONE);
+                        ((MainActivity)context).binding.popupinternal.setVisibility(View.GONE);
 
 
-                }
-            });
+                    }
+                });
         }
 
         viewHolder.view_details.setTag(viewHolder);

@@ -8,8 +8,12 @@ import android.widget.RadioButton;
 import androidx.recyclerview.widget.RecyclerView;
 import com.muvierecktech.carrocare.R;
 import com.muvierecktech.carrocare.activity.AddVehicleActivity;
+import com.muvierecktech.carrocare.activity.MapAddVechileActivity;
 import com.muvierecktech.carrocare.activity.MyVechiclesAddActivity;
+import com.muvierecktech.carrocare.model.ApartmentList;
 import com.muvierecktech.carrocare.model.ParkingareaList;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class ParkingareaAdapter extends RecyclerView.Adapter {
@@ -49,9 +53,21 @@ public class ParkingareaAdapter extends RecyclerView.Adapter {
                     notifyDataSetChanged();
                     ((MyVechiclesAddActivity) context).binding.parkingAreaEdt.setText(parkingarea.get(pos).name);
                     ((MyVechiclesAddActivity) context).binding.apartRl.setVisibility(View.GONE);
+                }else if (check.equalsIgnoreCase("3")) {
+                    MyViewHolder viewHolder1 = (MyViewHolder) view.getTag();
+                    int pos = viewHolder1.getAdapterPosition();
+                    notifyDataSetChanged();
+                    //((MapAddVechileActivity) context).binding.parkingAreaEdt.setText(parkingarea.get(pos).name);
+                    ((MapAddVechileActivity) context).binding.apartRl.setVisibility(View.GONE);
                 }
             }
         });
+    }
+
+    public void updateList(List<ParkingareaList.data> list) {
+        parkingarea = new ArrayList<>();
+        parkingarea.addAll(list);
+        notifyDataSetChanged();
     }
 
     public int getItemCount() {

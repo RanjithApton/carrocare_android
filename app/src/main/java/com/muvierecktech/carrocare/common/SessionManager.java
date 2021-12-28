@@ -26,10 +26,33 @@ public class SessionManager {
     public static final  String KEY_APARTBUILDING = "apartment_building";
     public static final  String KEY_FLATNO = "flat_no";
 
+    public static final  String MAP_ADDRESS = "map_address";
+    public static final  String MAP_LATITUDE = "map_latitude";
+    public static final  String MAP_LONGITUDE = "map_longitude";
+
+    public static final  String KEY_ADDRESS = "address";
+    public static final  String KEY_LATITUDE = "latitude";
+    public static final  String KEY_LONGITUDE = "longitude";
+
+    public static final  String USER_WANTS = "user_wants";
+
     public SessionManager(Context context){
         this.context = context;
         sharedPreferences = context.getSharedPreferences(PREF_NAME,PRIVATE_MODE);
         editor = sharedPreferences.edit();
+    }
+
+    public void setData(String id, String val) {
+        editor.putString(id, val);
+        editor.commit();
+    }
+
+    public String getData(String id) {
+        return sharedPreferences.getString(id, "");
+    }
+
+    public String getCoordinates(String id) {
+        return sharedPreferences.getString(id, "0");
     }
 
     public void UserName(String seekbar){
@@ -99,13 +122,13 @@ public class SessionManager {
         users.put(KEY_FLATNO,sharedPreferences.getString(KEY_FLATNO,null));
         return  users;
     }
-     public void logoutUsers(){
+    public void logoutUsers(){
         editor.clear();
         editor.commit();
-         Intent i = new Intent(context, LoginActivity.class);
-         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-         i.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-         context.startActivity(i);
-     }
+        Intent i = new Intent(context, LoginActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        i.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+        context.startActivity(i);
+    }
 }

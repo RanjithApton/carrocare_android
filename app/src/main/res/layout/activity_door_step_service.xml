@@ -1,0 +1,1871 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".activity.DoorStepServiceActivity">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <fragment
+                android:id="@+id/map"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </RelativeLayout>
+
+        <!--    <fragment-->
+        <!--        android:layout_marginTop="?attr/actionBarSize"-->
+        <!--        android:id="@+id/place_autocomplete"-->
+        <!--        android:layout_width="match_parent"-->
+        <!--        android:layout_height="wrap_content"-->
+        <!--        android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment"-->
+        <!--        />-->
+
+        <!--    <SearchView-->
+        <!--        android:id="@+id/search_view"-->
+        <!--        android:layout_marginTop="?attr/actionBarSize"-->
+        <!--        android:background="@drawable/search_back"-->
+        <!--        android:layout_width="match_parent"-->
+        <!--        android:layout_height="wrap_content"/>-->
+
+        <!--    <EditText-->
+        <!--        android:id="@+id/search_place"-->
+        <!--        android:layout_marginTop="?attr/actionBarSize"-->
+        <!--        android:background="@drawable/search_back"-->
+        <!--        android:drawablePadding="20dip"-->
+        <!--        android:drawableLeft="@drawable/ic_search"-->
+        <!--        android:layout_width="match_parent"-->
+        <!--        android:layout_height="40dp"/>-->
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary" >
+
+            <ImageView
+                android:id="@+id/menu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:src="@drawable/ic_menu_24"
+                android:padding="2dp"
+                android:layout_gravity="center|left"
+                />
+
+            <TextView
+                android:layout_toRightOf="@+id/menu"
+                android:layout_toLeftOf="@+id/search_place"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:id="@+id/place_txt"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:singleLine="true"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:fontFamily="@font/josefinsans_bold"
+                android:textColor="@color/white"/>
+
+            <ImageView
+                android:id="@+id/search_place"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:src="@drawable/ic_search"
+                app:tint="@color/white"
+                android:padding="2dp"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="center|right"
+                />
+
+        </RelativeLayout>
+
+        <!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+        <!--        android:id="@+id/fabCurrent"-->
+        <!--        android:layout_width="wrap_content"-->
+        <!--        android:layout_height="wrap_content"-->
+        <!--        android:layout_alignParentEnd="true"-->
+        <!--        android:layout_marginTop="16dp"-->
+        <!--        android:layout_marginEnd="16dp"-->
+        <!--        android:clickable="true"-->
+        <!--        android:focusable="true"-->
+        <!--        app:fabSize="mini"-->
+        <!--        android:layout_above="@+id/lay0"-->
+        <!--        android:layout_margin="16dp"-->
+        <!--        android:tint="@color/white"-->
+        <!--        app:srcCompat="@drawable/ic_gps" />-->
+
+        <ImageButton
+            android:layout_above="@+id/lay0"
+            android:id="@+id/fabCurrent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="20dp"
+            android:layout_marginRight="20dp"
+            android:padding="10dp"
+            android:background="@drawable/shape_circle"
+            android:foregroundGravity="right"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_gps" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/lay0"
+            android:background="@color/gray"
+            android:layout_above="@id/bottom_vp"
+            android:layout_width="match_parent"
+            android:layout_height="110dp">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/vehicle_rv"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="110dp"
+                android:layout_marginRight="110dp"
+                app:layout_constraintRight_toRightOf="parent"
+                tools:ignore="MissingConstraints" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/add_vehcile_btn"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_width="110dp"
+                android:layout_height="110dp"
+                tools:ignore="MissingConstraints">
+
+                <View
+                    android:background="@color/colorPrimary"
+                    android:layout_width="1dp"
+                    android:layout_height="110dp"/>
+
+                <ImageView
+                    android:layout_marginTop="20dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:background="@drawable/ic_add_circle"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"/>
+
+                <Button
+                    android:layout_marginTop="40dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:background="@drawable/btn_round"
+                    android:layout_gravity="center"
+                    android:text="Add"
+                    android:textColor="@color/white"
+                    android:textAllCaps="false"
+                    android:layout_width="80dp"
+                    android:layout_height="35dp"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.viewpager.widget.ViewPager
+            android:background="@color/gray"
+            android:id="@+id/bottom_vp"
+            android:layout_alignParentBottom="true"
+            android:overScrollMode="always"
+            android:clipToPadding="false"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"/>
+
+        <RelativeLayout
+            android:visibility="gone"
+            android:id="@+id/bottom_wash_popup"
+            android:background="#90000000"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:id="@+id/carwash_popup"
+                android:visibility="gone"
+                android:background="@drawable/bottom_popup"
+                android:layout_marginTop="200dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_above="@+id/bot_amount"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp">
+
+                        <ImageView
+                            android:id="@+id/close_popup"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginLeft="20dp"
+                            android:src="@drawable/ic_back"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"/>
+
+                        <TextView
+                            android:paddingRight="20dp"
+                            android:textSize="18dp"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+                            android:text="2.Select Service"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"/>
+
+                    </LinearLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:visibility="gone"
+                        android:id="@+id/category_rc"
+                        android:layout_marginTop="10dp"
+                        android:padding="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <LinearLayout
+                                android:orientation="horizontal"
+                                android:weightSum="2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <LinearLayout
+                                    android:layout_weight="1"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+
+                                    <RelativeLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content">
+
+                                        <LinearLayout
+                                            android:id="@+id/extrerior_card"
+                                            android:layout_margin="20dp"
+                                            android:orientation="vertical"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content">
+
+
+                                            <ImageView
+                                                android:scaleType="centerCrop"
+                                                android:background="@drawable/novehicle"
+                                                android:src="@drawable/exterior_wash"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="120dp"/>
+
+                                            <TextView
+                                                android:text="Exterior Wash"
+                                                android:textColor="@color/white"
+                                                android:fontFamily="@font/josefinsans_bold"
+                                                android:textStyle="bold"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"/>
+
+                                            <LinearLayout
+                                                android:weightSum="2"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content">
+
+                                                <TextView
+                                                    android:layout_marginRight="5dp"
+                                                    android:layout_gravity="center"
+                                                    android:textStyle="bold"
+                                                    android:textColor="@color/white"
+                                                    android:text="INR"
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"/>
+
+                                                <TextView
+                                                    android:id="@+id/extrerior_amt"
+                                                    android:layout_gravity="center"
+                                                    android:layout_weight="1.8"
+                                                    android:textStyle="bold"
+                                                    android:textColor="@color/white"
+                                                    android:text="INR 250"
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"/>
+
+                                                <Button
+                                                    android:id="@+id/extrerior_info"
+                                                    android:layout_weight="0.2"
+                                                    android:background="@drawable/btn_info"
+                                                    android:layout_gravity="center"
+                                                    android:text="Info"
+                                                    android:textColor="@color/colorPrimary"
+                                                    android:textAllCaps="false"
+                                                    android:textSize="8sp"
+                                                    android:layout_width="50dp"
+                                                    android:layout_height="30dp"/>
+
+                                            </LinearLayout>
+
+                                        </LinearLayout>
+
+                                        <CheckBox
+                                            android:layout_margin="20dp"
+                                            style="@style/DefalutCheckBox"
+                                            android:id="@+id/extrerior_check"
+                                            android:layout_alignParentRight="true"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"/>
+
+                                    </RelativeLayout>
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_weight="1"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+
+                                    <RelativeLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content">
+
+                                        <LinearLayout
+                                            android:id="@+id/interior_card"
+                                            android:layout_margin="20dp"
+                                            android:orientation="vertical"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content">
+
+                                            <ImageView
+                                                android:scaleType="centerCrop"
+                                                android:background="@drawable/novehicle"
+                                                android:src="@drawable/interior_wash"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="120dp"/>
+
+                                            <TextView
+                                                android:text="Interior Cleaning"
+                                                android:textColor="@color/white"
+                                                android:fontFamily="@font/josefinsans_bold"
+                                                android:textStyle="bold"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"/>
+
+                                            <LinearLayout
+                                                android:weightSum="2"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content">
+
+                                                <TextView
+                                                    android:layout_marginRight="5dp"
+                                                    android:layout_gravity="center"
+                                                    android:textStyle="bold"
+                                                    android:textColor="@color/white"
+                                                    android:text="INR"
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"/>
+
+                                                <TextView
+                                                    android:id="@+id/interior_amt"
+                                                    android:layout_gravity="center"
+                                                    android:layout_weight="1.8"
+                                                    android:textStyle="bold"
+                                                    android:textColor="@color/white"
+                                                    android:text="INR 100"
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"/>
+
+                                                <Button
+                                                    android:id="@+id/interior_info"
+                                                    android:layout_weight="0.2"
+                                                    android:background="@drawable/btn_info"
+                                                    android:layout_gravity="center"
+                                                    android:text="Info"
+                                                    android:textColor="@color/colorPrimary"
+                                                    android:textAllCaps="false"
+                                                    android:textSize="8sp"
+                                                    android:layout_width="50dp"
+                                                    android:layout_height="30dp"/>
+
+                                            </LinearLayout>
+
+                                        </LinearLayout>
+
+                                        <CheckBox
+                                            android:layout_margin="20dp"
+                                            style="@style/DefalutCheckBox"
+                                            android:id="@+id/interior_check"
+                                            android:layout_alignParentRight="true"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"/>
+
+                                    </RelativeLayout>
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:orientation="horizontal"
+                                android:weightSum="2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <LinearLayout
+                                    android:layout_weight="1"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+
+                                    <RelativeLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content">
+
+                                        <LinearLayout
+                                            android:id="@+id/polishing_card"
+                                            android:layout_margin="20dp"
+                                            android:orientation="vertical"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content">
+
+                                            <ImageView
+                                                android:scaleType="centerCrop"
+                                                android:background="@drawable/novehicle"
+                                                android:src="@drawable/engine_detailing"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="120dp"/>
+
+                                            <TextView
+                                                android:text="Engine Polishing"
+                                                android:textColor="@color/white"
+                                                android:fontFamily="@font/josefinsans_bold"
+                                                android:textStyle="bold"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"/>
+
+                                            <LinearLayout
+                                                android:weightSum="2"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content">
+
+                                                <TextView
+                                                    android:layout_marginRight="5dp"
+                                                    android:layout_gravity="center"
+                                                    android:textStyle="bold"
+                                                    android:textColor="@color/white"
+                                                    android:text="INR"
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"/>
+
+                                                <TextView
+                                                    android:id="@+id/polishing_amt"
+                                                    android:layout_gravity="center"
+                                                    android:layout_weight="1.8"
+                                                    android:textStyle="bold"
+                                                    android:textColor="@color/white"
+                                                    android:text="INR 100"
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"/>
+
+                                                <Button
+                                                    android:id="@+id/polishing_info"
+                                                    android:layout_weight="0.2"
+                                                    android:background="@drawable/btn_info"
+                                                    android:layout_gravity="center"
+                                                    android:text="Info"
+                                                    android:textColor="@color/colorPrimary"
+                                                    android:textAllCaps="false"
+                                                    android:textSize="8sp"
+                                                    android:layout_width="50dp"
+                                                    android:layout_height="30dp"/>
+
+                                            </LinearLayout>
+
+                                        </LinearLayout>
+
+                                        <CheckBox
+                                            android:layout_margin="20dp"
+                                            style="@style/DefalutCheckBox"
+                                            android:id="@+id/polising_check"
+                                            android:layout_alignParentRight="true"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"/>
+
+                                    </RelativeLayout>
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_weight="1"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+
+                                    <RelativeLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content">
+
+                                        <LinearLayout
+                                            android:id="@+id/wax_card"
+                                            android:layout_margin="20dp"
+                                            android:orientation="vertical"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content">
+
+                                            <ImageView
+                                                android:scaleType="centerCrop"
+                                                android:background="@drawable/novehicle"
+                                                android:src="@drawable/quick_wax"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="120dp"/>
+
+                                            <TextView
+                                                android:text="Quick Wax"
+                                                android:textColor="@color/white"
+                                                android:fontFamily="@font/josefinsans_bold"
+                                                android:textStyle="bold"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"/>
+
+                                            <LinearLayout
+                                                android:weightSum="2"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content">
+
+                                                <TextView
+                                                    android:layout_marginRight="5dp"
+                                                    android:layout_gravity="center"
+                                                    android:textStyle="bold"
+                                                    android:textColor="@color/white"
+                                                    android:text="INR"
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"/>
+
+                                                <TextView
+                                                    android:id="@+id/wax_amt"
+                                                    android:layout_gravity="center"
+                                                    android:layout_weight="1.8"
+                                                    android:textStyle="bold"
+                                                    android:textColor="@color/white"
+                                                    android:text="INR 400"
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"/>
+
+                                                <Button
+                                                    android:id="@+id/wax_info"
+                                                    android:layout_weight="0.2"
+                                                    android:background="@drawable/btn_info"
+                                                    android:layout_gravity="center"
+                                                    android:text="Info"
+                                                    android:textColor="@color/colorPrimary"
+                                                    android:textAllCaps="false"
+                                                    android:textSize="8sp"
+                                                    android:layout_width="50dp"
+                                                    android:layout_height="30dp"/>
+
+                                            </LinearLayout>
+
+                                        </LinearLayout>
+
+                                        <CheckBox
+                                            android:layout_margin="20dp"
+                                            style="@style/DefalutCheckBox"
+                                            android:id="@+id/wax_check"
+                                            android:layout_alignParentRight="true"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"/>
+
+                                    </RelativeLayout>
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:orientation="horizontal"
+                                android:weightSum="2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+
+
+                                <LinearLayout
+                                    android:layout_weight="1"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+
+                                    <RelativeLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content">
+
+                                        <LinearLayout
+                                            android:id="@+id/sanitize_card"
+                                            android:layout_margin="20dp"
+                                            android:orientation="vertical"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content">
+
+                                            <ImageView
+                                                android:scaleType="centerCrop"
+                                                android:background="@drawable/novehicle"
+                                                android:src="@drawable/car_sanitizing"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="120dp"/>
+
+                                            <TextView
+                                                android:text="Car Sanitisation"
+                                                android:textColor="@color/white"
+                                                android:fontFamily="@font/josefinsans_bold"
+                                                android:textStyle="bold"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"/>
+
+                                            <LinearLayout
+                                                android:weightSum="2"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content">
+
+                                                <TextView
+                                                    android:layout_marginRight="5dp"
+                                                    android:layout_gravity="center"
+                                                    android:textStyle="bold"
+                                                    android:textColor="@color/white"
+                                                    android:text="INR"
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"/>
+
+                                                <TextView
+                                                    android:id="@+id/sanitize_amt"
+                                                    android:layout_gravity="center"
+                                                    android:layout_weight="1.8"
+                                                    android:textStyle="bold"
+                                                    android:textColor="@color/white"
+                                                    android:text="INR 500"
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"/>
+
+                                                <Button
+                                                    android:id="@+id/sanitize_info"
+                                                    android:layout_weight="0.2"
+                                                    android:background="@drawable/btn_info"
+                                                    android:layout_gravity="center"
+                                                    android:text="Info"
+                                                    android:textColor="@color/colorPrimary"
+                                                    android:textAllCaps="false"
+                                                    android:textSize="8sp"
+                                                    android:layout_width="50dp"
+                                                    android:layout_height="30dp"/>
+
+                                            </LinearLayout>
+
+                                        </LinearLayout>
+
+
+                                        <CheckBox
+                                            android:layout_margin="20dp"
+                                            style="@style/DefalutCheckBox"
+                                            android:id="@+id/sanitize_check"
+                                            android:layout_alignParentRight="true"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"/>
+
+                                    </RelativeLayout>
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:visibility="invisible"
+                                    android:layout_weight="1"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+
+                                    <LinearLayout
+                                        android:layout_margin="20dp"
+                                        android:orientation="vertical"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content">
+
+                                        <ImageView
+                                            android:scaleType="centerCrop"
+                                            android:background="@drawable/novehicle"
+                                            android:src="@drawable/top_curve_imageview"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="120dp"/>
+
+                                        <TextView
+                                            android:text="Exterior Wash"
+                                            android:textColor="@color/white"
+                                            android:fontFamily="@font/josefinsans_bold"
+                                            android:textStyle="bold"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"/>
+
+                                    </LinearLayout>
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </ScrollView>
+
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/bot_amount"
+                    android:visibility="gone"
+                    android:weightSum="2"
+                    android:background="@color/colorPrimary"
+                    android:layout_alignParentBottom="true"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp">
+
+
+                    <TextView
+                        android:layout_weight="1"
+                        android:id="@+id/totalAmount"
+                        android:paddingRight="20dp"
+                        android:textSize="18dp"
+                        android:gravity="center"
+                        android:textColor="@color/white"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <Button
+                        android:id="@+id/button_processed"
+                        android:background="@drawable/btn_info"
+                        android:layout_weight="1"
+                        android:text="Proceed"
+                        android:textAllCaps="false"
+                        android:textColor="@color/colorPrimary"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/detailing_popup"
+                android:visibility="gone"
+                android:background="@drawable/bottom_popup"
+                android:layout_marginTop="200dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_above="@+id/detail_amount"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp">
+
+                        <ImageView
+                            android:id="@+id/close_popup1"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginLeft="20dp"
+                            android:src="@drawable/ic_back"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"/>
+
+                        <TextView
+                            android:paddingRight="20dp"
+                            android:textSize="18dp"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+                            android:text="2.Select Service"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"/>
+
+                    </LinearLayout>
+
+
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <LinearLayout
+                                android:orientation="horizontal"
+                                android:weightSum="2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <LinearLayout
+                                    android:layout_weight="1"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+
+                                    <RelativeLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content">
+
+                                        <LinearLayout
+                                            android:id="@+id/carpolishng_card"
+                                            android:layout_margin="20dp"
+                                            android:orientation="vertical"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content">
+
+                                            <ImageView
+                                                android:scaleType="centerCrop"
+                                                android:background="@drawable/novehicle"
+                                                android:src="@drawable/car_polish"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="120dp"/>
+
+                                            <TextView
+                                                android:text="Car Polishing"
+                                                android:textColor="@color/white"
+                                                android:fontFamily="@font/josefinsans_bold"
+                                                android:textStyle="bold"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"/>
+
+                                            <LinearLayout
+                                                android:weightSum="2"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content">
+
+                                                <TextView
+                                                    android:layout_marginRight="5dp"
+                                                    android:layout_gravity="center"
+                                                    android:textStyle="bold"
+                                                    android:textColor="@color/white"
+                                                    android:text="INR"
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"/>
+
+                                                <TextView
+                                                    android:id="@+id/carpolising_amt"
+                                                    android:layout_gravity="center"
+                                                    android:layout_weight="1.8"
+                                                    android:textStyle="bold"
+                                                    android:textColor="@color/white"
+                                                    android:text="INR 250"
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"/>
+
+                                                <Button
+                                                    android:id="@+id/carpolising_info"
+                                                    android:layout_weight="0.2"
+                                                    android:background="@drawable/btn_info"
+                                                    android:layout_gravity="center"
+                                                    android:text="Info"
+                                                    android:textColor="@color/colorPrimary"
+                                                    android:textAllCaps="false"
+                                                    android:textSize="8sp"
+                                                    android:layout_width="50dp"
+                                                    android:layout_height="30dp"/>
+
+                                            </LinearLayout>
+
+                                        </LinearLayout>
+
+                                        <CheckBox
+                                            android:layout_margin="20dp"
+                                            style="@style/DefalutCheckBox"
+                                            android:id="@+id/carpolishng_check"
+                                            android:layout_alignParentRight="true"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"/>
+
+                                    </RelativeLayout>
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_weight="1"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+
+                                    <RelativeLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content">
+
+                                        <LinearLayout
+                                            android:id="@+id/interiordetaling_card"
+                                            android:layout_margin="20dp"
+                                            android:orientation="vertical"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content">
+
+                                            <ImageView
+                                                android:scaleType="centerCrop"
+                                                android:background="@drawable/novehicle"
+                                                android:src="@drawable/interior_clean"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="120dp"/>
+
+                                            <TextView
+                                                android:text="Interior Detailing"
+                                                android:textColor="@color/white"
+                                                android:fontFamily="@font/josefinsans_bold"
+                                                android:textStyle="bold"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"/>
+
+                                            <LinearLayout
+                                                android:weightSum="2"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content">
+
+                                                <TextView
+                                                    android:layout_marginRight="5dp"
+                                                    android:layout_gravity="center"
+                                                    android:textStyle="bold"
+                                                    android:textColor="@color/white"
+                                                    android:text="INR"
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"/>
+
+                                                <TextView
+                                                    android:id="@+id/interiordetaling_amt"
+                                                    android:layout_gravity="center"
+                                                    android:layout_weight="1.8"
+                                                    android:textStyle="bold"
+                                                    android:textColor="@color/white"
+                                                    android:text="INR 100"
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"/>
+
+                                                <Button
+                                                    android:id="@+id/interiordetaling_info"
+                                                    android:layout_weight="0.2"
+                                                    android:background="@drawable/btn_info"
+                                                    android:layout_gravity="center"
+                                                    android:text="Info"
+                                                    android:textColor="@color/colorPrimary"
+                                                    android:textAllCaps="false"
+                                                    android:textSize="8sp"
+                                                    android:layout_width="50dp"
+                                                    android:layout_height="30dp"/>
+
+                                            </LinearLayout>
+
+                                        </LinearLayout>
+
+                                        <CheckBox
+                                            android:layout_margin="20dp"
+                                            style="@style/DefalutCheckBox"
+                                            android:id="@+id/intertiordetailing_check"
+                                            android:layout_alignParentRight="true"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"/>
+
+                                    </RelativeLayout>
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:orientation="horizontal"
+                                android:weightSum="2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <LinearLayout
+                                    android:layout_weight="1"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+
+                                    <RelativeLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content">
+
+                                        <LinearLayout
+                                            android:id="@+id/windowtinting_card"
+                                            android:layout_margin="20dp"
+                                            android:orientation="vertical"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content">
+
+                                            <ImageView
+                                                android:scaleType="centerCrop"
+                                                android:background="@drawable/novehicle"
+                                                android:src="@drawable/window_tinting"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="120dp"/>
+
+                                            <TextView
+                                                android:text="Window Tinting"
+                                                android:textColor="@color/white"
+                                                android:fontFamily="@font/josefinsans_bold"
+                                                android:textStyle="bold"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"/>
+
+                                            <LinearLayout
+                                                android:weightSum="2"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content">
+
+                                                <TextView
+                                                    android:layout_marginRight="5dp"
+                                                    android:layout_gravity="center"
+                                                    android:textStyle="bold"
+                                                    android:textColor="@color/white"
+                                                    android:text="INR"
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"/>
+
+                                                <TextView
+                                                    android:id="@+id/wingowtinting_amt"
+                                                    android:layout_gravity="center"
+                                                    android:layout_weight="1.8"
+                                                    android:textStyle="bold"
+                                                    android:textColor="@color/white"
+                                                    android:text="INR 100"
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"/>
+
+                                                <Button
+                                                    android:id="@+id/wingowtinting_info"
+                                                    android:layout_weight="0.2"
+                                                    android:background="@drawable/btn_info"
+                                                    android:layout_gravity="center"
+                                                    android:text="Info"
+                                                    android:textColor="@color/colorPrimary"
+                                                    android:textAllCaps="false"
+                                                    android:textSize="8sp"
+                                                    android:layout_width="50dp"
+                                                    android:layout_height="30dp"/>
+
+                                            </LinearLayout>
+
+                                        </LinearLayout>
+
+                                        <CheckBox
+                                            android:layout_margin="20dp"
+                                            style="@style/DefalutCheckBox"
+                                            android:id="@+id/windowtinting_check"
+                                            android:layout_alignParentRight="true"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"/>
+
+                                    </RelativeLayout>
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:visibility="invisible"
+                                    android:layout_weight="1"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+
+                                    <LinearLayout
+                                        android:layout_margin="20dp"
+                                        android:orientation="vertical"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content">
+
+                                        <ImageView
+                                            android:scaleType="centerCrop"
+                                            android:background="@drawable/novehicle"
+                                            android:src="@drawable/top_curve_imageview"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="120dp"/>
+
+                                        <TextView
+                                            android:text="Quick Wax"
+                                            android:textColor="@color/white"
+                                            android:fontFamily="@font/josefinsans_bold"
+                                            android:textStyle="bold"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"/>
+
+                                        <LinearLayout
+                                            android:weightSum="2"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content">
+
+                                            <TextView
+                                                android:layout_marginRight="5dp"
+                                                android:layout_gravity="center"
+                                                android:textStyle="bold"
+                                                android:textColor="@color/white"
+                                                android:text="INR"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"/>
+
+                                            <TextView
+                                                android:layout_gravity="center"
+                                                android:layout_weight="1.8"
+                                                android:textStyle="bold"
+                                                android:textColor="@color/white"
+                                                android:text="INR 400"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"/>
+
+                                            <Button
+
+                                                android:layout_weight="0.2"
+                                                android:background="@drawable/btn_info"
+                                                android:layout_gravity="center"
+                                                android:text="Info"
+                                                android:textColor="@color/colorPrimary"
+                                                android:textAllCaps="false"
+                                                android:textSize="8sp"
+                                                android:layout_width="50dp"
+                                                android:layout_height="30dp"/>
+
+                                        </LinearLayout>
+
+                                    </LinearLayout>
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+
+
+                        </LinearLayout>
+
+                    </ScrollView>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/detail_amount"
+                    android:visibility="gone"
+                    android:weightSum="2"
+                    android:background="@color/colorPrimary"
+                    android:layout_alignParentBottom="true"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp">
+
+
+                    <TextView
+                        android:layout_weight="1"
+                        android:id="@+id/detail_totalAmount"
+                        android:paddingRight="20dp"
+                        android:textSize="18dp"
+                        android:gravity="center"
+                        android:textColor="@color/white"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <Button
+                        android:id="@+id/detail_button_processed"
+                        android:background="@drawable/btn_info"
+                        android:layout_weight="1"
+                        android:text="Proceed"
+                        android:textAllCaps="false"
+                        android:textColor="@color/colorPrimary"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/schedule_popup"
+                android:visibility="gone"
+                android:background="@drawable/bottom_popup"
+                android:layout_marginTop="200dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp">
+
+                            <ImageView
+                                android:id="@+id/close_popup_schedule"
+                                android:layout_marginTop="20dp"
+                                android:layout_marginLeft="20dp"
+                                android:src="@drawable/ic_back"
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"/>
+
+                            <TextView
+                                android:paddingRight="20dp"
+                                android:textSize="18dp"
+                                android:gravity="center"
+                                android:textColor="@color/white"
+                                android:text="3. Select Schedule"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"/>
+
+                        </LinearLayout>
+
+
+                        <com.github.florent37.singledateandtimepicker.SingleDateAndTimePicker
+                            android:id="@+id/single_day_picker_driver"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            app:picker_curved="true"
+                            app:picker_curvedMaxAngle="45"
+                            app:picker_cyclic="false"
+                            app:picker_dayCount="31"
+                            app:picker_displayHours="true"
+                            app:picker_itemSpacing="6dp"
+                            app:picker_mustBeOnFuture="true"
+                            app:picker_textColor="@color/white"
+                            app:fontFamily="@font/josefinsans_regular"
+                            app:picker_selectorColor="@android:color/transparent"
+                            app:picker_stepSizeHours="1"
+                            app:picker_stepSizeMinutes="1"
+                            app:picker_visibleItemCount="7" />
+
+                    </LinearLayout>
+                    <Button
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentBottom="true"
+                        android:id="@+id/add_checkout_btn"
+                        android:background="@drawable/btn_info"
+                        android:layout_gravity="center"
+                        android:text="Checkout"
+                        android:textColor="@color/colorPrimary"
+                        android:textAllCaps="false"
+                        android:layout_margin="20dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/bottom_popup"
+            android:visibility="gone"
+            android:background="#90000000"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:background="@drawable/bottom_popup"
+                android:layout_marginTop="200dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp">
+
+                        <ImageView
+                            android:id="@+id/close_popup2"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginLeft="20dp"
+                            android:src="@drawable/ic_back"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"/>
+
+                        <TextView
+                            android:paddingRight="20dp"
+                            android:textSize="18dp"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+                            android:text="2.Painting &amp; Denting"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"/>
+
+                    </LinearLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/category_rc1"
+                        android:layout_marginTop="10dp"
+                        android:padding="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/bottom_paint_popup"
+            android:visibility="gone"
+            android:background="#90000000"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:background="@drawable/bottom_popup"
+                android:layout_marginTop="200dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp">
+
+                        <ImageView
+                            android:id="@+id/close_paint_popup"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginLeft="20dp"
+                            android:src="@drawable/ic_back"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"/>
+
+                        <TextView
+                            android:paddingRight="20dp"
+                            android:textSize="18dp"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+                            android:text="2.Painting &amp; Denting"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"/>
+
+                    </LinearLayout>
+
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <LinearLayout
+                            android:layout_marginTop="10dp"
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:text="scratch or dent?"
+                                android:textAllCaps="true"
+                                android:gravity="center"
+                                android:textSize="30sp"
+                                android:textStyle="bold"
+                                android:textColor="@color/white"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"/>
+
+                            <TextView
+                                android:text="make it look like new"
+                                android:textAllCaps="true"
+                                android:gravity="center"
+                                android:textSize="20sp"
+                                android:textStyle="bold"
+                                android:textColor="@color/white"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"/>
+
+                            <LinearLayout
+                                android:layout_marginTop="15dp"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <LinearLayout
+                                    android:orientation="horizontal"
+                                    android:weightSum="2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+
+                                    <TextView
+                                        android:textAllCaps="true"
+                                        android:drawablePadding="5dip"
+                                        android:drawableLeft="@drawable/ic_check_green"
+                                        android:layout_weight="1"
+                                        android:textSize="12sp"
+                                        android:text="painting"
+                                        android:textColor="@color/white"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"/>
+
+                                    <TextView
+                                        android:textAllCaps="true"
+                                        android:drawablePadding="5dip"
+                                        android:drawableLeft="@drawable/ic_check_green"
+                                        android:layout_weight="1"
+                                        android:textSize="12sp"
+                                        android:text="custom wheel painting"
+                                        android:textColor="@color/white"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"/>
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_marginTop="5dp"
+                                    android:orientation="horizontal"
+                                    android:weightSum="2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+
+                                    <TextView
+                                        android:textAllCaps="true"
+                                        android:drawablePadding="5dip"
+                                        android:drawableLeft="@drawable/ic_check_green"
+                                        android:layout_weight="1"
+                                        android:textSize="12sp"
+                                        android:text="denting"
+                                        android:textColor="@color/white"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"/>
+
+                                    <TextView
+                                        android:textAllCaps="true"
+                                        android:drawablePadding="5dip"
+                                        android:drawableLeft="@drawable/ic_check_green"
+                                        android:layout_weight="1"
+                                        android:textSize="12sp"
+                                        android:text="premium quality paints"
+                                        android:textColor="@color/white"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"/>
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_marginTop="5dp"
+                                    android:orientation="horizontal"
+                                    android:weightSum="2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+
+                                    <TextView
+                                        android:textAllCaps="true"
+                                        android:drawablePadding="5dip"
+                                        android:drawableLeft="@drawable/ic_check_green"
+                                        android:layout_weight="1"
+                                        android:textSize="12sp"
+                                        android:text="color change (same colour)"
+                                        android:textColor="@color/white"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"/>
+
+                                    <TextView
+                                        android:textAllCaps="true"
+                                        android:drawablePadding="5dip"
+                                        android:drawableLeft="@drawable/ic_check_green"
+                                        android:layout_weight="1"
+                                        android:textSize="12sp"
+                                        android:text="free pickup and drop"
+                                        android:textColor="@color/white"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"/>
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_marginTop="5dp"
+                                    android:orientation="horizontal"
+                                    android:weightSum="2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+
+                                    <TextView
+                                        android:textAllCaps="true"
+                                        android:drawablePadding="5dip"
+                                        android:drawableLeft="@drawable/ic_check_green"
+                                        android:layout_weight="1"
+                                        android:textSize="12sp"
+                                        android:text="colour customisation"
+                                        android:textColor="@color/white"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"/>
+
+                                    <TextView
+                                        android:textAllCaps="true"
+                                        android:drawablePadding="5dip"
+                                        android:drawableLeft="@drawable/ic_check_green"
+                                        android:layout_weight="1"
+                                        android:textSize="12sp"
+                                        android:text="real time update"
+                                        android:textColor="@color/white"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"/>
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_marginTop="5dp"
+                                    android:orientation="horizontal"
+                                    android:weightSum="2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+
+                                    <TextView
+                                        android:textAllCaps="true"
+                                        android:drawablePadding="5dip"
+                                        android:drawableLeft="@drawable/ic_check_green"
+                                        android:layout_weight="1"
+                                        android:textSize="12sp"
+                                        android:text="colour change on demand"
+                                        android:textColor="@color/white"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"/>
+
+                                    <TextView
+                                        android:textAllCaps="true"
+                                        android:drawablePadding="5dip"
+                                        android:drawableLeft="@drawable/ic_check_green"
+                                        android:layout_weight="1"
+                                        android:textSize="12sp"
+                                        android:text="on time delivery"
+                                        android:textColor="@color/white"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"/>
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_marginTop="5dp"
+                                    android:orientation="horizontal"
+                                    android:weightSum="2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+
+                                    <TextView
+                                        android:textAllCaps="true"
+                                        android:drawablePadding="5dip"
+                                        android:drawableLeft="@drawable/ic_check_green"
+                                        android:layout_weight="1"
+                                        android:textSize="12sp"
+                                        android:text="accident repair"
+                                        android:textColor="@color/white"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"/>
+
+                                    <TextView
+                                        android:textAllCaps="true"
+                                        android:drawablePadding="5dip"
+                                        android:drawableLeft="@drawable/ic_check_green"
+                                        android:layout_weight="1"
+                                        android:textSize="12sp"
+                                        android:text="premium quality paints"
+                                        android:textColor="@color/white"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"/>
+
+                                </LinearLayout>
+
+                                <ImageView
+                                    android:layout_marginTop="10dp"
+                                    android:src="@drawable/car_painting"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="150dp"/>
+
+                                <Button
+                                    android:id="@+id/btn_paint"
+                                    android:textColor="@color/colorPrimary"
+                                    android:background="@drawable/btn_rounded_white"
+                                    android:textAllCaps="false"
+                                    android:text="Get Quote"
+                                    android:layout_marginTop="20dp"
+                                    android:layout_gravity="center"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+                    </ScrollView>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/bottom_battery_popup"
+            android:visibility="gone"
+            android:background="#90000000"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:background="@drawable/bottom_popup"
+                android:layout_marginTop="200dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp">
+
+                        <ImageView
+                            android:id="@+id/close_battery_popup"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginLeft="20dp"
+                            android:src="@drawable/ic_back"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"/>
+
+                        <TextView
+                            android:paddingRight="20dp"
+                            android:textSize="18dp"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+                            android:text="2.Battery Replacement"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"/>
+
+                    </LinearLayout>
+
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <LinearLayout
+                            android:layout_marginTop="10dp"
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:text="car not starting"
+                                android:textAllCaps="true"
+                                android:gravity="center"
+                                android:textSize="30sp"
+                                android:textStyle="bold"
+                                android:textColor="@color/white"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"/>
+
+                            <TextView
+                                android:text="with carrocare, you'll never be standed"
+                                android:textAllCaps="true"
+                                android:gravity="center"
+                                android:textSize="15dp"
+                                android:textStyle="bold"
+                                android:textColor="@color/white"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"/>
+
+                            <LinearLayout
+                                android:layout_marginTop="15dp"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:textAllCaps="true"
+                                    android:drawablePadding="5dip"
+                                    android:drawableLeft="@drawable/ic_check_green"
+                                    android:layout_marginLeft="100dp"
+                                    android:textSize="12sp"
+                                    android:text="top brand batteries"
+                                    android:textColor="@color/white"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"/>
+
+                                <TextView
+                                    android:layout_marginTop="5dp"
+                                    android:textAllCaps="true"
+                                    android:drawablePadding="5dip"
+                                    android:drawableLeft="@drawable/ic_check_green"
+                                    android:layout_marginLeft="100dp"
+                                    android:textSize="12sp"
+                                    android:text="free pick up &amp; drop"
+                                    android:textColor="@color/white"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"/>
+
+                                <TextView
+                                    android:layout_marginTop="5dp"
+                                    android:textAllCaps="true"
+                                    android:drawablePadding="5dip"
+                                    android:drawableLeft="@drawable/ic_check_green"
+                                    android:layout_marginLeft="100dp"
+                                    android:textSize="12sp"
+                                    android:text="free installation"
+                                    android:textColor="@color/white"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"/>
+
+                                <TextView
+                                    android:layout_marginTop="5dp"
+                                    android:textAllCaps="true"
+                                    android:drawablePadding="5dip"
+                                    android:drawableLeft="@drawable/ic_check_green"
+                                    android:layout_marginLeft="100dp"
+                                    android:textSize="12sp"
+                                    android:text="existing battery replacement"
+                                    android:textColor="@color/white"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"/>
+
+                                <TextView
+                                    android:layout_marginTop="5dp"
+                                    android:textAllCaps="true"
+                                    android:drawablePadding="5dip"
+                                    android:drawableLeft="@drawable/ic_check_green"
+                                    android:layout_marginLeft="100dp"
+                                    android:textSize="12sp"
+                                    android:text="doorstep service"
+                                    android:textColor="@color/white"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"/>
+
+                                <ImageView
+                                    android:layout_marginTop="10dp"
+                                    android:scaleType="fitXY"
+                                    android:src="@drawable/car_battery"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="150dp"/>
+
+                                <Button
+                                    android:id="@+id/btn_battery"
+                                    android:textColor="@color/colorPrimary"
+                                    android:background="@drawable/btn_rounded_white"
+                                    android:textAllCaps="false"
+                                    android:text="Get Quote"
+                                    android:layout_marginTop="20dp"
+                                    android:layout_gravity="center"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+                    </ScrollView>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:visibility="gone"
+            android:id="@+id/info_popup"
+            android:background="#90000000"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.cardview.widget.CardView
+                android:layout_centerInParent="true"
+                android:id="@+id/card"
+                android:layout_gravity="center"
+                android:layout_margin="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="270dp"
+                app:cardCornerRadius="30dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/cat_image"
+                        android:src="@drawable/carrocarelogo"
+                        android:scaleType="centerCrop"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+
+                    <ImageView
+                        android:src="@drawable/ic_close"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_alignParentRight="true"
+                        android:id="@+id/cat_close_imgae"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <RelativeLayout
+                        android:background="@drawable/toast_back"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:visibility="gone"
+                            android:textAllCaps="true"
+                            android:gravity="center"
+                            android:textStyle="bold"
+                            android:textColor="@color/white"
+                            android:id="@+id/cat_title"
+                            android:layout_marginTop="70dp"
+                            android:textSize="18sp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+
+
+                        <TextView
+                            android:textColor="@color/black"
+                            android:gravity="left"
+                            android:padding="10dp"
+                            android:lines="4"
+                            android:ellipsize="end"
+                            android:id="@+id/cat_description"
+                            android:layout_alignParentBottom="true"
+                            android:layout_width="match_parent"
+                            android:layout_height="100dp"/>
+
+                    </RelativeLayout>
+
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+</layout>

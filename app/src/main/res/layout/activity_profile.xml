@@ -100,72 +100,97 @@
                     android:layout_margin="@dimen/marginhalf"
                     android:fontFamily="@font/josefinsans_light"
                     android:hint="Mobile No."/>
-                <RelativeLayout
+                <LinearLayout
+                    android:id="@+id/apartment_fields"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/edit_bg"
-                        android:layout_margin="@dimen/marginhalf">
-
-                        <TextView
-                            android:id="@+id/apartname_edt"
+                        android:layout_height="wrap_content">
+                        <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center|left"
-                            android:textColor="#000"
-                            android:lines="3"
-                            android:hint="Apartment Name"
-                            android:gravity="center|left"
-                            android:fontFamily="@font/josefinsans_light"
-                            android:textSize="@dimen/bigtext"
-                            android:layout_marginRight="35dp"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginTop="3dp"
-                            android:layout_marginBottom="3dp"/>
-                        <ImageView
-                            android:id="@+id/apartname_img"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:src="@drawable/ic_baseline_arrow_forward_ios_24"
-                            android:layout_centerVertical="true"
-                            android:padding="@dimen/padding"
-                            android:rotation="90"
-                            android:layout_alignParentRight="true"/>
-                        <!--                <android.support.v7.widget.AppCompatSpinner-->
-                        <!--                    android:id="@+id/apartname_edt"-->
-                        <!--                    android:layout_width="match_parent"-->
-                        <!--                    android:layout_height="wrap_content"-->
-                        <!--                    android:padding="@dimen/paddinglow"/>-->
+                            android:background="@drawable/edit_bg"
+                            android:layout_margin="@dimen/marginhalf">
+
+                            <TextView
+                                android:id="@+id/apartname_edt"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center|left"
+                                android:textColor="#000"
+                                android:lines="3"
+                                android:hint="Apartment Name"
+                                android:gravity="center|left"
+                                android:fontFamily="@font/josefinsans_light"
+                                android:textSize="@dimen/bigtext"
+                                android:layout_marginRight="35dp"
+                                android:layout_marginLeft="5dp"
+                                android:layout_marginTop="3dp"
+                                android:layout_marginBottom="3dp"/>
+                            <ImageView
+                                android:id="@+id/apartname_img"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:src="@drawable/ic_baseline_arrow_forward_ios_24"
+                                android:layout_centerVertical="true"
+                                android:padding="@dimen/padding"
+                                android:rotation="90"
+                                android:layout_alignParentRight="true"/>
+                            <!--                <android.support.v7.widget.AppCompatSpinner-->
+                            <!--                    android:id="@+id/apartname_edt"-->
+                            <!--                    android:layout_width="match_parent"-->
+                            <!--                    android:layout_height="wrap_content"-->
+                            <!--                    android:padding="@dimen/paddinglow"/>-->
+                        </RelativeLayout>
                     </RelativeLayout>
-                </RelativeLayout>
+                    <EditText
+                        android:id="@+id/apartbuilding_edt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:textSize="@dimen/bigtext"
+                        android:padding="@dimen/paddinghigh"
+                        android:background="@drawable/edit_bg"
+                        android:inputType="text"
+                        android:singleLine="true"
+                        android:layout_margin="@dimen/marginhalf"
+                        android:fontFamily="@font/josefinsans_light"
+                        android:hint="Apartment Building"/>
+                    <EditText
+                        android:id="@+id/flatno_edt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:textSize="@dimen/bigtext"
+                        android:padding="@dimen/paddinghigh"
+                        android:background="@drawable/edit_bg"
+                        android:inputType="text"
+                        android:singleLine="true"
+                        android:layout_margin="@dimen/marginhalf"
+                        android:fontFamily="@font/josefinsans_light"
+                        android:hint="Flat Number"/>
+                </LinearLayout>
+
                 <EditText
-                    android:id="@+id/apartbuilding_edt"
+                    android:visibility="gone"
+                    android:id="@+id/address_edt"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="70dp"
+                    android:lines="3"
                     android:layout_centerVertical="true"
                     android:textSize="@dimen/bigtext"
                     android:padding="@dimen/paddinghigh"
+                    android:drawableRight="@drawable/ic_gps"
                     android:background="@drawable/edit_bg"
-                    android:inputType="text"
-                    android:singleLine="true"
                     android:layout_margin="@dimen/marginhalf"
                     android:fontFamily="@font/josefinsans_light"
-                    android:hint="Apartment Building"/>
-                <EditText
-                    android:id="@+id/flatno_edt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:textSize="@dimen/bigtext"
-                    android:padding="@dimen/paddinghigh"
-                    android:background="@drawable/edit_bg"
-                    android:inputType="text"
-                    android:singleLine="true"
-                    android:layout_margin="@dimen/marginhalf"
-                    android:fontFamily="@font/josefinsans_light"
-                    android:hint="Flat Number"/>
+                    android:inputType="none"
+                    android:editable="false"
+                    android:focusable="false"
+                    android:hint="Address"/>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -229,13 +254,56 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/apartlist_rc"
+                        <LinearLayout
+                            android:gravity="center"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
+                            android:background="@color/colorPrimary"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <EditText
+                                android:layout_marginRight="10dp"
+                                android:layout_marginLeft="10dp"
+                                android:textColor="@color/black"
+                                android:gravity="center_vertical"
+                                android:id="@+id/rv_search"
+                                android:layout_weight="1"
+                                android:singleLine="true"
+                                android:maxLength="25"
+                                android:background="@drawable/search_back"
+                                android:padding="5dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Search"
+                                android:drawableLeft="@drawable/ic_search"
+                                android:drawablePadding="5dp"
+                                android:drawableTint="@color/black"/>
+
+                        </LinearLayout>
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_margin="@dimen/marginmed">
+                            android:orientation="vertical">
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/apartlist_rc"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/marginmed">
 
-                        </androidx.recyclerview.widget.RecyclerView>
+                            </androidx.recyclerview.widget.RecyclerView>
+                        </LinearLayout>
+                        <Button
+                            android:layout_marginRight="10dp"
+                            android:layout_gravity="right|bottom"
+                            android:id="@+id/rv_cancel"
+                            android:text="Cancel"
+                            android:background="@drawable/btn_round"
+                            android:textColor="@color/white"
+                            android:textAllCaps="false"
+                            android:layout_alignParentBottom="true"
+                            android:layout_width="100dp"
+                            android:layout_height="40dp"/>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
             </LinearLayout>

@@ -52,7 +52,7 @@ public class MyVehiclesActivity extends AppCompatActivity {
         binding.back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MyVehiclesActivity.this, MainActivity.class));
+               // startActivity(new Intent(MyVehiclesActivity.this, MainActivity.class));
                 finish();
             }
         });
@@ -146,5 +146,11 @@ public class MyVehiclesActivity extends AppCompatActivity {
     protected void onRestart() {
         super.onRestart();
         work();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

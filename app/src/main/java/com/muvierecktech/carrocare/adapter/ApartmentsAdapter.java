@@ -15,7 +15,9 @@ import com.muvierecktech.carrocare.activity.AddVehicleActivity;
 import com.muvierecktech.carrocare.activity.MyVechiclesAddActivity;
 import com.muvierecktech.carrocare.activity.ProfileActivity;
 import com.muvierecktech.carrocare.model.ApartmentList;
+import com.muvierecktech.carrocare.model.MakeModelList;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ApartmentsAdapter extends RecyclerView.Adapter {
@@ -70,6 +72,13 @@ public class ApartmentsAdapter extends RecyclerView.Adapter {
         });
 
     }
+
+    public void updateList(List<ApartmentList.Apartment> list) {
+        apartments = new ArrayList<>();
+        apartments.addAll(list);
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getItemCount() {
         return apartments.size();

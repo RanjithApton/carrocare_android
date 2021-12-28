@@ -59,7 +59,6 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
 
     String type,customerid,token,carprice,carid,paidMonths,fineAmount,totalAmountStr,date,time;
 
-
     @SuppressLint("LongLogTag")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,8 +77,6 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
         });
 
         databaseHelper = new DatabaseHelper(this);
-
-
 
         int totalItemOfCart = databaseHelper.getTotalItemOfCart();
 

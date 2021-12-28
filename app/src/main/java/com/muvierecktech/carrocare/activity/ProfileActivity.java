@@ -9,6 +9,7 @@ import android.net.NetworkInfo;
 
 import android.os.Bundle;
 
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Toast;
 
@@ -45,11 +46,12 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ProfileActivity extends AppCompatActivity {
-public ActivityProfileBinding binding;
-SessionManager sessionManager;
+    public ActivityProfileBinding binding;
+    SessionManager sessionManager;
     List<ApartmentList.Apartment> apartments;
     ArrayList<String> apartmentname;
-String token,customerid,apartname;
+    String token,customerid,apartname;
+    String type, latitude, longitude;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +61,27 @@ String token,customerid,apartname;
         HashMap<String,String> hashMap = sessionManager.getUserDetails();
         token = hashMap.get(SessionManager.KEY_TOKEN);
         customerid = hashMap.get(SessionManager.KEY_USERID);
+
+        type = sessionManager.getData(SessionManager.USER_WANTS);
+
+        if(type.equalsIgnoreCase("apartment")){
+            binding.apartmentFields.setVisibility(View.VISIBLE);
+            binding.addressEdt.setVisibility(View.GONE);
+        }else if(type.equalsIgnoreCase("doorstep")){
+            binding.addressEdt.setVisibility(View.VISIBLE);
+            binding.apartmentFields.setVisibility(View.GONE);
+        }else{
+            binding.apartmentFields.setVisibility(View.VISIBLE);
+            binding.addressEdt.setVisibility(View.GONE);
+        }
+
+        binding.addressEdt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent_loc = new Intent(ProfileActivity.this, LocateOnMapActivity.class);
+                startActivityForResult(intent_loc, 100);
+            }
+        });
 
         binding.back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,18 +98,45 @@ String token,customerid,apartname;
         binding.Update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (binding.nameEdt.getText().toString().length()>0 &&binding.emailEdt.getText().toString().length()>0 &&
-                        binding.mobileEdt.getText().toString().length()>0 &&binding.apartbuildingEdt.getText().toString().length()>0 &&
+                if(type.equalsIgnoreCase("apartment")){
+                    if (binding.nameEdt.getText().toString().length()>0 &&binding.emailEdt.getText().toString().length()>0 &&
+                            binding.mobileEdt.getText().toString().length()>0 &&binding.apartbuildingEdt.getText().toString().length()>0 &&
 //                        binding.apartnameEdt.getSelectedItem().toString().equalsIgnoreCase(Constant.APARTMENTNAME)
-                        binding.apartnameEdt.getText().toString().length()> 0 &&binding.flatnoEdt.getText().toString().length()>0 ){
-                    if (binding.mobileEdt.getText().length()==10){
-                        if (emailValidator(binding.emailEdt.getText().toString())){
-                            workUpdate();
-                        }
-                }else Toast.makeText(ProfileActivity.this, Constant.VALIDMOBILE,Toast.LENGTH_SHORT).show();
+                            binding.apartnameEdt.getText().toString().length()> 0 &&binding.flatnoEdt.getText().toString().length()>0 ){
+                        if (binding.mobileEdt.getText().length()==10){
+                            if (emailValidator(binding.emailEdt.getText().toString())){
+                                workUpdate();
+                            }
+                        }else Toast.makeText(ProfileActivity.this, Constant.VALIDMOBILE,Toast.LENGTH_SHORT).show();
 
-            }else
-                Toast.makeText(ProfileActivity.this,Constant.DETAILS,Toast.LENGTH_SHORT).show();
+                    }else
+                        Toast.makeText(ProfileActivity.this,Constant.DETAILS,Toast.LENGTH_SHORT).show();
+                }else if(type.equalsIgnoreCase("doorstep")){
+                    if (binding.nameEdt.getText().toString().length()>0 &&binding.emailEdt.getText().toString().length()>0 &&
+                            binding.mobileEdt.getText().toString().length()>0 &&binding.addressEdt.getText().toString().length()>0 ){
+                        if (binding.mobileEdt.getText().length()==10){
+                            if (emailValidator(binding.emailEdt.getText().toString())){
+                                workUpdate();
+                            }
+                        }else Toast.makeText(ProfileActivity.this, Constant.VALIDMOBILE,Toast.LENGTH_SHORT).show();
+
+                    }else
+                        Toast.makeText(ProfileActivity.this,Constant.DETAILS,Toast.LENGTH_SHORT).show();
+                }else{
+                    if (binding.nameEdt.getText().toString().length()>0 &&binding.emailEdt.getText().toString().length()>0 &&
+                            binding.mobileEdt.getText().toString().length()>0 &&binding.apartbuildingEdt.getText().toString().length()>0 &&
+//                        binding.apartnameEdt.getSelectedItem().toString().equalsIgnoreCase(Constant.APARTMENTNAME)
+                            binding.apartnameEdt.getText().toString().length()> 0 &&binding.flatnoEdt.getText().toString().length()>0 ){
+                        if (binding.mobileEdt.getText().length()==10){
+                            if (emailValidator(binding.emailEdt.getText().toString())){
+                                workUpdate();
+                            }
+                        }else Toast.makeText(ProfileActivity.this, Constant.VALIDMOBILE,Toast.LENGTH_SHORT).show();
+
+                    }else
+                        Toast.makeText(ProfileActivity.this,Constant.DETAILS,Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
         work();
@@ -148,18 +198,18 @@ String token,customerid,apartname;
         call.enqueue(new Callback<ApartmentList>() {
             @Override
             public void onResponse(Call<ApartmentList> call, Response<ApartmentList> response) {
-              ApartmentList apartmentList = response.body();
-              hud.dismiss();
-              if (apartmentList.code.equalsIgnoreCase("200")){
-                  apartments = apartmentList.Apartment;
-                  int pos = 0;
-                  apartmentname.add(0,Constant.APARTMENTNAME);
-                  for(int i = 0; i < apartments.size(); i++){
-                      //Storing names to string array
-                      String items = apartments.get(i).name;
-                      apartmentname.add(items);
+                ApartmentList apartmentList = response.body();
+                hud.dismiss();
+                if (apartmentList.code.equalsIgnoreCase("200")){
+                    apartments = apartmentList.Apartment;
+                    int pos = 0;
+                    apartmentname.add(0,Constant.APARTMENTNAME);
+                    for(int i = 0; i < apartments.size(); i++){
+                        //Storing names to string array
+                        String items = apartments.get(i).name;
+                        apartmentname.add(items);
 //                        pos = i;
-                  }
+                    }
 
               /*    //Spinner spinner = (Spinner) findViewById(R.id.spinner1);
                   ArrayAdapter<String> adapter;
@@ -172,11 +222,11 @@ String token,customerid,apartname;
                       binding.apartnameEdt.setSelection(spinnerPosition);
 
                   }*/
-                  ApartmentsAdapter apartmentsAdapter = new ApartmentsAdapter(ProfileActivity.this,apartmentList.Apartment, "1");
-                  LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ProfileActivity.this,LinearLayoutManager.VERTICAL,false);
-                  binding.apartlistRc.setLayoutManager(linearLayoutManager);
-                  binding.apartlistRc.setAdapter(apartmentsAdapter);
-              }
+                    ApartmentsAdapter apartmentsAdapter = new ApartmentsAdapter(ProfileActivity.this,apartmentList.Apartment, "1");
+                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ProfileActivity.this,LinearLayoutManager.VERTICAL,false);
+                    binding.apartlistRc.setLayoutManager(linearLayoutManager);
+                    binding.apartlistRc.setAdapter(apartmentsAdapter);
+                }
             }
             @Override
             public void onFailure(Call<ApartmentList> call, Throwable t) {
@@ -336,5 +386,15 @@ String token,customerid,apartname;
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         i.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         startActivity(i);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (Constant.LOAD_FROM.equalsIgnoreCase("map")) {
+            if (!TextUtils.isEmpty(sessionManager.getData(SessionManager.KEY_ADDRESS)) || sessionManager.getData(SessionManager.KEY_ADDRESS) != null) {
+                binding.addressEdt.setText(sessionManager.getData(SessionManager.KEY_ADDRESS));
+            }
+        }
     }
 }

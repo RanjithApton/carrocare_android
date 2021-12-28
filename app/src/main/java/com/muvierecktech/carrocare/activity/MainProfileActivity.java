@@ -44,7 +44,15 @@ public class MainProfileActivity extends AppCompatActivity {
         binding.back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                //finish();
+                onBackPressed();
+            }
+        });
+        binding.homeTxt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainProfileActivity.this,MainActivity.class);
+                startActivity(intent);
             }
         });
         binding.profileTxt.setOnClickListener(new View.OnClickListener() {
@@ -74,7 +82,6 @@ public class MainProfileActivity extends AppCompatActivity {
         binding.myordersTxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 Intent intent = new Intent(MainProfileActivity.this,MyOrdersActivity.class);
                 startActivity(intent);
             }

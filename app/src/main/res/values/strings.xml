@@ -12,8 +12,22 @@
     <string name="develop">App developed by \n
         \n<b> Muviereck Technologies Pvt. Ltd</b></string>
     <string name="exit_msg">Please click BACK again to exit</string>
+    <!--    <string name="google_maps_key">AIzaSyBuSAM9Ff4REc5_qCN2K6kOfGpmLK0yEXs</string>-->
+    <!--    <string name="google_maps_key">AIzaSyB6p66Qyjq1AUFyHnH88XOGUStT7pzfSyM</string>-->
+    <string name="google_maps_key">AIzaSyATXslnGfSL6e6je8_FzorFV9fL3HHx5es</string>
+    <string name="share_via">Share via</string>
+    <string name="location_permission">Location Permission</string>
+    <string name="location_permission_message">We need location permission to get location of your work.</string>
+    <string name="ok">OK</string>
+    <string name="action_apartment">Apartment Service</string>
+    <string name="action_doorstep">Doorstep Service</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="location_1">"Location : "</string>
+    <string name="current_location">Current location</string>
+    <string name="set_location">set location</string>
     <string name="update_alert">Update Alert</string>
     <string name="update_msg_1">Update the app for a better experience!</string>
     <string name="not_now">Not Now</string>
     <string name="update_now">Update</string>
+    <string name="logout">Logout</string>
 </resources>

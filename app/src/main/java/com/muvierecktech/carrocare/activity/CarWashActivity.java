@@ -141,8 +141,8 @@ public class CarWashActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = new Intent(CarWashActivity.this,MainActivity.class);
-        startActivity(intent);
+//        Intent intent = new Intent(CarWashActivity.this,MainActivity.class);
+//        startActivity(intent);
         finish();
     }
 }

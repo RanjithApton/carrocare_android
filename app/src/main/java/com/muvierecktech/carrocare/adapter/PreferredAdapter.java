@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.muvierecktech.carrocare.R;
 import com.muvierecktech.carrocare.activity.AddVehicleActivity;
 import com.muvierecktech.carrocare.activity.ConfirmFormActivity;
+import com.muvierecktech.carrocare.activity.MapAddVechileActivity;
 import com.muvierecktech.carrocare.activity.MyVechiclesAddActivity;
 import com.muvierecktech.carrocare.activity.PaymentOptionActivity;
 import com.muvierecktech.carrocare.activity.RenewActivity;
@@ -135,6 +136,25 @@ public class PreferredAdapter extends RecyclerView.Adapter {
                     ((RenewActivity)context).binding.preferredtimeEdt1.setText(prefer[pos]);
                     ((RenewActivity)context).time = prefer[pos];
                     ((RenewActivity)context).binding.timeLl.setVisibility(View.GONE);
+                }
+
+                else if (type.equalsIgnoreCase("12")){
+                    MyViewHolder viewHolder1 = (MyViewHolder) view.getTag();
+                    int pos = viewHolder1.getAdapterPosition();
+                    lastSelectedPosition = pos;
+                    notifyDataSetChanged();
+                    //((MapAddVechileActivity)context).binding.preferredscheduleEdt.setText(prefer[pos]);
+                    //((MapAddVechileActivity)context).binding.preferredtimeEdt.setText(null);
+                    ((MapAddVechileActivity)context).binding.preferredscheduleRc.setVisibility(View.GONE);
+                    ((MapAddVechileActivity)context).binding.apartRl.setVisibility(View.GONE);
+                }else if (type.equalsIgnoreCase("23")){
+                    MyViewHolder viewHolder1 = (MyViewHolder) view.getTag();
+                    int pos = viewHolder1.getAdapterPosition();
+                    lastSelectedPosition = pos;
+                    notifyDataSetChanged();
+                    //((MapAddVechileActivity)context).binding.preferredtimeEdt.setText(prefer[pos]);
+                    ((MapAddVechileActivity)context).binding.preferredtimeRc.setVisibility(View.GONE);
+                    ((MapAddVechileActivity)context).binding.apartRl.setVisibility(View.GONE);
                 }
 
 

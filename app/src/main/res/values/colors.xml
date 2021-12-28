@@ -18,4 +18,6 @@
     <color name="colorGrey">#f4f4f4</color>
     <color name="grey_20">#cccccc</color>
     <color name="dark_gray">#313030</color>
+    <color name="trans_color">#00FFFFFF</color>
+    <color name="bg_color1234">#E6ECECEF</color>
 </resources>

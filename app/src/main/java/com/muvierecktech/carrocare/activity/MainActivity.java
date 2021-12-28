@@ -105,103 +105,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        binding.myVechicle.setOnClickListener(new View.OnClickListener() {
+        binding.apartmentService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,MyVehiclesActivity.class);
-                startActivity(intent);
+                sessionManager.setData(SessionManager.USER_WANTS,"apartment");
+                startActivity(new Intent(MainActivity.this,ApartmentServiceActivity.class));
             }
         });
 
-        binding.myRemainder.setOnClickListener(new View.OnClickListener() {
+        binding.doorstepService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,MyRemainderActivity.class);
-                startActivity(intent);
-            }
-        });
-
-
-        binding.carWash.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (TextUtils.isEmpty(apartname) || apartname == null || apartname.equalsIgnoreCase("null")){
-                    Intent intent = new Intent(MainActivity.this,ProfileActivity.class);
-                    startActivity(intent);
-                    finish();
-                }else {
-                    Intent intent = new Intent(MainActivity.this,CarWashActivity.class);
-                    //intent.putExtra("headername", Constant.WASH);
-                    startActivity(intent);
-                }
-            }
-        });
-        binding.bikeWash.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                if (TextUtils.isEmpty(apartname) || apartname == null || apartname.equalsIgnoreCase("null")) {
-                    Intent intent = new Intent(MainActivity.this,ProfileActivity.class);
-                    startActivity(intent);
-                    finish();
-                }else {
-                    Intent intent = new Intent(MainActivity.this,BikeWashActivity.class);
-                    //intent.putExtra("headername", Constant.BWASH);
-                    startActivity(intent);
-                }
-            }
-        });
-        binding.carInsurance.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (TextUtils.isEmpty(apartname) || apartname == null || apartname.equalsIgnoreCase("null")){
-                    Intent intent = new Intent(MainActivity.this,ProfileActivity.class);
-                    startActivity(intent);
-                    finish();
-                }else {
-                    Intent intent = new Intent(MainActivity.this,ConfirmFormActivity.class);
-                    intent.putExtra("headername",Constant.INSURANCE);
-                    startActivity(intent);
-                }
-            }
-        });
-        binding.carService.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (TextUtils.isEmpty(apartname) || apartname == null || apartname.equalsIgnoreCase("null")){
-                    Intent intent = new Intent(MainActivity.this,ProfileActivity.class);
-                    startActivity(intent);
-                    finish();
-                }else {
-                    Intent intent = new Intent(MainActivity.this,AddOnActivity.class);
-                    //intent.putExtra("headername",Constant.ADDON);
-                    startActivity(intent);
-                }
-            }
-        });
-        binding.extraInterior.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                if (TextUtils.isEmpty(apartname) || apartname == null || apartname.equalsIgnoreCase("null")){
-                    Intent intent = new Intent(MainActivity.this,ProfileActivity.class);
-                    startActivity(intent);
-                    finish();
-                }else {
-                    Intent intent = new Intent(MainActivity.this, ExtraInteriorActivity.class);
-                    //intent.putExtra("headername",Constant.EXTRAINT);
-                    startActivity(intent);
-                }
-            }
-        });
-        binding.machinePolish.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (TextUtils.isEmpty(apartname) || apartname == null || apartname.equalsIgnoreCase("null")){
-                    Intent intent = new Intent(MainActivity.this,ProfileActivity.class);
-                    startActivity(intent);
-                    finish();
-                }else {
-                    Intent intent = new Intent(MainActivity.this,CarPolishActivity.class);
-                    //intent.putExtra("headername",Constant.CARMACHINE);
-                    startActivity(intent);
-                }
+                sessionManager.setData(SessionManager.USER_WANTS,"doorstep");
+                startActivity(new Intent(MainActivity.this,DoorStepServiceActivity.class));
             }
         });
 

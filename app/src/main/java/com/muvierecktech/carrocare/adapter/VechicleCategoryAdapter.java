@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.RadioButton;
 
 import com.muvierecktech.carrocare.R;
+import com.muvierecktech.carrocare.activity.MapAddVechileActivity;
 import com.muvierecktech.carrocare.activity.MyVechiclesAddActivity;
 import com.muvierecktech.carrocare.activity.ConfirmFormActivity;
 import com.muvierecktech.carrocare.activity.MyVechiclesAddActivity;
@@ -70,7 +71,32 @@ public class VechicleCategoryAdapter extends RecyclerView.Adapter {
 
                         }
 
-                    }
+                    } else if (type.equalsIgnoreCase("3")){
+                         MyViewHolder viewHolder1 = (MyViewHolder) view.getTag();
+                         int pos = viewHolder1.getAdapterPosition();
+                         lastSelectedPosition = pos;
+                         notifyDataSetChanged();
+                         ((MapAddVechileActivity)context).binding.vecCategoryEdt.setText(prefer[pos]);
+                         ((MapAddVechileActivity)context).binding.vecCategoryRc.setVisibility(View.GONE);
+                         ((MapAddVechileActivity)context).binding.apartRl.setVisibility(View.GONE);
+
+                         String vecCat = prefer[pos];
+                         ((MapAddVechileActivity)context).additionalwork(vecCat);
+
+//                         if (prefer[pos].equalsIgnoreCase("bike")){
+//                             ((MapAddVechileActivity)context).binding.makeModelEdt.setText("");
+//                             ((MapAddVechileActivity)context).binding.makemodelRl.setVisibility(View.GONE);
+//                             ((MapAddVechileActivity)context).binding.makeEdt.setVisibility(View.VISIBLE);
+//                             ((MapAddVechileActivity)context).binding.modelEdt.setVisibility(View.VISIBLE);
+//                         }else{
+//                             ((MapAddVechileActivity)context).binding.makeModelEdt.setText("");
+//                             ((MapAddVechileActivity)context).binding.makemodelRl.setVisibility(View.VISIBLE);
+//                             ((MapAddVechileActivity)context).binding.makeEdt.setVisibility(View.GONE);
+//                             ((MapAddVechileActivity)context).binding.modelEdt.setVisibility(View.GONE);
+//
+//                         }
+
+                     }
 
 
                 }

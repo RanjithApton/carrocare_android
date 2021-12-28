@@ -132,8 +132,8 @@ public class ExtraInteriorActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = new Intent(ExtraInteriorActivity.this,MainActivity.class);
-        startActivity(intent);
+//        Intent intent = new Intent(ExtraInteriorActivity.this,MainActivity.class);
+//        startActivity(intent);
         finish();
     }
 }

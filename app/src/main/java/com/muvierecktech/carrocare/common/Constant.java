@@ -67,6 +67,17 @@ public class Constant {
     public static String MONTHLY = "Monthly";
     public static String ONETIME = "One Time";
 
+    public static String LOAD_FROM = "";
+
+    public static String ONETIME_PACK_TYPE;
+    public static String ONETIME_SERVICE_TYPE;
+    public static String ONETIME_CAR_PRICE;
+    public static String ONETIME_CAR_ID;
+    public static String ONETIME_DATE;
+    public static String ONETIME_TIME;
+    public static String ONETIME_CAR_TYPE;
+    public static String ONETIME_ADDITIONAL;
+
     public static String ACTIONMONTH = "monthly_payment";
     public static String ACTIONONE = "onetime_payment";
     public static String ACTIONWASHONE = "onetime_wash_payment";

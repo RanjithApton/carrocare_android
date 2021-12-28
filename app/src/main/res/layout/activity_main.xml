@@ -214,38 +214,41 @@
                         android:layout_height="wrap_content"/>
 
                     <LinearLayout
+                        android:weightSum="2"
+                        android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:orientation="horizontal">
 
-                        <LinearLayout
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/apartment_service"
+                            android:layout_margin="10dp"
+                            android:layout_weight="1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginBottom="10dp"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginRight="5dp"
-                            android:orientation="horizontal">
+                            app:cardCornerRadius="7dp"
+                            app:cardBackgroundColor="@color/white"
+                            android:elevation="5dp"
+                            android:fitsSystemWindows="true"
+                            app:cardUseCompatPadding="true"
+                            app:cardPreventCornerOverlap="true"
+                            app:cardElevation="3dp">
 
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
                                 android:layout_gravity="fill"
                                 android:layout_marginBottom="10dp"
                                 android:orientation="vertical">
                                 <LinearLayout
-                                    android:id="@+id/car_wash"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:gravity="center"
                                     android:padding="@dimen/padding">
                                     <ImageView
-                                        android:id="@+id/wash1"
-                                        android:layout_width="80dp"
-                                        android:layout_height="80dp"
-                                        android:src="@drawable/home_car_wash"
-                                        android:padding="@dimen/marginhalf"
+                                        android:layout_width="150dp"
+                                        android:layout_height="150dp"
+                                        android:src="@drawable/apartment_services"
                                         android:layout_gravity="center"/>
                                 </LinearLayout>
                                 <TextView
@@ -256,9 +259,26 @@
                                     android:textSize="@dimen/medtext"
                                     android:textColor="@color/black"
                                     android:textAllCaps="true"
+                                    android:textStyle="bold"
                                     android:fontFamily="@font/josefinsans_regular"
-                                    android:text="Daily Car Wash"/>
+                                    android:text="Apartment Service"/>
                             </LinearLayout>
+
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/doorstep_service"
+                            android:layout_margin="10dp"
+                            android:layout_weight="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:cardCornerRadius="7dp"
+                            app:cardBackgroundColor="@color/white"
+                            android:elevation="5dp"
+                            android:fitsSystemWindows="true"
+                            app:cardUseCompatPadding="true"
+                            app:cardPreventCornerOverlap="true"
+                            app:cardElevation="3dp">
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -268,17 +288,14 @@
                                 android:layout_marginBottom="10dp"
                                 android:orientation="vertical">
                                 <LinearLayout
-                                    android:id="@+id/bike_wash"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:gravity="center"
                                     android:padding="@dimen/padding">
                                     <ImageView
-                                        android:id="@+id/wash11"
-                                        android:layout_width="80dp"
-                                        android:layout_height="80dp"
-                                        android:src="@drawable/home_bile_wash"
-                                        android:padding="@dimen/marginmed"
+                                        android:layout_width="150dp"
+                                        android:layout_height="150dp"
+                                        android:src="@drawable/doorstep_service"
                                         android:layout_gravity="center"/>
                                 </LinearLayout>
                                 <TextView
@@ -289,244 +306,17 @@
                                     android:textSize="@dimen/medtext"
                                     android:textColor="@color/black"
                                     android:textAllCaps="true"
+                                    android:textStyle="bold"
                                     android:fontFamily="@font/josefinsans_regular"
-                                    android:text="Bike Wash"/>
-                            </LinearLayout>
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:layout_gravity="fill"
-                                android:layout_marginBottom="10dp"
-                                android:orientation="vertical">
-                                <LinearLayout
-                                    android:id="@+id/car_service"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:gravity="center"
-                                    android:padding="@dimen/padding">
-                                    <ImageView
-                                        android:id="@+id/wash2"
-                                        android:layout_width="80dp"
-                                        android:layout_height="80dp"
-                                        android:src="@drawable/home_wax_polish"
-                                        android:padding="@dimen/marginhalf"
-                                        android:layout_gravity="center"/>
-                                </LinearLayout>
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    android:gravity="center"
-                                    android:textSize="@dimen/medtext"
-                                    android:textColor="@color/black"
-                                    android:textAllCaps="true"
-                                    android:fontFamily="@font/josefinsans_regular"
-                                    android:text="Wax Polish"/>
+                                    android:text="Doorstep service"/>
                             </LinearLayout>
 
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginBottom="10dp"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginRight="5dp"
-                            android:orientation="horizontal">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:layout_gravity="fill"
-                                android:layout_marginBottom="10dp"
-                                android:orientation="vertical">
-                                <LinearLayout
-                                    android:id="@+id/extra_interior"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:gravity="center"
-                                    android:padding="@dimen/padding">
-                                    <ImageView
-                                        android:id="@+id/wash21"
-                                        android:layout_width="80dp"
-                                        android:layout_height="80dp"
-                                        android:src="@drawable/home_extra_int"
-                                        android:padding="@dimen/marginmed"
-                                        android:layout_gravity="center"/>
-                                </LinearLayout>
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    android:gravity="center"
-                                    android:textSize="@dimen/medtext"
-                                    android:textColor="@color/black"
-                                    android:textAllCaps="true"
-                                    android:fontFamily="@font/josefinsans_regular"
-                                    android:text="Extra Interior"/>
-                            </LinearLayout>
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="10dp"
-                                android:layout_weight="1"
-                                android:layout_gravity="fill"
-                                android:orientation="vertical">
-                                <LinearLayout
-                                    android:id="@+id/machine_polish"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:gravity="center"
-                                    android:padding="@dimen/padding">
-                                    <ImageView
-                                        android:id="@+id/wash3"
-                                        android:layout_width="80dp"
-                                        android:layout_height="80dp"
-                                        android:src="@drawable/home_machine_polish"
-                                        android:padding="@dimen/marginhalf"
-                                        android:layout_gravity="center"/>
-                                </LinearLayout>
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    android:gravity="center"
-                                    android:textSize="@dimen/medtext"
-                                    android:textColor="@color/black"
-                                    android:textAllCaps="true"
-                                    android:fontFamily="@font/josefinsans_regular"
-                                    android:text="Machine Polish"/>
-                            </LinearLayout>
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="10dp"
-                                android:layout_weight="1"
-                                android:layout_gravity="fill"
-                                android:orientation="vertical">
-                                <LinearLayout
-                                    android:id="@+id/car_insurance"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:gravity="center"
-                                    android:padding="@dimen/padding">
-                                    <ImageView
-                                        android:id="@+id/wash4"
-                                        android:layout_width="80dp"
-                                        android:layout_height="80dp"
-                                        android:src="@drawable/home_car_insurance"
-                                        android:padding="@dimen/marginhalf"
-                                        android:layout_gravity="center"/>
-                                </LinearLayout>
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    android:gravity="center"
-                                    android:textSize="@dimen/medtext"
-                                    android:textColor="@color/black"
-                                    android:textAllCaps="true"
-                                    android:fontFamily="@font/josefinsans_regular"
-                                    android:text="Insurance"/>
-                            </LinearLayout>
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginBottom="10dp"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginRight="5dp"
-                            android:orientation="horizontal">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="fill"
-                                android:layout_weight="1"
-                                android:layout_marginBottom="10dp"
-                                android:orientation="vertical">
-                                <LinearLayout
-                                    android:id="@+id/my_vechicle"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:gravity="center"
-                                    android:padding="@dimen/padding">
-                                    <ImageView
-                                        android:id="@+id/vechicle"
-                                        android:layout_width="80dp"
-                                        android:layout_height="80dp"
-                                        android:src="@drawable/home_my_vehicle"
-                                        android:padding="@dimen/marginmed"
-                                        android:layout_gravity="center"/>
-                                </LinearLayout>
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    android:gravity="center"
-                                    android:textSize="@dimen/medtext"
-                                    android:textColor="@color/black"
-                                    android:textAllCaps="true"
-                                    android:fontFamily="@font/josefinsans_regular"
-                                    android:text="My Vehicles"/>
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:visibility="invisible"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="fill"
-                                android:layout_weight="1"
-                                android:layout_marginBottom="10dp"
-                                android:orientation="vertical">
-                                <LinearLayout
-                                    android:id="@+id/my_remainder"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:gravity="center"
-                                    android:padding="@dimen/padding">
-                                    <ImageView
-                                        android:id="@+id/reminder"
-                                        android:layout_width="80dp"
-                                        android:layout_height="80dp"
-                                        android:src="@drawable/home_my_reminder"
-                                        android:padding="@dimen/marginhalf"
-                                        android:layout_gravity="center"/>
-                                </LinearLayout>
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    android:gravity="center"
-                                    android:textSize="@dimen/medtext"
-                                    android:textColor="@color/black"
-                                    android:textAllCaps="true"
-                                    android:fontFamily="@font/josefinsans_regular"
-                                    android:text="My Remainder"/>
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="fill"
-                                android:layout_weight="1"
-                                android:layout_marginBottom="10dp"
-                                android:orientation="vertical">
-
-                            </LinearLayout>
-
-
-                        </LinearLayout>
-
+                        </androidx.cardview.widget.CardView>
 
 
                     </LinearLayout>
+
+
 
                 </LinearLayout>
             </LinearLayout>
@@ -555,7 +345,7 @@
             android:id="@+id/popupinternal"
             android:visibility="gone"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:background="@color/trans">
             <LinearLayout
                 android:layout_width="match_parent"

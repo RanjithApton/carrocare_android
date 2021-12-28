@@ -1,6 +1,7 @@
 package com.muvierecktech.carrocare.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,6 +42,12 @@ public class MyVehicleAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         final MyViewHolder viewHolder = (MyViewHolder) holder;
+
+//        if(TextUtils.isEmpty(vecDetails.get(position).address) || vecDetails.get(position).address == null){
+//            viewHolder.card.setVisibility(View.VISIBLE);
+//        }else{
+//            viewHolder.card.setVisibility(View.GONE);
+//        }
 
         viewHolder.vec_makemodel.setText(vecDetails.get(position).vehicle_make+"-"+vecDetails.get(position).vehicle_model);
 //        viewHolder.category.setText(vecDetails.get(position).vehicle_category);
