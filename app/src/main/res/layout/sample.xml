@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/checkout_popup"
+        android:background="@drawable/bottom_popup"
+        android:layout_marginTop="200dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp">
+
+                    <ImageView
+                        android:id="@+id/close_popup_checkout"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginLeft="20dp"
+                        android:src="@drawable/ic_back"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"/>
+
+                    <TextView
+                        android:paddingRight="20dp"
+                        android:textSize="18dp"
+                        android:gravity="center"
+                        android:textColor="@color/white"
+                        android:text="3. Checkout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginTop="5dp"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_marginLeft="20dp"
+                        android:textSize="15dp"
+                        android:textColor="@color/white"
+                        android:text="Payment option"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <CheckBox
+                            android:textColor="@color/white"
+                            android:text="Cash on delivery"
+                            android:layout_margin="20dp"
+                            style="@style/DefalutCheckBox"
+                            android:id="@+id/cod_check"
+                            android:layout_alignParentRight="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <CheckBox
+                            android:textColor="@color/white"
+                            android:text="Online payment"
+                            android:layout_margin="20dp"
+                            style="@style/DefalutCheckBox"
+                            android:id="@+id/online_check"
+                            android:layout_alignParentRight="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    </LinearLayout>
+
+
+
+
+
+
+
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+            <Button
+                android:layout_marginBottom="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:id="@+id/payment_btn"
+                android:background="@drawable/btn_info"
+                android:layout_gravity="center"
+                android:text="Confirm Order"
+                android:textColor="@color/colorPrimary"
+                android:textAllCaps="false"
+                android:layout_margin="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

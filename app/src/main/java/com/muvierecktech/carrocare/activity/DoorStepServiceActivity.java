@@ -83,8 +83,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -126,6 +128,8 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
     String token,customerid;
     SessionManager sessionManager;
     private String plan_date_time_schedule = "";
+    private String comparedate = "";
+    private String today_date = "";
     SingleDateAndTimePicker dateAndTimePicker, singleDateAndTimePicker;
     private Date defaultDate;
     String custmob,custemail,razorpayid;
@@ -391,9 +395,6 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
             }
         });
 
-
-
-
         binding.catCloseImgae.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -426,10 +427,13 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
         binding.addCheckoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!plan_date_time_schedule.isEmpty()) {
-                    workmode();
-                }else{
+
+                if (plan_date_time_schedule.isEmpty()){
                     Toast.makeText(activity, "Select Date", Toast.LENGTH_SHORT).show();
+                }else if(comparedate.equals(today_date)){
+                    Toast.makeText(activity, "Select different date", Toast.LENGTH_SHORT).show();
+                }else{
+                    workmode();
                 }
 
             }
@@ -766,7 +770,7 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
             }
         });
 
-
+        getTodayDate();
     }
 
     @Override
@@ -857,19 +861,20 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
     }
 
     private void displays(String displayed) {
-        Log.e("c_response=>>", displayed);
+        //Log.e("c_response=>>", displayed);
         plan_date_time_schedule = displayed;
 
         String planed_time = ApiConfig.parseDateToddMMyyyyHHMMAMPM(plan_date_time_schedule);
-        Log.e("c_response=>>123456", planed_time);
+        //Log.e("c_response=>>123456", planed_time);
 
         String dateOnly = ApiConfig.spiltDate(plan_date_time_schedule);
-        Log.e("c_response=>>789456",""+ dateOnly);
+        //Log.e("c_response=>>789456",""+ dateOnly);
         Constant.ONETIME_DATE = dateOnly;
 
         String timeOnly = ApiConfig.spiltTime(plan_date_time_schedule);
-        Log.e("c_response=>>789456",""+ timeOnly);
+        //Log.e("c_response=>>789456",""+ timeOnly);
         Constant.ONETIME_TIME = timeOnly;
+        comparedate = dateOnly;
     }
 
     @Override
@@ -1687,5 +1692,11 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
         }
     }
 
+    private void getTodayDate(){
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        Date cal = calendar.getTime();
+        today_date = df.format(cal);
+    }
 
 }
