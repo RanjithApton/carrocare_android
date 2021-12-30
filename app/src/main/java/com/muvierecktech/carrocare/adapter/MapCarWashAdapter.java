@@ -85,18 +85,6 @@ public class MapCarWashAdapter extends RecyclerView.Adapter {
                 MyViewHolder myViewHolder = (MyViewHolder)v.getTag();
                 int pos = myViewHolder.getAdapterPosition();
                 //((DoorStepServiceActivity)context).binding.infoPopup.clearAnimation();
-                ((DoorStepServiceActivity)context).binding.infoPopup.setVisibility(View.VISIBLE);
-                //((DoorStepServiceActivity)context).binding.infoPopup.setAnimation(zoomin);
-
-                Picasso.get()
-                        .load(services.get(pos).image)
-                        .placeholder(R.drawable.placeholder)
-                        .error(R.drawable.placeholder)
-                        .into(((DoorStepServiceActivity)context).binding.catImage);
-
-                ((DoorStepServiceActivity)context).binding.catTitle.setText(services.get(pos).type);
-                ((DoorStepServiceActivity)context).binding.catDescription.setText(HtmlCompat.fromHtml(services.get(pos).description,0));
-
             }
         });
 

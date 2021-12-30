@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/paintingsheet"
+    android:background="@drawable/bottom_sheet_background"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp">
+
+                    <ImageView
+                        android:id="@+id/close_paint_popup"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginLeft="20dp"
+                        android:src="@drawable/ic_back"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"/>
+
+                    <TextView
+                        android:paddingRight="20dp"
+                        android:textSize="18dp"
+                        android:gravity="center"
+                        android:textColor="@color/white"
+                        android:text="2.Painting &amp; Denting"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+
+                </LinearLayout>
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:layout_marginTop="10dp"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:text="scratch or dent?"
+                            android:textAllCaps="true"
+                            android:gravity="center"
+                            android:textSize="30sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/white"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+
+                        <TextView
+                            android:text="make it look like new"
+                            android:textAllCaps="true"
+                            android:gravity="center"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/white"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+
+                        <LinearLayout
+                            android:layout_marginTop="15dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:orientation="horizontal"
+                                android:weightSum="2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:textAllCaps="true"
+                                    android:drawablePadding="5dip"
+                                    android:drawableLeft="@drawable/ic_check_green"
+                                    android:layout_weight="1"
+                                    android:textSize="12sp"
+                                    android:text="painting"
+                                    android:textColor="@color/white"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"/>
+
+                                <TextView
+                                    android:textAllCaps="true"
+                                    android:drawablePadding="5dip"
+                                    android:drawableLeft="@drawable/ic_check_green"
+                                    android:layout_weight="1"
+                                    android:textSize="12sp"
+                                    android:text="custom wheel painting"
+                                    android:textColor="@color/white"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"/>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_marginTop="5dp"
+                                android:orientation="horizontal"
+                                android:weightSum="2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:textAllCaps="true"
+                                    android:drawablePadding="5dip"
+                                    android:drawableLeft="@drawable/ic_check_green"
+                                    android:layout_weight="1"
+                                    android:textSize="12sp"
+                                    android:text="denting"
+                                    android:textColor="@color/white"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"/>
+
+                                <TextView
+                                    android:textAllCaps="true"
+                                    android:drawablePadding="5dip"
+                                    android:drawableLeft="@drawable/ic_check_green"
+                                    android:layout_weight="1"
+                                    android:textSize="12sp"
+                                    android:text="premium quality paints"
+                                    android:textColor="@color/white"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"/>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_marginTop="5dp"
+                                android:orientation="horizontal"
+                                android:weightSum="2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:textAllCaps="true"
+                                    android:drawablePadding="5dip"
+                                    android:drawableLeft="@drawable/ic_check_green"
+                                    android:layout_weight="1"
+                                    android:textSize="12sp"
+                                    android:text="color change (same colour)"
+                                    android:textColor="@color/white"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"/>
+
+                                <TextView
+                                    android:textAllCaps="true"
+                                    android:drawablePadding="5dip"
+                                    android:drawableLeft="@drawable/ic_check_green"
+                                    android:layout_weight="1"
+                                    android:textSize="12sp"
+                                    android:text="free pickup and drop"
+                                    android:textColor="@color/white"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"/>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_marginTop="5dp"
+                                android:orientation="horizontal"
+                                android:weightSum="2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:textAllCaps="true"
+                                    android:drawablePadding="5dip"
+                                    android:drawableLeft="@drawable/ic_check_green"
+                                    android:layout_weight="1"
+                                    android:textSize="12sp"
+                                    android:text="colour customisation"
+                                    android:textColor="@color/white"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"/>
+
+                                <TextView
+                                    android:textAllCaps="true"
+                                    android:drawablePadding="5dip"
+                                    android:drawableLeft="@drawable/ic_check_green"
+                                    android:layout_weight="1"
+                                    android:textSize="12sp"
+                                    android:text="real time update"
+                                    android:textColor="@color/white"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"/>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_marginTop="5dp"
+                                android:orientation="horizontal"
+                                android:weightSum="2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:textAllCaps="true"
+                                    android:drawablePadding="5dip"
+                                    android:drawableLeft="@drawable/ic_check_green"
+                                    android:layout_weight="1"
+                                    android:textSize="12sp"
+                                    android:text="colour change on demand"
+                                    android:textColor="@color/white"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"/>
+
+                                <TextView
+                                    android:textAllCaps="true"
+                                    android:drawablePadding="5dip"
+                                    android:drawableLeft="@drawable/ic_check_green"
+                                    android:layout_weight="1"
+                                    android:textSize="12sp"
+                                    android:text="on time delivery"
+                                    android:textColor="@color/white"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"/>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_marginTop="5dp"
+                                android:orientation="horizontal"
+                                android:weightSum="2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:textAllCaps="true"
+                                    android:drawablePadding="5dip"
+                                    android:drawableLeft="@drawable/ic_check_green"
+                                    android:layout_weight="1"
+                                    android:textSize="12sp"
+                                    android:text="accident repair"
+                                    android:textColor="@color/white"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"/>
+
+                                <TextView
+                                    android:textAllCaps="true"
+                                    android:drawablePadding="5dip"
+                                    android:drawableLeft="@drawable/ic_check_green"
+                                    android:layout_weight="1"
+                                    android:textSize="12sp"
+                                    android:text="premium quality paints"
+                                    android:textColor="@color/white"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"/>
+
+                            </LinearLayout>
+
+                            <ImageView
+                                android:layout_marginTop="10dp"
+                                android:src="@drawable/car_painting"
+                                android:layout_width="match_parent"
+                                android:layout_height="150dp"/>
+
+                            <Button
+                                android:id="@+id/btn_paint"
+                                android:textColor="@color/colorPrimary"
+                                android:background="@drawable/btn_rounded_white"
+                                android:textAllCaps="false"
+                                android:text="Get Quote"
+                                android:layout_marginTop="20dp"
+                                android:layout_gravity="center"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+                </ScrollView>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+
+
+</RelativeLayout>

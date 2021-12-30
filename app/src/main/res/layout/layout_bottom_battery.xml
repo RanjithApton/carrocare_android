@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/batterysheet"
+    android:background="@drawable/bottom_sheet_background"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+
+                <ImageView
+                    android:id="@+id/close_battery_popup"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:src="@drawable/ic_back"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"/>
+
+                <TextView
+                    android:paddingRight="20dp"
+                    android:textSize="18dp"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:text="2.Battery Replacement"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </LinearLayout>
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:text="car not starting"
+                        android:textAllCaps="true"
+                        android:gravity="center"
+                        android:textSize="30sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/white"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:text="with carrocare, you'll never be standed"
+                        android:textAllCaps="true"
+                        android:gravity="center"
+                        android:textSize="15dp"
+                        android:textStyle="bold"
+                        android:textColor="@color/white"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <LinearLayout
+                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:textAllCaps="true"
+                            android:drawablePadding="5dip"
+                            android:drawableLeft="@drawable/ic_check_green"
+                            android:layout_marginLeft="100dp"
+                            android:textSize="12sp"
+                            android:text="top brand batteries"
+                            android:textColor="@color/white"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+
+                        <TextView
+                            android:layout_marginTop="5dp"
+                            android:textAllCaps="true"
+                            android:drawablePadding="5dip"
+                            android:drawableLeft="@drawable/ic_check_green"
+                            android:layout_marginLeft="100dp"
+                            android:textSize="12sp"
+                            android:text="free pick up &amp; drop"
+                            android:textColor="@color/white"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+
+                        <TextView
+                            android:layout_marginTop="5dp"
+                            android:textAllCaps="true"
+                            android:drawablePadding="5dip"
+                            android:drawableLeft="@drawable/ic_check_green"
+                            android:layout_marginLeft="100dp"
+                            android:textSize="12sp"
+                            android:text="free installation"
+                            android:textColor="@color/white"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+
+                        <TextView
+                            android:layout_marginTop="5dp"
+                            android:textAllCaps="true"
+                            android:drawablePadding="5dip"
+                            android:drawableLeft="@drawable/ic_check_green"
+                            android:layout_marginLeft="100dp"
+                            android:textSize="12sp"
+                            android:text="existing battery replacement"
+                            android:textColor="@color/white"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+
+                        <TextView
+                            android:layout_marginTop="5dp"
+                            android:textAllCaps="true"
+                            android:drawablePadding="5dip"
+                            android:drawableLeft="@drawable/ic_check_green"
+                            android:layout_marginLeft="100dp"
+                            android:textSize="12sp"
+                            android:text="doorstep service"
+                            android:textColor="@color/white"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+
+                        <ImageView
+                            android:layout_marginTop="10dp"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/car_battery"
+                            android:layout_width="match_parent"
+                            android:layout_height="150dp"/>
+
+                        <Button
+                            android:id="@+id/btn_battery"
+                            android:textColor="@color/colorPrimary"
+                            android:background="@drawable/btn_rounded_white"
+                            android:textAllCaps="false"
+                            android:text="Get Quote"
+                            android:layout_marginTop="20dp"
+                            android:layout_gravity="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+            </ScrollView>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>
