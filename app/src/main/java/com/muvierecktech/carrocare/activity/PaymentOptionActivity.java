@@ -46,7 +46,9 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -71,6 +73,8 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
     int totalAmountStr;
     DatePickerDialog picker;
     List<OneTimeWashCheckout.getResult> result;
+    ArrayList<String> spinner_item;
+
     @SuppressLint("LongLogTag")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +88,7 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
         token = hashMap.get(SessionManager.KEY_TOKEN);
 
         databaseHelper = new DatabaseHelper(this);
+        spinner_item = new ArrayList<>();
 
         showCartCount();
 
@@ -388,18 +393,22 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
                 if (TextUtils.isEmpty(binding.preferDate.getText().toString())){
                     Toast.makeText(PaymentOptionActivity.this,"Choose Preferred Schedule",Toast.LENGTH_SHORT).show();
                 }else {
-                    binding.timeLl.setVisibility(View.VISIBLE);
-                    PreferredAdapter preferredAdapter = new PreferredAdapter(PaymentOptionActivity.this, preTime, "pay");
-                    LinearLayoutManager linearLayoutManage = new LinearLayoutManager(PaymentOptionActivity.this, LinearLayoutManager.VERTICAL, false);
-                    binding.timeRc.setLayoutManager(linearLayoutManage);
-                    binding.timeRc.setAdapter(preferredAdapter);
+                    binding.spinner.performClick();
+                    Collections.addAll(spinner_item, preTime);
+                    binding.spinner.setAdapter(new ArrayAdapter<String>(PaymentOptionActivity.this, android.R.layout.simple_list_item_1,spinner_item));
+
+                    binding.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                            binding.preferredtimeEdt.setText(spinner_item.get(i));
+                            time = spinner_item.get(i);
+                        }
+                        @Override
+                        public void onNothingSelected(AdapterView<?> adapterView) {
+                        }
+                    });
+
                 }
-            }
-        });
-        binding.timeLl.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                binding.timeLl.setVisibility(View.GONE);
             }
         });
 

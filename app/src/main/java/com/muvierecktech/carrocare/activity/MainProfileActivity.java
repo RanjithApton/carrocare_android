@@ -17,13 +17,14 @@ import androidx.databinding.DataBindingUtil;
 import com.muvierecktech.carrocare.R;
 import com.muvierecktech.carrocare.common.Constant;
 import com.muvierecktech.carrocare.common.DatabaseHelper;
+import com.muvierecktech.carrocare.common.PostServiceChooseDialog;
 import com.muvierecktech.carrocare.common.SessionManager;
 import com.muvierecktech.carrocare.databinding.ActivityMainProfileBinding;
 
 
 import java.util.HashMap;
 
-public class MainProfileActivity extends AppCompatActivity {
+public class MainProfileActivity extends AppCompatActivity implements PostServiceChooseDialog.AlertPositiveListener {
     ActivityMainProfileBinding binding;
     SessionManager sessionManager;
     String name,mobile;
@@ -55,10 +56,23 @@ public class MainProfileActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        binding.serviceTxt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new PostServiceChooseDialog().show(getSupportFragmentManager(), "alert_dialog_category_choose");
+            }
+        });
         binding.profileTxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainProfileActivity.this,ProfileActivity.class);
+                startActivity(intent);
+            }
+        });
+        binding.myvehicleTxt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainProfileActivity.this,MyVehiclesActivity.class);
                 startActivity(intent);
             }
         });
@@ -187,5 +201,22 @@ public class MainProfileActivity extends AppCompatActivity {
         Intent intent = new Intent(MainProfileActivity.this,MainActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    public void apartmentSevice() {
+        sessionManager.setData(SessionManager.USER_WANTS,"apartment");
+        Intent intent = new Intent(MainProfileActivity.this,ApartmentServiceActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    @Override
+    public void doorstepService() {
+        sessionManager.setData(SessionManager.USER_WANTS,"doorstep");
+        Intent intent = new Intent(MainProfileActivity.this,DoorStepServiceActivity.class);
+        startActivity(intent);
+        finish();
+
     }
 }

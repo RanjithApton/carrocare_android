@@ -257,6 +257,74 @@ public class MyOrdersDetailActivity extends AppCompatActivity {
             }
         }
 
+        if (service_type.equalsIgnoreCase("Door step Wash") ||
+                service_type.equalsIgnoreCase("Door step Detailing") ||
+                service_type.equalsIgnoreCase("Door step AddOn")) {
+
+            binding.viewWashdetails.setVisibility(View.GONE);
+            binding.viewhistory.setVisibility(View.GONE);
+            binding.viewExtrainterior.setVisibility(View.GONE);
+            binding.cancel.setVisibility(View.GONE);
+            binding.viewhistory.setVisibility(View.GONE);
+            binding.vehiclemakeField.setVisibility(View.GONE);
+            binding.vehiclemodelField.setVisibility(View.GONE);
+            binding.vehiclenoField.setVisibility(View.GONE);
+            binding.paymentmodeField.setVisibility(View.GONE);
+            binding.paidcountField.setVisibility(View.GONE);
+            binding.validField.setVisibility(View.GONE);
+            binding.statusField.setVisibility(View.VISIBLE);
+            //binding.imageField.setVisibility(View.VISIBLE);
+            binding.vehicleidField.setVisibility(View.VISIBLE);
+            binding.scheduleField.setVisibility(View.VISIBLE);
+            binding.workdoneField.setVisibility(View.VISIBLE);
+            binding.cancelOnetime.setVisibility(View.VISIBLE);
+
+//            if(!package_value.equals("100")){
+//                binding.imageField.setVisibility(View.VISIBLE);
+//            }else{
+//                binding.imageField.setVisibility(View.GONE);
+//            }
+            binding.imageField.setVisibility(View.GONE);
+//            if(work_done.equalsIgnoreCase("No")){
+//                binding.imageField.setVisibility(View.GONE);
+//            }else{
+//                binding.imageField.setVisibility(View.VISIBLE);
+//            }
+
+            if (discount_amount.equalsIgnoreCase("0")) {
+                binding.discountField.setVisibility(View.GONE);
+            } else {
+                binding.discountField.setVisibility(View.VISIBLE);
+            }
+        }
+
+        binding.cancelOnetime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder dialog = new AlertDialog.Builder(MyOrdersDetailActivity.this);
+                dialog.setCancelable(true);
+                dialog.setTitle("Alert!");
+                dialog.setMessage("Are you sure want to cancel this order?" );
+                dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        //Action for "Ok".
+                        cancelOrder();
+                    }
+                })
+                        .setNegativeButton("Cancel ", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                //Action for "Cancel".
+                                //finish();
+                                dialog.dismiss();
+                            }
+                        });
+
+                final AlertDialog alert = dialog.create();
+                alert.show();
+            }
+        });
 
         binding.viewhistory.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -326,6 +394,69 @@ public class MyOrdersDetailActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+    }
+
+    private void cancelOrder() {
+        if (isNetworkAvailable()) {
+            final KProgressHUD hud = KProgressHUD.create(MyOrdersDetailActivity.this)
+                    .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                    .setCancellable(true)
+                    .setAnimationSpeed(2)
+                    .setDimAmount(0.5f)
+                    .show();
+            ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+            Call<JsonObject> call = apiInterface.cancelCodOrder(order_id +"",
+                    customerid+"");
+            call.enqueue(new Callback<JsonObject>() {
+                @Override
+                public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                    JsonElement jsonElement = response.body();
+                    hud.dismiss();
+                    try {
+                        JSONObject jsonObject = new JSONObject(jsonElement.toString());
+                        if (jsonObject.optString("code").equalsIgnoreCase("200")) {
+                            Gson gson = new Gson();
+                            Toast.makeText(MyOrdersDetailActivity.this,jsonObject.optString("message"),Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(MyOrdersDetailActivity.this,MyOrdersActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }else if (jsonObject.optString("code").equalsIgnoreCase("201")) {
+                            Toast.makeText(MyOrdersDetailActivity.this,jsonObject.optString("message"),Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                @Override
+                public void onFailure(Call<JsonObject> call, Throwable t) {
+                    hud.dismiss();
+                    Toast.makeText(MyOrdersDetailActivity.this,"Timeout.Try after sometime",Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+        else {
+            AlertDialog.Builder dialog = new AlertDialog.Builder(MyOrdersDetailActivity.this);
+            dialog.setCancelable(false);
+            dialog.setTitle("Alert!");
+            dialog.setMessage("No internet.Please check your connection." );
+            dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int id) {
+                    //Action for "Ok".
+                    cancelOrder();
+                }
+            })
+                    .setNegativeButton("Cancel ", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            //Action for "Cancel".
+                            finish();
+                        }
+                    });
+
+            final AlertDialog alert = dialog.create();
+            alert.show();
+        }
     }
 
     private void work() {

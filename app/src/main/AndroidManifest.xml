@@ -24,6 +24,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true">
+        <activity android:name=".activity.PaymentSucessActivity"></activity>
         <activity android:name=".activity.LocateOnMapActivity" />
         <activity android:name=".activity.MapAddVechileActivity" />
         <activity android:name=".activity.DoorStepServiceActivity" />

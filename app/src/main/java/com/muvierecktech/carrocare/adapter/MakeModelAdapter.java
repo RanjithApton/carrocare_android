@@ -51,10 +51,10 @@ public class MakeModelAdapter extends RecyclerView.Adapter {
                     lastSelectedPosition = pos;
                     notifyDataSetChanged();
                     ((AddVehicleActivity) context).binding.makeModelEdt.setText(makemodel.get(pos).vehicle_make + "-" + makemodel.get(pos).vehicle_model);
-                    ((AddVehicleActivity) context).binding.makemodelRc.setVisibility(View.GONE);
+
                     ((AddVehicleActivity) context).makeStr = makemodel.get(pos).vehicle_make;
                     ((AddVehicleActivity) context).modelStr = makemodel.get(pos).vehicle_model;
-                    ((AddVehicleActivity) context).binding.apartRl.setVisibility(View.GONE);
+
 
                 }else if (type.equalsIgnoreCase("2")) {
                     MyViewHolder viewHolder1 = (MyViewHolder) view.getTag();
@@ -62,20 +62,12 @@ public class MakeModelAdapter extends RecyclerView.Adapter {
                     lastSelectedPosition = pos;
                     notifyDataSetChanged();
                     ((MyVechiclesAddActivity) context).binding.makeModelEdt.setText(makemodel.get(pos).vehicle_make + "-" + makemodel.get(pos).vehicle_model);
-                    ((MyVechiclesAddActivity) context).binding.makemodelRc.setVisibility(View.GONE);
-                    ((MyVechiclesAddActivity) context).makeStr = makemodel.get(pos).vehicle_make;
-                    ((MyVechiclesAddActivity) context).modelStr = makemodel.get(pos).vehicle_model;
-                    ((MyVechiclesAddActivity) context).binding.apartRl.setVisibility(View.GONE);
                 }else if (type.equalsIgnoreCase("3")) {
                     MyViewHolder viewHolder1 = (MyViewHolder) view.getTag();
                     int pos = viewHolder1.getAdapterPosition();
                     lastSelectedPosition = pos;
                     notifyDataSetChanged();
                     ((MapAddVechileActivity) context).binding.makeModelEdt.setText(makemodel.get(pos).vehicle_make + "-" + makemodel.get(pos).vehicle_model);
-                    ((MapAddVechileActivity) context).binding.makemodelRc.setVisibility(View.GONE);
-                    ((MapAddVechileActivity) context).makeStr = makemodel.get(pos).vehicle_make;
-                    ((MapAddVechileActivity) context).modelStr = makemodel.get(pos).vehicle_model;
-                    ((MapAddVechileActivity) context).binding.apartRl.setVisibility(View.GONE);
                 }
 
             }

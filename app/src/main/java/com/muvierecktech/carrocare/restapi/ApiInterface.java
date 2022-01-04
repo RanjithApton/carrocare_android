@@ -320,4 +320,27 @@ public interface ApiInterface {
                                        @Field("address") String address,
                                        @Field("latitude") String latitude,
                                        @Field("longitude") String longitude);
+
+    @FormUrlEncoded
+    @POST("Android_API/save_order.php")
+    Call<JsonObject> saveOrderDoorStepCOD(@Field("action") String action,
+                                       @Field("customer_id") String customer_id,
+                                       @Field("token") String token,
+                                       @Field("pack_type") String pack_type,
+                                       @Field("pack_amount") String pack_amount,
+                                       @Field("vehicle_id") String vehicle_id,
+                                       @Field("service_type") String service_type,
+                                       @Field("tot_amt") String tot_amt,
+                                       @Field("schedule_date") String schedule_date,
+                                       @Field("schedule_time") String schedule_time,
+                                       @Field("address") String address,
+                                       @Field("latitude") String latitude,
+                                       @Field("longitude") String longitude);
+
+    @FormUrlEncoded
+    @POST("Android_API/cancel_cod_order.php")
+    Call<JsonObject> cancelCodOrder(@Field("order_id") String order_id,
+                                    @Field("customer_id") String customer_id);
+
+
 }

@@ -46,19 +46,19 @@ public class ParkingareaAdapter extends RecyclerView.Adapter {
                     int pos = viewHolder1.getAdapterPosition();
                     notifyDataSetChanged();
                     ((AddVehicleActivity) context).binding.parkingAreaEdt.setText(parkingarea.get(pos).name);
-                    ((AddVehicleActivity) context).binding.apartRl.setVisibility(View.GONE);
+                    //((AddVehicleActivity) context).binding.apartRl.setVisibility(View.GONE);
                 }else if (check.equalsIgnoreCase("2")) {
                     MyViewHolder viewHolder1 = (MyViewHolder) view.getTag();
                     int pos = viewHolder1.getAdapterPosition();
                     notifyDataSetChanged();
                     ((MyVechiclesAddActivity) context).binding.parkingAreaEdt.setText(parkingarea.get(pos).name);
-                    ((MyVechiclesAddActivity) context).binding.apartRl.setVisibility(View.GONE);
+                    //((MyVechiclesAddActivity) context).binding.apartRl.setVisibility(View.GONE);
                 }else if (check.equalsIgnoreCase("3")) {
                     MyViewHolder viewHolder1 = (MyViewHolder) view.getTag();
                     int pos = viewHolder1.getAdapterPosition();
                     notifyDataSetChanged();
                     //((MapAddVechileActivity) context).binding.parkingAreaEdt.setText(parkingarea.get(pos).name);
-                    ((MapAddVechileActivity) context).binding.apartRl.setVisibility(View.GONE);
+                    //((MapAddVechileActivity) context).binding.apartRl.setVisibility(View.GONE);
                 }
             }
         });

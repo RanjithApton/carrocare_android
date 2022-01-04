@@ -4,12 +4,13 @@
     android:background="@drawable/bottom_sheet_background"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
-    <RelativeLayout
+    <LinearLayout
+        android:orientation="vertical"
         android:id="@+id/detailing_popup"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_above="@+id/detail_amount"
@@ -42,285 +43,28 @@
             </LinearLayout>
 
 
-            <ScrollView
+            <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <LinearLayout
-                    android:orientation="vertical"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="wrap_content">
 
                     <LinearLayout
-                        android:orientation="horizontal"
-                        android:weightSum="2"
+                        android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                        <LinearLayout
-                            android:layout_weight="1"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                            <RelativeLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content">
-
-                                <LinearLayout
-                                    android:id="@+id/carpolishng_card"
-                                    android:layout_margin="20dp"
-                                    android:orientation="vertical"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content">
-
-                                    <ImageView
-                                        android:scaleType="centerCrop"
-                                        android:background="@drawable/novehicle"
-                                        android:src="@drawable/car_polish"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="120dp"/>
-
-                                    <TextView
-                                        android:text="Car Polishing"
-                                        android:textColor="@color/white"
-                                        android:fontFamily="@font/josefinsans_bold"
-                                        android:textStyle="bold"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"/>
-
-                                    <LinearLayout
-                                        android:weightSum="2"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content">
-
-                                        <TextView
-                                            android:layout_marginRight="5dp"
-                                            android:layout_gravity="center"
-                                            android:textStyle="bold"
-                                            android:textColor="@color/white"
-                                            android:text="INR"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"/>
-
-                                        <TextView
-                                            android:id="@+id/carpolising_amt"
-                                            android:layout_gravity="center"
-                                            android:layout_weight="1.8"
-                                            android:textStyle="bold"
-                                            android:textColor="@color/white"
-                                            android:text="INR 250"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"/>
-
-                                        <Button
-                                            android:id="@+id/carpolising_info"
-                                            android:layout_weight="0.2"
-                                            android:background="@drawable/btn_info"
-                                            android:layout_gravity="center"
-                                            android:text="Info"
-                                            android:textColor="@color/colorPrimary"
-                                            android:textAllCaps="false"
-                                            android:textSize="8sp"
-                                            android:layout_width="50dp"
-                                            android:layout_height="30dp"/>
-
-                                    </LinearLayout>
-
-                                </LinearLayout>
-
-                                <CheckBox
-                                    android:layout_margin="20dp"
-                                    style="@style/DefalutCheckBox"
-                                    android:id="@+id/carpolishng_check"
-                                    android:layout_alignParentRight="true"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"/>
-
-                            </RelativeLayout>
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_weight="1"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                            <RelativeLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content">
-
-                                <LinearLayout
-                                    android:id="@+id/interiordetaling_card"
-                                    android:layout_margin="20dp"
-                                    android:orientation="vertical"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content">
-
-                                    <ImageView
-                                        android:scaleType="centerCrop"
-                                        android:background="@drawable/novehicle"
-                                        android:src="@drawable/interior_clean"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="120dp"/>
-
-                                    <TextView
-                                        android:text="Interior Detailing"
-                                        android:textColor="@color/white"
-                                        android:fontFamily="@font/josefinsans_bold"
-                                        android:textStyle="bold"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"/>
-
-                                    <LinearLayout
-                                        android:weightSum="2"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content">
-
-                                        <TextView
-                                            android:layout_marginRight="5dp"
-                                            android:layout_gravity="center"
-                                            android:textStyle="bold"
-                                            android:textColor="@color/white"
-                                            android:text="INR"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"/>
-
-                                        <TextView
-                                            android:id="@+id/interiordetaling_amt"
-                                            android:layout_gravity="center"
-                                            android:layout_weight="1.8"
-                                            android:textStyle="bold"
-                                            android:textColor="@color/white"
-                                            android:text="INR 100"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"/>
-
-                                        <Button
-                                            android:id="@+id/interiordetaling_info"
-                                            android:layout_weight="0.2"
-                                            android:background="@drawable/btn_info"
-                                            android:layout_gravity="center"
-                                            android:text="Info"
-                                            android:textColor="@color/colorPrimary"
-                                            android:textAllCaps="false"
-                                            android:textSize="8sp"
-                                            android:layout_width="50dp"
-                                            android:layout_height="30dp"/>
-
-                                    </LinearLayout>
-
-                                </LinearLayout>
-
-                                <CheckBox
-                                    android:layout_margin="20dp"
-                                    style="@style/DefalutCheckBox"
-                                    android:id="@+id/intertiordetailing_check"
-                                    android:layout_alignParentRight="true"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"/>
-
-                            </RelativeLayout>
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:orientation="horizontal"
-                        android:weightSum="2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <LinearLayout
-                            android:layout_weight="1"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                            <RelativeLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content">
-
-                                <LinearLayout
-                                    android:id="@+id/windowtinting_card"
-                                    android:layout_margin="20dp"
-                                    android:orientation="vertical"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content">
-
-                                    <ImageView
-                                        android:scaleType="centerCrop"
-                                        android:background="@drawable/novehicle"
-                                        android:src="@drawable/window_tinting"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="120dp"/>
-
-                                    <TextView
-                                        android:text="Window Tinting"
-                                        android:textColor="@color/white"
-                                        android:fontFamily="@font/josefinsans_bold"
-                                        android:textStyle="bold"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"/>
-
-                                    <LinearLayout
-                                        android:weightSum="2"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content">
-
-                                        <TextView
-                                            android:layout_marginRight="5dp"
-                                            android:layout_gravity="center"
-                                            android:textStyle="bold"
-                                            android:textColor="@color/white"
-                                            android:text="INR"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"/>
-
-                                        <TextView
-                                            android:id="@+id/wingowtinting_amt"
-                                            android:layout_gravity="center"
-                                            android:layout_weight="1.8"
-                                            android:textStyle="bold"
-                                            android:textColor="@color/white"
-                                            android:text="INR 100"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"/>
-
-                                        <Button
-                                            android:id="@+id/wingowtinting_info"
-                                            android:layout_weight="0.2"
-                                            android:background="@drawable/btn_info"
-                                            android:layout_gravity="center"
-                                            android:text="Info"
-                                            android:textColor="@color/colorPrimary"
-                                            android:textAllCaps="false"
-                                            android:textSize="8sp"
-                                            android:layout_width="50dp"
-                                            android:layout_height="30dp"/>
-
-                                    </LinearLayout>
-
-                                </LinearLayout>
-
-                                <CheckBox
-                                    android:layout_margin="20dp"
-                                    style="@style/DefalutCheckBox"
-                                    android:id="@+id/windowtinting_check"
-                                    android:layout_alignParentRight="true"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"/>
-
-                            </RelativeLayout>
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:visibility="invisible"
-                            android:layout_weight="1"
-                            android:layout_width="match_parent"
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
 
                             <LinearLayout
+                                android:id="@+id/carpolishng_card"
                                 android:layout_margin="20dp"
                                 android:orientation="vertical"
                                 android:layout_width="match_parent"
@@ -329,12 +73,12 @@
                                 <ImageView
                                     android:scaleType="centerCrop"
                                     android:background="@drawable/novehicle"
-                                    android:src="@drawable/top_curve_imageview"
+                                    android:src="@drawable/car_polish"
                                     android:layout_width="match_parent"
                                     android:layout_height="120dp"/>
 
                                 <TextView
-                                    android:text="Quick Wax"
+                                    android:text="Car Polishing"
                                     android:textColor="@color/white"
                                     android:fontFamily="@font/josefinsans_bold"
                                     android:textStyle="bold"
@@ -356,16 +100,17 @@
                                         android:layout_height="wrap_content"/>
 
                                     <TextView
+                                        android:id="@+id/carpolising_amt"
                                         android:layout_gravity="center"
                                         android:layout_weight="1.8"
                                         android:textStyle="bold"
                                         android:textColor="@color/white"
-                                        android:text="INR 400"
+                                        android:text="INR 250"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"/>
 
                                     <Button
-
+                                        android:id="@+id/carpolising_info"
                                         android:layout_weight="0.2"
                                         android:background="@drawable/btn_info"
                                         android:layout_gravity="center"
@@ -380,15 +125,265 @@
 
                             </LinearLayout>
 
+                            <CheckBox
+                                android:layout_margin="20dp"
+                                style="@style/DefalutCheckBox"
+                                android:id="@+id/carpolishng_check"
+                                android:layout_alignParentRight="true"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <LinearLayout
+                                android:id="@+id/interiordetaling_card"
+                                android:layout_margin="20dp"
+                                android:orientation="vertical"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <ImageView
+                                    android:scaleType="centerCrop"
+                                    android:background="@drawable/novehicle"
+                                    android:src="@drawable/interior_clean"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="120dp"/>
+
+                                <TextView
+                                    android:text="Interior Detailing"
+                                    android:textColor="@color/white"
+                                    android:fontFamily="@font/josefinsans_bold"
+                                    android:textStyle="bold"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"/>
+
+                                <LinearLayout
+                                    android:weightSum="2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+
+                                    <TextView
+                                        android:layout_marginRight="5dp"
+                                        android:layout_gravity="center"
+                                        android:textStyle="bold"
+                                        android:textColor="@color/white"
+                                        android:text="INR"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"/>
+
+                                    <TextView
+                                        android:id="@+id/interiordetaling_amt"
+                                        android:layout_gravity="center"
+                                        android:layout_weight="1.8"
+                                        android:textStyle="bold"
+                                        android:textColor="@color/white"
+                                        android:text="INR 100"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"/>
+
+                                    <Button
+                                        android:id="@+id/interiordetaling_info"
+                                        android:layout_weight="0.2"
+                                        android:background="@drawable/btn_info"
+                                        android:layout_gravity="center"
+                                        android:text="Info"
+                                        android:textColor="@color/colorPrimary"
+                                        android:textAllCaps="false"
+                                        android:textSize="8sp"
+                                        android:layout_width="50dp"
+                                        android:layout_height="30dp"/>
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                            <CheckBox
+                                android:layout_margin="20dp"
+                                style="@style/DefalutCheckBox"
+                                android:id="@+id/intertiordetailing_check"
+                                android:layout_alignParentRight="true"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <LinearLayout
+                                android:id="@+id/windowtinting_card"
+                                android:layout_margin="20dp"
+                                android:orientation="vertical"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <ImageView
+                                    android:scaleType="centerCrop"
+                                    android:background="@drawable/novehicle"
+                                    android:src="@drawable/window_tinting"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="120dp"/>
+
+                                <TextView
+                                    android:text="Window Tinting"
+                                    android:textColor="@color/white"
+                                    android:fontFamily="@font/josefinsans_bold"
+                                    android:textStyle="bold"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"/>
+
+                                <LinearLayout
+                                    android:weightSum="2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+
+                                    <TextView
+                                        android:layout_marginRight="5dp"
+                                        android:layout_gravity="center"
+                                        android:textStyle="bold"
+                                        android:textColor="@color/white"
+                                        android:text="INR"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"/>
+
+                                    <TextView
+                                        android:id="@+id/wingowtinting_amt"
+                                        android:layout_gravity="center"
+                                        android:layout_weight="1.8"
+                                        android:textStyle="bold"
+                                        android:textColor="@color/white"
+                                        android:text="INR 100"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"/>
+
+                                    <Button
+                                        android:id="@+id/wingowtinting_info"
+                                        android:layout_weight="0.2"
+                                        android:background="@drawable/btn_info"
+                                        android:layout_gravity="center"
+                                        android:text="Info"
+                                        android:textColor="@color/colorPrimary"
+                                        android:textAllCaps="false"
+                                        android:textSize="8sp"
+                                        android:layout_width="50dp"
+                                        android:layout_height="30dp"/>
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                            <CheckBox
+                                android:layout_margin="20dp"
+                                style="@style/DefalutCheckBox"
+                                android:id="@+id/windowtinting_check"
+                                android:layout_alignParentRight="true"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:visibility="invisible"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:layout_margin="20dp"
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <ImageView
+                                android:scaleType="centerCrop"
+                                android:background="@drawable/novehicle"
+                                android:src="@drawable/top_curve_imageview"
+                                android:layout_width="match_parent"
+                                android:layout_height="120dp"/>
+
+                            <TextView
+                                android:text="Quick Wax"
+                                android:textColor="@color/white"
+                                android:fontFamily="@font/josefinsans_bold"
+                                android:textStyle="bold"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"/>
+
+                            <LinearLayout
+                                android:weightSum="2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:layout_marginRight="5dp"
+                                    android:layout_gravity="center"
+                                    android:textStyle="bold"
+                                    android:textColor="@color/white"
+                                    android:text="INR"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+
+                                <TextView
+                                    android:layout_gravity="center"
+                                    android:layout_weight="1.8"
+                                    android:textStyle="bold"
+                                    android:textColor="@color/white"
+                                    android:text="INR 400"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+
+                                <Button
+
+                                    android:layout_weight="0.2"
+                                    android:background="@drawable/btn_info"
+                                    android:layout_gravity="center"
+                                    android:text="Info"
+                                    android:textColor="@color/colorPrimary"
+                                    android:textAllCaps="false"
+                                    android:textSize="8sp"
+                                    android:layout_width="50dp"
+                                    android:layout_height="30dp"/>
+
+                            </LinearLayout>
+
                         </LinearLayout>
 
                     </LinearLayout>
 
-
-
                 </LinearLayout>
 
-            </ScrollView>
+
+
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -400,7 +395,7 @@
             android:layout_alignParentBottom="true"
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="50dp">
+            android:layout_height="wrap_content">
 
 
             <TextView
@@ -409,6 +404,7 @@
                 android:paddingRight="20dp"
                 android:textSize="18dp"
                 android:gravity="center"
+                android:layout_gravity="center"
                 android:textColor="@color/white"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
@@ -430,6 +426,6 @@
         </LinearLayout>
 
 
-    </RelativeLayout>
+    </LinearLayout>
 
 </RelativeLayout>

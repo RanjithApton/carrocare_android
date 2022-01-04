@@ -16,6 +16,8 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -37,6 +39,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -48,7 +51,6 @@ public class MapAddVechileActivity extends AppCompatActivity implements View.OnC
     public ActivityMapAddVechileBinding binding;
     SessionManager sessionManager;
     String customerid,token,vecType,vecCategory;
-    MakeModelAdapter makeModelAdapter;
     MakeModelList makeModelList;
     String vechicleCategory[] = {"hatchback","sedan","suv"};
     public static String makeStr,modelStr;
@@ -58,6 +60,7 @@ public class MapAddVechileActivity extends AppCompatActivity implements View.OnC
     ArrayList<String> parkingareaname;
     String make,model,apartname,preferdScd,preferTime,parkArea;
     String address, latitude, longitude;
+    ArrayList<String> spinner_item;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,9 +72,9 @@ public class MapAddVechileActivity extends AppCompatActivity implements View.OnC
         customerid = hashMap.get(SessionManager.KEY_USERID);
         token = hashMap.get(SessionManager.KEY_TOKEN);
 
+        spinner_item = new ArrayList<>();
         binding.vecCategoryEdt.setOnClickListener(this);
         binding.makeModelEdt.setOnClickListener(this);
-        binding.apartRl.setOnClickListener(this);
         binding.back.setOnClickListener(this);
         binding.cancelBtn.setOnClickListener(this);
 
@@ -99,13 +102,6 @@ public class MapAddVechileActivity extends AppCompatActivity implements View.OnC
                     workAdd();
                 } else
                     Toast.makeText(MapAddVechileActivity.this, Constant.DETAILS, Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        binding.rvCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                binding.apartRl.setVisibility(View.GONE);
             }
         });
 
@@ -244,28 +240,9 @@ public class MapAddVechileActivity extends AppCompatActivity implements View.OnC
                     Gson gson = new Gson();
                     String json = gson.toJson(makeModelList);
                     vehicleList = makeModelList.vehicle;
-
-                    makeModelAdapter = new MakeModelAdapter(MapAddVechileActivity.this,makeModelList.vehicle,"3");
-                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MapAddVechileActivity.this,LinearLayoutManager.VERTICAL,false);
-                    binding.makemodelRc.setLayoutManager(linearLayoutManager);
-                    binding.makemodelRc.setAdapter(makeModelAdapter);
-
-                    binding.rvSearch.addTextChangedListener(new TextWatcher() {
-                        @Override
-                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                        }
-                        @Override
-                        public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                        }
-                        @Override
-                        public void afterTextChanged(Editable s) {
-                            filter_search(s.toString().toLowerCase(),"makeModelList");
-                        }
-                    });
-
-
+                    for (int i = 0; i < vehicleList.size(); i++) {
+                        makemodel.addAll(Collections.singleton(vehicleList.get(i).vehicle_make + "-" + vehicleList.get(i).vehicle_model));
+                    }
 
                 }else if (makeModelList.code.equalsIgnoreCase("201")){
                     Toast.makeText(MapAddVechileActivity.this,makeModelList.message,Toast.LENGTH_SHORT).show();
@@ -277,18 +254,6 @@ public class MapAddVechileActivity extends AppCompatActivity implements View.OnC
                 Toast.makeText(MapAddVechileActivity.this,"Timeout.Try after sometime",Toast.LENGTH_SHORT).show();
             }
         });
-    }
-
-    private void filter_search(String search_txt, String model_cls) {
-        if(model_cls.equalsIgnoreCase("makeModelList")){
-            List<MakeModelList.Vehicle> temp = new ArrayList<>();
-            for (MakeModelList.Vehicle d : makeModelList.vehicle) {
-                if (d.vehicle_make.toLowerCase().contains(search_txt)) {
-                    temp.add(d);
-                }
-            }
-            makeModelAdapter.updateList(temp);
-        }
     }
 
     private boolean isNetworkAvailable() {
@@ -322,29 +287,44 @@ public class MapAddVechileActivity extends AppCompatActivity implements View.OnC
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.vec_category_edt:
-                binding.apartRl.setVisibility(View.VISIBLE);
-                binding.vecCategoryRc.setVisibility(View.VISIBLE);
-                binding.makemodelRc.setVisibility(View.GONE);
-                binding.apartlistRc.setVisibility(View.GONE);
-                binding.preferredscheduleRc.setVisibility(View.GONE);
-                binding.preferredtimeRc.setVisibility(View.GONE);
-                binding.parkingAreaRc.setVisibility(View.GONE);
-                VechicleCategoryAdapter vechicleCategoryAdapter = new VechicleCategoryAdapter(MapAddVechileActivity.this, vechicleCategory, "3");
-                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MapAddVechileActivity.this, LinearLayoutManager.VERTICAL, false);
-                binding.vecCategoryRc.setLayoutManager(linearLayoutManager);
-                binding.vecCategoryRc.setAdapter(vechicleCategoryAdapter);
+                spinner_item.clear();
+                Collections.addAll(spinner_item, vechicleCategory);
+                binding.spinner.performClick();
+                binding.spinner.setAdapter(new ArrayAdapter<String>(MapAddVechileActivity.this, android.R.layout.simple_list_item_1,spinner_item));
+
+                binding.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                        binding.vecCategoryEdt.setText(spinner_item.get(i));
+                        additionalwork(spinner_item.get(i));
+                    }
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+                    }
+                });
                 break;
             case R.id.make_model_edt:
                 if (TextUtils.isEmpty(binding.vecCategoryEdt.getText().toString())){
                     Toast.makeText(MapAddVechileActivity.this,"Choose Vechicle Category",Toast.LENGTH_SHORT).show();
                 } else {
-                    binding.vecCategoryRc.setVisibility(View.GONE);
-                    binding.apartRl.setVisibility(View.VISIBLE);
-                    binding.makemodelRc.setVisibility(View.VISIBLE);
-                    binding.apartlistRc.setVisibility(View.GONE);
-                    binding.preferredscheduleRc.setVisibility(View.GONE);
-                    binding.preferredtimeRc.setVisibility(View.GONE);
-                    binding.parkingAreaRc.setVisibility(View.GONE);
+                    spinner_item.clear();
+                    spinner_item.addAll(makemodel);
+                    binding.spinner.performClick();
+                    binding.spinner.setAdapter(new ArrayAdapter<String>(MapAddVechileActivity.this, android.R.layout.simple_list_item_1,spinner_item));
+
+                    binding.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                            binding.makeModelEdt.setText(spinner_item.get(i));
+                            String currentString = spinner_item.get(i);
+                            String[] separated = currentString.split("-");
+                            makeStr = separated[0];
+                            modelStr = separated[1];
+                        }
+                        @Override
+                        public void onNothingSelected(AdapterView<?> adapterView) {
+                        }
+                    });
                 }
                 break;
             case R.id.back:

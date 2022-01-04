@@ -11,6 +11,8 @@ import android.os.Bundle;
 
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -52,6 +54,8 @@ public class ProfileActivity extends AppCompatActivity {
     ArrayList<String> apartmentname;
     String token,customerid,apartname;
     String type, latitude, longitude;
+    ArrayList<String> spinner_item;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +65,8 @@ public class ProfileActivity extends AppCompatActivity {
         HashMap<String,String> hashMap = sessionManager.getUserDetails();
         token = hashMap.get(SessionManager.KEY_TOKEN);
         customerid = hashMap.get(SessionManager.KEY_USERID);
+
+        spinner_item = new ArrayList<>();
 
         type = sessionManager.getData(SessionManager.USER_WANTS);
 
@@ -143,13 +149,21 @@ public class ProfileActivity extends AppCompatActivity {
         binding.apartnameEdt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                binding.apartRl.setVisibility(View.VISIBLE);
-            }
-        });
-        binding.apartRl.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                binding.apartRl.setVisibility(View.GONE);
+                spinner_item.addAll(apartmentname);
+                binding.spinner.performClick();
+                //spinner_item.clear();
+
+                binding.spinner.setAdapter(new ArrayAdapter<String>(ProfileActivity.this, android.R.layout.simple_list_item_1,spinner_item));
+
+                binding.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                        binding.apartnameEdt.setText(spinner_item.get(i));
+                    }
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+                    }
+                });
             }
         });
 
@@ -208,24 +222,12 @@ public class ProfileActivity extends AppCompatActivity {
                         //Storing names to string array
                         String items = apartments.get(i).name;
                         apartmentname.add(items);
-//                        pos = i;
                     }
 
-              /*    //Spinner spinner = (Spinner) findViewById(R.id.spinner1);
-                  ArrayAdapter<String> adapter;
-                  adapter = new ArrayAdapter<String>(ProfileActivity.this, R.layout.spinner_item, apartmentname);
-                  //setting adapter to spinner
-                  binding.apartnameEdt.setAdapter(adapter);
-                  binding.apartnameEdt.setSelection(pos);
-                  if (apartname != null) {
-                      int spinnerPosition = adapter.getPosition(apartname);
-                      binding.apartnameEdt.setSelection(spinnerPosition);
-
-                  }*/
-                    ApartmentsAdapter apartmentsAdapter = new ApartmentsAdapter(ProfileActivity.this,apartmentList.Apartment, "1");
-                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ProfileActivity.this,LinearLayoutManager.VERTICAL,false);
-                    binding.apartlistRc.setLayoutManager(linearLayoutManager);
-                    binding.apartlistRc.setAdapter(apartmentsAdapter);
+//                    ApartmentsAdapter apartmentsAdapter = new ApartmentsAdapter(ProfileActivity.this,apartmentList.Apartment, "1");
+//                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ProfileActivity.this,LinearLayoutManager.VERTICAL,false);
+//                    binding.apartlistRc.setLayoutManager(linearLayoutManager);
+//                    binding.apartlistRc.setAdapter(apartmentsAdapter);
                 }
             }
             @Override
@@ -234,17 +236,6 @@ public class ProfileActivity extends AppCompatActivity {
                 Toast.makeText(ProfileActivity.this,"Timeout.Try after sometime",Toast.LENGTH_SHORT).show();
             }
         });
-      /*  binding.apartnameEdt.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-                apartname = apartmentname.get(position);
-                Log.e("Apartmentname",apartname);
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });*/
     }
 
     private void profile() {

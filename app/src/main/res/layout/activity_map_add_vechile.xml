@@ -67,6 +67,15 @@
                 android:layout_height="match_parent"
                 android:layout_margin="@dimen/marginlow"
                 android:orientation="vertical">
+                <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
+                    android:id="@+id/spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    app:smsp_baseColor="@color/colorPrimary"
+                    app:smsp_enableSearchHeader="false"
+                    app:smsp_isSearchable="true"
+                    app:smsp_multilineError="false"
+                    app:smsp_selectedItemListColor="@color/colorPrimary" />
                 <RelativeLayout
                     android:id="@+id/vec_category_rl"
                     android:layout_width="match_parent"
@@ -242,128 +251,6 @@
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>
-
-        <RelativeLayout
-            android:id="@+id/apart_rl"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/trans"
-                android:gravity="center">
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/card"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:cardCornerRadius="11dp"
-                    app:cardBackgroundColor="@color/white"
-                    android:elevation="7dp"
-                    android:fitsSystemWindows="true"
-                    app:cardUseCompatPadding="true"
-                    android:layout_margin="@dimen/margin"
-                    app:cardPreventCornerOverlap="true"
-                    app:cardElevation="5dp">
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-                        <LinearLayout
-                            android:gravity="center"
-                            android:paddingTop="5dp"
-                            android:paddingBottom="5dp"
-                            android:background="@color/colorPrimary"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                            <EditText
-                                android:layout_marginRight="10dp"
-                                android:layout_marginLeft="10dp"
-                                android:textColor="@color/black"
-                                android:gravity="center_vertical"
-                                android:id="@+id/rv_search"
-                                android:layout_weight="1"
-                                android:singleLine="true"
-                                android:maxLength="25"
-                                android:background="@drawable/search_back"
-                                android:padding="5dp"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:hint="Search"
-                                android:drawableLeft="@drawable/ic_search"
-                                android:drawablePadding="5dp"
-                                android:drawableTint="@color/black"/>
-
-                        </LinearLayout>
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-                            <androidx.recyclerview.widget.RecyclerView
-                                android:id="@+id/vec_category_rc"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:visibility="gone"
-                                android:layout_margin="@dimen/marginmed">
-
-                            </androidx.recyclerview.widget.RecyclerView>
-                            <androidx.recyclerview.widget.RecyclerView
-                                android:id="@+id/makemodel_rc"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:visibility="gone"
-                                android:layout_margin="@dimen/marginmed">
-
-                            </androidx.recyclerview.widget.RecyclerView>
-                            <androidx.recyclerview.widget.RecyclerView
-                                android:id="@+id/apartlist_rc"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:visibility="gone"
-                                android:layout_margin="@dimen/marginmed">
-
-                            </androidx.recyclerview.widget.RecyclerView>
-                            <androidx.recyclerview.widget.RecyclerView
-                                android:id="@+id/preferredschedule_rc"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:visibility="gone"
-                                android:layout_margin="@dimen/marginmed">
-
-                            </androidx.recyclerview.widget.RecyclerView>
-                            <androidx.recyclerview.widget.RecyclerView
-                                android:id="@+id/preferredtime_rc"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:visibility="gone"
-                                android:layout_margin="@dimen/marginmed">
-
-                            </androidx.recyclerview.widget.RecyclerView>
-                            <androidx.recyclerview.widget.RecyclerView
-                                android:id="@+id/parkingArea_rc"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:visibility="gone"
-                                android:layout_margin="@dimen/marginmed">
-
-                            </androidx.recyclerview.widget.RecyclerView>
-                        </LinearLayout>
-                        <Button
-                            android:layout_marginRight="10dp"
-                            android:layout_gravity="right|bottom"
-                            android:id="@+id/rv_cancel"
-                            android:text="Cancel"
-                            android:background="@drawable/btn_round"
-                            android:textColor="@color/white"
-                            android:textAllCaps="false"
-                            android:layout_alignParentBottom="true"
-                            android:layout_width="100dp"
-                            android:layout_height="40dp"/>
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-            </LinearLayout>
-        </RelativeLayout>
 
     </RelativeLayout>
 </layout>

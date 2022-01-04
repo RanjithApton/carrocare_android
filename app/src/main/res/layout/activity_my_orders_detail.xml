@@ -149,6 +149,24 @@
                                 <Button android:textSize="@dimen/bigtext" android:textStyle="bold" android:textColor="@color/white" android:gravity="center" android:layout_gravity="center" android:id="@+id/cancel" android:background="@drawable/login_bg" android:layout_width="match_parent" android:layout_height="40dp" android:layout_marginLeft="@dimen/margin" android:layout_marginTop="@dimen/margin" android:layout_marginRight="@dimen/margin" android:layout_marginBottom="@dimen/margin" android:text="Cancel Subscription" android:layout_weight="1" android:fontFamily="@font/josefinsans_bold"/>
                                 <Button android:textSize="@dimen/bigtext" android:textStyle="bold" android:textColor="@color/white" android:gravity="center" android:layout_gravity="center" android:id="@+id/viewhistory" android:background="@drawable/rzp_green_button" android:layout_width="match_parent" android:layout_height="40dp" android:layout_marginLeft="@dimen/margin" android:layout_marginTop="@dimen/margin" android:layout_marginRight="@dimen/margin" android:layout_marginBottom="@dimen/margin" android:text="View History" android:layout_weight="1" android:fontFamily="@font/josefinsans_bold"/>
                             </LinearLayout>
+                            <Button
+                                android:visibility="gone"
+                                android:textSize="@dimen/bigtext"
+                                android:textStyle="bold"
+                                android:textColor="@color/white"
+                                android:gravity="center"
+                                android:layout_gravity="center"
+                                android:id="@+id/cancel_onetime"
+                                android:background="@drawable/login_bg"
+                                android:layout_width="match_parent"
+                                android:layout_height="40dp"
+                                android:layout_marginLeft="@dimen/margin"
+                                android:layout_marginTop="@dimen/margin"
+                                android:layout_marginRight="@dimen/margin"
+                                android:layout_marginBottom="@dimen/margin"
+                                android:text="Cancel Order"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/josefinsans_bold"/>
                             <LinearLayout
                                 android:layout_gravity="center"
                                 android:layout_marginLeft="@dimen/margin"

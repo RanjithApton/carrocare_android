@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout  xmlns:android="http://schemas.android.com/apk/res/android">
+<RelativeLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.PaymentSucessActivity">
+
+    <RelativeLayout
+        android:visibility="gone"
+        android:background="@color/green"
+        android:id="@+id/sucess_screen"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_alignParentTop="true"
+            android:layout_above="@+id/bottom"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginTop="50dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:textSize="25dp"
+                android:textColor="@color/white"
+                android:text="Thanks!"
+                android:textStyle="bold"
+                android:fontFamily="@font/josefinsans_regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/cod_text"
+                android:layout_marginTop="20dp"
+                android:textSize="15dp"
+                android:textColor="@color/white"
+                android:layout_marginRight="30dp"
+                android:layout_marginLeft="30dp"
+                android:gravity="center"
+                android:text="Our team will collect the payment in cash after service delivery"
+                android:fontFamily="@font/josefinsans_regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/bottom"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/payment_background"
+            android:gravity="center"
+            android:padding="20dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:src="@drawable/status_succes"/>
+
+            <TextView
+                android:layout_marginTop="20dp"
+                android:textSize="18dp"
+                android:textColor="@color/black"
+                android:text="Your service is successfully booked"
+                android:fontFamily="@font/josefinsans_regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/sucess_amount"
+                android:layout_marginTop="20dp"
+                android:textSize="18dp"
+                android:textColor="@color/black"
+                android:text="Total : INR 300"
+                android:textStyle="bold"
+                android:fontFamily="@font/josefinsans_bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+            <Button
+                android:id="@+id/sucess_detail"
+                android:textColor="@color/white"
+                android:background="@drawable/btn_rounded_white"
+                android:textAllCaps="false"
+                android:text="See Details"
+                android:backgroundTint="@color/green"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+            <Button
+                android:id="@+id/success_home"
+                android:textColor="@color/white"
+                android:background="@drawable/btn_round"
+                android:textAllCaps="false"
+                android:text="Go to home"
+                android:backgroundTint="@color/green"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+        </LinearLayout>
+
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:visibility="gone"
+        android:background="@color/colorPrimary"
+        android:id="@+id/failure_screen"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_alignParentTop="true"
+            android:layout_above="@+id/bottom1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginTop="50dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:textSize="40dp"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:text="Order\nCancelled"
+                android:textStyle="bold"
+                android:fontFamily="@font/josefinsans_regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/bottom1"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/payment_background"
+            android:gravity="center"
+            android:padding="20dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:src="@drawable/status_cancel"/>
+
+            <TextView
+                android:layout_marginTop="20dp"
+                android:textSize="18dp"
+                android:textColor="@color/black"
+                android:text="Your order is cancelled"
+                android:fontFamily="@font/josefinsans_regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/failure_amount"
+                android:layout_marginTop="20dp"
+                android:textSize="18dp"
+                android:textColor="@color/black"
+                android:text="Total : INR 300"
+                android:textStyle="bold"
+                android:fontFamily="@font/josefinsans_bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+            <Button
+                android:id="@+id/failure_detail"
+                android:textColor="@color/white"
+                android:background="@drawable/btn_rounded_white"
+                android:textAllCaps="false"
+                android:text="See Details"
+                android:backgroundTint="@color/colorPrimary"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+            <Button
+                android:id="@+id/failure_home"
+                android:textColor="@color/white"
+                android:background="@drawable/btn_round"
+                android:textAllCaps="false"
+                android:text="Go to home"
+                android:backgroundTint="@color/colorPrimary"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+        </LinearLayout>
+
+
+
+    </RelativeLayout>
+
+
+
+</RelativeLayout>
+</layout>

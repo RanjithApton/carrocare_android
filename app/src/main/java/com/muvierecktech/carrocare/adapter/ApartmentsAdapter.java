@@ -55,17 +55,16 @@ public class ApartmentsAdapter extends RecyclerView.Adapter {
                     lastSelectedPosition = pos;
                     notifyDataSetChanged();
                 ((AddVehicleActivity)context).binding.apartmentEdt.setText(apartments.get(pos).name);
-                ((AddVehicleActivity)context).binding.apartRl.setVisibility(View.GONE);
                 }else if (check.equalsIgnoreCase("1")){
                     lastSelectedPosition = pos;
                     notifyDataSetChanged();
                 ((ProfileActivity)context).binding.apartnameEdt.setText(apartments.get(pos).name);
-                ((ProfileActivity)context).binding.apartRl.setVisibility(View.GONE);
+
                 }else if (check.equalsIgnoreCase("3")){
                     lastSelectedPosition = pos;
                     notifyDataSetChanged();
                     ((MyVechiclesAddActivity)context).binding.apartmentEdt.setText(apartments.get(pos).name);
-                    ((MyVechiclesAddActivity)context).binding.apartRl.setVisibility(View.GONE);
+
                 }
 
             }

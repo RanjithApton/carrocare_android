@@ -55,37 +55,37 @@ public class PreferredAdapter extends RecyclerView.Adapter {
                     notifyDataSetChanged();
                     ((AddVehicleActivity)context).binding.preferredscheduleEdt.setText(prefer[pos]);
                     ((AddVehicleActivity)context).binding.preferredtimeEdt.setText(null);
-                    ((AddVehicleActivity)context).binding.preferredscheduleRc.setVisibility(View.GONE);
-                    ((AddVehicleActivity)context).binding.apartRl.setVisibility(View.GONE);
+//                    ((AddVehicleActivity)context).binding.preferredscheduleRc.setVisibility(View.GONE);
+//                    ((AddVehicleActivity)context).binding.apartRl.setVisibility(View.GONE);
                 }else if (type.equalsIgnoreCase("2")){
                     MyViewHolder viewHolder1 = (MyViewHolder) view.getTag();
                     int pos = viewHolder1.getAdapterPosition();
                     lastSelectedPosition = pos;
                     notifyDataSetChanged();
                     ((AddVehicleActivity)context).binding.preferredtimeEdt.setText(prefer[pos]);
-                    ((AddVehicleActivity)context).binding.preferredtimeRc.setVisibility(View.GONE);
-                    ((AddVehicleActivity)context).binding.apartRl.setVisibility(View.GONE);
+//                    ((AddVehicleActivity)context).binding.preferredtimeRc.setVisibility(View.GONE);
+//                    ((AddVehicleActivity)context).binding.apartRl.setVisibility(View.GONE);
                 }else if (type.equalsIgnoreCase("3")){
                     MyViewHolder viewHolder1 = (MyViewHolder) view.getTag();
                     int pos = viewHolder1.getAdapterPosition();
                     lastSelectedPosition = pos;
                     notifyDataSetChanged();
                     ((AddVehicleActivity)context).binding.parkingAreaEdt.setText(prefer[pos]);
-                    ((AddVehicleActivity)context).binding.parkingAreaRc.setVisibility(View.GONE);
-                    ((AddVehicleActivity)context).binding.apartRl.setVisibility(View.GONE);
+//                    ((AddVehicleActivity)context).binding.parkingAreaRc.setVisibility(View.GONE);
+//                    ((AddVehicleActivity)context).binding.apartRl.setVisibility(View.GONE);
                 }else if (type.equalsIgnoreCase("type")){
                     MyViewHolder viewHolder1 = (MyViewHolder) view.getTag();
                     int pos = viewHolder1.getAdapterPosition();
                     lastSelectedPosition = pos;
                     notifyDataSetChanged();
                     ((ConfirmFormActivity)context).binding.vecTypeEdt.setText(prefer[pos]);
-                    ((ConfirmFormActivity)context).binding.typelistRc.setVisibility(View.GONE);
+                    //((ConfirmFormActivity)context).binding.typelistRc.setVisibility(View.GONE);
                     if (prefer[pos].equalsIgnoreCase("Bike")){
                         ((ConfirmFormActivity)context).binding.vecCategoryEdt.setText("Bike");
                     }else {
                         ((ConfirmFormActivity)context).binding.vecCategoryEdt.setText(null);
                     }
-                    ((ConfirmFormActivity)context).binding.apartRl.setVisibility(View.GONE);
+//                    ((ConfirmFormActivity)context).binding.apartRl.setVisibility(View.GONE);
 
                 }else if (type.equalsIgnoreCase("catcar")){
                     MyViewHolder viewHolder1 = (MyViewHolder) view.getTag();
@@ -93,8 +93,8 @@ public class PreferredAdapter extends RecyclerView.Adapter {
                     lastSelectedPosition = pos;
                     notifyDataSetChanged();
                     ((ConfirmFormActivity)context).binding.vecCategoryEdt.setText(prefer[pos]);
-                    ((ConfirmFormActivity)context).binding.catlistRc.setVisibility(View.GONE);
-                    ((ConfirmFormActivity)context).binding.apartRl.setVisibility(View.GONE);
+//                    ((ConfirmFormActivity)context).binding.catlistRc.setVisibility(View.GONE);
+//                    ((ConfirmFormActivity)context).binding.apartRl.setVisibility(View.GONE);
                 }else if (type.equalsIgnoreCase("pay")){
                     MyViewHolder viewHolder1 = (MyViewHolder) view.getTag();
                     int pos = viewHolder1.getAdapterPosition();
@@ -102,7 +102,7 @@ public class PreferredAdapter extends RecyclerView.Adapter {
                     notifyDataSetChanged();
                     ((PaymentOptionActivity)context).binding.preferredtimeEdt.setText(prefer[pos]);
                     ((PaymentOptionActivity)context).time = prefer[pos];
-                    ((PaymentOptionActivity)context).binding.timeLl.setVisibility(View.GONE);
+                    //((PaymentOptionActivity)context).binding.timeLl.setVisibility(View.GONE);
                 }else if (type.equalsIgnoreCase("11")){
                     MyViewHolder viewHolder1 = (MyViewHolder) view.getTag();
                     int pos = viewHolder1.getAdapterPosition();
@@ -110,16 +110,16 @@ public class PreferredAdapter extends RecyclerView.Adapter {
                     notifyDataSetChanged();
                     ((MyVechiclesAddActivity)context).binding.preferredscheduleEdt.setText(prefer[pos]);
                     ((MyVechiclesAddActivity)context).binding.preferredtimeEdt.setText(null);
-                    ((MyVechiclesAddActivity)context).binding.preferredscheduleRc.setVisibility(View.GONE);
-                    ((MyVechiclesAddActivity)context).binding.apartRl.setVisibility(View.GONE);
+//                    ((MyVechiclesAddActivity)context).binding.preferredscheduleRc.setVisibility(View.GONE);
+//                    ((MyVechiclesAddActivity)context).binding.apartRl.setVisibility(View.GONE);
                 }else if (type.equalsIgnoreCase("22")){
                     MyViewHolder viewHolder1 = (MyViewHolder) view.getTag();
                     int pos = viewHolder1.getAdapterPosition();
                     lastSelectedPosition = pos;
                     notifyDataSetChanged();
                     ((MyVechiclesAddActivity)context).binding.preferredtimeEdt.setText(prefer[pos]);
-                    ((MyVechiclesAddActivity)context).binding.preferredtimeRc.setVisibility(View.GONE);
-                    ((MyVechiclesAddActivity)context).binding.apartRl.setVisibility(View.GONE);
+//                    ((MyVechiclesAddActivity)context).binding.preferredtimeRc.setVisibility(View.GONE);
+//                    ((MyVechiclesAddActivity)context).binding.apartRl.setVisibility(View.GONE);
                 }else if (type.equalsIgnoreCase("renew_wax")){
                     MyViewHolder viewHolder1 = (MyViewHolder) view.getTag();
                     int pos = viewHolder1.getAdapterPosition();
@@ -145,16 +145,16 @@ public class PreferredAdapter extends RecyclerView.Adapter {
                     notifyDataSetChanged();
                     //((MapAddVechileActivity)context).binding.preferredscheduleEdt.setText(prefer[pos]);
                     //((MapAddVechileActivity)context).binding.preferredtimeEdt.setText(null);
-                    ((MapAddVechileActivity)context).binding.preferredscheduleRc.setVisibility(View.GONE);
-                    ((MapAddVechileActivity)context).binding.apartRl.setVisibility(View.GONE);
+//                    ((MapAddVechileActivity)context).binding.preferredscheduleRc.setVisibility(View.GONE);
+//                    ((MapAddVechileActivity)context).binding.apartRl.setVisibility(View.GONE);
                 }else if (type.equalsIgnoreCase("23")){
                     MyViewHolder viewHolder1 = (MyViewHolder) view.getTag();
                     int pos = viewHolder1.getAdapterPosition();
                     lastSelectedPosition = pos;
                     notifyDataSetChanged();
                     //((MapAddVechileActivity)context).binding.preferredtimeEdt.setText(prefer[pos]);
-                    ((MapAddVechileActivity)context).binding.preferredtimeRc.setVisibility(View.GONE);
-                    ((MapAddVechileActivity)context).binding.apartRl.setVisibility(View.GONE);
+//                    ((MapAddVechileActivity)context).binding.preferredtimeRc.setVisibility(View.GONE);
+//                    ((MapAddVechileActivity)context).binding.apartRl.setVisibility(View.GONE);
                 }
 
 

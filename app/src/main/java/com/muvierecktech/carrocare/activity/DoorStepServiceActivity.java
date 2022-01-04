@@ -33,6 +33,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -42,6 +43,7 @@ import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -149,6 +151,7 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
 
     Activity activity;
     Context context;
+    String pay_type = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -913,6 +916,11 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
         try {
             Toast.makeText(this, response, Toast.LENGTH_LONG).show();
             Log.e("TAG onPaymentError  ", response);
+//            Intent intent = new Intent(DoorStepServiceActivity.this,PaymentSucessActivity.class);
+//            intent.putExtra("status","failure");
+//            intent.putExtra("type","online");
+//            intent.putExtra("amount",Constant.ONETIME_CAR_PRICE);
+//            startActivity(intent);
         } catch (Exception e) {
             Log.e("TAG onPaymentError  ", e.getMessage());
         }
@@ -953,11 +961,101 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
                             Gson gson = new Gson();
                             Toast.makeText(DoorStepServiceActivity.this,jsonObject.optString("result"),Toast.LENGTH_SHORT).show();
                             Log.e("payresponse",""+jsonObject.optString("result"));
-                            Intent intent = new Intent(DoorStepServiceActivity.this,CongratsActivity.class);
+                            Intent intent = new Intent(DoorStepServiceActivity.this,PaymentSucessActivity.class);
+                            intent.putExtra("status","success");
+                            intent.putExtra("type","online");
+                            intent.putExtra("amount",Constant.ONETIME_CAR_PRICE);
                             startActivity(intent);
                             finish();
                         }else if (jsonObject.optString("code").equalsIgnoreCase("201")) {
                             Toast.makeText(DoorStepServiceActivity.this,jsonObject.optString("result"),Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(DoorStepServiceActivity.this,PaymentSucessActivity.class);
+                            intent.putExtra("status","failure");
+                            intent.putExtra("type","online");
+                            intent.putExtra("amount",Constant.ONETIME_CAR_PRICE);
+                            startActivity(intent);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                @Override
+                public void onFailure(Call<JsonObject> call, Throwable t) {
+                    hud.dismiss();
+                    Toast.makeText(DoorStepServiceActivity.this,"Timeout.Try after sometime",Toast.LENGTH_SHORT).show();
+                }
+            });
+        }else {
+            AlertDialog.Builder dialog = new AlertDialog.Builder(DoorStepServiceActivity.this);
+            dialog.setCancelable(false);
+            dialog.setTitle("Alert!");
+            dialog.setMessage("No internet.Please check your connection." );
+            dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int id) {
+                    //Action for "Ok".
+                    workPlaceOrder(razorpayid);
+                }
+            })
+                    .setNegativeButton("Cancel ", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            //Action for "Cancel".
+                            finish();
+                        }
+                    });
+
+            final AlertDialog alert = dialog.create();
+            alert.show();
+        }
+    }
+
+    private void workPlaceOrderCOD() {
+        if (isNetworkAvailable()) {
+            final KProgressHUD hud = KProgressHUD.create(DoorStepServiceActivity.this)
+                    .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                    .setCancellable(true)
+                    .setAnimationSpeed(2)
+                    .setDimAmount(0.5f)
+                    .show();
+            ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+            Call<JsonObject> call = apiInterface.saveOrderDoorStepCOD("doorstep_payment",
+                    customerid+"",
+                    token+"",
+                    Constant.ONETIME_PACK_TYPE +"",
+                    Constant.ONETIME_CAR_PRICE +"",
+                    Constant.ONETIME_CAR_ID +"",
+                    Constant.ONETIME_SERVICE_TYPE +"",
+                    Constant.ONETIME_CAR_PRICE +"",
+                    Constant.ONETIME_DATE +"",
+                    Constant.ONETIME_TIME +"",
+                    sessionManager.getData(SessionManager.MAP_ADDRESS) +"",
+                    sessionManager.getData(SessionManager.MAP_LATITUDE) +"",
+                    sessionManager.getData(SessionManager.MAP_LONGITUDE) +"");
+            call.enqueue(new Callback<JsonObject>() {
+                @Override
+                public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                    JsonElement jsonElement = response.body();
+                    hud.dismiss();
+                    try {
+                        JSONObject jsonObject = new JSONObject(jsonElement.toString());
+                        if (jsonObject.optString("code").equalsIgnoreCase("200")) {
+                            Gson gson = new Gson();
+                            Toast.makeText(DoorStepServiceActivity.this,jsonObject.optString("result"),Toast.LENGTH_SHORT).show();
+                            Log.e("payresponse",""+jsonObject.optString("result"));
+                            Intent intent = new Intent(DoorStepServiceActivity.this,PaymentSucessActivity.class);
+                            intent.putExtra("status","success");
+                            intent.putExtra("type","cod");
+                            intent.putExtra("amount",Constant.ONETIME_CAR_PRICE);
+                            startActivity(intent);
+                            finish();
+                        }else if (jsonObject.optString("code").equalsIgnoreCase("201")) {
+                            Toast.makeText(DoorStepServiceActivity.this,jsonObject.optString("result"),Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(DoorStepServiceActivity.this,PaymentSucessActivity.class);
+                            intent.putExtra("status","failure");
+                            intent.putExtra("type","cod");
+                            intent.putExtra("amount",Constant.ONETIME_CAR_PRICE);
+                            startActivity(intent);
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -999,6 +1097,7 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         Date cal = calendar.getTime();
         today_date = df.format(cal);
+        comparedate = df.format(cal);
     }
 
     private void carWash() {
@@ -1006,7 +1105,7 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
         View bottomview = LayoutInflater.from(getApplicationContext())
                 .inflate(R.layout.layout_bottom_carwash,
                         (RelativeLayout)findViewById(R.id.carwashSheet));
-        bottomSheetDialog.setCancelable(false);
+        //bottomSheetDialog.setCancelable(false);
         bottomview.findViewById(R.id.close_popup).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -1044,228 +1143,142 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
         Button button_processed;
         button_processed = bottomview.findViewById(R.id.button_processed);
 
+        if (isNetworkAvailable()) {
+            final KProgressHUD hud = KProgressHUD.create(DoorStepServiceActivity.this)
+                    .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                    .setCancellable(true)
+                    .setAnimationSpeed(2)
+                    .setDimAmount(0.5f)
+                    .show();
+            ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+            Call<DoorStepCarWash> call = apiInterface.doorStepService("carwash");
+            call.enqueue(new Callback<DoorStepCarWash>() {
+                @Override
+                public void onResponse(Call<DoorStepCarWash> call, Response<DoorStepCarWash> response) {
+                    final DoorStepCarWash doorStepCarWash = response.body();
+                    hud.dismiss();
+                    if (doorStepCarWash.code.equalsIgnoreCase("200")) {
+                        Gson gson = new Gson();
+                        String json = gson.toJson(doorStepCarWash);
 
-        final KProgressHUD hud = KProgressHUD.create(DoorStepServiceActivity.this)
-                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
-                .setCancellable(true)
-                .setAnimationSpeed(2)
-                .setDimAmount(0.5f)
-                .show();
-        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        Call<DoorStepCarWash> call = apiInterface.doorStepService("carwash");
-        call.enqueue(new Callback<DoorStepCarWash>() {
-            @Override
-            public void onResponse(Call<DoorStepCarWash> call, Response<DoorStepCarWash> response) {
-                final DoorStepCarWash doorStepCarWash = response.body();
-                hud.dismiss();
-                if (doorStepCarWash.code.equalsIgnoreCase("200")) {
-                    Gson gson = new Gson();
-                    String json = gson.toJson(doorStepCarWash);
+                        bottomview.findViewById(R.id.extrerior_info).setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                showPopupDialog(doorStepCarWash.Exterior_Wash.description);
+                            }
+                        });
 
-                    bottomview.findViewById(R.id.extrerior_info).setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
+                        bottomview.findViewById(R.id.interior_info).setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                showPopupDialog(doorStepCarWash.Interior_Cleaning.description);
+                            }
+                        });
 
-                            android.app.AlertDialog.Builder dialogbuilder = new android.app.AlertDialog.Builder(DoorStepServiceActivity.this);
-                            dialogbuilder.setCancelable(true);
-                            View dialogView = LayoutInflater.from(DoorStepServiceActivity.this).inflate(R.layout.layout_popup_info, null);
-                            TextView catDescription=dialogView.findViewById(R.id.cat_description);
-                            ImageView catImage =dialogView.findViewById(R.id.cat_image);
-                            ImageView close =dialogView.findViewById(R.id.cat_close_imgae);
+                        bottomview.findViewById(R.id.polishing_info).setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                showPopupDialog(doorStepCarWash.Engine_Polishing.description);
+                            }
+                        });
 
-                            catImage.setImageResource(R.drawable.exterior_wash);
-                            catDescription.setText(Html.fromHtml(doorStepCarWash.Exterior_Wash.description));
+                        bottomview.findViewById(R.id.wax_info).setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                showPopupDialog(doorStepCarWash.Quick_Wax.description);
+                            }
+                        });
 
-                            dialogbuilder.setView(dialogView);
-                            android.app.AlertDialog dialog = dialogbuilder.create();
-                            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                        bottomview.findViewById(R.id.sanitize_info).setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                showPopupDialog(doorStepCarWash.Car_Sanitisation.description);
+                            }
+                        });
 
-                            close.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    dialog.dismiss();
-                                }
-                            });
+                        List<DoorStepCarWash.Exterior_Wash.Service> list = new ArrayList<>();
+                        list = doorStepCarWash.Exterior_Wash.service;
 
-                            dialog.show();
+                        List<DoorStepCarWash.Interior_Cleaning.Service> list1 = new ArrayList<>();
+                        list1 = doorStepCarWash.Interior_Cleaning.service;
 
+                        List<DoorStepCarWash.Engine_Polishing.Service> list2 = new ArrayList<>();
+                        list2 = doorStepCarWash.Engine_Polishing.service;
+
+                        List<DoorStepCarWash.Quick_Wax.Service> list3 = new ArrayList<>();
+                        list3 = doorStepCarWash.Quick_Wax.service;
+
+                        List<DoorStepCarWash.Car_Sanitisation.Service> list4 = new ArrayList<>();
+                        list4 = doorStepCarWash.Car_Sanitisation.service;
+
+
+                        for (int i = 0; i < list.size(); i++) {
+                            if (Constant.ONETIME_CAR_TYPE.equalsIgnoreCase(list.get(i).type)) {
+                                extreriorAmt.setText(list.get(i).prices);
+                                price_exterior = list.get(i).prices;
+                            }
                         }
-                    });
 
-                    bottomview.findViewById(R.id.interior_info).setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-
-                            android.app.AlertDialog.Builder dialogbuilder = new android.app.AlertDialog.Builder(DoorStepServiceActivity.this);
-                            dialogbuilder.setCancelable(true);
-                            View dialogView = LayoutInflater.from(DoorStepServiceActivity.this).inflate(R.layout.layout_popup_info, null);
-                            TextView catDescription=dialogView.findViewById(R.id.cat_description);
-                            ImageView catImage =dialogView.findViewById(R.id.cat_image);
-                            ImageView close =dialogView.findViewById(R.id.cat_close_imgae);
-
-                            catImage.setImageResource(R.drawable.exterior_wash);
-                            catDescription.setText(Html.fromHtml(doorStepCarWash.Interior_Cleaning.description));
-
-                            dialogbuilder.setView(dialogView);
-                            android.app.AlertDialog dialog = dialogbuilder.create();
-                            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-
-                            close.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    dialog.dismiss();
-                                }
-                            });
-
-                            dialog.show();
+                        for (int i = 0; i < list1.size(); i++) {
+                            if (Constant.ONETIME_CAR_TYPE.equalsIgnoreCase(list1.get(i).type)) {
+                                interiorAmt.setText(list1.get(i).prices);
+                                price_interior = list1.get(i).prices;
+                            }
                         }
-                    });
 
-                    bottomview.findViewById(R.id.polishing_info).setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            android.app.AlertDialog.Builder dialogbuilder = new android.app.AlertDialog.Builder(DoorStepServiceActivity.this);
-                            dialogbuilder.setCancelable(true);
-                            View dialogView = LayoutInflater.from(DoorStepServiceActivity.this).inflate(R.layout.layout_popup_info, null);
-                            TextView catDescription=dialogView.findViewById(R.id.cat_description);
-                            ImageView catImage =dialogView.findViewById(R.id.cat_image);
-                            ImageView close =dialogView.findViewById(R.id.cat_close_imgae);
-
-                            catImage.setImageResource(R.drawable.exterior_wash);
-                            catDescription.setText(Html.fromHtml(doorStepCarWash.Engine_Polishing.description));
-
-                            dialogbuilder.setView(dialogView);
-                            android.app.AlertDialog dialog = dialogbuilder.create();
-                            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-
-                            close.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    dialog.dismiss();
-                                }
-                            });
-
-                            dialog.show();
-
+                        for (int i = 0; i < list2.size(); i++) {
+                            if (Constant.ONETIME_CAR_TYPE.equalsIgnoreCase(list2.get(i).type)) {
+                                polishingAmt.setText(list2.get(i).prices);
+                                price_polish = list2.get(i).prices;
+                            }
                         }
-                    });
 
-                    bottomview.findViewById(R.id.wax_info).setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            android.app.AlertDialog.Builder dialogbuilder = new android.app.AlertDialog.Builder(DoorStepServiceActivity.this);
-                            dialogbuilder.setCancelable(true);
-                            View dialogView = LayoutInflater.from(DoorStepServiceActivity.this).inflate(R.layout.layout_popup_info, null);
-                            TextView catDescription=dialogView.findViewById(R.id.cat_description);
-                            ImageView catImage =dialogView.findViewById(R.id.cat_image);
-                            ImageView close =dialogView.findViewById(R.id.cat_close_imgae);
-
-                            catImage.setImageResource(R.drawable.exterior_wash);
-                            catDescription.setText(Html.fromHtml(doorStepCarWash.Quick_Wax.description));
-
-                            dialogbuilder.setView(dialogView);
-                            android.app.AlertDialog dialog = dialogbuilder.create();
-                            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-
-                            close.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    dialog.dismiss();
-                                }
-                            });
-
-                            dialog.show();
+                        for (int i = 0; i < list3.size(); i++) {
+                            if (Constant.ONETIME_CAR_TYPE.equalsIgnoreCase(list3.get(i).type)) {
+                                waxAmt.setText(list3.get(i).prices);
+                                price_wax = list3.get(i).prices;
+                            }
                         }
-                    });
 
-                    bottomview.findViewById(R.id.sanitize_info).setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            android.app.AlertDialog.Builder dialogbuilder = new android.app.AlertDialog.Builder(DoorStepServiceActivity.this);
-                            dialogbuilder.setCancelable(true);
-                            View dialogView = LayoutInflater.from(DoorStepServiceActivity.this).inflate(R.layout.layout_popup_info, null);
-                            TextView catDescription=dialogView.findViewById(R.id.cat_description);
-                            ImageView catImage =dialogView.findViewById(R.id.cat_image);
-                            ImageView close =dialogView.findViewById(R.id.cat_close_imgae);
-
-                            catImage.setImageResource(R.drawable.exterior_wash);
-                            catDescription.setText(Html.fromHtml(doorStepCarWash.Car_Sanitisation.description));
-
-                            dialogbuilder.setView(dialogView);
-                            android.app.AlertDialog dialog = dialogbuilder.create();
-                            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-
-                            close.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    dialog.dismiss();
-                                }
-                            });
-
-                            dialog.show();
+                        for (int i = 0; i < list4.size(); i++) {
+                            if (Constant.ONETIME_CAR_TYPE.equalsIgnoreCase(list4.get(i).type)) {
+                                sanitizeAmt.setText(list4.get(i).prices);
+                                price_sanitize = list4.get(i).prices;
+                            }
                         }
-                    });
 
-                    List<DoorStepCarWash.Exterior_Wash.Service> list = new ArrayList<>();
-                    list = doorStepCarWash.Exterior_Wash.service;
-
-                    List<DoorStepCarWash.Interior_Cleaning.Service> list1 = new ArrayList<>();
-                    list1 = doorStepCarWash.Interior_Cleaning.service;
-
-                    List<DoorStepCarWash.Engine_Polishing.Service> list2 = new ArrayList<>();
-                    list2 = doorStepCarWash.Engine_Polishing.service;
-
-                    List<DoorStepCarWash.Quick_Wax.Service> list3 = new ArrayList<>();
-                    list3 = doorStepCarWash.Quick_Wax.service;
-
-                    List<DoorStepCarWash.Car_Sanitisation.Service> list4 = new ArrayList<>();
-                    list4 = doorStepCarWash.Car_Sanitisation.service;
-
-
-
-                    for(int i = 0 ; i < list.size() ; i++) {
-                        if (Constant.ONETIME_CAR_TYPE.equalsIgnoreCase(list.get(i).type)){
-                            extreriorAmt.setText(list.get(i).prices);
-                            price_exterior = list.get(i).prices;
-                        }
                     }
-
-                    for(int i = 0 ; i < list1.size() ; i++) {
-                        if (Constant.ONETIME_CAR_TYPE.equalsIgnoreCase(list1.get(i).type)){
-                            interiorAmt.setText(list1.get(i).prices);
-                            price_interior = list1.get(i).prices;
-                        }
-                    }
-
-                    for(int i = 0 ; i < list2.size() ; i++) {
-                        if (Constant.ONETIME_CAR_TYPE.equalsIgnoreCase(list2.get(i).type)){
-                            polishingAmt.setText(list2.get(i).prices);
-                            price_polish = list2.get(i).prices;
-                        }
-                    }
-
-                    for(int i = 0 ; i < list3.size() ; i++) {
-                        if (Constant.ONETIME_CAR_TYPE.equalsIgnoreCase(list3.get(i).type)){
-                            waxAmt.setText(list3.get(i).prices);
-                            price_wax = list3.get(i).prices;
-                        }
-                    }
-
-                    for(int i = 0 ; i < list4.size() ; i++) {
-                        if (Constant.ONETIME_CAR_TYPE.equalsIgnoreCase(list4.get(i).type)){
-                            sanitizeAmt.setText(list4.get(i).prices);
-                            price_sanitize = list4.get(i).prices;
-                        }
-                    }
-
                 }
-            }
-            @Override
-            public void onFailure(Call<DoorStepCarWash> call, Throwable t) {
-                hud.dismiss();
-                Toast.makeText(DoorStepServiceActivity.this,"Timeout.Try after sometime",Toast.LENGTH_SHORT).show();
-            }
-        });
+
+                @Override
+                public void onFailure(Call<DoorStepCarWash> call, Throwable t) {
+                    hud.dismiss();
+                    Toast.makeText(DoorStepServiceActivity.this, "Timeout.Try after sometime", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }else {
+            AlertDialog.Builder dialog = new AlertDialog.Builder(DoorStepServiceActivity.this);
+            dialog.setCancelable(false);
+            dialog.setTitle("Alert!");
+            dialog.setMessage("No internet.Please check your connection." );
+            dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int id) {
+                    //Action for "Ok".
+                    carWash();
+                }
+            })
+                    .setNegativeButton("Cancel ", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            //Action for "Cancel".
+                            finish();
+                        }
+                    });
+
+            final AlertDialog alert = dialog.create();
+            alert.show();
+        }
 
 
         extreriorCard.setOnClickListener(new View.OnClickListener() {
@@ -1310,7 +1323,7 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
                     //service_type.add("ExteriorWash");
                     botAmount.setVisibility(View.VISIBLE);
                     total_amount = price_exterior;
-                    totalAmount.setText("INR\n"+total_amount);
+                    totalAmount.setText("INR "+total_amount);
                 }else if(!isChecked){
                     //service_type.clear();
                     interiorCheck.setChecked(false);
@@ -1342,14 +1355,14 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
                         total_amount = String.valueOf(sum);
                     }
 
-                    totalAmount.setText("INR\n"+total_amount);
+                    totalAmount.setText("INR "+total_amount);
                 }else if(!isChecked){
                     //service_type.remove("InteriorCleaning");
                     int num1 = (int) Double.parseDouble(total_amount);
                     int num2 = (int) Double.parseDouble(price_interior);
                     int sum = num1 - num2;
                     total_amount = String.valueOf(sum);
-                    totalAmount.setText("INR\n"+total_amount);
+                    totalAmount.setText("INR "+total_amount);
                 }
             }
         });
@@ -1373,14 +1386,14 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
                         total_amount = String.valueOf(sum);
                     }
 
-                    totalAmount.setText("INR\n"+total_amount);
+                    totalAmount.setText("INR "+total_amount);
                 }else if(!isChecked){
                     //service_type.remove("EnginePolishing");
                     int num1 = (int) Double.parseDouble(total_amount);
                     int num2 = (int) Double.parseDouble(price_polish);
                     int sum = num1 - num2;
                     total_amount = String.valueOf(sum);
-                    totalAmount.setText("INR\n"+total_amount);
+                    totalAmount.setText("INR "+total_amount);
                 }
             }
         });
@@ -1404,14 +1417,14 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
                         total_amount = String.valueOf(sum);
                     }
 
-                    totalAmount.setText("INR\n"+total_amount);
+                    totalAmount.setText("INR "+total_amount);
                 }else if(!isChecked){
                     //service_type.remove("QuickWax");
                     int num1 = (int) Double.parseDouble(total_amount);
                     int num2 = (int) Double.parseDouble(price_wax);
                     int sum = num1 - num2;
                     total_amount = String.valueOf(sum);
-                    totalAmount.setText("INR\n"+total_amount);
+                    totalAmount.setText("INR "+total_amount);
                 }
             }
         });
@@ -1435,14 +1448,14 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
                         total_amount = String.valueOf(sum);
                     }
 
-                    totalAmount.setText("INR\n"+total_amount);
+                    totalAmount.setText("INR "+total_amount);
                 }else if(!isChecked){
                     //service_type.remove("CarSanitisation");
                     int num1 = (int) Double.parseDouble(total_amount);
                     int num2 = (int) Double.parseDouble(price_sanitize);
                     int sum = num1 - num2;
                     total_amount = String.valueOf(sum);
-                    totalAmount.setText("INR\n"+total_amount);
+                    totalAmount.setText("INR "+total_amount);
                 }
             }
         });
@@ -1466,7 +1479,7 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
         View bottomview = LayoutInflater.from(getApplicationContext())
                 .inflate(R.layout.layout_bottom_detailing,
                         (RelativeLayout)findViewById(R.id.detailingsheet));
-        bottomSheetDialog.setCancelable(false);
+        //bottomSheetDialog.setCancelable(false);
         bottomview.findViewById(R.id.close_popup1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -1495,151 +1508,111 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
         TextView detailTotalAmount;
         detailTotalAmount = bottomview.findViewById(R.id.detail_totalAmount);
 
+        if (isNetworkAvailable()) {
+            final KProgressHUD hud = KProgressHUD.create(DoorStepServiceActivity.this)
+                    .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                    .setCancellable(true)
+                    .setAnimationSpeed(2)
+                    .setDimAmount(0.5f)
+                    .show();
+            ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+            Call<DoorStepCarWash> call = apiInterface.doorStepService("detailing");
+            call.enqueue(new Callback<DoorStepCarWash>() {
+                @Override
+                public void onResponse(Call<DoorStepCarWash> call, Response<DoorStepCarWash> response) {
+                    final DoorStepCarWash doorStepCarWash = response.body();
+                    hud.dismiss();
+                    if (doorStepCarWash.code.equalsIgnoreCase("200")) {
+                        Gson gson = new Gson();
+                        String json = gson.toJson(doorStepCarWash);
 
-        final KProgressHUD hud = KProgressHUD.create(DoorStepServiceActivity.this)
-                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
-                .setCancellable(true)
-                .setAnimationSpeed(2)
-                .setDimAmount(0.5f)
-                .show();
-        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        Call<DoorStepCarWash> call = apiInterface.doorStepService("detailing");
-        call.enqueue(new Callback<DoorStepCarWash>() {
-            @Override
-            public void onResponse(Call<DoorStepCarWash> call, Response<DoorStepCarWash> response) {
-                final DoorStepCarWash doorStepCarWash = response.body();
-                hud.dismiss();
-                if (doorStepCarWash.code.equalsIgnoreCase("200")) {
-                    Gson gson = new Gson();
-                    String json = gson.toJson(doorStepCarWash);
+
+                        bottomview.findViewById(R.id.carpolising_info).setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                showPopupDialog(doorStepCarWash.Car_Polishing.description);
+                            }
+                        });
+
+                        bottomview.findViewById(R.id.interiordetaling_info).setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                showPopupDialog(doorStepCarWash.Interior_Detailing.description);
+                            }
+                        });
+
+                        bottomview.findViewById(R.id.wingowtinting_info).setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                showPopupDialog(doorStepCarWash.window_tinting.description);
+                            }
+                        });
 
 
-                    bottomview.findViewById(R.id.carpolising_info).setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            android.app.AlertDialog.Builder dialogbuilder = new android.app.AlertDialog.Builder(DoorStepServiceActivity.this);
-                            dialogbuilder.setCancelable(true);
-                            View dialogView = LayoutInflater.from(DoorStepServiceActivity.this).inflate(R.layout.layout_popup_info, null);
-                            TextView catDescription=dialogView.findViewById(R.id.cat_description);
-                            ImageView catImage =dialogView.findViewById(R.id.cat_image);
-                            ImageView close =dialogView.findViewById(R.id.cat_close_imgae);
+                        List<DoorStepCarWash.Car_Polishing.Service> list = new ArrayList<>();
+                        list = doorStepCarWash.Car_Polishing.service;
 
-                            catImage.setImageResource(R.drawable.exterior_wash);
-                            catDescription.setText(Html.fromHtml(doorStepCarWash.Car_Polishing.description));
+                        List<DoorStepCarWash.Interior_Detailing.Service> list1 = new ArrayList<>();
+                        list1 = doorStepCarWash.Interior_Detailing.service;
 
-                            dialogbuilder.setView(dialogView);
-                            android.app.AlertDialog dialog = dialogbuilder.create();
-                            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                        List<DoorStepCarWash.window_tinting.Service> list2 = new ArrayList<>();
+                        list2 = doorStepCarWash.window_tinting.service;
 
-                            close.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    dialog.dismiss();
-                                }
-                            });
 
-                            dialog.show();
+                        for (int i = 0; i < list.size(); i++) {
+                            if (Constant.ONETIME_CAR_TYPE.equalsIgnoreCase(list.get(i).type)) {
+                                carpolisingAmt.setText(list.get(i).prices);
+                                price_carpolish = list.get(i).prices;
+                            }
                         }
-                    });
 
-                    bottomview.findViewById(R.id.interiordetaling_info).setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            android.app.AlertDialog.Builder dialogbuilder = new android.app.AlertDialog.Builder(DoorStepServiceActivity.this);
-                            dialogbuilder.setCancelable(true);
-                            View dialogView = LayoutInflater.from(DoorStepServiceActivity.this).inflate(R.layout.layout_popup_info, null);
-                            TextView catDescription=dialogView.findViewById(R.id.cat_description);
-                            ImageView catImage =dialogView.findViewById(R.id.cat_image);
-                            ImageView close =dialogView.findViewById(R.id.cat_close_imgae);
-
-                            catImage.setImageResource(R.drawable.exterior_wash);
-                            catDescription.setText(Html.fromHtml(doorStepCarWash.Interior_Detailing.description));
-
-                            dialogbuilder.setView(dialogView);
-                            android.app.AlertDialog dialog = dialogbuilder.create();
-                            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-
-                            close.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    dialog.dismiss();
-                                }
-                            });
-
-                            dialog.show();
+                        for (int i = 0; i < list1.size(); i++) {
+                            if (Constant.ONETIME_CAR_TYPE.equalsIgnoreCase(list1.get(i).type)) {
+                                interiordetalingAmt.setText(list1.get(i).prices);
+                                price_interiordetail = list1.get(i).prices;
+                            }
                         }
-                    });
 
-                    bottomview.findViewById(R.id.wingowtinting_info).setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            android.app.AlertDialog.Builder dialogbuilder = new android.app.AlertDialog.Builder(DoorStepServiceActivity.this);
-                            dialogbuilder.setCancelable(true);
-                            View dialogView = LayoutInflater.from(DoorStepServiceActivity.this).inflate(R.layout.layout_popup_info, null);
-                            TextView catDescription=dialogView.findViewById(R.id.cat_description);
-                            ImageView catImage =dialogView.findViewById(R.id.cat_image);
-                            ImageView close =dialogView.findViewById(R.id.cat_close_imgae);
-
-                            catImage.setImageResource(R.drawable.exterior_wash);
-                            catDescription.setText(Html.fromHtml(doorStepCarWash.window_tinting.description));
-
-                            dialogbuilder.setView(dialogView);
-                            android.app.AlertDialog dialog = dialogbuilder.create();
-                            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-
-                            close.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    dialog.dismiss();
-                                }
-                            });
-
-                            dialog.show();
+                        for (int i = 0; i < list2.size(); i++) {
+                            if (Constant.ONETIME_CAR_TYPE.equalsIgnoreCase(list2.get(i).type)) {
+                                wingowtintingAmt.setText(list2.get(i).prices);
+                                price_windowtint = list2.get(i).prices;
+                            }
                         }
-                    });
 
 
-                    List<DoorStepCarWash.Car_Polishing.Service> list = new ArrayList<>();
-                    list = doorStepCarWash.Car_Polishing.service;
-
-                    List<DoorStepCarWash.Interior_Detailing.Service> list1 = new ArrayList<>();
-                    list1 = doorStepCarWash.Interior_Detailing.service;
-
-                    List<DoorStepCarWash.window_tinting.Service> list2 = new ArrayList<>();
-                    list2 = doorStepCarWash.window_tinting.service;
-
-
-
-                    for(int i = 0 ; i < list.size() ; i++) {
-                        if (Constant.ONETIME_CAR_TYPE.equalsIgnoreCase(list.get(i).type)){
-                            carpolisingAmt.setText(list.get(i).prices);
-                            price_carpolish = list.get(i).prices;
-                        }
                     }
-
-                    for(int i = 0 ; i < list1.size() ; i++) {
-                        if (Constant.ONETIME_CAR_TYPE.equalsIgnoreCase(list1.get(i).type)){
-                            interiordetalingAmt.setText(list1.get(i).prices);
-                            price_interiordetail = list1.get(i).prices;
-                        }
-                    }
-
-                    for(int i = 0 ; i < list2.size() ; i++) {
-                        if (Constant.ONETIME_CAR_TYPE.equalsIgnoreCase(list2.get(i).type)){
-                            wingowtintingAmt.setText(list2.get(i).prices);
-                            price_windowtint = list2.get(i).prices;
-                        }
-                    }
-
-
                 }
-            }
-            @Override
-            public void onFailure(Call<DoorStepCarWash> call, Throwable t) {
-                hud.dismiss();
-                Toast.makeText(DoorStepServiceActivity.this,"Timeout.Try after sometime",Toast.LENGTH_SHORT).show();
-            }
-        });
+
+                @Override
+                public void onFailure(Call<DoorStepCarWash> call, Throwable t) {
+                    hud.dismiss();
+                    Toast.makeText(DoorStepServiceActivity.this, "Timeout.Try after sometime", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }else {
+            AlertDialog.Builder dialog = new AlertDialog.Builder(DoorStepServiceActivity.this);
+            dialog.setCancelable(false);
+            dialog.setTitle("Alert!");
+            dialog.setMessage("No internet.Please check your connection." );
+            dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int id) {
+                    //Action for "Ok".
+                    detailing();
+                }
+            })
+                    .setNegativeButton("Cancel ", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            //Action for "Cancel".
+                            finish();
+                        }
+                    });
+
+            final AlertDialog alert = dialog.create();
+            alert.show();
+        }
 
 
         carpolishngCard.setOnClickListener(new View.OnClickListener() {
@@ -1677,13 +1650,13 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
                         detail_total_amount = String.valueOf(sum);
                     }
 
-                    detailTotalAmount.setText("INR\n"+detail_total_amount);
+                    detailTotalAmount.setText("INR "+detail_total_amount);
                 }else if(!isChecked){
                     int num1 = (int) Double.parseDouble(detail_total_amount);
                     int num2 = (int) Double.parseDouble(price_carpolish);
                     int sum = num1 - num2;
                     detail_total_amount = String.valueOf(sum);
-                    detailTotalAmount.setText("INR\n"+detail_total_amount);
+                    detailTotalAmount.setText("INR "+detail_total_amount);
 
                     if(detail_total_amount.equals("0") || detail_total_amount.equals("0.0")){
                         detailAmount.setVisibility(View.GONE);
@@ -1710,13 +1683,13 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
                         detail_total_amount = String.valueOf(sum);
                     }
 
-                    detailTotalAmount.setText("INR\n"+detail_total_amount);
+                    detailTotalAmount.setText("INR "+detail_total_amount);
                 }else if(!isChecked){
                     int num1 = (int) Double.parseDouble(detail_total_amount);
                     int num2 = (int) Double.parseDouble(price_interiordetail);
                     int sum = num1 - num2;
                     detail_total_amount = String.valueOf(sum);
-                    detailTotalAmount.setText("INR\n"+detail_total_amount);
+                    detailTotalAmount.setText("INR "+detail_total_amount);
 
                     if(detail_total_amount.equals("0") || detail_total_amount.equals("0.0")){
                         detailAmount.setVisibility(View.GONE);
@@ -1741,13 +1714,13 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
                         detail_total_amount = String.valueOf(sum);
                     }
 
-                    detailTotalAmount.setText("INR\n"+detail_total_amount);
+                    detailTotalAmount.setText("INR "+detail_total_amount);
                 }else if(!isChecked){
                     int num1 = (int) Double.parseDouble(detail_total_amount);
                     int num2 = (int) Double.parseDouble(price_windowtint);
                     int sum = num1 - num2;
                     detail_total_amount = String.valueOf(sum);
-                    detailTotalAmount.setText("INR\n"+detail_total_amount);
+                    detailTotalAmount.setText("INR "+detail_total_amount);
 
                     if(detail_total_amount.equals("0") || detail_total_amount.equals("0.0")){
                         detailAmount.setVisibility(View.GONE);
@@ -1832,7 +1805,7 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
         View bottomview = LayoutInflater.from(getApplicationContext())
                 .inflate(R.layout.layout_bottom_datepicker,
                         (RelativeLayout)findViewById(R.id.timerSheet));
-        bottomSheetDialog.setCancelable(false);
+        //bottomSheetDialog.setCancelable(false);
         bottomview.findViewById(R.id.close_popup_schedule).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -1860,7 +1833,86 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
                 }else if(comparedate.equals(today_date)){
                     Toast.makeText(activity, "Select different date", Toast.LENGTH_SHORT).show();
                 }else{
-                    //workmode();
+                    payType();
+                }
+            }
+        });
+
+        bottomSheetDialog.setContentView(bottomview);
+        bottomSheetDialog.show();
+
+    }
+
+    private void payType() {
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(DoorStepServiceActivity.this, R.style.BottomSheetDialogTheme);
+        View bottomview = LayoutInflater.from(getApplicationContext())
+                .inflate(R.layout.layout_bottom_checkout,
+                        (RelativeLayout)findViewById(R.id.paysheet));
+        //bottomSheetDialog.setCancelable(false);
+        bottomview.findViewById(R.id.close_popup).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                bottomSheetDialog.dismiss();
+            }
+        });
+
+        TextView subTotal, Total;
+        subTotal = bottomview.findViewById(R.id.sub_total);
+        Total = bottomview.findViewById(R.id.total_amount);
+
+        subTotal.setText("₹ "+Constant.ONETIME_CAR_PRICE);
+        Total.setText("₹ "+Constant.ONETIME_CAR_PRICE);
+
+        RadioButton cod, online;
+        cod = bottomview.findViewById(R.id.cod_check);
+        online = bottomview.findViewById(R.id.online_check);
+
+        cod.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(cod.isSelected()){
+                    cod.setSelected(false);
+                    cod.setChecked(false);
+                    pay_type = "";
+                }else{
+                    cod.setSelected(true);
+                    cod.setChecked(true);
+                    online.setChecked(false);
+                    pay_type = "cod";
+                }
+            }
+        });
+
+        online.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(online.isSelected()){
+                    online.setSelected(false);
+                    online.setChecked(false);
+                    pay_type = "";
+                }else{
+                    online.setSelected(true);
+                    online.setChecked(true);
+                    cod.setChecked(false);
+                    pay_type = "online";
+                }
+            }
+        });
+
+
+
+        Button checkout;
+        checkout = bottomview.findViewById(R.id.btn_confirm);
+
+        checkout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(pay_type.equalsIgnoreCase("")){
+                    Toast.makeText(activity, "Please select payment method..", Toast.LENGTH_SHORT).show();
+                }else if (pay_type.equalsIgnoreCase("cod")){
+                    workPlaceOrderCOD();
+                }else if (pay_type.equalsIgnoreCase("online")){
+                    workmode();
                 }
             }
         });
@@ -1885,6 +1937,32 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
         //Log.e("c_response=>>789456",""+ timeOnly);
         Constant.ONETIME_TIME = timeOnly;
         comparedate = dateOnly;
+
+    }
+
+    private void showPopupDialog(String description) {
+        android.app.AlertDialog.Builder dialogbuilder = new android.app.AlertDialog.Builder(DoorStepServiceActivity.this);
+        dialogbuilder.setCancelable(true);
+        View dialogView = LayoutInflater.from(DoorStepServiceActivity.this).inflate(R.layout.layout_popup_info, null);
+        TextView catDescription=dialogView.findViewById(R.id.cat_description);
+        ImageView catImage =dialogView.findViewById(R.id.cat_image);
+        ImageView close =dialogView.findViewById(R.id.cat_close_imgae);
+
+        catImage.setImageResource(R.drawable.exterior_wash);
+        catDescription.setText(Html.fromHtml(description));
+
+        dialogbuilder.setView(dialogView);
+        android.app.AlertDialog dialog = dialogbuilder.create();
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
     }
 
 }

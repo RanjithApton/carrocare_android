@@ -52,8 +52,8 @@ public class VechicleCategoryAdapter extends RecyclerView.Adapter {
                         lastSelectedPosition = pos;
                         notifyDataSetChanged();
                         ((MyVechiclesAddActivity)context).binding.vecCategoryEdt.setText(prefer[pos]);
-                        ((MyVechiclesAddActivity)context).binding.vecCategoryRc.setVisibility(View.GONE);
-                        ((MyVechiclesAddActivity)context).binding.apartRl.setVisibility(View.GONE);
+//                        ((MyVechiclesAddActivity)context).binding.vecCategoryRc.setVisibility(View.GONE);
+//                        ((MyVechiclesAddActivity)context).binding.apartRl.setVisibility(View.GONE);
 
                          String vecCat = prefer[pos];
                          ((MyVechiclesAddActivity)context).additionalwork(vecCat);
@@ -77,8 +77,8 @@ public class VechicleCategoryAdapter extends RecyclerView.Adapter {
                          lastSelectedPosition = pos;
                          notifyDataSetChanged();
                          ((MapAddVechileActivity)context).binding.vecCategoryEdt.setText(prefer[pos]);
-                         ((MapAddVechileActivity)context).binding.vecCategoryRc.setVisibility(View.GONE);
-                         ((MapAddVechileActivity)context).binding.apartRl.setVisibility(View.GONE);
+//                         ((MapAddVechileActivity)context).binding.vecCategoryRc.setVisibility(View.GONE);
+//                         ((MapAddVechileActivity)context).binding.apartRl.setVisibility(View.GONE);
 
                          String vecCat = prefer[pos];
                          ((MapAddVechileActivity)context).additionalwork(vecCat);
