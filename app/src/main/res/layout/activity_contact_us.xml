@@ -265,6 +265,34 @@
                             </LinearLayout>
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="9dp"
+                        app:cardBackgroundColor="@color/white"
+                        android:elevation="7dp"
+                        android:fitsSystemWindows="true"
+                        app:cardUseCompatPadding="true"
+                        android:layout_margin="@dimen/margin"
+                        app:cardPreventCornerOverlap="true"
+                        app:cardElevation="5dp">
+
+                        <LinearLayout
+                            android:padding="10dp"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <ImageView
+                                android:src="@drawable/whatsapp_icon"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"/>
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
                     <androidx.cardview.widget.CardView
                         android:visibility="gone"
                         android:layout_width="match_parent"

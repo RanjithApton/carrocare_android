@@ -272,7 +272,7 @@ public class MyOrdersDetailActivity extends AppCompatActivity {
             binding.paymentmodeField.setVisibility(View.GONE);
             binding.paidcountField.setVisibility(View.GONE);
             binding.validField.setVisibility(View.GONE);
-            binding.statusField.setVisibility(View.VISIBLE);
+            binding.statusField.setVisibility(View.GONE);
             //binding.imageField.setVisibility(View.VISIBLE);
             binding.vehicleidField.setVisibility(View.VISIBLE);
             binding.scheduleField.setVisibility(View.VISIBLE);
