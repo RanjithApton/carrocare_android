@@ -641,6 +641,7 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
 
             public void onFailure(Call<JsonObject> call, Throwable th) {
                 hud.dismiss();
+                Log.e("123456",""+th.getMessage());
                 Toast.makeText(CartActivity.this, "Timeout.Try after sometime", Toast.LENGTH_SHORT).show();
             }
         });
@@ -696,6 +697,7 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
                 hud.dismiss();
+                Log.e("123456",""+t.getMessage());
                 Toast.makeText(CartActivity.this,"Timeout.Try after sometime",Toast.LENGTH_SHORT).show();
             }
         });

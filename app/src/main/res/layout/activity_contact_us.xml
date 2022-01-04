@@ -279,7 +279,9 @@
                         app:cardElevation="5dp">
 
                         <LinearLayout
+                            android:id="@+id/whatsapp"
                             android:padding="10dp"
+                            android:layout_gravity="center"
                             android:orientation="horizontal"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
@@ -288,6 +290,15 @@
                                 android:src="@drawable/whatsapp_icon"
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"/>
+
+                            <TextView
+                                android:layout_gravity="center"
+                                android:fontFamily="@font/josefinsans_regular"
+                                android:layout_marginLeft="10dp"
+                                android:textColor="@color/black"
+                                android:text="Send Message"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
 
                         </LinearLayout>
 

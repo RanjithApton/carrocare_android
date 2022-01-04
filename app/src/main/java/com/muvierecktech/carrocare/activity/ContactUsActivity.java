@@ -4,8 +4,11 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -67,10 +70,56 @@ public class ContactUsActivity extends AppCompatActivity
                 } else   Toast.makeText(ContactUsActivity.this, Constant.DETAILS,Toast.LENGTH_SHORT).show();
             }
         });
+
+        binding.back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+
+
+        binding.whatsapp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String phoneNumberWithCountryCode = "+917418712862";
+                String message = "Hi Carrocare team...";
+
+                boolean isWhatsappInstalled = whatsappInstalledOrNot("com.whatsapp");
+                if (isWhatsappInstalled) {
+                    startActivity(
+                            new Intent(Intent.ACTION_VIEW,
+                                    Uri.parse(
+                                            String.format("https://api.whatsapp.com/send?phone=%s&text=%s", phoneNumberWithCountryCode, message)
+                                    )
+                            )
+                    );
+                }else {
+                    Toast.makeText(ContactUsActivity.this, "WhatsApp not Installed", Toast.LENGTH_SHORT).show();
+//                    Uri uri = Uri.parse("market://details?id=com.whatsapp");
+//                    Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
+//                    startActivity(goToMarket);
+                }
+            }
+        });
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
 //        MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
 //        mapFragment.getMapAsync(this);
     }
+
+    private boolean whatsappInstalledOrNot(String uri) {
+        PackageManager pm = getPackageManager();
+        boolean app_installed = false;
+        try {
+            pm.getPackageInfo(uri, PackageManager.GET_ACTIVITIES);
+            app_installed = true;
+        } catch (PackageManager.NameNotFoundException e) {
+            app_installed = false;
+        }
+        return app_installed;
+    }
+
     private void work() {
         if (isNetworkAvailable()){
             SubmitForm();

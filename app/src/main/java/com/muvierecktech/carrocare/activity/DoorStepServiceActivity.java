@@ -982,6 +982,7 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
                 @Override
                 public void onFailure(Call<JsonObject> call, Throwable t) {
                     hud.dismiss();
+                    Log.e("123456",""+t.getMessage());
                     Toast.makeText(DoorStepServiceActivity.this,"Timeout.Try after sometime",Toast.LENGTH_SHORT).show();
                 }
             });
