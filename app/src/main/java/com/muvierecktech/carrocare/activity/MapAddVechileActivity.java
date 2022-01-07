@@ -73,6 +73,8 @@ public class MapAddVechileActivity extends AppCompatActivity implements View.OnC
         token = hashMap.get(SessionManager.KEY_TOKEN);
 
         spinner_item = new ArrayList<>();
+        Collections.addAll(spinner_item, vechicleCategory);
+
         binding.vecCategoryEdt.setOnClickListener(this);
         binding.makeModelEdt.setOnClickListener(this);
         binding.back.setOnClickListener(this);
@@ -287,9 +289,7 @@ public class MapAddVechileActivity extends AppCompatActivity implements View.OnC
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.vec_category_edt:
-                spinner_item.clear();
-                Collections.addAll(spinner_item, vechicleCategory);
-                binding.spinner.performClick();
+
                 binding.spinner.setAdapter(new ArrayAdapter<String>(MapAddVechileActivity.this, android.R.layout.simple_list_item_1,spinner_item));
 
                 binding.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -297,26 +297,27 @@ public class MapAddVechileActivity extends AppCompatActivity implements View.OnC
                     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                         binding.vecCategoryEdt.setText(spinner_item.get(i));
                         additionalwork(spinner_item.get(i));
+                        binding.makeModelEdt.setText("");
                     }
                     @Override
                     public void onNothingSelected(AdapterView<?> adapterView) {
                     }
                 });
+
+                binding.spinner.performClick();
                 break;
             case R.id.make_model_edt:
                 if (TextUtils.isEmpty(binding.vecCategoryEdt.getText().toString())){
                     Toast.makeText(MapAddVechileActivity.this,"Choose Vechicle Category",Toast.LENGTH_SHORT).show();
                 } else {
-                    spinner_item.clear();
-                    spinner_item.addAll(makemodel);
-                    binding.spinner.performClick();
-                    binding.spinner.setAdapter(new ArrayAdapter<String>(MapAddVechileActivity.this, android.R.layout.simple_list_item_1,spinner_item));
+
+                    binding.spinner.setAdapter(new ArrayAdapter<String>(MapAddVechileActivity.this, android.R.layout.simple_list_item_1,makemodel));
 
                     binding.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                            binding.makeModelEdt.setText(spinner_item.get(i));
-                            String currentString = spinner_item.get(i);
+                            binding.makeModelEdt.setText(makemodel.get(i));
+                            String currentString = makemodel.get(i);
                             String[] separated = currentString.split("-");
                             makeStr = separated[0];
                             modelStr = separated[1];
@@ -325,6 +326,8 @@ public class MapAddVechileActivity extends AppCompatActivity implements View.OnC
                         public void onNothingSelected(AdapterView<?> adapterView) {
                         }
                     });
+
+                    binding.spinner.performClick();
                 }
                 break;
             case R.id.back:

@@ -50,14 +50,15 @@ public class ConfirmFormActivity extends BaseActivity implements View.OnClickLis
     public ActivityConfirmFormBinding binding;
     SessionManager sessionManager;
     String name,mobile,email,form,header,description,vectype,veccat;
-    String[] type = {
+    String type[] = {
 //            Constant.VECTYPE,
             Constant.CAR,Constant.BIKE};
-    String[] categoryCar = {
+    String categoryCar[] = {
 //            Constant.VECCAT,
             Constant.HATCHBACK,Constant.SEDAN,Constant.SUV};
     String[] categoryBike = {Constant.BIKE};
     ArrayList<String> spinner_item;
+    ArrayList<String> type_item;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +76,8 @@ public class ConfirmFormActivity extends BaseActivity implements View.OnClickLis
         header = intent.getStringExtra("headername");
 
         spinner_item = new ArrayList<>();
+        type_item = new ArrayList<>();
+        Collections.addAll(type_item, type);
 
         if (intent.hasExtra("headername")){
             if (header.equalsIgnoreCase("Doorstep Car Insurance")){
@@ -298,37 +301,23 @@ public class ConfirmFormActivity extends BaseActivity implements View.OnClickLis
     public void onClick (View view){
         switch (view.getId()) {
             case R.id.vec_type_edt:
-                spinner_item.clear();
-                Collections.addAll(spinner_item, type);
-                binding.spinner.performClick();
-                binding.spinner.setAdapter(new ArrayAdapter<String>(ConfirmFormActivity.this, android.R.layout.simple_list_item_1,spinner_item));
-
-                binding.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                        binding.vecTypeEdt.setText(spinner_item.get(i));
-                    }
-                    @Override
-                    public void onNothingSelected(AdapterView<?> adapterView) {
-                    }
-                });
+                binding.apartRl.setVisibility(View.VISIBLE);
+                binding.typelistRc.setVisibility(View.VISIBLE);
+                binding.catlistRc.setVisibility(View.GONE);
+                PreferredAdapter preferredAdapter = new PreferredAdapter(ConfirmFormActivity.this, type, "type");
+                LinearLayoutManager linearLayoutManage = new LinearLayoutManager(ConfirmFormActivity.this, LinearLayoutManager.VERTICAL, false);
+                binding.typelistRc.setLayoutManager(linearLayoutManage);
+                binding.typelistRc.setAdapter(preferredAdapter);
                 break;
             case R.id.vec_category_edt:
                 if (binding.vecTypeEdt.getText().toString().equalsIgnoreCase(Constant.CAR)) {
-                    spinner_item.clear();
-                    Collections.addAll(spinner_item, categoryCar);
-                    binding.spinner.performClick();
-                    binding.spinner.setAdapter(new ArrayAdapter<String>(ConfirmFormActivity.this, android.R.layout.simple_list_item_1,spinner_item));
-
-                    binding.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                        @Override
-                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                            binding.vecCategoryEdt.setText(spinner_item.get(i));
-                        }
-                        @Override
-                        public void onNothingSelected(AdapterView<?> adapterView) {
-                        }
-                    });
+                    binding.apartRl.setVisibility(View.VISIBLE);
+                    binding.catlistRc.setVisibility(View.VISIBLE);
+                    binding.typelistRc.setVisibility(View.GONE);
+                    PreferredAdapter preferredAdapter1 = new PreferredAdapter(ConfirmFormActivity.this, categoryCar, "catcar");
+                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ConfirmFormActivity.this, LinearLayoutManager.VERTICAL, false);
+                    binding.catlistRc.setLayoutManager(linearLayoutManager);
+                    binding.catlistRc.setAdapter(preferredAdapter1);
                 }else  if (binding.vecTypeEdt.getText().toString().equalsIgnoreCase(Constant.BIKE)){
                     binding.vecCategoryEdt.setText(Constant.BIKE);
                 }else {
@@ -336,21 +325,11 @@ public class ConfirmFormActivity extends BaseActivity implements View.OnClickLis
                 }
                 break;
             case R.id.apart_rl:
-//                binding.spinner.performClick();
-//                spinner_item.clear();
-//                spinner_item.addAll(apartmentname);
-//                binding.spinner.setAdapter(new ArrayAdapter<String>(AddVehicleActivity.this, android.R.layout.simple_list_item_1,spinner_item));
-//
-//                binding.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//                    @Override
-//                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-//                        binding.apartmentEdt.setText(spinner_item.get(i));
-//                    }
-//                    @Override
-//                    public void onNothingSelected(AdapterView<?> adapterView) {
-//                    }
-//                });
+                binding.apartRl.setVisibility(View.GONE);
+                binding.catlistRc.setVisibility(View.GONE);
+                binding.typelistRc.setVisibility(View.GONE);
                 break;
+
             case R.id.back:
                 finish();
                 break;

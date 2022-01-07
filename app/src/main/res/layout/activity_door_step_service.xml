@@ -176,7 +176,7 @@
             android:background="@color/gray"
             android:id="@+id/bottom_vp"
             android:layout_alignParentBottom="true"
-            android:overScrollMode="always"
+
             android:clipToPadding="false"
             android:layout_width="match_parent"
             android:layout_height="200dp"/>

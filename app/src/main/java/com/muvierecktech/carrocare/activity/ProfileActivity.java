@@ -217,7 +217,7 @@ public class ProfileActivity extends AppCompatActivity {
                 if (apartmentList.code.equalsIgnoreCase("200")){
                     apartments = apartmentList.Apartment;
                     int pos = 0;
-                    apartmentname.add(0,Constant.APARTMENTNAME);
+                    //apartmentname.add(0,Constant.APARTMENTNAME);
                     for(int i = 0; i < apartments.size(); i++){
                         //Storing names to string array
                         String items = apartments.get(i).name;

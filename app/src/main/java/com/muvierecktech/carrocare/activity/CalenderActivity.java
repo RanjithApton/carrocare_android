@@ -285,7 +285,7 @@ public class CalenderActivity extends AppCompatActivity {
                                             } else {
                                                 CalenderActivity calenderActivity = CalenderActivity.this;
                                                 String str = extraInteriors.get(i).vehicle_image;
-                                                previewPopup(str, "Internal Clean", "Wash Date : " + extraInteriors.get(i).schedule_date);
+                                                previewPopup(str, "Internal Clean", "Wash Date : " + extraInteriors.get(i).schedule_date,"");
                                             }
                                         }
                                         /*if (eventDay.getCalendar().equals(calendar)) {
@@ -612,7 +612,7 @@ public class CalenderActivity extends AppCompatActivity {
                                         calendar.setTime(datestart);
                                         Log.e("CALENDARWASH", calendar.toString() + "****" + eventDay);
                                         if (eventDay.getCalendar().equals(calendar)) {
-                                            previewPopup(washDetails.get(i).vehicle_image, "External Wash", washDetails.get(i).date);
+                                            previewPopup(washDetails.get(i).vehicle_image, "External Wash", washDetails.get(i).date,"");
                                         }
                                     }
                                 }else if (eventDay.getImageResource() == R.drawable.car_extra) {
@@ -636,7 +636,7 @@ public class CalenderActivity extends AppCompatActivity {
                                                 previewPopup1("Inrernal Wash", "No Data Found");
                                             } else {
                                                 String str = extraDetails.get(i).vehicle_image1;
-                                                previewPopup(str, "Internal Wash", "Wash Date : " + extraDetails.get(i).schedule_date1);
+                                                previewPopup(str, "Internal Wash", "Wash Date : " + extraDetails.get(i).schedule_date1,"Washed Status: Cleaned");
                                             }
                                             //previewPopup(extraDetails.get(i).vehicle_image1, "Internal Wash");
                                         } else if (eventDay.getCalendar().equals(calendar1)) {
@@ -644,7 +644,7 @@ public class CalenderActivity extends AppCompatActivity {
                                                 previewPopup1("Inrernal Wash", "No Data Found");
                                             } else {
                                                 String str2 = extraDetails.get(i).vehicle_image1;
-                                                previewPopup(str2, "Internal Wash", "Wash Date : " + extraDetails.get(i).schedule_date2);
+                                                previewPopup(str2, "Internal Wash", "Wash Date : " + extraDetails.get(i).schedule_date2,"Washed Status: Cleaned");
                                             }
                                             //previewPopup(extraDetails.get(i).vehicle_image2, "Internal Wash");
                                         }
@@ -672,10 +672,13 @@ public class CalenderActivity extends AppCompatActivity {
         });
     }
 
-    public void previewPopup(String vehicle_image, String Type, String Date) {
+    public void previewPopup(String vehicle_image, String Type, String Date, String Status) {
         binding.popup.setVisibility(View.VISIBLE);
         binding.name.setText(Type + "");
         binding.washDate.setText(Date + "");
+        binding.washDate.setText(Date + "");
+        binding.washStatus.setVisibility(View.VISIBLE);
+        binding.washStatus.setText(Status + "");
         if (TextUtils.isEmpty(vehicle_image)) {
             this.binding.noimage.setVisibility(View.VISIBLE);
             this.binding.carImg.setVisibility(View.GONE);
@@ -695,6 +698,7 @@ public class CalenderActivity extends AppCompatActivity {
         binding.popup.setVisibility(View.VISIBLE);
         binding.name.setText(Type + "");
         binding.washDate.setText(Date + "");
+        binding.washStatus.setVisibility(View.GONE);
         this.binding.carImg.setVisibility(View.GONE);
         this.binding.noimage.setVisibility(View.GONE);
     }

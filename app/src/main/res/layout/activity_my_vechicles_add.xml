@@ -263,6 +263,15 @@
                     <!--                    android:paddingRight="@dimen/paddinglow" />-->
                 </RelativeLayout>
             </RelativeLayout>
+            <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
+                android:id="@+id/apartment_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:smsp_baseColor="@color/colorPrimary"
+                app:smsp_enableSearchHeader="false"
+                app:smsp_isSearchable="true"
+                app:smsp_multilineError="false"
+                app:smsp_selectedItemListColor="@color/colorPrimary" />
             <EditText
                 android:id="@+id/parking_lot_edt"
                 android:layout_width="match_parent"
@@ -333,6 +342,15 @@
                     <!--             android:paddingRight="@dimen/paddinglow"/>-->
                 </RelativeLayout>
             </RelativeLayout>
+            <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
+                android:id="@+id/parking_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:smsp_baseColor="@color/colorPrimary"
+                app:smsp_enableSearchHeader="false"
+                app:smsp_isSearchable="true"
+                app:smsp_multilineError="false"
+                app:smsp_selectedItemListColor="@color/colorPrimary" />
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -373,6 +391,15 @@
                     <!--                    android:paddingRight="@dimen/paddinglow"/>-->
                 </RelativeLayout>
             </RelativeLayout>
+            <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
+                android:id="@+id/schedule_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:smsp_baseColor="@color/colorPrimary"
+                app:smsp_enableSearchHeader="false"
+                app:smsp_isSearchable="true"
+                app:smsp_multilineError="false"
+                app:smsp_selectedItemListColor="@color/colorPrimary" />
             <RelativeLayout
                 android:id="@+id/prefertime_rl"
                 android:layout_width="match_parent"
@@ -414,6 +441,15 @@
                     <!--                    android:paddingRight="@dimen/paddinglow"/>-->
                 </RelativeLayout>
             </RelativeLayout>
+            <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
+                android:id="@+id/time_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:smsp_baseColor="@color/colorPrimary"
+                app:smsp_enableSearchHeader="false"
+                app:smsp_isSearchable="true"
+                app:smsp_multilineError="false"
+                app:smsp_selectedItemListColor="@color/colorPrimary" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="95dp"

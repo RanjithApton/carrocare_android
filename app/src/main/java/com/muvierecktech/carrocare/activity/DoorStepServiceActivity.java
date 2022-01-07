@@ -1752,7 +1752,7 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
         View bottomview = LayoutInflater.from(getApplicationContext())
                 .inflate(R.layout.layout_bottom_painting,
                         (RelativeLayout) findViewById(R.id.paintingsheet));
-        bottomSheetDialog.setCancelable(false);
+        //bottomSheetDialog.setCancelable(false);
         bottomview.findViewById(R.id.close_paint_popup).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -1780,7 +1780,7 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
         View bottomview = LayoutInflater.from(getApplicationContext())
                 .inflate(R.layout.layout_bottom_battery,
                         (RelativeLayout) findViewById(R.id.batterysheet));
-        bottomSheetDialog.setCancelable(false);
+        //bottomSheetDialog.setCancelable(false);
         bottomview.findViewById(R.id.close_battery_popup).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

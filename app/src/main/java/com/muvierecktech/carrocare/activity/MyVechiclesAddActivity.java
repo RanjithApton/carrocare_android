@@ -76,6 +76,8 @@ public class MyVechiclesAddActivity extends AppCompatActivity implements View.On
     ArrayList<String> apartmentname;
     String make,model,apartname,preferdScd,preferTime,parkArea;
     ArrayList<String> spinner_item;
+    ArrayList<String> spinner_schedule;
+    ArrayList<String> spinner_time;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +90,11 @@ public class MyVechiclesAddActivity extends AppCompatActivity implements View.On
         token = hashMap.get(SessionManager.KEY_TOKEN);
 
         spinner_item = new ArrayList<>();
+        spinner_schedule = new ArrayList<>();
+        spinner_time = new ArrayList<>();
+        Collections.addAll(spinner_item, vechicleCategory);
+        Collections.addAll(spinner_schedule, preSchedule);
+
 
         binding.vecCategoryEdt.setOnClickListener(this);
         binding.makeModelEdt.setOnClickListener(this);
@@ -319,7 +326,7 @@ public class MyVechiclesAddActivity extends AppCompatActivity implements View.On
                 if (apartmentList.code.equalsIgnoreCase("200")){
                     apartments = apartmentList.Apartment;
                     int pos = 0;
-                    apartmentname.add(0,Constant.APARTMENTNAME);
+                    //apartmentname.add(0,Constant.APARTMENTNAME);
                     for(int i = 0; i < apartments.size(); i++){
                         //Storing names to string array
                         String items = apartments.get(i).name;
@@ -356,7 +363,7 @@ public class MyVechiclesAddActivity extends AppCompatActivity implements View.On
                 hud.dismiss();
                 if (body.code.equalsIgnoreCase("200")) {
                     parkingarea = body.data;
-                    parkingareaname.add(0, Constant.PARKINGNAME);
+                    //parkingareaname.add(0, Constant.PARKINGNAME);
                     for (int i = 0; i < parkingarea.size(); i++) {
                         parkingareaname.add(parkingarea.get(i).name);
                     }
@@ -419,9 +426,8 @@ public class MyVechiclesAddActivity extends AppCompatActivity implements View.On
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.vec_category_edt:
-                spinner_item.clear();
-                Collections.addAll(spinner_item, vechicleCategory);
-                binding.spinner.performClick();
+
+
                 binding.spinner.setAdapter(new ArrayAdapter<String>(MyVechiclesAddActivity.this, android.R.layout.simple_list_item_1,spinner_item));
 
                 binding.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -445,21 +451,23 @@ public class MyVechiclesAddActivity extends AppCompatActivity implements View.On
                     public void onNothingSelected(AdapterView<?> adapterView) {
                     }
                 });
+
+                binding.spinner.performClick();
                 break;
             case R.id.make_model_edt:
+                //spinner_item.clear();
+                //spinner_item.addAll(makemodel);
+
                 if (TextUtils.isEmpty(binding.vecCategoryEdt.getText().toString())){
                     Toast.makeText(MyVechiclesAddActivity.this,"Choose Vechicle Category",Toast.LENGTH_SHORT).show();
-                } else {
-                    spinner_item.clear();
-                    spinner_item.addAll(makemodel);
-                    binding.spinner.performClick();
-                    binding.spinner.setAdapter(new ArrayAdapter<String>(MyVechiclesAddActivity.this, android.R.layout.simple_list_item_1,spinner_item));
+                }else{
+                    binding.spinner.setAdapter(new ArrayAdapter<String>(MyVechiclesAddActivity.this, android.R.layout.simple_list_item_1,makemodel));
 
                     binding.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                            binding.makeModelEdt.setText(spinner_item.get(i));
-                            String currentString = spinner_item.get(i);
+                            binding.makeModelEdt.setText(makemodel.get(i));
+                            String currentString = makemodel.get(i);
                             String[] separated = currentString.split("-");
                             makeStr = separated[0];
                             modelStr = separated[1];
@@ -468,100 +476,115 @@ public class MyVechiclesAddActivity extends AppCompatActivity implements View.On
                         public void onNothingSelected(AdapterView<?> adapterView) {
                         }
                     });
+
+                    binding.spinner.performClick();
                 }
+
                 break;
             case R.id.apartment_edt:
-                spinner_item.clear();
-                spinner_item.addAll(apartmentname);
-                binding.spinner.performClick();
+//                spinner_item.clear();
+//                spinner_item.addAll();
 
-                binding.spinner.setAdapter(new ArrayAdapter<String>(MyVechiclesAddActivity.this, android.R.layout.simple_list_item_1,spinner_item));
+                binding.apartmentSpinner.setAdapter(new ArrayAdapter<String>(MyVechiclesAddActivity.this, android.R.layout.simple_list_item_1,apartmentname));
 
-                binding.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                binding.apartmentSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                        binding.apartmentEdt.setText(spinner_item.get(i));
+                        binding.apartmentEdt.setText(apartmentname.get(i));
                     }
                     @Override
                     public void onNothingSelected(AdapterView<?> adapterView) {
                     }
                 });
+
+                binding.apartmentSpinner.performClick();
                 break;
             case R.id.parking_area_edt:
-                spinner_item.clear();
-                spinner_item.addAll(parkingareaname);
-                binding.spinner.performClick();
+//                spinner_item.clear();
+//                spinner_item.addAll(parkingareaname);
 
-                binding.spinner.setAdapter(new ArrayAdapter<String>(MyVechiclesAddActivity.this, android.R.layout.simple_list_item_1,spinner_item));
+                binding.parkingSpinner.setAdapter(new ArrayAdapter<String>(MyVechiclesAddActivity.this, android.R.layout.simple_list_item_1,parkingareaname));
 
-                binding.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                binding.parkingSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                        binding.parkingAreaEdt.setText(spinner_item.get(i));
+                        binding.parkingAreaEdt.setText(parkingareaname.get(i));
                     }
                     @Override
                     public void onNothingSelected(AdapterView<?> adapterView) {
                     }
                 });
+
+                binding.parkingSpinner.performClick();
                 break;
             case R.id.preferredschedule_edt:
-                spinner_item.clear();
-                Collections.addAll(spinner_item, preSchedule);
-                binding.spinner.performClick();
+                //spinner_item.clear();
 
-                binding.spinner.setAdapter(new ArrayAdapter<String>(MyVechiclesAddActivity.this, android.R.layout.simple_list_item_1,spinner_item));
+                //spinner_item.add(String.valueOf(preSchedule));
+                binding.scheduleSpinner.setAdapter(new ArrayAdapter<String>(MyVechiclesAddActivity.this, android.R.layout.simple_list_item_1,spinner_schedule));
 
-                binding.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                binding.scheduleSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                        binding.preferredscheduleEdt.setText(spinner_item.get(i));
+                        binding.preferredscheduleEdt.setText(spinner_schedule.get(i));
                         binding.preferredtimeEdt.setText(null);
+
+                        if(spinner_schedule.get(i).equalsIgnoreCase(Constant.MORNING)){
+                            spinner_time.clear();
+                            Collections.addAll(spinner_time, preMorTime);
+                        }else if (spinner_schedule.get(i).equalsIgnoreCase(Constant.EVENING)) {
+                            spinner_time.clear();
+                            Collections.addAll(spinner_time, preEveTime);
+                        }
+
                     }
                     @Override
                     public void onNothingSelected(AdapterView<?> adapterView) {
                     }
                 });
+
+                binding.scheduleSpinner.performClick();
+
                 break;
             case R.id.preferredtime_edt:
-//                    if (!binding.preferredscheduleEdt.equals("0")){
-//                        Toast.makeText(MyVechiclesAddActivity.this,"Choose Preferred Schedule",Toast.LENGTH_SHORT).show();
-//                    }
                 if (TextUtils.isEmpty(binding.preferredscheduleEdt.getText().toString())){
                     Toast.makeText(MyVechiclesAddActivity.this,"Choose Preferred Schedule",Toast.LENGTH_SHORT).show();
                 }else {
-                    spinner_item.clear();
+                    // spinner_item.clear();
 
                     if (binding.preferredscheduleEdt.getText().toString().equalsIgnoreCase(Constant.MORNING)) {
                         Log.e("PreTIme", Constant.MORNING);
-                        Collections.addAll(spinner_item, preMorTime);
-                        binding.spinner.performClick();
-                        binding.spinner.setAdapter(new ArrayAdapter<String>(MyVechiclesAddActivity.this, android.R.layout.simple_list_item_1,spinner_item));
+                        //
+                        binding.timeSpinner.setAdapter(new ArrayAdapter<String>(MyVechiclesAddActivity.this, android.R.layout.simple_list_item_1,spinner_time));
 
-                        binding.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        binding.timeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                             @Override
                             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                                binding.preferredtimeEdt.setText(spinner_item.get(i));
+                                binding.preferredtimeEdt.setText(spinner_time.get(i));
                             }
                             @Override
                             public void onNothingSelected(AdapterView<?> adapterView) {
                             }
                         });
+
+                        binding.timeSpinner.performClick();
                     } else if (binding.preferredscheduleEdt.getText().toString().equalsIgnoreCase(Constant.EVENING)) {
                         Log.e("PreTIme", Constant.EVENING);
                         //Collections.addAll(spinner_item, preEveTime);
-                        Collections.addAll(spinner_item, preEveTime);
-                        binding.spinner.performClick();
-                        binding.spinner.setAdapter(new ArrayAdapter<String>(MyVechiclesAddActivity.this, android.R.layout.simple_list_item_1,spinner_item));
+                        //Collections.addAll(spinner_item, preEveTime);
+                        binding.timeSpinner.setAdapter(new ArrayAdapter<String>(MyVechiclesAddActivity.this, android.R.layout.simple_list_item_1,spinner_time));
 
-                        binding.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        binding.timeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                             @Override
                             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                                binding.preferredtimeEdt.setText(spinner_item.get(i));
+                                binding.preferredtimeEdt.setText(spinner_time.get(i));
                             }
                             @Override
                             public void onNothingSelected(AdapterView<?> adapterView) {
                             }
                         });
+
+                        binding.timeSpinner.performClick();
                     }
                 }
                 break;

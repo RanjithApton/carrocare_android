@@ -79,13 +79,13 @@ public class PreferredAdapter extends RecyclerView.Adapter {
                     lastSelectedPosition = pos;
                     notifyDataSetChanged();
                     ((ConfirmFormActivity)context).binding.vecTypeEdt.setText(prefer[pos]);
-                    //((ConfirmFormActivity)context).binding.typelistRc.setVisibility(View.GONE);
+                    ((ConfirmFormActivity)context).binding.typelistRc.setVisibility(View.GONE);
                     if (prefer[pos].equalsIgnoreCase("Bike")){
                         ((ConfirmFormActivity)context).binding.vecCategoryEdt.setText("Bike");
                     }else {
                         ((ConfirmFormActivity)context).binding.vecCategoryEdt.setText(null);
                     }
-//                    ((ConfirmFormActivity)context).binding.apartRl.setVisibility(View.GONE);
+                    ((ConfirmFormActivity)context).binding.apartRl.setVisibility(View.GONE);
 
                 }else if (type.equalsIgnoreCase("catcar")){
                     MyViewHolder viewHolder1 = (MyViewHolder) view.getTag();
@@ -93,8 +93,8 @@ public class PreferredAdapter extends RecyclerView.Adapter {
                     lastSelectedPosition = pos;
                     notifyDataSetChanged();
                     ((ConfirmFormActivity)context).binding.vecCategoryEdt.setText(prefer[pos]);
-//                    ((ConfirmFormActivity)context).binding.catlistRc.setVisibility(View.GONE);
-//                    ((ConfirmFormActivity)context).binding.apartRl.setVisibility(View.GONE);
+                    ((ConfirmFormActivity)context).binding.catlistRc.setVisibility(View.GONE);
+                    ((ConfirmFormActivity)context).binding.apartRl.setVisibility(View.GONE);
                 }else if (type.equalsIgnoreCase("pay")){
                     MyViewHolder viewHolder1 = (MyViewHolder) view.getTag();
                     int pos = viewHolder1.getAdapterPosition();

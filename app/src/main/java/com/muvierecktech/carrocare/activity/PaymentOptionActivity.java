@@ -387,6 +387,21 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
                 .placeholder(R.drawable.placeholder)
                 .error(R.drawable.placeholder)
                 .into(binding.carImg);
+        Collections.addAll(spinner_item, preTime);
+
+        binding.spinner.setAdapter(new ArrayAdapter<String>(PaymentOptionActivity.this, android.R.layout.simple_list_item_1,spinner_item));
+
+        binding.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                binding.preferredtimeEdt.setText(spinner_item.get(i));
+                time = spinner_item.get(i);
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
+
         binding.preferredtimeEdt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -394,20 +409,6 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
                     Toast.makeText(PaymentOptionActivity.this,"Choose Preferred Schedule",Toast.LENGTH_SHORT).show();
                 }else {
                     binding.spinner.performClick();
-                    Collections.addAll(spinner_item, preTime);
-                    binding.spinner.setAdapter(new ArrayAdapter<String>(PaymentOptionActivity.this, android.R.layout.simple_list_item_1,spinner_item));
-
-                    binding.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                        @Override
-                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                            binding.preferredtimeEdt.setText(spinner_item.get(i));
-                            time = spinner_item.get(i);
-                        }
-                        @Override
-                        public void onNothingSelected(AdapterView<?> adapterView) {
-                        }
-                    });
-
                 }
             }
         });
