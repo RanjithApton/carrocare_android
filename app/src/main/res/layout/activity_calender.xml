@@ -7,21 +7,107 @@
         android:layout_height="match_parent"
         android:background="@color/colorPrimary"
         tools:context=".activity.CalenderActivity">
-        <RelativeLayout android:orientation="horizontal" android:id="@+id/header" android:layout_width="match_parent" android:layout_height="?attr/actionBarSize">
-            <ImageView android:layout_gravity="left|center_vertical|center_horizontal|center" android:id="@+id/back" android:padding="@dimen/padding" android:layout_width="35dp" android:layout_height="35dp" android:layout_margin="10dp" android:src="@drawable/back" android:layout_centerVertical="true"/>
-            <androidx.cardview.widget.CardView android:id="@+id/addinternal" android:fitsSystemWindows="true" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="@dimen/marginmed" android:layout_alignParentRight="true" android:layout_centerVertical="true" android:elevation="7dp" app:cardBackgroundColor="@color/colorPrimary" app:cardCornerRadius="7dp" app:cardElevation="5dp" app:cardUseCompatPadding="true">
-                <LinearLayout android:orientation="horizontal" android:padding="@dimen/padding" android:layout_width="wrap_content" android:layout_height="wrap_content">
-                    <TextView android:textSize="@dimen/heading" android:textColor="@color/white" android:gravity="center" android:layout_gravity="center" android:id="@+id/add" android:paddingLeft="@dimen/padding" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="+ " android:fontFamily="@font/josefinsans_regular"/>
-                    <ImageView android:layout_gravity="right|center_vertical|center_horizontal|center" android:layout_width="30dp" android:layout_height="30dp" android:src="@drawable/add_internal"/>
+
+        <RelativeLayout
+            android:orientation="horizontal"
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize">
+
+            <ImageView
+                android:layout_gravity="left|center_vertical|center_horizontal|center"
+                android:id="@+id/back"
+                android:padding="@dimen/padding"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_margin="10dp"
+                android:src="@drawable/back"
+                android:layout_centerVertical="true"/>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/addinternal"
+                android:fitsSystemWindows="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/marginmed"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:elevation="7dp"
+                app:cardBackgroundColor="@color/colorPrimary"
+                app:cardCornerRadius="7dp"
+                app:cardElevation="5dp"
+                app:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:padding="@dimen/padding"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textSize="@dimen/heading"
+                        android:textColor="@color/white"
+                        android:gravity="center"
+                        android:layout_gravity="center"
+                        android:id="@+id/add"
+                        android:paddingLeft="@dimen/padding"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="+ "
+                        android:fontFamily="@font/josefinsans_regular"/>
+
+                    <ImageView
+                        android:layout_gravity="right|center_vertical|center_horizontal|center"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/add_internal"/>
+
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
         </RelativeLayout>
-        <RelativeLayout android:orientation="vertical" android:background="@drawable/bg" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_below="@+id/header">
-            <com.applandeo.materialcalendarview.CalendarView android:id="@+id/calendarView" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_centerInParent="true" app:headerColor="@color/colorPrimary"/>
+
+        <RelativeLayout
+            android:orientation="vertical"
+            android:background="@drawable/bg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/header">
+
+            <com.applandeo.materialcalendarview.CalendarView
+                android:id="@+id/calendarView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                app:headerColor="@color/colorPrimary"/>
+
         </RelativeLayout>
-        <RelativeLayout android:id="@+id/popup" android:background="@color/trans" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content">
-            <LinearLayout android:gravity="center" android:layout_gravity="center" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent">
-                <androidx.cardview.widget.CardView android:id="@+id/card" android:fitsSystemWindows="true" android:layout_width="match_parent" android:layout_height="wrap_content" android:elevation="7dp" app:cardBackgroundColor="@color/white" app:cardCornerRadius="11dp" app:cardElevation="7dp" app:cardPreventCornerOverlap="true" app:cardUseCompatPadding="true">
+
+        <RelativeLayout
+            android:id="@+id/popup"
+            android:background="@color/trans"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card"
+                    android:fitsSystemWindows="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:elevation="7dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="11dp"
+                    app:cardElevation="7dp"
+                    app:cardPreventCornerOverlap="true"
+                    app:cardUseCompatPadding="true">
+
                     <LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content">
                         <TextView android:textSize="@dimen/heading" android:textColor="@color/black" android:gravity="center" android:layout_gravity="left|center_vertical|center_horizontal|center" android:id="@+id/name" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_margin="@dimen/padding" android:text="External wash" android:layout_weight="1" android:textAllCaps="true" android:fontFamily="@font/josefinsans_bold"/>
                         <TextView android:textSize="@dimen/bigtext" android:textColor="@color/black" android:gravity="center" android:layout_gravity="left" android:id="@+id/wash_date" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="@dimen/padding" android:text="wash Date :" android:layout_weight="1" android:textAllCaps="true" android:fontFamily="@font/josefinsans_regular"/>

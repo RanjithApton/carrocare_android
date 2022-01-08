@@ -1906,18 +1906,23 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
         Button checkout;
         checkout = bottomview.findViewById(R.id.btn_confirm);
 
-        checkout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(pay_type.equalsIgnoreCase("")){
-                    Toast.makeText(activity, "Please select payment method..", Toast.LENGTH_SHORT).show();
-                }else if (pay_type.equalsIgnoreCase("cod")){
-                    workPlaceOrderCOD();
-                }else if (pay_type.equalsIgnoreCase("online")){
-                    workmode();
+        if(!TextUtils.isEmpty(sessionManager.getData(SessionManager.MAP_ADDRESS))){
+            checkout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(pay_type.equalsIgnoreCase("")){
+                        Toast.makeText(activity, "Please select payment method..", Toast.LENGTH_SHORT).show();
+                    }else if (pay_type.equalsIgnoreCase("cod")){
+                        workPlaceOrderCOD();
+                    }else if (pay_type.equalsIgnoreCase("online")){
+                        workmode();
+                    }
                 }
-            }
-        });
+            });
+        }else{
+            Toast.makeText(activity, "Please select service location", Toast.LENGTH_SHORT).show();
+        }
+
 
         bottomSheetDialog.setContentView(bottomview);
         bottomSheetDialog.show();
