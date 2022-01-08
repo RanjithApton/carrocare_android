@@ -423,6 +423,7 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
         });
         // text.setText("Latitude - " + latitude + "\nLongitude - " + longitude);
         binding.placeTxt.setText(ApiConfig.getAddress(latitude, longitude, DoorStepServiceActivity.this));
+        saveLocation(latitude, longitude);
     }
 
 
