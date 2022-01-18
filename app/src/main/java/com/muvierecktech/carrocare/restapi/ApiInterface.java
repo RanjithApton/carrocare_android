@@ -340,7 +340,8 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("Android_API/cancel_cod_order.php")
     Call<JsonObject> cancelCodOrder(@Field("order_id") String order_id,
-                                    @Field("customer_id") String customer_id);
+                                    @Field("customer_id") String customer_id,
+                                    @Field("reason") String reason);
 
 
 }

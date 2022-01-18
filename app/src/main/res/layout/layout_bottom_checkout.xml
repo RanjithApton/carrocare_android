@@ -131,12 +131,13 @@
                         android:layout_marginLeft="10dp"
                         android:textSize="18dp"
                         android:textColor="@color/white"
-                        android:text="Taxes"
+                        android:text="Taxes 18%"
                         android:fontFamily="@font/josefinsans_regular"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
 
                     <TextView
+                        android:id="@+id/taxtext"
                         android:gravity="end"
                         android:layout_weight="1"
                         android:layout_marginTop="10dp"

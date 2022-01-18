@@ -9,7 +9,11 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RatingBar;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -309,7 +313,31 @@ public class MyOrdersDetailActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         //Action for "Ok".
-                        cancelOrder();
+                        if (isNetworkAvailable()) {
+                            cancelOrder();
+                        }else {
+                            AlertDialog.Builder dialog1 = new AlertDialog.Builder(MyOrdersDetailActivity.this);
+                            dialog1.setCancelable(false);
+                            dialog1.setTitle("Alert!");
+                            dialog1.setMessage("No internet.Please check your connection." );
+                            dialog1.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int id) {
+                                    //Action for "Ok".
+                                    cancelOrder();
+                                }
+                            })
+                                    .setNegativeButton("Cancel ", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            //Action for "Cancel".
+                                            finish();
+                                        }
+                                    });
+
+                            final AlertDialog alert = dialog1.create();
+                            alert.show();
+                        }
                     }
                 })
                         .setNegativeButton("Cancel ", new DialogInterface.OnClickListener() {
@@ -397,66 +425,67 @@ public class MyOrdersDetailActivity extends AppCompatActivity {
     }
 
     private void cancelOrder() {
-        if (isNetworkAvailable()) {
-            final KProgressHUD hud = KProgressHUD.create(MyOrdersDetailActivity.this)
-                    .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
-                    .setCancellable(true)
-                    .setAnimationSpeed(2)
-                    .setDimAmount(0.5f)
-                    .show();
-            ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-            Call<JsonObject> call = apiInterface.cancelCodOrder(order_id +"",
-                    customerid+"");
-            call.enqueue(new Callback<JsonObject>() {
-                @Override
-                public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                    JsonElement jsonElement = response.body();
-                    hud.dismiss();
-                    try {
-                        JSONObject jsonObject = new JSONObject(jsonElement.toString());
-                        if (jsonObject.optString("code").equalsIgnoreCase("200")) {
-                            Gson gson = new Gson();
-                            Toast.makeText(MyOrdersDetailActivity.this,jsonObject.optString("message"),Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(MyOrdersDetailActivity.this,MyOrdersActivity.class);
-                            startActivity(intent);
-                            finish();
-                        }else if (jsonObject.optString("code").equalsIgnoreCase("201")) {
-                            Toast.makeText(MyOrdersDetailActivity.this,jsonObject.optString("message"),Toast.LENGTH_SHORT).show();
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-                @Override
-                public void onFailure(Call<JsonObject> call, Throwable t) {
-                    hud.dismiss();
-                    Toast.makeText(MyOrdersDetailActivity.this,"Timeout.Try after sometime",Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
-        else {
-            AlertDialog.Builder dialog = new AlertDialog.Builder(MyOrdersDetailActivity.this);
-            dialog.setCancelable(false);
-            dialog.setTitle("Alert!");
-            dialog.setMessage("No internet.Please check your connection." );
-            dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int id) {
-                    //Action for "Ok".
-                    cancelOrder();
-                }
-            })
-                    .setNegativeButton("Cancel ", new DialogInterface.OnClickListener() {
+
+        android.app.AlertDialog.Builder dialogbuilder = new android.app.AlertDialog.Builder(MyOrdersDetailActivity.this);
+        dialogbuilder.setCancelable(true);
+        View dialogView = LayoutInflater.from(MyOrdersDetailActivity.this).inflate(R.layout.lyt_cancel, null);
+
+        EditText comments=dialogView.findViewById(R.id.et_comments);
+        Button submit=dialogView.findViewById(R.id.btn_submit_rate);
+
+        dialogbuilder.setView(dialogView);
+        android.app.AlertDialog dialog = dialogbuilder.create();
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(comments.getText().toString().equals("")) {
+                    Toast.makeText(MyOrdersDetailActivity.this, "Please type reason", Toast.LENGTH_SHORT).show();
+                }else {
+                    dialog.dismiss();
+                    final KProgressHUD hud = KProgressHUD.create(MyOrdersDetailActivity.this)
+                            .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                            .setCancellable(true)
+                            .setAnimationSpeed(2)
+                            .setDimAmount(0.5f)
+                            .show();
+                    ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+                    Call<JsonObject> call = apiInterface.cancelCodOrder(order_id +"",
+                            customerid+"",
+                            comments.getText().toString() +"");
+                    call.enqueue(new Callback<JsonObject>() {
                         @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            //Action for "Cancel".
-                            finish();
+                        public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                            JsonElement jsonElement = response.body();
+                            hud.dismiss();
+                            try {
+                                JSONObject jsonObject = new JSONObject(jsonElement.toString());
+                                if (jsonObject.optString("code").equalsIgnoreCase("200")) {
+                                    Gson gson = new Gson();
+                                    Toast.makeText(MyOrdersDetailActivity.this,jsonObject.optString("message"),Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(MyOrdersDetailActivity.this,MyOrdersActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                }else if (jsonObject.optString("code").equalsIgnoreCase("201")) {
+                                    Toast.makeText(MyOrdersDetailActivity.this,jsonObject.optString("message"),Toast.LENGTH_SHORT).show();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        @Override
+                        public void onFailure(Call<JsonObject> call, Throwable t) {
+                            hud.dismiss();
+                            Toast.makeText(MyOrdersDetailActivity.this,"Timeout.Try after sometime",Toast.LENGTH_SHORT).show();
                         }
                     });
+                }
+            }
+        });
 
-            final AlertDialog alert = dialog.create();
-            alert.show();
-        }
+        dialog.show();
+
     }
 
     private void work() {

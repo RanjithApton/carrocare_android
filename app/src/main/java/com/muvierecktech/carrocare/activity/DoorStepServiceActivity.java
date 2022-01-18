@@ -131,7 +131,7 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
     ArgbEvaluator argbEvaluator = new ArgbEvaluator();
     Integer color[] = null;
 
-    final int paddingPx = 300;
+    final int paddingPx = 200;
     final float MIN_SCALE = 0.8f;
     final float MAX_SCALE = 1f;
 
@@ -255,7 +255,7 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
 
         viewPager.setAdapter(pagerAdapter);
         viewPager.setClipToPadding(false);
-        viewPager.setPadding(paddingPx, 0, paddingPx, 0);
+        viewPager.setPadding(200, 0, 200, 0);
 
         viewPager.setPageTransformer(false, new ViewPager.PageTransformer() {
             @Override
@@ -782,7 +782,7 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
                 .setDimAmount(0.5f)
                 .show();
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        Call<JsonObject> call = apiInterface.createOrderId("create_orderid",Constant.ONETIME_CAR_PRICE +"");
+        Call<JsonObject> call = apiInterface.createOrderId("create_orderid",Constant.ONETIME_CAR_FINAL_PRICE +"");
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
@@ -828,7 +828,7 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
                 Constant.ONETIME_CAR_PRICE +"",
                 Constant.ONETIME_CAR_ID +"",
                 Constant.ONETIME_SERVICE_TYPE +"",
-                Constant.ONETIME_CAR_PRICE +"",
+                Constant.ONETIME_CAR_FINAL_PRICE +"",
                 Constant.ONETIME_DATE +"",
                 Constant.ONETIME_TIME +"",
                 "onetime_payment",
@@ -874,7 +874,7 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
             jSONObject.put("description", "");
             jSONObject.put("order_id", Constant.RAZOR_PAY_ORDER_ID);
             jSONObject.put("currency", "INR");
-            int i = Integer.parseInt(Constant.ONETIME_CAR_PRICE);
+            int i = Integer.parseInt(Constant.ONETIME_CAR_FINAL_PRICE);
             Log.e("AMOUNTRZP", String.valueOf(i));
             jSONObject.put("amount", i);
             JSONObject jSONObject2 = new JSONObject();
@@ -944,7 +944,7 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
                     Constant.ONETIME_CAR_PRICE +"",
                     Constant.ONETIME_CAR_ID +"",
                     Constant.ONETIME_SERVICE_TYPE +"",
-                    Constant.ONETIME_CAR_PRICE +"",
+                    Constant.ONETIME_CAR_FINAL_PRICE +"",
                     Constant.ONETIME_DATE +"",
                     Constant.ONETIME_TIME +"",
                     sessionManager.getData(SessionManager.MAP_ADDRESS) +"",
@@ -964,7 +964,7 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
                             Intent intent = new Intent(DoorStepServiceActivity.this,PaymentSucessActivity.class);
                             intent.putExtra("status","success");
                             intent.putExtra("type","online");
-                            intent.putExtra("amount",Constant.ONETIME_CAR_PRICE);
+                            intent.putExtra("amount",Constant.ONETIME_CAR_FINAL_PRICE);
                             startActivity(intent);
                             finish();
                         }else if (jsonObject.optString("code").equalsIgnoreCase("201")) {
@@ -972,7 +972,7 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
                             Intent intent = new Intent(DoorStepServiceActivity.this,PaymentSucessActivity.class);
                             intent.putExtra("status","failure");
                             intent.putExtra("type","online");
-                            intent.putExtra("amount",Constant.ONETIME_CAR_PRICE);
+                            intent.putExtra("amount",Constant.ONETIME_CAR_FINAL_PRICE);
                             startActivity(intent);
                         }
                     } catch (JSONException e) {
@@ -1027,7 +1027,7 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
                     Constant.ONETIME_CAR_PRICE +"",
                     Constant.ONETIME_CAR_ID +"",
                     Constant.ONETIME_SERVICE_TYPE +"",
-                    Constant.ONETIME_CAR_PRICE +"",
+                    Constant.ONETIME_CAR_FINAL_PRICE +"",
                     Constant.ONETIME_DATE +"",
                     Constant.ONETIME_TIME +"",
                     sessionManager.getData(SessionManager.MAP_ADDRESS) +"",
@@ -1047,7 +1047,7 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
                             Intent intent = new Intent(DoorStepServiceActivity.this,PaymentSucessActivity.class);
                             intent.putExtra("status","success");
                             intent.putExtra("type","cod");
-                            intent.putExtra("amount",Constant.ONETIME_CAR_PRICE);
+                            intent.putExtra("amount",Constant.ONETIME_CAR_FINAL_PRICE);
                             startActivity(intent);
                             finish();
                         }else if (jsonObject.optString("code").equalsIgnoreCase("201")) {
@@ -1055,7 +1055,7 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
                             Intent intent = new Intent(DoorStepServiceActivity.this,PaymentSucessActivity.class);
                             intent.putExtra("status","failure");
                             intent.putExtra("type","cod");
-                            intent.putExtra("amount",Constant.ONETIME_CAR_PRICE);
+                            intent.putExtra("amount",Constant.ONETIME_CAR_FINAL_PRICE);
                             startActivity(intent);
                         }
                     } catch (JSONException e) {
@@ -1861,12 +1861,20 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
             }
         });
 
-        TextView subTotal, Total;
+        TextView subTotal, Tax, Total;
         subTotal = bottomview.findViewById(R.id.sub_total);
         Total = bottomview.findViewById(R.id.total_amount);
+        Tax = bottomview.findViewById(R.id.taxtext);
 
         subTotal.setText("₹ "+Constant.ONETIME_CAR_PRICE);
-        Total.setText("₹ "+Constant.ONETIME_CAR_PRICE);
+
+        int before_tax = Integer.parseInt(Constant.ONETIME_CAR_PRICE);
+
+        int taxAmt = ((18 * before_tax) / 100);
+        int finalAmt = taxAmt + before_tax;
+        Tax.setText("₹ "+taxAmt);
+        Total.setText("₹ "+finalAmt);
+        Constant.ONETIME_CAR_FINAL_PRICE = String.valueOf(finalAmt);
 
         RadioButton cod, online;
         cod = bottomview.findViewById(R.id.cod_check);
