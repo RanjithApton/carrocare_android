@@ -383,7 +383,6 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                Toast.makeText(activity, "error da "+e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -1835,7 +1834,11 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
                 }else if(comparedate.equals(today_date)){
                     Toast.makeText(activity, "Select different date", Toast.LENGTH_SHORT).show();
                 }else{
-                    payType();
+                    if(!TextUtils.isEmpty(sessionManager.getData(SessionManager.MAP_ADDRESS))){
+                        payType();
+                    }else{
+                        Toast.makeText(activity, "Please select service location", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
@@ -1906,22 +1909,18 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
         Button checkout;
         checkout = bottomview.findViewById(R.id.btn_confirm);
 
-        if(!TextUtils.isEmpty(sessionManager.getData(SessionManager.MAP_ADDRESS))){
-            checkout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if(pay_type.equalsIgnoreCase("")){
-                        Toast.makeText(activity, "Please select payment method..", Toast.LENGTH_SHORT).show();
-                    }else if (pay_type.equalsIgnoreCase("cod")){
-                        workPlaceOrderCOD();
-                    }else if (pay_type.equalsIgnoreCase("online")){
-                        workmode();
-                    }
+        checkout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(pay_type.equalsIgnoreCase("")){
+                    Toast.makeText(activity, "Please select payment method..", Toast.LENGTH_SHORT).show();
+                }else if (pay_type.equalsIgnoreCase("cod")){
+                    workPlaceOrderCOD();
+                }else if (pay_type.equalsIgnoreCase("online")){
+                    workmode();
                 }
-            });
-        }else{
-            Toast.makeText(activity, "Please select service location", Toast.LENGTH_SHORT).show();
-        }
+            }
+        });
 
 
         bottomSheetDialog.setContentView(bottomview);
