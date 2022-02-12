@@ -255,7 +255,7 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
 
         viewPager.setAdapter(pagerAdapter);
         viewPager.setClipToPadding(false);
-        viewPager.setPadding(200, 0, 200, 0);
+        viewPager.setPadding(250, 0, 250, 0);
 
         viewPager.setPageTransformer(false, new ViewPager.PageTransformer() {
             @Override
