@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="20dp"
     android:gravity="center_vertical"
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -11,28 +12,46 @@
         android:id="@+id/card"
         android:layout_gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="20dp"
-        android:layout_margin="8dp">
+        android:layout_height="match_parent"
+        app:cardCornerRadius="10dp"
+        android:layout_margin="5dp">
 
+        <RelativeLayout
 
-        <ImageView
-            android:id="@+id/image"
-            android:src="@drawable/home_car_wash"
             android:layout_width="match_parent"
-            android:layout_height="110dp"/>
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <ImageView
+                android:layout_above="@+id/title"
+                android:id="@+id/image"
+                android:src="@drawable/home_car_wash"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+            <TextView
+                android:layout_margin="5dp"
+                android:layout_centerInParent="true"
+                android:layout_alignParentBottom="true"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:id="@+id/title"
+                android:textColor="@color/black"
+                android:layout_marginTop="10dp"
+                android:text="Door step car wash"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+
+
+
 
     </androidx.cardview.widget.CardView>
 
-    <TextView
-        android:gravity="center"
-        android:layout_gravity="center"
-        android:id="@+id/title"
-        android:textColor="@color/black"
-        android:layout_marginTop="10dp"
-        android:text="Door step car wash"
-        android:textSize="14sp"
-        android:layout_width="130dp"
-        android:layout_height="wrap_content"/>
+
 
 </LinearLayout>

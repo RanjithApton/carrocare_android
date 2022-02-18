@@ -9,8 +9,12 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.vectordrawable.graphics.drawable.ArgbEvaluator;
 import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager2.widget.CompositePageTransformer;
+import androidx.viewpager2.widget.MarginPageTransformer;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -33,21 +37,21 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.daimajia.slider.library.Animations.DescriptionAnimation;
+import com.daimajia.slider.library.SliderLayout;
 import com.github.florent37.singledateandtimepicker.SingleDateAndTimePicker;
 import com.github.florent37.singledateandtimepicker.dialog.SingleDateAndTimePickerDialog;
 import com.google.android.gms.common.ConnectionResult;
@@ -77,6 +81,7 @@ import com.kaopiz.kprogresshud.KProgressHUD;
 import com.muvierecktech.carrocare.R;
 import com.muvierecktech.carrocare.adapter.MapVehileAdapter;
 import com.muvierecktech.carrocare.adapter.PagerAdapter;
+import com.muvierecktech.carrocare.adapter.ViewpagerAdapter;
 import com.muvierecktech.carrocare.common.ApiConfig;
 import com.muvierecktech.carrocare.common.Constant;
 import com.muvierecktech.carrocare.common.SessionManager;
@@ -101,6 +106,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import in.goodiebag.carouselpicker.CarouselPicker;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -125,6 +131,8 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
     public boolean isCurrent;
 
     ViewPager viewPager;
+    ViewPager2 viewPager2;
+    ViewpagerAdapter viewpagerAdapter;
     List<PagerModel> pagerModels;
     PagerAdapter pagerAdapter;
     @SuppressLint("RestrictedApi")
@@ -144,6 +152,8 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
     String custmob,custemail,razorpayid;
     public boolean carCheck = false ;
 
+    CarouselPicker carouselPicker;
+
     public ArrayList<String> service_type;
 
     String price_exterior, price_interior, price_polish, price_wax, price_sanitize, total_amount = "0";
@@ -156,7 +166,7 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // setContentView(R.layout.activity_door_step_service);
+        //setContentView(R.layout.activity_door_step_service);
 
         binding = DataBindingUtil.setContentView(this,R.layout.activity_door_step_service);
 
@@ -240,7 +250,7 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
             }
         });
 
-        viewPager = findViewById(R.id.bottom_vp);
+
 
         pagerModels = new ArrayList<>();
         pagerModels.add(new PagerModel(R.drawable.ds_carwash,"Door step car wash"));
@@ -253,14 +263,17 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
 
         pagerAdapter = new PagerAdapter(pagerModels,this);
 
+
+        viewPager = findViewById(R.id.viewPager);
         viewPager.setAdapter(pagerAdapter);
         viewPager.setClipToPadding(false);
-        viewPager.setPadding(250, 0, 250, 0);
-
+        //viewPager.setPageMargin((int) (getResources().getDisplayMetrics().widthPixels * -0.33));
+        viewPager.setOffscreenPageLimit(3);
+        viewPager.setPadding(150, 0, 150, 0);
         viewPager.setPageTransformer(false, new ViewPager.PageTransformer() {
             @Override
             public void transformPage(View page, float position) {
-                float pagerWidthPx = ((ViewPager) page.getParent()).getWidth();
+                /*float pagerWidthPx = ((ViewPager) page.getParent()).getWidth();
                 float pageWidthPx = pagerWidthPx - 2 * paddingPx;
 
                 float maxVisiblePages = pagerWidthPx / pageWidthPx;
@@ -279,9 +292,38 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
                     scale = coef * (MAX_SCALE - MIN_SCALE) + MIN_SCALE;
                 }
                 page.setScaleX(scale);
-                page.setScaleY(scale);
+                page.setScaleY(scale);*/
+                page.setScaleX(0.7f - Math.abs(position * 0.4f));
+                page.setScaleY(0.8f - Math.abs(position * 0.6f));
+                page.setAlpha(1.0f - Math.abs(position * 0.5f));
             }
         });
+
+        viewPager2 = findViewById(R.id.viewpager2);
+        viewpagerAdapter = new ViewpagerAdapter(pagerModels,this, viewPager2);
+        viewPager2.setAdapter(viewpagerAdapter);
+        viewPager2.setClipToPadding(false);
+        viewPager2.setClipChildren(false);
+        viewPager2.setOffscreenPageLimit(3);
+        viewPager2.setPadding(250, 0, 250, 0);
+        ///viewPager2.getChildAt(0).setOverScrollMode(RecyclerView.OVER_SCROLL_NEVER);
+        CompositePageTransformer transformer = new CompositePageTransformer();
+        //transformer.addTransformer(new MarginPageTransformer(40));
+        transformer.addTransformer(new ViewPager2.PageTransformer() {
+            @Override
+            public void transformPage(@NonNull View page, float position) {
+                float a = 1 - Math.abs(position);
+                page.setScaleY(0.85f + a * 0.15f);
+            }
+        });
+
+        viewPager2.setPageTransformer(transformer);
+
+        /*SliderLayout sliderLayout = findViewById(R.id.daimajaslider);
+        sliderLayout.setPresetTransformer(SliderLayout.Transformer.Accordion);
+        sliderLayout.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
+        sliderLayout.setCustomAnimation(new DescriptionAnimation());*/
+
 
 //        Date d = new Date();
 //        CharSequence s  = DateFormat.format("MMMM d, yyyy ", d.getTime());

@@ -71,8 +71,22 @@ dependencies {
     //lottie animation
     implementation 'com.airbnb.android:lottie:3.4.0'
 
+    //CarouselPicker
+    implementation 'com.github.GoodieBag:CarouselPicker:v1.2'
+
+    //glide
+    implementation "com.github.bumptech.glide:glide:4.9.0"
+    annotationProcessor "com.github.bumptech.glide:compiler:4.9.0"
+
+    implementation "com.github.firdausmaulan:GlideSlider:1.5.1"
+
+    compile 'com.nineoldandroids:library:2.4.0'
+    compile 'com.daimajia.slider:library:1.1.5@aar'
+
     //spinner with search
     implementation 'com.github.chivorns:smartmaterialspinner:1.5.0'
+
+    implementation 'com.github.ImaginativeShohag:Why-Not-Image-Carousel:v1.1.0'
 
     testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'

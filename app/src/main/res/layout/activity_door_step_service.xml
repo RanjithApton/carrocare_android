@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
     <RelativeLayout
+        xmlns:custom="http://schemas.android.com/apk/res-auto"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
@@ -118,8 +119,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/lay0"
+            android:layout_above="@+id/bottom_ll"
             android:background="@color/gray"
-            android:layout_above="@id/bottom_vp"
             android:layout_width="match_parent"
             android:layout_height="110dp">
 
@@ -172,13 +173,32 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.viewpager.widget.ViewPager
+        <LinearLayout
             android:background="@color/gray"
-            android:id="@+id/bottom_vp"
+            android:id="@+id/bottom_ll"
             android:layout_alignParentBottom="true"
-            android:clipToPadding="false"
             android:layout_width="match_parent"
-            android:layout_height="200dp"/>
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/viewpager2"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"/>
+
+            <androidx.viewpager.widget.ViewPager
+                android:visibility="gone"
+                android:foregroundGravity="center"
+                android:layout_centerInParent="true"
+                android:overScrollMode="never"
+                android:id="@+id/viewPager"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"/>
+
+        </LinearLayout>
+
+
+
 
     </RelativeLayout>
 </layout>
