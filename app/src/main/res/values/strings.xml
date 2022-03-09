@@ -14,7 +14,7 @@
     <string name="exit_msg">Please click BACK again to exit</string>
     <!--    <string name="google_maps_key">AIzaSyBuSAM9Ff4REc5_qCN2K6kOfGpmLK0yEXs</string>-->
     <!--    <string name="google_maps_key">AIzaSyB6p66Qyjq1AUFyHnH88XOGUStT7pzfSyM</string>-->
-<!--    <string name="google_maps_key">AIzaSyATXslnGfSL6e6je8_FzorFV9fL3HHx5es</string>-->
+    <!--    <string name="google_maps_key">AIzaSyATXslnGfSL6e6je8_FzorFV9fL3HHx5es</string>-->
     <string name="google_maps_key">AIzaSyBaXR9KcGfyCfz85jexsDdgAdankSntVXw</string>
     <string name="google_maps_key123456">AIzaSyCJ2ZcdiidNJqXKCJ-7LJTy1EqNua20rNk</string>
     <string name="share_via">Share via</string>

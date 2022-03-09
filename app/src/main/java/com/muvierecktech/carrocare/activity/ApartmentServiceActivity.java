@@ -74,6 +74,21 @@ public class ApartmentServiceActivity extends AppCompatActivity {
                 }
             }
         });
+        binding.carDisinfection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (TextUtils.isEmpty(apartname) || apartname == null || apartname.equalsIgnoreCase("null")){
+                    Constant.LOAD_FROM = "main";
+                    Intent intent = new Intent(ApartmentServiceActivity.this,ProfileActivity.class);
+                    startActivity(intent);
+                    finish();
+                }else {
+                    Intent intent = new Intent(ApartmentServiceActivity.this,DisinfectionActivity.class);
+                    //intent.putExtra("headername", Constant.WASH);
+                    startActivity(intent);
+                }
+            }
+        });
         binding.bikeWash.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 if (TextUtils.isEmpty(apartname) || apartname == null || apartname.equalsIgnoreCase("null")) {
@@ -132,21 +147,21 @@ public class ApartmentServiceActivity extends AppCompatActivity {
                 }
             }
         });
-        binding.machinePolish.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (TextUtils.isEmpty(apartname) || apartname == null || apartname.equalsIgnoreCase("null")){
-                    Constant.LOAD_FROM = "main";
-                    Intent intent = new Intent(ApartmentServiceActivity.this,ProfileActivity.class);
-                    startActivity(intent);
-                    finish();
-                }else {
-                    Intent intent = new Intent(ApartmentServiceActivity.this,CarPolishActivity.class);
-                    //intent.putExtra("headername",Constant.CARMACHINE);
-                    startActivity(intent);
-                }
-            }
-        });
+//        binding.machinePolish.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (TextUtils.isEmpty(apartname) || apartname == null || apartname.equalsIgnoreCase("null")){
+//                    Constant.LOAD_FROM = "main";
+//                    Intent intent = new Intent(ApartmentServiceActivity.this,ProfileActivity.class);
+//                    startActivity(intent);
+//                    finish();
+//                }else {
+//                    Intent intent = new Intent(ApartmentServiceActivity.this,CarPolishActivity.class);
+//                    //intent.putExtra("headername",Constant.CARMACHINE);
+//                    startActivity(intent);
+//                }
+//            }
+//        });
 
     }
 

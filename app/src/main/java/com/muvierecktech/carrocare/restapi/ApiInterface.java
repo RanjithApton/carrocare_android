@@ -71,6 +71,10 @@ public interface ApiInterface {
     Call<ServicePriceList> Service(@Field("service") String mobile);
 
     @FormUrlEncoded
+    @POST("Android_API/disinfection.php")
+    Call<ServicePriceList> ServiceDisinsfection(@Field("action") String action);
+
+    @FormUrlEncoded
     @POST("Android_API/profile_details.php")
     Call<LoginDetails> profile(@Field("token") String token,@Field("customer_id") String customer_id);
 

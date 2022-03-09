@@ -105,9 +105,8 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
 
         total = Integer.parseInt(String.valueOf(rawQuery.getInt(0)));
 
-        binding.tvTotals.setText("₹ " + total);
-
-        if(total == 0){
+        final ArrayList<String> idslist = databaseHelper.getCartList();
+        if (idslist.isEmpty()) {
             binding.novehicle.setVisibility(View.VISIBLE);
             binding.footer.setVisibility(View.GONE);
             binding.footTop.setVisibility(View.GONE);
@@ -115,6 +114,15 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
             binding.novehicle.setVisibility(View.GONE);
             binding.footer.setVisibility(View.VISIBLE);
             binding.footTop.setVisibility(View.VISIBLE);
+        }
+
+
+        binding.tvTotals.setText("₹ " + total);
+
+        if(total == 0){
+
+        }else{
+
         }
 
     }
@@ -363,6 +371,55 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
                                 carprice+"",
                                 carid+"",
                                 "AddOn",
+                                carprice+"",
+                                date +"",
+                                time +"",
+                                "onetime_payment");
+                        call.enqueue(new Callback<JsonObject>() {
+                            @Override
+                            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                                JsonElement jsonElement = response.body();
+                                hud.dismiss();
+                                try {
+                                    JSONObject jsonObject = new JSONObject(jsonElement.toString());
+                                    if (jsonObject.optString("code").equalsIgnoreCase("200")) {
+                                        Gson gson = new Gson();
+                                        //Toast.makeText(CartActivity.this,jsonObject.optString("result"),Toast.LENGTH_SHORT).show();
+                                        startwashonetimepayment();
+                                        //paymentSuccess();
+//                        Intent intent = new Intent(CartActivity.this,CongratsActivity.class);
+//                        startActivity(intent);
+//                        finish();
+                                    }else if (jsonObject.optString("code").equalsIgnoreCase("201")) {
+                                        Toast.makeText(CartActivity.this,jsonObject.optString("result"),Toast.LENGTH_SHORT).show();
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                            @Override
+                            public void onFailure(Call<JsonObject> call, Throwable t) {
+                                hud.dismiss();
+                                Toast.makeText(CartActivity.this,"Timeout.Try after sometime",Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+                    }if (type.equalsIgnoreCase("onetime_disinsfection_payment")) {
+                        final KProgressHUD hud = KProgressHUD.create(CartActivity.this)
+                                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                                .setCancellable(true)
+                                .setAnimationSpeed(2)
+                                .setDimAmount(0.5f)
+                                .show();
+                        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+                        Call<JsonObject> call = apiInterface.tempOrderOneTime("temp_order",
+                                Constant.RAZOR_PAY_ORDER_ID+"",
+                                customerid+"",
+                                token+"",
+                                "Wash",
+                                carprice+"",
+                                carid+"",
+                                "Disinsfection",
                                 carprice+"",
                                 date +"",
                                 time +"",

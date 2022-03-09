@@ -164,5 +164,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return total;
     }
 
+    public ArrayList<String> getCartList() {
+        final ArrayList<String> ids = new ArrayList<>();
+        String selectQuery = "SELECT *  FROM " + TABLE_NAME;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                String count = cursor.getString(cursor.getColumnIndex(CAR_PRICE));
+                if (count.equals("0")) {
+                    db.execSQL("DELETE FROM " + TABLE_NAME + " WHERE " + ACTION + " = ? AND " + CAR_ID + " = ?", new String[]{cursor.getString(cursor.getColumnIndexOrThrow(ACTION)), cursor.getString(cursor.getColumnIndexOrThrow(CAR_ID))});
+
+                } else
+                    ids.add(cursor.getString(cursor.getColumnIndexOrThrow(ACTION)) + "=" + cursor.getString(cursor.getColumnIndexOrThrow(CAR_ID)) + "=" + cursor.getString(cursor.getColumnIndexOrThrow(CAR_PRICE)) + "=" + cursor.getDouble(cursor.getColumnIndexOrThrow(TOTAL)));
+            } while (cursor.moveToNext());
+
+        }
+        cursor.close();
+        db.close();
+        return ids;
+    }
+
 
 }

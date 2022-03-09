@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "1063808094094",
+    "firebase_url": "https://carrocare-edf9a-default-rtdb.firebaseio.com",
     "project_id": "carrocare-edf9a",
     "storage_bucket": "carrocare-edf9a.appspot.com"
   },
@@ -14,13 +15,21 @@
       },
       "oauth_client": [
         {
+          "client_id": "1063808094094-b5c3o79kh8ejcfpo0g1lthtd9v9ea47p.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.muvierecktech.carrocare",
+            "certificate_hash": "94a8e91ac1b80a4e6fdb7d846aeba126c553ceb8"
+          }
+        },
+        {
           "client_id": "1063808094094-k7ilqk99m703rs4gc9kfe118faghanee.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBuSAM9Ff4REc5_qCN2K6kOfGpmLK0yEXs"
+          "current_key": "AIzaSyBaXR9KcGfyCfz85jexsDdgAdankSntVXw"
         }
       ],
       "services": {

@@ -15,6 +15,7 @@ public class Constant {
     public static String ENTERPINCODE = "Enter your valid pincode";
     public static String DAILYWASH = "daily car wash";
     public static String BIKEWASH = "bike wash";
+    public static String DISINSFECTION_ACTION = "disinfection";
     public static String ADDONSERVICE = "add on service";
     public static String MACHINEPOLISH = "doorstep car machine polish";
     public static String CARINSURANCE = "doorstep car insurance";
@@ -45,6 +46,7 @@ public class Constant {
     public static String ADDON = "Wax Polish";
     public static String EXTRAINT = "Extra Interior";
     public static String CARMACHINE = "Doorstep Car Machine Polish";
+    public static String DISINSFECTION = "Car Disinsfection";
 
     public static String CARTYPE = "cartype";
     public static String CARNAME = "carname";
@@ -83,6 +85,7 @@ public class Constant {
     public static String ACTIONONE = "onetime_payment";
     public static String ACTIONWASHONE = "onetime_wash_payment";
     public static String ACTIONEXTRAONE = "onetime_wax_payment";
+    public static String ACTIONDISONE = "onetime_disinsfection_payment";
 
     public static String NOTCLEANPROPER = "Not Cleaned Properly";
     public static String NOTCLEANTIME = "Not Cleaned On Time";

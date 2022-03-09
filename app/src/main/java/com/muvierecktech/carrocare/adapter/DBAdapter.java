@@ -65,9 +65,10 @@ public class DBAdapter extends RecyclerView.Adapter<DBAdapter.viewHolder> {
             holder.type.setText("Wash");
         }else if(holder.action.getText().equals("onetime_wax_payment")){
             holder.type.setText("Add On");
-        }
-        else if(holder.action.getText().equals("onetime_payment")){
+        } else if(holder.action.getText().equals("onetime_payment")){
             holder.type.setText("Extra Interior");
+        } else if(holder.action.getText().equals("onetime_disinsfection_payment")){
+            holder.type.setText("Disinsfection");
         }
         holder.month.setText(dbm.getPaidmonth());
         if(holder.month.getText().equals("1")){

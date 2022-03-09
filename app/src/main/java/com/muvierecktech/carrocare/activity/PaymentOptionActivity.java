@@ -153,13 +153,23 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
         } else if (servicetype.equalsIgnoreCase(Constant.EXTRAINT)) {
             this.binding.serviceType.setText("Add On");
             this.binding.subsCard1.setVisibility(View.GONE);
+        } else if (servicetype.equalsIgnoreCase(Constant.DISINSFECTION)){
+            this.binding.serviceType.setText("Disinsfection");
+            this.binding.subsCard1.setVisibility(View.GONE);
         }
         if (carname.startsWith("extra")|| carname.startsWith("Extra") || carname.startsWith("EXTRA")){
             binding.subscriptionType.setText(Constant.ONETIME);
             binding.subsHead.setText("One Time Subscription");
             action= Constant.ACTIONONE;
             binding.extraLl.setVisibility(View.VISIBLE);
-        }else if (this.servicetype.equalsIgnoreCase(Constant.WASH) || this.servicetype.equalsIgnoreCase(Constant.BWASH) || servicetype.equalsIgnoreCase(Constant.ADDON) ) {
+        }
+        else if (servicetype.equalsIgnoreCase(Constant.DISINSFECTION)){
+            binding.subscriptionType.setText(Constant.ONETIME);
+            binding.subsHead.setText("One Time Subscription");
+            action= Constant.ACTIONONE;
+            binding.extraLl.setVisibility(View.VISIBLE);
+        }
+        else if (this.servicetype.equalsIgnoreCase(Constant.WASH) || this.servicetype.equalsIgnoreCase(Constant.BWASH) || servicetype.equalsIgnoreCase(Constant.ADDON) ) {
 
             if( servicetype.equalsIgnoreCase(Constant.ADDON)){
                 this.binding.extraLl.setVisibility(View.VISIBLE);
@@ -488,6 +498,8 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
                     }else {
                         Toast.makeText(PaymentOptionActivity.this,Constant.CHOOSEDATETIME,Toast.LENGTH_SHORT).show();
                     }
+                }else{
+                    checkIfExists1();
                 }
             }
         });
@@ -523,6 +535,8 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
 
         if (servicetype.equalsIgnoreCase(Constant.EXTRAINT)){
             action = Constant.ACTIONONE;
+        }else{
+            action = Constant.ACTIONDISONE;
         }
 
         databaseHelper.CheckOrderExists(action,carid);
