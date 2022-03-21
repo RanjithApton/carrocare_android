@@ -7,6 +7,7 @@ public class SettingsList {
     public Settingresponse res;
 
     public class Settingresponse {
+        public int gst;
         public String current_version;
         public String minimum_version;
     }

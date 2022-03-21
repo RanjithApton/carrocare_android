@@ -21,6 +21,7 @@ import com.muvierecktech.carrocare.activity.PaymentOptionActivity;
 import com.muvierecktech.carrocare.activity.VehicleListActivity;
 import com.muvierecktech.carrocare.common.Constant;
 import com.muvierecktech.carrocare.common.DatabaseHelper;
+import com.muvierecktech.carrocare.common.MyDatabaseHelper;
 import com.muvierecktech.carrocare.common.SessionManager;
 import com.muvierecktech.carrocare.model.VehicleDetails;
 import com.squareup.picasso.Picasso;
@@ -34,7 +35,7 @@ public class VehicleListAdapter extends RecyclerView.Adapter {
     public Context context;
     List<VehicleDetails.VecDetails> vecDetails;
     String header,price,carname;
-    DatabaseHelper databaseHelper;
+    MyDatabaseHelper databaseHelper;
     SessionManager sessionManager;
     String customerid,token,action,type,carimage,carmakemodel,carno,onetimecarprice,carid,paidMonths,fineAmount,tottal_amt;
 
@@ -60,7 +61,7 @@ public class VehicleListAdapter extends RecyclerView.Adapter {
 
         sessionManager = new SessionManager(context);
         HashMap<String,String> hashMap = sessionManager.getUserDetails();
-        databaseHelper = new DatabaseHelper(context);
+        databaseHelper = new MyDatabaseHelper(context);
         token = hashMap.get(SessionManager.KEY_TOKEN);
         customerid = hashMap.get(SessionManager.KEY_USERID);
 
@@ -68,9 +69,11 @@ public class VehicleListAdapter extends RecyclerView.Adapter {
 
         if (type.equalsIgnoreCase(Constant.ADDON)){
             action = Constant.ACTIONEXTRAONE;
-        }else if (type.equalsIgnoreCase(Constant.EXTRAINT)){
+        } else if (type.equalsIgnoreCase(Constant.EXTRAINT)){
             action = Constant.ACTIONONE;
-        }else {
+        } else if (type.equalsIgnoreCase(Constant.DISINSFECTION)){
+            action = Constant.ACTIONDISONE;
+        } else {
             action = Constant.ACTIONWASHONE;
         }
 
@@ -155,9 +158,25 @@ public class VehicleListAdapter extends RecyclerView.Adapter {
                         Date todayDate = new Date();
                         String thisDate = currentDate.format(todayDate);
 
-                        long result = databaseHelper.addCart(customerid,token,action,carimage,carmakemodel,carno,onetimecarprice,carid,paidMonths,fineAmount,tottal_amt,thisDate,"Any Time");
+                        int before_tax = Integer.parseInt(tottal_amt);
+                        int taxAmt = ((18 * before_tax) / 100);
+                        int finalAmt = taxAmt + before_tax;
 
-                        if(result > 0){
+                        String result = databaseHelper.AddUpdateOrder(action+"",
+                                carimage+"",
+                                carmakemodel+"",
+                                carno+"",
+                                onetimecarprice+"",
+                                carid+"",
+                                paidMonths+"",
+                                fineAmount+"",
+                                taxAmt+"",
+                                tottal_amt+"",
+                                String.valueOf(finalAmt),
+                                thisDate+"",
+                                "Any Time");
+//
+                        if(result.equalsIgnoreCase("1")){
                             Toast.makeText(context, "Added to Smart Checkout ", Toast.LENGTH_SHORT).show();
                             ((VehicleListActivity)context).showCartCount();
                         }else{

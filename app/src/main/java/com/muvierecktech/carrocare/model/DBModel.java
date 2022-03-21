@@ -1,26 +1,25 @@
 package com.muvierecktech.carrocare.model;
 
 public class DBModel {
-    int sno;
-    String cusid;
-    String token;
-    String type;
-    String imge;
-    String model;
-    String number;
-    String carprice;
-    String carid;
-    String paidmonth;
-    String fine;
-    String total;
-    String date;
-    String time;
+    public String type;
+    public String imge;
+    public String model;
+    public String number;
+    public String carprice;
+    public String carid;
+    public String paidmonth;
+    public String fine;
+    public String gstamount;
+    public String total;
+    public String sub_total;
+    public String date;
+    public String time;
 
+    public DBModel() {
 
-    public DBModel(int sno, String cusid, String token, String type, String imge, String model, String number, String carprice, String carid, String paidmonth, String fine, String total, String date, String time) {
-        this.sno = sno;
-        this.cusid = cusid;
-        this.token = token;
+    }
+
+    public DBModel(String type, String imge, String model, String number, String carprice, String carid, String paidmonth, String fine, String gstamount, String total, String sub_total, String date, String time) {
         this.type = type;
         this.imge = imge;
         this.model = model;
@@ -29,37 +28,11 @@ public class DBModel {
         this.carid = carid;
         this.paidmonth = paidmonth;
         this.fine = fine;
+        this.gstamount = gstamount;
         this.total = total;
+        this.sub_total = sub_total;
         this.date = date;
         this.time = time;
-    }
-
-    public DBModel() {
-
-    }
-
-    public int getSno() {
-        return sno;
-    }
-
-    public void setSno(int sno) {
-        this.sno = sno;
-    }
-
-    public String getCusid() {
-        return cusid;
-    }
-
-    public void setCusid(String cusid) {
-        this.cusid = cusid;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
     }
 
     public String getType() {
@@ -126,12 +99,28 @@ public class DBModel {
         this.fine = fine;
     }
 
+    public String getGstamount() {
+        return gstamount;
+    }
+
+    public void setGstamount(String gstamount) {
+        this.gstamount = gstamount;
+    }
+
     public String getTotal() {
         return total;
     }
 
     public void setTotal(String total) {
         this.total = total;
+    }
+
+    public String getSub_total() {
+        return sub_total;
+    }
+
+    public void setSub_total(String sub_total) {
+        this.sub_total = sub_total;
     }
 
     public String getDate() {

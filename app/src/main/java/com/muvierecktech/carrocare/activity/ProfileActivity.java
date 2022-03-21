@@ -273,6 +273,9 @@ public class ProfileActivity extends AppCompatActivity {
                     apartname = loginDetails.apartment_name;
                     binding.apartbuildingEdt.setText(loginDetails.apartment_building);
                     binding.flatnoEdt.setText(loginDetails.flat_no);
+                    binding.addressEdt.setText(loginDetails.address);
+                    latitude = loginDetails.latitude;
+                    longitude = loginDetails.longitude;
                 }else  if (loginDetails.code.equalsIgnoreCase("201")) {
                     sessionManager.logoutUsers();
                 }
@@ -321,7 +324,8 @@ public class ProfileActivity extends AppCompatActivity {
                 .show();
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
         Call<JsonObject> call = apiInterface.profileupdate(token,customerid,binding.apartnameEdt.getText().toString(),
-                binding.apartbuildingEdt.getText().toString(),binding.flatnoEdt.getText().toString());
+                binding.apartbuildingEdt.getText().toString(),binding.flatnoEdt.getText().toString(),binding.addressEdt.getText().toString(),
+                latitude,longitude );
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
@@ -385,6 +389,8 @@ public class ProfileActivity extends AppCompatActivity {
         if (Constant.LOAD_FROM.equalsIgnoreCase("map")) {
             if (!TextUtils.isEmpty(sessionManager.getData(SessionManager.KEY_ADDRESS)) || sessionManager.getData(SessionManager.KEY_ADDRESS) != null) {
                 binding.addressEdt.setText(sessionManager.getData(SessionManager.KEY_ADDRESS));
+                latitude = sessionManager.getData(SessionManager.KEY_LATITUDE);
+                longitude = sessionManager.getData(SessionManager.KEY_LONGITUDE);
             }
         }
     }

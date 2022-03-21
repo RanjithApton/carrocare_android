@@ -31,6 +31,7 @@ import com.google.gson.JsonObject;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.muvierecktech.carrocare.adapter.PreferredAdapter;
 import com.muvierecktech.carrocare.common.DatabaseHelper;
+import com.muvierecktech.carrocare.common.MyDatabaseHelper;
 import com.muvierecktech.carrocare.databinding.ActivityPaymentOptionBinding;
 import com.muvierecktech.carrocare.model.OneTimeWashCheckout;
 import com.razorpay.Checkout;
@@ -66,7 +67,7 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
     String planId,subscriptionId,razorpayid,custname,custmob,custemail,customerid,token,action,onetimeService,paidMonths,discountAmount;
     String fineAmount = "0";
     SessionManager sessionManager;
-    DatabaseHelper databaseHelper;
+    MyDatabaseHelper databaseHelper;
     String[] subsMonths = {"1 Month", "2 Months", "3 Months", "4 Months", "5 Months", "6 Months", "7 Months", "8 Months", "9 Months", "10 Months", "11 Months", "12 Months", "13 Months", "14 Months", "15 Months", "16 Months", "17 Months", "18 Months", "19 Months", "20 Months", "21 Months", "22 Months", "23 Months", "24 Months"};
     String preTime[] = {Constant.ANYTIME, "9.00 AM - 10.00 AM","10.00 AM - 11.00 AM","11.00 AM - 12.00 PM","12.00 PM - 1.00 PM","6.00 PM - 7.00 PM","7.00 PM - 8.00 PM"};
     public static String time;
@@ -87,7 +88,7 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
         customerid = hashMap.get(SessionManager.KEY_USERID);
         token = hashMap.get(SessionManager.KEY_TOKEN);
 
-        databaseHelper = new DatabaseHelper(this);
+        databaseHelper = new MyDatabaseHelper(this);
         spinner_item = new ArrayList<>();
 
         showCartCount();
@@ -514,13 +515,31 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
             action = Constant.ACTIONWASHONE;
         }
 
-        databaseHelper.CheckOrderExists(action,carid);
-
         String tottal_amt = String.valueOf(totalAmountStr);
 
-        long result = databaseHelper.addCart(customerid,token,action,carimage,carmakemodel,carno,onetimecarprice,carid,paidMonths,fineAmount,tottal_amt,binding.preferDate.getText().toString(),time);
+        int before_tax = Integer.parseInt(tottal_amt);
+        int taxAmt = ((18 * before_tax) / 100);
+        int finalAmt = taxAmt + before_tax;
 
-        if(result > 0){
+
+
+        String result = databaseHelper.AddUpdateOrder(action+"",
+                carimage+"",
+                carmakemodel+"",
+                carno+"",
+                onetimecarprice+"",
+                carid+"",
+                paidMonths+"",
+                fineAmount+"",
+                taxAmt+"",
+                tottal_amt+"",
+                String.valueOf(finalAmt),
+                binding.preferDate.getText().toString()+"",
+                time+"");
+
+        Log.e("123456",""+result);
+
+        if(result.equalsIgnoreCase("1")){
             Toast.makeText(PaymentOptionActivity.this, "Added. ", Toast.LENGTH_SHORT).show();
             showCartCount();
             startActivity(new Intent(PaymentOptionActivity.this,CartActivity.class));
@@ -539,12 +558,25 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
             action = Constant.ACTIONDISONE;
         }
 
-        databaseHelper.CheckOrderExists(action,carid);
+        int before_tax = Integer.parseInt(carprice);
+        int taxAmt = ((18 * before_tax) / 100);
+        int finalAmt = taxAmt + before_tax;
 
+        String result = databaseHelper.AddUpdateOrder(action+"",
+                carimage+"",
+                carmakemodel+"",
+                carno+"",
+                carprice+"",
+                carid+"",
+                "0",
+                "0",
+                taxAmt+"",
+                carprice+"",
+                String.valueOf(finalAmt),
+                binding.preferDate.getText().toString()+"",
+                time+"");
 
-        long result = databaseHelper.addCart(customerid,token,action,carimage,carmakemodel,carno,carprice,carid,"0","0",carprice,binding.preferDate.getText().toString(),time);
-
-        if(result > 0){
+        if(result.equalsIgnoreCase("1")){
             Toast.makeText(PaymentOptionActivity.this, "Added. ", Toast.LENGTH_SHORT).show();
             showCartCount();
             startActivity(new Intent(PaymentOptionActivity.this,CartActivity.class));

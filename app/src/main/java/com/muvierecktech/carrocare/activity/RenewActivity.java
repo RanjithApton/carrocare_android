@@ -34,6 +34,7 @@ import com.muvierecktech.carrocare.adapter.PreferredAdapter;
 import com.muvierecktech.carrocare.adapter.RenewOrderAdapter;
 import com.muvierecktech.carrocare.common.Constant;
 import com.muvierecktech.carrocare.common.DatabaseHelper;
+import com.muvierecktech.carrocare.common.MyDatabaseHelper;
 import com.muvierecktech.carrocare.common.SessionManager;
 import com.muvierecktech.carrocare.databinding.ActivityRenewBinding;
 import com.muvierecktech.carrocare.model.OneTimeWashCheckout;
@@ -56,7 +57,7 @@ public class RenewActivity extends AppCompatActivity {
     SessionManager sessionManager;
     String token,customerid,action,onetimeService,paidMonths,fineAmount,discountAmount,onetimecarprice;
     RenewOrderAdapter renewOrderAdapter;
-    DatabaseHelper databaseHelper;
+    MyDatabaseHelper databaseHelper;
     List<OneTimeWashCheckout.getResult> result;
     int totalAmountStr;
     String[] subsMonths = {"1 Month", "2 Months", "3 Months", "4 Months", "5 Months", "6 Months", "7 Months", "8 Months", "9 Months", "10 Months", "11 Months", "12 Months", "13 Months", "14 Months", "15 Months", "16 Months", "17 Months", "18 Months", "19 Months", "20 Months", "21 Months", "22 Months", "23 Months", "24 Months"};
@@ -69,7 +70,7 @@ public class RenewActivity extends AppCompatActivity {
         //setContentView(R.layout.activity_renew);
         binding = DataBindingUtil.setContentView(this,R.layout.activity_renew);
 
-        databaseHelper = new DatabaseHelper(this);
+        databaseHelper = new MyDatabaseHelper(this);
 
         showCartCount();
 
@@ -229,9 +230,25 @@ public class RenewActivity extends AppCompatActivity {
 
         String tottal_amt = String.valueOf(totalAmountStr);
 
-        long result = databaseHelper.addCart(customerid,token,action,"1",carmakemodel,carno,onetimecarprice,carid,paidMonths,fineAmount,tottal_amt,binding.preferDate.getText().toString(),time);
+        int before_tax = Integer.parseInt(tottal_amt);
+        int taxAmt = ((18 * before_tax) / 100);
+        int finalAmt = taxAmt + before_tax;
 
-        if(result > 0){
+        String result = databaseHelper.AddUpdateOrder(action+"",
+                "1",
+                carmakemodel+"",
+                carno+"",
+                onetimecarprice+"",
+                carid+"",
+                paidMonths+"",
+                fineAmount+"",
+                taxAmt+"",
+                tottal_amt+"",
+                String.valueOf(finalAmt),
+                binding.preferDate.getText().toString()+"",
+                time+"");
+
+        if(result.equalsIgnoreCase("1")){
             binding.popupCard.setVisibility(View.GONE);
             Toast.makeText(RenewActivity.this, "Added. ", Toast.LENGTH_SHORT).show();
             showCartCount();
@@ -244,17 +261,35 @@ public class RenewActivity extends AppCompatActivity {
 
     }
 
-    public void checkIfExists1(String  finalCarid,String carmakemodel,String carno,String carprice){
+    public void checkIfExists1(String servicetype, String finalCarid, String carmakemodel, String carno, String carprice){
 
-        action = Constant.ACTIONONE;
+        if(servicetype.equals("AddOn")){
+            action = Constant.ACTIONONE;
+        }else if(servicetype.equals("Disinsfection")){
+            action = Constant.ACTIONDISONE;
+        }
 
         String carid = finalCarid;
 
-        databaseHelper.CheckOrderExists(action,carid);
+        int before_tax = Integer.parseInt(carprice);
+        int taxAmt = ((18 * before_tax) / 100);
+        int finalAmt = taxAmt + before_tax;
 
-        long result = databaseHelper.addCart(customerid,token,action,"1",carmakemodel,carno,carprice,carid,"1","0",carprice,binding.preferDate1.getText().toString(),time);
+        String result = databaseHelper.AddUpdateOrder(action+"",
+                "1",
+                carmakemodel+"",
+                carno+"",
+                carprice+"",
+                carid+"",
+                "1",
+                "0",
+                taxAmt+"",
+                carprice+"",
+                String.valueOf(finalAmt),
+                binding.preferDate1.getText().toString()+"",
+                time+"");
 
-        if(result > 0){
+        if(result.equalsIgnoreCase("1")){
             binding.popupCard1.setVisibility(View.GONE);
             Toast.makeText(RenewActivity.this, "Added. ", Toast.LENGTH_SHORT).show();
             showCartCount();

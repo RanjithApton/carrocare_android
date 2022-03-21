@@ -31,6 +31,8 @@ import com.muvierecktech.carrocare.R;
 import com.muvierecktech.carrocare.adapter.DBAdapter;
 import com.muvierecktech.carrocare.common.Constant;
 import com.muvierecktech.carrocare.common.DatabaseHelper;
+import com.muvierecktech.carrocare.common.MyDatabaseHelper;
+import com.muvierecktech.carrocare.common.SessionManager;
 import com.muvierecktech.carrocare.databinding.ActivityCartBinding;
 import com.muvierecktech.carrocare.model.DBModel;
 import com.muvierecktech.carrocare.restapi.ApiClient;
@@ -42,18 +44,19 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import static com.muvierecktech.carrocare.common.DatabaseHelper.TABLE_NAME;
 
 public class CartActivity extends AppCompatActivity implements PaymentResultListener {
     public ActivityCartBinding binding;
 
-    DatabaseHelper databaseHelper;
+    MyDatabaseHelper databaseHelper;
     String Sum;
     ArrayList<DBModel> arrayList;
     String custmob,custemail,razorpayid;
     public static int total;
-
+    SessionManager sessionManager;
     SQLiteDatabase sqLiteDatabase;
     Cursor cursor;
 
@@ -66,6 +69,11 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
         //setContentView(R.layout.activity_cart);
         binding = DataBindingUtil.setContentView(this,R.layout.activity_cart);
 
+        sessionManager = new SessionManager(this);
+        HashMap<String,String> hashMap = sessionManager.getUserDetails();
+        customerid = hashMap.get(SessionManager.KEY_USERID);
+        token = hashMap.get(SessionManager.KEY_TOKEN);
+
         Checkout.preload(getApplicationContext());
 
         binding.back.setOnClickListener(new View.OnClickListener() {
@@ -76,7 +84,7 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
             }
         });
 
-        databaseHelper = new DatabaseHelper(this);
+        databaseHelper = new MyDatabaseHelper(this);
 
         int totalItemOfCart = databaseHelper.getTotalItemOfCart();
 
@@ -244,16 +252,16 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
             if (cursor.moveToFirst()) {
                 do {
 
-                    String type = cursor.getString(3);
-                    String customerid = cursor.getString(1);
-                    String token = cursor.getString(2);
-                    String carprice = cursor.getString(7);
-                    String carid = cursor.getString(8);
-                    String paidMonths = cursor.getString(9);
-                    String fineAmount = cursor.getString(10);
-                    String totalAmountStr = cursor.getString(11);
-                    String date = cursor.getString(12);
-                    String time = cursor.getString(13);
+                    String type = cursor.getString(0);
+                    String carprice = cursor.getString(4);
+                    String carid = cursor.getString(5);
+                    String paidMonths = cursor.getString(6);
+                    String fineAmount = cursor.getString(7);
+                    String gstAmount = cursor.getString(7);
+                    String totalAmountStr = cursor.getString(8);
+                    String subtotal = cursor.getString(9);
+                    String date = cursor.getString(10);
+                    String time = cursor.getString(11);
 
 
                     if (type.equalsIgnoreCase("onetime_wash_payment")) {
@@ -552,8 +560,6 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
                 do {
 
                     type = cursor.getString(3);
-                    customerid = cursor.getString(1);
-                    token = cursor.getString(2);
                     carprice = cursor.getString(7);
                     carid = cursor.getString(8);
                     paidMonths = cursor.getString(9);
@@ -569,6 +575,8 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
                         PlaceOrderOneTimeAddOn(razorpayid);
                     }else if(type.equalsIgnoreCase("onetime_payment")){
                         PlaceOrderOneTime(razorpayid);
+                    }else if (type.equalsIgnoreCase("onetime_disinsfection_payment")) {
+                        PlaceOrderOneTimeDisinsfecion(razorpayid);
                     }
 
 
@@ -600,6 +608,8 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
             alert.show();
         }
     }
+
+
 
 
     private void PlaceOrderOneTimeWash(String razorpayid) {
@@ -761,10 +771,61 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
 
     }
 
+    private void PlaceOrderOneTimeDisinsfecion(String razorpayid) {
+        final KProgressHUD hud = KProgressHUD.create(CartActivity.this)
+                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                .setCancellable(true)
+                .setAnimationSpeed(2)
+                .setDimAmount(0.5f)
+                .show();
+        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+        Call<JsonObject> call = apiInterface.saveOrderOneTime("onetime_payment",
+                razorpayid+"",
+                Constant.RAZOR_PAY_ORDER_ID +"",
+                customerid+"",
+                token+"",
+                "Wash",
+                carprice+"",
+                carid+"",
+                "Disinsfection",
+                carprice+"",
+                date +"",
+                time +"");
+        call.enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                JsonElement jsonElement = response.body();
+                hud.dismiss();
+                try {
+                    JSONObject jsonObject = new JSONObject(jsonElement.toString());
+                    if (jsonObject.optString("code").equalsIgnoreCase("200")) {
+                        Gson gson = new Gson();
+                        Toast.makeText(CartActivity.this,jsonObject.optString("result"),Toast.LENGTH_SHORT).show();
+                        paymentSuccess();
+                        Log.e("payresponse",""+jsonObject.optString("result"));
+//                        Intent intent = new Intent(CartActivity.this,CongratsActivity.class);
+//                        startActivity(intent);
+//                        finish();
+                    }else if (jsonObject.optString("code").equalsIgnoreCase("201")) {
+                        Toast.makeText(CartActivity.this,jsonObject.optString("result"),Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                hud.dismiss();
+                Log.e("123456",""+t.getMessage());
+                Toast.makeText(CartActivity.this,"Timeout.Try after sometime",Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
     public void paymentSuccess(){
         startActivity(new Intent(CartActivity.this, CongratsActivity.class));
         finish();
-        databaseHelper.DeleteAllCartData();
+        databaseHelper.DeleteAllOrderData();
     }
 
     public void showCartItem(){

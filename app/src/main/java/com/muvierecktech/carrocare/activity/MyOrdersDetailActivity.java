@@ -302,6 +302,46 @@ public class MyOrdersDetailActivity extends AppCompatActivity {
             }
         }
 
+
+        if (service_type.equalsIgnoreCase("Disinsfection")) {
+
+            binding.viewWashdetails.setVisibility(View.GONE);
+            binding.viewhistory.setVisibility(View.GONE);
+            binding.viewExtrainterior.setVisibility(View.GONE);
+            binding.cancel.setVisibility(View.GONE);
+            binding.viewhistory.setVisibility(View.GONE);
+            binding.vehiclemakeField.setVisibility(View.GONE);
+            binding.vehiclemodelField.setVisibility(View.GONE);
+            binding.vehiclenoField.setVisibility(View.GONE);
+            binding.paymentmodeField.setVisibility(View.GONE);
+            binding.paidcountField.setVisibility(View.GONE);
+            binding.validField.setVisibility(View.GONE);
+            binding.statusField.setVisibility(View.GONE);
+            //binding.imageField.setVisibility(View.VISIBLE);
+            binding.vehicleidField.setVisibility(View.VISIBLE);
+            binding.scheduleField.setVisibility(View.VISIBLE);
+            binding.workdoneField.setVisibility(View.VISIBLE);
+            binding.cancelOnetime.setVisibility(View.VISIBLE);
+
+//            if(!package_value.equals("100")){
+//                binding.imageField.setVisibility(View.VISIBLE);
+//            }else{
+//                binding.imageField.setVisibility(View.GONE);
+//            }
+            binding.imageField.setVisibility(View.GONE);
+//            if(work_done.equalsIgnoreCase("No")){
+//                binding.imageField.setVisibility(View.GONE);
+//            }else{
+//                binding.imageField.setVisibility(View.VISIBLE);
+//            }
+
+            if (discount_amount.equalsIgnoreCase("0")) {
+                binding.discountField.setVisibility(View.GONE);
+            } else {
+                binding.discountField.setVisibility(View.VISIBLE);
+            }
+        }
+
         binding.cancelOnetime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -39,6 +39,7 @@ import com.muvierecktech.carrocare.adapter.IntWashOrderAdapter;
 import com.muvierecktech.carrocare.adapter.SliderAdapter;
 import com.muvierecktech.carrocare.common.Constant;
 import com.muvierecktech.carrocare.common.DatabaseHelper;
+import com.muvierecktech.carrocare.common.MyDatabaseHelper;
 import com.muvierecktech.carrocare.common.SessionManager;
 import com.muvierecktech.carrocare.databinding.ActivityMainBinding;
 import com.muvierecktech.carrocare.model.LoginDetails;
@@ -75,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<String> orderId;
     List<String> ser_type_wash;
     List<String> ser_type_addon;
-    DatabaseHelper databaseHelper;
+    MyDatabaseHelper databaseHelper;
     DBAdapter dbAdapter;
     @SuppressLint("LongLogTag")
     @Override
@@ -92,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
         customerid = hashMap.get(SessionManager.KEY_USERID);
         binding.username.setText("Hi "+username+" !");
 
-        databaseHelper = new DatabaseHelper(this);
+        databaseHelper = new MyDatabaseHelper(this);
 
         //int totalItemOfCart = databaseHelper.getTotalItemOfCart();
 
@@ -500,6 +501,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onResponse(Call<SettingsList> call, Response<SettingsList> response) {
                     final SettingsList settingsList = response.body();
                     if (settingsList.code.equalsIgnoreCase("200")){
+                        Constant.GST_PERCENTAGE = settingsList.res.gst;
                         Constant.VERSION_CODE = settingsList.res.current_version;
                         Constant.REQUIRED_VERSION = settingsList.res.minimum_version;
                         String versionName = "";

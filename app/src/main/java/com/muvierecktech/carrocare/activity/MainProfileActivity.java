@@ -17,6 +17,7 @@ import androidx.databinding.DataBindingUtil;
 import com.muvierecktech.carrocare.R;
 import com.muvierecktech.carrocare.common.Constant;
 import com.muvierecktech.carrocare.common.DatabaseHelper;
+import com.muvierecktech.carrocare.common.MyDatabaseHelper;
 import com.muvierecktech.carrocare.common.PostServiceChooseDialog;
 import com.muvierecktech.carrocare.common.SessionManager;
 import com.muvierecktech.carrocare.databinding.ActivityMainProfileBinding;
@@ -28,7 +29,7 @@ public class MainProfileActivity extends AppCompatActivity implements PostServic
     ActivityMainProfileBinding binding;
     SessionManager sessionManager;
     String name,mobile;
-    DatabaseHelper databaseHelper;
+    MyDatabaseHelper databaseHelper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +39,7 @@ public class MainProfileActivity extends AppCompatActivity implements PostServic
         name = hashMap.get(SessionManager.KEY_USERNAME);
         mobile = hashMap.get(SessionManager.KEY_USERMOBILE);
 
-        databaseHelper = new DatabaseHelper(this);
+        databaseHelper = new MyDatabaseHelper(this);
 
         binding.profilename.setText(name);
         binding.profileNum.setText(mobile);
@@ -85,7 +86,7 @@ public class MainProfileActivity extends AppCompatActivity implements PostServic
                 builder.setCancelable(false);
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        databaseHelper.DeleteAllCartData();
+                        databaseHelper.DeleteAllOrderData();
                         sessionManager.logoutUsers();
                     }
                 });

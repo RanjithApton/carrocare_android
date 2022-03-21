@@ -19,6 +19,7 @@ import com.muvierecktech.carrocare.activity.CartActivity;
 import com.muvierecktech.carrocare.activity.MainActivity;
 import com.muvierecktech.carrocare.activity.PaymentOptionActivity;
 import com.muvierecktech.carrocare.common.DatabaseHelper;
+import com.muvierecktech.carrocare.common.MyDatabaseHelper;
 import com.muvierecktech.carrocare.model.DBModel;
 import com.squareup.picasso.Picasso;
 
@@ -30,7 +31,7 @@ public class DBAdapter extends RecyclerView.Adapter<DBAdapter.viewHolder> {
     Context context;
     Activity activity;
     ArrayList<DBModel> arrayList;
-    DatabaseHelper databaseHelper;
+    MyDatabaseHelper databaseHelper;
     public static int cart_count;
 
     public DBAdapter(Context context,Activity activity, ArrayList<DBModel> arrayList) {
@@ -50,7 +51,7 @@ public class DBAdapter extends RecyclerView.Adapter<DBAdapter.viewHolder> {
     public void onBindViewHolder(final viewHolder holder, final int position) {
         final DBModel dbm = arrayList.get(position);
 
-        databaseHelper = new DatabaseHelper(context);
+        databaseHelper = new MyDatabaseHelper(context);
 
         Picasso.get()
                 .load(dbm.getImge())
@@ -90,18 +91,25 @@ public class DBAdapter extends RecyclerView.Adapter<DBAdapter.viewHolder> {
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
 
-                        int result = databaseHelper.deleteItem(dbm.getSno());
-
-                        if(result > 0){
-                            Toast.makeText(context, "Removed", Toast.LENGTH_SHORT).show();
-                            arrayList.remove(dbm);
-                            notifyDataSetChanged();
-                            Intent intent = new Intent(context,CartActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            context.startActivity(intent);
-                        }else{
-                            Toast.makeText(context, "Error on Removeing, Check once", Toast.LENGTH_SHORT).show();
-                        }
+//                        int result = databaseHelper.deleteItem(dbm.getSno());
+//
+//                        if(result > 0){
+//                            Toast.makeText(context, "Removed", Toast.LENGTH_SHORT).show();
+//                            arrayList.remove(dbm);
+//                            notifyDataSetChanged();
+//                            Intent intent = new Intent(context,CartActivity.class);
+//                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                            context.startActivity(intent);
+//                        }else{
+//                            Toast.makeText(context, "Error on Removeing, Check once", Toast.LENGTH_SHORT).show();
+//                        }
+                        databaseHelper.DeleteOrderData(dbm.getType(), dbm.getCarid());
+                        Toast.makeText(context, "Removed", Toast.LENGTH_SHORT).show();
+                        arrayList.remove(dbm);
+                        notifyDataSetChanged();
+                        Intent intent = new Intent(context,CartActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        context.startActivity(intent);
 
                     }
                 });

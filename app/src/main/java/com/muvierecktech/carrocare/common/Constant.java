@@ -2,6 +2,7 @@ package com.muvierecktech.carrocare.common;
 
 public class Constant {
     public static final String SETTINGS_APP_UPDATE = "app_update";
+    public static int GST_PERCENTAGE = 0;
     public static String VERSION_CODE;
     public static String REQUIRED_VERSION;
     public static String VERSION_STATUS;
@@ -13,10 +14,10 @@ public class Constant {
     public static String DETAILS = "Enter all the details";
     public static String PASSNOTMATCH = "Password are not matched";
     public static String ENTERPINCODE = "Enter your valid pincode";
-    public static String DAILYWASH = "daily car wash";
+    public static String DAILYWASH = "daily_car_wash";
     public static String BIKEWASH = "bike wash";
     public static String DISINSFECTION_ACTION = "disinfection";
-    public static String ADDONSERVICE = "add on service";
+    public static String ADDONSERVICE = "add_on_service";
     public static String MACHINEPOLISH = "doorstep car machine polish";
     public static String CARINSURANCE = "doorstep car insurance";
     public static String CHOOSEVECTYPE = "Please choose vehicle type";

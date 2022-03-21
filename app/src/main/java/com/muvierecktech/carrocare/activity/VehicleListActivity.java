@@ -24,6 +24,7 @@ import com.kaopiz.kprogresshud.KProgressHUD;
 import com.muvierecktech.carrocare.R;
 import com.muvierecktech.carrocare.adapter.VehicleListAdapter;
 import com.muvierecktech.carrocare.common.DatabaseHelper;
+import com.muvierecktech.carrocare.common.MyDatabaseHelper;
 import com.muvierecktech.carrocare.common.SessionManager;
 import com.muvierecktech.carrocare.databinding.ActivityVehicleListBinding;
 import com.muvierecktech.carrocare.model.VehicleDetails;
@@ -40,7 +41,7 @@ public class VehicleListActivity extends AppCompatActivity {
     public ActivityVehicleListBinding binding;
     String carname,carprice,cardesc,carimage,carid,header,token,customerid,servicetype;
     SessionManager sessionManager;
-    DatabaseHelper databaseHelper;
+    MyDatabaseHelper databaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +52,7 @@ public class VehicleListActivity extends AppCompatActivity {
         token = hashMap.get(SessionManager.KEY_TOKEN);
         customerid = hashMap.get(SessionManager.KEY_USERID);
 
-        databaseHelper = new DatabaseHelper(this);
+        databaseHelper = new MyDatabaseHelper(this);
 
         showCartCount();
 

@@ -14,6 +14,9 @@ public class LoginDetails {
     public String apartment_building;
     public String flat_no;
     public String code;
+    public String address;
+    public String latitude;
+    public String longitude;
 
     public String device_id;
     public String device_name;

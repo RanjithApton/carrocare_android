@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.muvierecktech.carrocare.model.DBModel;
 
@@ -30,11 +31,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String P_MONTHS = "paidmonth";
     public static final String FINE = "fine";
     public static final String TOTAL = "total";
+    public static final String SUB_TOTAL = "sub_total";
     public static final String SCH_DATE = "date";
     public static final String SCH_TIME = "time";
-
-
-
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -54,6 +53,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "paidmonth TEXT, " +
                 "fine TEXT, " +
                 "total TEXT , " +
+                "sub_total TEXT , " +
                 "date TEXT, " +
                 "time TEXT ) ");
     }
@@ -96,9 +96,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 DBModel dbModel = new DBModel();
-                dbModel.setSno(Integer.valueOf(cursor.getString(0)));
-                dbModel.setCusid(cursor.getString(1));
-                dbModel.setToken(cursor.getString(2));
+//                dbModel.setSno(Integer.valueOf(cursor.getString(0)));
+//                dbModel.setCusid(cursor.getString(1));
+//                dbModel.setToken(cursor.getString(2));
                 dbModel.setType(cursor.getString(3));
                 dbModel.setImge(cursor.getString(4));
                 dbModel.setModel(cursor.getString(5));

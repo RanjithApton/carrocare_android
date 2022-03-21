@@ -121,6 +121,16 @@ public class RenewOrderAdapter extends RecyclerView.Adapter {
 
                 }
 
+                else if(ordersList.get(pos).service_type.equalsIgnoreCase("Disinsfection")){
+                    ((RenewActivity)context).binding.popupCard1.setVisibility(View.VISIBLE);
+                    ((RenewActivity)context).binding.serviceType.setText(ordersList.get(pos).service_type);
+                    ((RenewActivity)context).binding.subscriptionType.setText(ordersList.get(pos).payment_type);
+                    ((RenewActivity)context).binding.packageType.setText(ordersList.get(pos).package_type);
+                    ((RenewActivity)context).binding.packageMrp.setText("₹ " +ordersList.get(pos).package_value);
+                    ((RenewActivity)context).binding.total.setText("₹ " +ordersList.get(pos).package_value);
+                    ((RenewActivity)context).binding.totalAmount.setText("₹ " +ordersList.get(pos).package_value);
+                }
+
                 else{
 
                     if(ordersList.get(pos).service_type.equalsIgnoreCase("Wash")) {
@@ -158,6 +168,7 @@ public class RenewOrderAdapter extends RecyclerView.Adapter {
                 ((RenewActivity)context).binding.addToCart.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
                         if(ordersList.get(pos).service_type.equalsIgnoreCase("AddOn") &&
                                 !ordersList.get(pos).package_value.equalsIgnoreCase("100")) {
                             if (((RenewActivity) context).binding.preferDate.getText().length() > 0 && !TextUtils.isEmpty(((RenewActivity) context).time)) {
@@ -176,7 +187,7 @@ public class RenewOrderAdapter extends RecyclerView.Adapter {
                     @Override
                     public void onClick(View v) {
                         if (((RenewActivity)context).binding.preferDate1.getText().length()>0 && !TextUtils.isEmpty(((RenewActivity)context).time)){
-                            ((RenewActivity)context).checkIfExists1( finalCarid,carmakemodel,carno,carprice);
+                            ((RenewActivity)context).checkIfExists1( servicetype, finalCarid,carmakemodel,carno,carprice);
                         }else {
                             Toast.makeText(context,Constant.CHOOSEDATETIME,Toast.LENGTH_SHORT).show();
                         }
