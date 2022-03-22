@@ -79,7 +79,7 @@ public class DBAdapter extends RecyclerView.Adapter<DBAdapter.viewHolder> {
         }else{
             holder.month.setText(dbm.getPaidmonth()+ " Months");
         }
-        holder.total.setText("₹ " +dbm.getTotal());
+        holder.total.setText("₹ " +dbm.getSub_total());
 
         holder.del_img.setOnClickListener(new View.OnClickListener() {
             @Override

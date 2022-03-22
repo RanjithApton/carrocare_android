@@ -5,6 +5,8 @@ import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 
 import android.os.Bundle;
@@ -40,6 +42,14 @@ public class MainProfileActivity extends AppCompatActivity implements PostServic
         mobile = hashMap.get(SessionManager.KEY_USERMOBILE);
 
         databaseHelper = new MyDatabaseHelper(this);
+
+        String versionName = "";
+        try {
+            PackageInfo packageInfo = MainProfileActivity.this.getPackageManager().getPackageInfo(MainProfileActivity.this.getPackageName(), 0);
+            versionName = packageInfo.versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+        }
+        binding.versionEdt.setText("Version "+versionName+"\n"+"© Muviereck Technologies Pvt Ltd.");
 
         binding.profilename.setText(name);
         binding.profileNum.setText(mobile);

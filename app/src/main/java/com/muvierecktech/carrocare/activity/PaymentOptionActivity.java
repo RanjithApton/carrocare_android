@@ -128,6 +128,16 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
         binding.addressTxt.setText(apartname);
         binding.datetimeTxt.setText(prefersch+"\n"+prefertime);
 
+        if(Constant.GST_PERCENTAGE != 0){
+            binding.taxField.setVisibility(View.VISIBLE);
+            binding.taxField1.setVisibility(View.VISIBLE);
+            binding.taxPercentage.setText("Taxes "+Constant.GST_PERCENTAGE+"%");
+            binding.taxPercentage1.setText("Taxes "+Constant.GST_PERCENTAGE+"%");
+        }else{
+            binding.taxField.setVisibility(View.GONE);
+            binding.taxField1.setVisibility(View.GONE);
+        }
+
         if (servicetype.equalsIgnoreCase(Constant.WASH)){
             this.binding.subsCard.setVisibility(View.GONE);
             binding.serviceType.setText("Wash");
@@ -191,7 +201,11 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
                 paidMonths = "1";
                 totalAmountStr = Integer.parseInt(onetimecarprice);
                 binding.total1.setText("₹ " + onetimecarprice);
-                binding.totalAmount1.setText("₹ " + onetimecarprice);
+                int taxAmt = ((Constant.GST_PERCENTAGE * Integer.parseInt(onetimecarprice)) / 100);
+                int finalAmt = taxAmt + Integer.parseInt(onetimecarprice);
+                binding.taxTotal1.setText("₹ " + taxAmt);
+                binding.totalAmount1.setText("₹ " +finalAmt);
+                //binding.totalAmount1.setText("₹ " + onetimecarprice);
             }else{
                 this.binding.subsHead1.setText("One Time Wash Subscription");
             }
@@ -210,76 +224,108 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
                         totalAmountStr = (int) parseDouble;
                         paidMonths = "1";
                         binding.total1.setText("₹ " + totalAmountStr);
-                        binding.totalAmount1.setText("₹ " + totalAmountStr);
+                        int taxAmt = ((Constant.GST_PERCENTAGE * totalAmountStr) / 100);
+                        int finalAmt = taxAmt + totalAmountStr;
+                        binding.taxTotal1.setText("₹ " + taxAmt);
+                        binding.totalAmount1.setText("₹ " + finalAmt);
                         Log.e("AMOUNTRZP", String.valueOf(parseDouble));
                     } else if (i == 1) {
                         double parseDouble2 = Double.parseDouble(onetimecarprice) * 2;
                         totalAmountStr = (int) parseDouble2;
                         paidMonths = "2";
                         binding.total1.setText("₹ " + totalAmountStr);
-                        binding.totalAmount1.setText("₹ " + totalAmountStr);
+                        int taxAmt = ((Constant.GST_PERCENTAGE * totalAmountStr) / 100);
+                        int finalAmt = taxAmt + totalAmountStr;
+                        binding.taxTotal1.setText("₹ " + taxAmt);
+                        binding.totalAmount1.setText("₹ " + finalAmt);
                         Log.e("AMOUNTRZP", String.valueOf(parseDouble2));
                     } else if (i == 2) {
                         double parseDouble3 = Double.parseDouble(onetimecarprice) * 3;
                         totalAmountStr = (int) parseDouble3;
                         paidMonths = "3";
                         binding.total1.setText("₹ " + totalAmountStr);
-                        binding.totalAmount1.setText("₹ " + totalAmountStr);
+                        int taxAmt = ((Constant.GST_PERCENTAGE * totalAmountStr) / 100);
+                        int finalAmt = taxAmt + totalAmountStr;
+                        binding.taxTotal1.setText("₹ " + taxAmt);
+                        binding.totalAmount1.setText("₹ " + finalAmt);
                         Log.e("AMOUNTRZP", String.valueOf(parseDouble3));
                     } else if (i == 3) {
                         double parseDouble4 = Double.parseDouble(onetimecarprice) * 4;
                         totalAmountStr = (int) parseDouble4;
                         paidMonths = "4";
                         binding.total1.setText("₹ " + totalAmountStr);
-                        binding.totalAmount1.setText("₹ " + totalAmountStr);
+                        int taxAmt = ((Constant.GST_PERCENTAGE * totalAmountStr) / 100);
+                        int finalAmt = taxAmt + totalAmountStr;
+                        binding.taxTotal1.setText("₹ " + taxAmt);
+                        binding.totalAmount1.setText("₹ " + finalAmt);
                         Log.e("AMOUNTRZP", String.valueOf(parseDouble4));
                     } else if (i == 4) {
                         double parseDouble5 = Double.parseDouble(onetimecarprice) * 5;
                         totalAmountStr = (int) parseDouble5;
                         paidMonths = "5";
                         binding.total1.setText("₹ " + totalAmountStr);
-                        binding.totalAmount1.setText("₹ " + totalAmountStr);
+                        int taxAmt = ((Constant.GST_PERCENTAGE * totalAmountStr) / 100);
+                        int finalAmt = taxAmt + totalAmountStr;
+                        binding.taxTotal1.setText("₹ " + taxAmt);
+                        binding.totalAmount1.setText("₹ " + finalAmt);
                         Log.e("AMOUNTRZP", String.valueOf(parseDouble5));
                     } else if (i == 5) {
                         double parseDouble6 = Double.parseDouble(onetimecarprice) * 6;
                         totalAmountStr = (int) parseDouble6;
                         paidMonths = "6";
                         binding.total1.setText("₹ " + totalAmountStr);
-                        binding.totalAmount1.setText("₹ " + totalAmountStr);
+                        int taxAmt = ((Constant.GST_PERCENTAGE * totalAmountStr) / 100);
+                        int finalAmt = taxAmt + totalAmountStr;
+                        binding.taxTotal1.setText("₹ " + taxAmt);
+                        binding.totalAmount1.setText("₹ " + finalAmt);
                         Log.e("AMOUNTRZP", String.valueOf(parseDouble6));
                     } else if (i == 6) {
                         double parseDouble7 = Double.parseDouble(onetimecarprice) * 7;
                         totalAmountStr = (int) parseDouble7;
                         paidMonths = "7";
                         binding.total1.setText("₹ " + totalAmountStr);
-                        binding.totalAmount1.setText("₹ " + totalAmountStr);
+                        int taxAmt = ((Constant.GST_PERCENTAGE * totalAmountStr) / 100);
+                        int finalAmt = taxAmt + totalAmountStr;
+                        binding.taxTotal1.setText("₹ " + taxAmt);
+                        binding.totalAmount1.setText("₹ " + finalAmt);
                         Log.e("AMOUNTRZP", String.valueOf(parseDouble7));
                     } else if (i == 7) {
                         double parseDouble8 = Double.parseDouble(onetimecarprice) * 8;
                         totalAmountStr = (int) parseDouble8;
                         paidMonths = "8";
                         binding.total1.setText("₹ " + totalAmountStr);
-                        binding.totalAmount1.setText("₹ " + totalAmountStr);
+                        int taxAmt = ((Constant.GST_PERCENTAGE * totalAmountStr) / 100);
+                        int finalAmt = taxAmt + totalAmountStr;
+                        binding.taxTotal1.setText("₹ " + taxAmt);
+                        binding.totalAmount1.setText("₹ " + finalAmt);
                         Log.e("AMOUNTRZP", String.valueOf(parseDouble8));
                     } else if (i == 8) {
                         double parseDouble9 = Double.parseDouble(onetimecarprice) * 9;
                         totalAmountStr = (int) parseDouble9;
                         paidMonths = "9";
                         binding.total1.setText("₹ " + totalAmountStr);
-                        binding.totalAmount1.setText("₹ " + totalAmountStr);
+                        int taxAmt = ((Constant.GST_PERCENTAGE * totalAmountStr) / 100);
+                        int finalAmt = taxAmt + totalAmountStr;
+                        binding.taxTotal1.setText("₹ " + taxAmt);
+                        binding.totalAmount1.setText("₹ " + finalAmt);
                         Log.e("AMOUNTRZP", String.valueOf(parseDouble9));
                     } else if (i == 9) {
                         double parseDouble10 = Double.parseDouble(onetimecarprice) * 10;
                         totalAmountStr = (int) parseDouble10;
                         paidMonths = "10";
                         binding.total1.setText("₹ " + totalAmountStr);
-                        binding.totalAmount1.setText("₹ " + totalAmountStr);
+                        int taxAmt = ((Constant.GST_PERCENTAGE * totalAmountStr) / 100);
+                        int finalAmt = taxAmt + totalAmountStr;
+                        binding.taxTotal1.setText("₹ " + taxAmt);
+                        binding.totalAmount1.setText("₹ " + finalAmt);
                         Log.e("AMOUNTRZP", String.valueOf(parseDouble10));
                     } else if (i == 10) {
                         double parseDouble11 = Double.parseDouble(onetimecarprice) * 11;
                         totalAmountStr = (int) parseDouble11;
                         paidMonths = "11";
-                        binding.total1.setText("₹ " + totalAmountStr);
+                        int taxAmt = ((Constant.GST_PERCENTAGE * totalAmountStr) / 100);
+                        int finalAmt = taxAmt + totalAmountStr;
+                        binding.taxTotal1.setText("₹ " + taxAmt);
                         binding.totalAmount1.setText("₹ " + totalAmountStr);
                         Log.e("AMOUNTRZP", String.valueOf(parseDouble11));
                     } else if (i == 11) {
@@ -287,91 +333,130 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
                         totalAmountStr = (int) parseDouble12;
                         paidMonths = "12";
                         binding.total1.setText("₹ " + totalAmountStr);
-                        binding.totalAmount1.setText("₹ " + totalAmountStr);
+                        int taxAmt = ((Constant.GST_PERCENTAGE * totalAmountStr) / 100);
+                        int finalAmt = taxAmt + totalAmountStr;
+                        binding.taxTotal1.setText("₹ " + taxAmt);
+                        binding.totalAmount1.setText("₹ " + finalAmt);
                         Log.e("AMOUNTRZP", String.valueOf(parseDouble12));
                     } else if (i == 12) {
                         double parseDouble13 = Double.parseDouble(onetimecarprice) * 13;
                         totalAmountStr = (int) parseDouble13;
                         paidMonths = "13";
                         binding.total1.setText("₹ " + totalAmountStr);
-                        binding.totalAmount1.setText("₹ " + totalAmountStr);
+                        int taxAmt = ((Constant.GST_PERCENTAGE * totalAmountStr) / 100);
+                        int finalAmt = taxAmt + totalAmountStr;
+                        binding.taxTotal1.setText("₹ " + taxAmt);
+                        binding.totalAmount1.setText("₹ " + finalAmt);
                         Log.e("AMOUNTRZP", String.valueOf(parseDouble13));
                     } else if (i == 13) {
                         double parseDouble14 = Double.parseDouble(onetimecarprice) * 14;
                         totalAmountStr = (int) parseDouble14;
                         paidMonths = "14";
                         binding.total1.setText("₹ " + totalAmountStr);
-                        binding.totalAmount1.setText("₹ " + totalAmountStr);
+                        int taxAmt = ((Constant.GST_PERCENTAGE * totalAmountStr) / 100);
+                        int finalAmt = taxAmt + totalAmountStr;
+                        binding.taxTotal1.setText("₹ " + taxAmt);
+                        binding.totalAmount1.setText("₹ " + finalAmt);
                         Log.e("AMOUNTRZP", String.valueOf(parseDouble14));
                     } else if (i == 14) {
                         double parseDouble15 = Double.parseDouble(onetimecarprice) * 15;
                         totalAmountStr = (int) parseDouble15;
                         paidMonths = "15";
                         binding.total1.setText("₹ " + totalAmountStr);
-                        binding.totalAmount1.setText("₹ " + totalAmountStr);
+                        int taxAmt = ((Constant.GST_PERCENTAGE * totalAmountStr) / 100);
+                        int finalAmt = taxAmt + totalAmountStr;
+                        binding.taxTotal1.setText("₹ " + taxAmt);
+                        binding.totalAmount1.setText("₹ " + finalAmt);
                         Log.e("AMOUNTRZP", String.valueOf(parseDouble15));
                     } else if (i == 15) {
                         double parseDouble16 = Double.parseDouble(onetimecarprice) * 16;
                         totalAmountStr = (int) parseDouble16;
                         paidMonths = "16";
                         binding.total1.setText("₹ " + totalAmountStr);
-                        binding.totalAmount1.setText("₹ " + totalAmountStr);
+                        int taxAmt = ((Constant.GST_PERCENTAGE * totalAmountStr) / 100);
+                        int finalAmt = taxAmt + totalAmountStr;
+                        binding.taxTotal1.setText("₹ " + taxAmt);
+                        binding.totalAmount1.setText("₹ " + finalAmt);
                         Log.e("AMOUNTRZP", String.valueOf(parseDouble16));
                     } else if (i == 16) {
                         double parseDouble17 = Double.parseDouble(onetimecarprice) * 17;
                         totalAmountStr = (int) parseDouble17;
                         paidMonths = "17";
                         binding.total1.setText("₹ " + totalAmountStr);
-                        binding.totalAmount1.setText("₹ " + totalAmountStr);
+                        int taxAmt = ((Constant.GST_PERCENTAGE * totalAmountStr) / 100);
+                        int finalAmt = taxAmt + totalAmountStr;
+                        binding.taxTotal1.setText("₹ " + taxAmt);
+                        binding.totalAmount1.setText("₹ " + finalAmt);
                         Log.e("AMOUNTRZP", String.valueOf(parseDouble17));
                     } else if (i == 17) {
                         double parseDouble18 = Double.parseDouble(onetimecarprice) * 18;
                         totalAmountStr = (int) parseDouble18;
                         paidMonths = "18";
                         binding.total1.setText("₹ " + totalAmountStr);
-                        binding.totalAmount1.setText("₹ " + totalAmountStr);
+                        int taxAmt = ((Constant.GST_PERCENTAGE * totalAmountStr) / 100);
+                        int finalAmt = taxAmt + totalAmountStr;
+                        binding.taxTotal1.setText("₹ " + taxAmt);
+                        binding.totalAmount1.setText("₹ " + finalAmt);
                         Log.e("AMOUNTRZP", String.valueOf(parseDouble18));
                     } else if (i == 18) {
                         double parseDouble19 = Double.parseDouble(onetimecarprice) * 19;
                         totalAmountStr = (int) parseDouble19;
                         paidMonths = "19";
                         binding.total1.setText("₹ " + totalAmountStr);
-                        binding.totalAmount1.setText("₹ " + totalAmountStr);
+                        int taxAmt = ((Constant.GST_PERCENTAGE * totalAmountStr) / 100);
+                        int finalAmt = taxAmt + totalAmountStr;
+                        binding.taxTotal1.setText("₹ " + taxAmt);
+                        binding.totalAmount1.setText("₹ " + finalAmt);
                         Log.e("AMOUNTRZP", String.valueOf(parseDouble19));
                     } else if (i == 19) {
                         double parseDouble20 = Double.parseDouble(onetimecarprice) * 20;
                         totalAmountStr = (int) parseDouble20;
                         paidMonths = "20";
                         binding.total1.setText("₹ " + totalAmountStr);
-                        binding.totalAmount1.setText("₹ " + totalAmountStr);
+                        int taxAmt = ((Constant.GST_PERCENTAGE * totalAmountStr) / 100);
+                        int finalAmt = taxAmt + totalAmountStr;
+                        binding.taxTotal1.setText("₹ " + taxAmt);
+                        binding.totalAmount1.setText("₹ " + finalAmt);
                         Log.e("AMOUNTRZP", String.valueOf(parseDouble20));
                     } else if (i == 20) {
                         double parseDouble21 = Double.parseDouble(onetimecarprice) * 21;
                         totalAmountStr = (int) parseDouble21;
                         paidMonths = "21";
                         binding.total1.setText("₹ " + totalAmountStr);
-                        binding.totalAmount1.setText("₹ " + totalAmountStr);
+                        int taxAmt = ((Constant.GST_PERCENTAGE * totalAmountStr) / 100);
+                        int finalAmt = taxAmt + totalAmountStr;
+                        binding.taxTotal1.setText("₹ " + taxAmt);
+                        binding.totalAmount1.setText("₹ " + finalAmt);
                         Log.e("AMOUNTRZP", String.valueOf(parseDouble21));
                     } else if (i == 21) {
                         double parseDouble22 = Double.parseDouble(onetimecarprice) * 22;
                         totalAmountStr = (int) parseDouble22;
                         paidMonths = "22";
                         binding.total1.setText("₹ " + totalAmountStr);
-                        binding.totalAmount1.setText("₹ " + totalAmountStr);
+                        int taxAmt = ((Constant.GST_PERCENTAGE * totalAmountStr) / 100);
+                        int finalAmt = taxAmt + totalAmountStr;
+                        binding.taxTotal1.setText("₹ " + taxAmt);
+                        binding.totalAmount1.setText("₹ " + finalAmt);
                         Log.e("AMOUNTRZP", String.valueOf(parseDouble22));
                     } else if (i == 22) {
                         double parseDouble23 = Double.parseDouble(onetimecarprice) * 23;
                         totalAmountStr = (int) parseDouble23;
                         paidMonths = "23";
                         binding.total1.setText("₹ " + totalAmountStr);
-                        binding.totalAmount1.setText("₹ " + totalAmountStr);
+                        int taxAmt = ((Constant.GST_PERCENTAGE * totalAmountStr) / 100);
+                        int finalAmt = taxAmt + totalAmountStr;
+                        binding.taxTotal1.setText("₹ " + taxAmt);
+                        binding.totalAmount1.setText("₹ " + finalAmt);
                         Log.e("AMOUNTRZP", String.valueOf(parseDouble23));
                     } else if (i == 23) {
                         double parseDouble24 = Double.parseDouble(onetimecarprice) * 24;
                         totalAmountStr = (int) parseDouble24;
                         paidMonths = "24";
                         binding.total1.setText("₹ " + totalAmountStr);
-                        binding.totalAmount1.setText("₹ " + totalAmountStr);
+                        int taxAmt = ((Constant.GST_PERCENTAGE * totalAmountStr) / 100);
+                        int finalAmt = taxAmt + totalAmountStr;
+                        binding.taxTotal1.setText("₹ " + taxAmt);
+                        binding.totalAmount1.setText("₹ " + finalAmt);
                         Log.e("AMOUNTRZP", String.valueOf(parseDouble24));
                     }
                 }
@@ -392,7 +477,11 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
         binding.packageType.setText(carcat);
         binding.packageMrp.setText("₹ "+carprice);
         binding.total.setText("₹ "+carprice);
-        binding.totalAmount.setText("₹ "+carprice);
+        int taxAmt = ((Constant.GST_PERCENTAGE * Integer.parseInt(carprice)) / 100);
+        int finalAmt = taxAmt + Integer.parseInt(carprice);
+        binding.taxTotal.setText("₹ " + taxAmt);
+        binding.totalAmount.setText("₹ " + finalAmt);
+        //binding.totalAmount.setText("₹ "+carprice);
         Picasso.get().
                 load(carimage)
                 .placeholder(R.drawable.placeholder)
@@ -518,7 +607,7 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
         String tottal_amt = String.valueOf(totalAmountStr);
 
         int before_tax = Integer.parseInt(tottal_amt);
-        int taxAmt = ((18 * before_tax) / 100);
+        int taxAmt = ((Constant.GST_PERCENTAGE * before_tax) / 100);
         int finalAmt = taxAmt + before_tax;
 
 
@@ -559,7 +648,7 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
         }
 
         int before_tax = Integer.parseInt(carprice);
-        int taxAmt = ((18 * before_tax) / 100);
+        int taxAmt = ((Constant.GST_PERCENTAGE * before_tax) / 100);
         int finalAmt = taxAmt + before_tax;
 
         String result = databaseHelper.AddUpdateOrder(action+"",
@@ -664,7 +753,10 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
                             }else{
                                 onetimecarprice = result.get(i).total_amount;
                                 binding.total1.setText("₹ " +result.get(i).total_amount);
-                                binding.totalAmount1.setText("₹ " +result.get(i).total_amount);
+                                int taxAmt = ((Constant.GST_PERCENTAGE * Integer.parseInt(result.get(i).total_amount)) / 100);
+                                int finalAmt = taxAmt + Integer.parseInt(result.get(i).total_amount);
+                                binding.taxTotal1.setText("₹ " + taxAmt);
+                                binding.totalAmount1.setText("₹ " +finalAmt);
                                 //Log.e("not 0","Price"+onetimecarprice);
                             }
 
@@ -726,7 +818,11 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
                             }else{
                                 onetimecarprice = result.get(i).total_amount;
                                 binding.total1.setText("₹ " +result.get(i).total_amount);
-                                binding.totalAmount1.setText("₹ " +result.get(i).total_amount);
+                                int taxAmt = ((Constant.GST_PERCENTAGE * Integer.parseInt(result.get(i).total_amount)) / 100);
+                                int finalAmt = taxAmt + Integer.parseInt(result.get(i).total_amount);
+                                binding.taxTotal1.setText("₹ " + taxAmt);
+                                binding.totalAmount1.setText("₹ " +finalAmt);
+                                //binding.totalAmount1.setText("₹ " +result.get(i).total_amount);
                                 //Log.e("not 0","Price"+onetimecarprice);
                             }
 
@@ -770,7 +866,11 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
                             }else{
                                 onetimecarprice = result.get(i).total_amount;
                                 binding.total1.setText("₹ " +result.get(i).total_amount);
-                                binding.totalAmount1.setText("₹ " +result.get(i).total_amount);
+                                int taxAmt = ((Constant.GST_PERCENTAGE * Integer.parseInt(result.get(i).total_amount)) / 100);
+                                int finalAmt = taxAmt + Integer.parseInt(result.get(i).total_amount);
+                                binding.taxTotal1.setText("₹ " + taxAmt);
+                                binding.totalAmount1.setText("₹ " +finalAmt);
+                                //binding.totalAmount1.setText("₹ " +result.get(i).total_amount);
                                 //Log.e("not 0","Price"+onetimecarprice);
                             }
 
@@ -1199,8 +1299,20 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
                 .setDimAmount(0.5f)
                 .show();
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        Call<JsonObject> call = apiInterface.saveOrderOneTime(action+"",razorpayid+"","",customerid+"",token+"","ExtraInterior",carprice+"",carid+"","AddOn",
-                carprice+"",binding.preferDate.getText().toString(),time);
+        Call<JsonObject> call = apiInterface.saveOrderOneTime(action+"",
+                razorpayid+"",
+                "",
+                customerid+"",
+                token+"",
+                "ExtraInterior",
+                carprice+"",
+                carid+"",
+                "AddOn",
+                carprice+"",
+                Constant.GST_PERCENTAGE+"",
+                "0",
+                carprice+"",
+                binding.preferDate.getText().toString(),time);
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
@@ -1238,7 +1350,20 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
                 .setDimAmount(0.5f)
                 .show();
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        Call<JsonObject> call = apiInterface.saveWashOrderOneTime("onetime_wash_payment",razorpayid+"","",customerid+"",token+"",carprice+"",carid+"",paidMonths + "",fineAmount + "",totalAmountStr + "","Wash");
+        Call<JsonObject> call = apiInterface.saveWashOrderOneTime("onetime_wash_payment",
+                razorpayid+"",
+                "",
+                customerid+"",
+                token+"",
+                carprice+"",
+                carid+"",
+                paidMonths + "",
+                fineAmount + "",
+                totalAmountStr + "",
+                Constant.GST_PERCENTAGE+"",
+                "0",
+                carprice+"",
+                "Wash");
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
@@ -1289,6 +1414,9 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
                 paidMonths + "",
                 fineAmount + "",
                 totalAmountStr + "",
+                Constant.GST_PERCENTAGE+"",
+                "0",
+                carprice+"",
                 "AddOn",
                 binding.preferDate.getText().toString(),
                 time);

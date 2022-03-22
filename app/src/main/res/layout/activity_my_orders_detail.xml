@@ -564,6 +564,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:visibility="gone"
                     android:id="@+id/workdone_field"
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="20dp"
@@ -812,6 +813,41 @@
                                         android:gravity="left"
                                         android:layout_gravity="left|center_vertical|center_horizontal|center"
                                         android:id="@+id/discount_amount"
+                                        android:padding="@dimen/padding"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:text=""
+                                        android:layout_weight="1"
+                                        android:fontFamily="@font/josefinsans_regular"/>
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_gravity="center"
+                                    android:orientation="horizontal"
+                                    android:id="@+id/subtotal_field"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="0.5">
+
+                                    <TextView
+                                        android:textSize="@dimen/bigtext"
+                                        android:textColor="@color/white"
+                                        android:gravity="left|center_vertical|center_horizontal|center"
+                                        android:layout_gravity="left|center_vertical|center_horizontal|center"
+                                        android:padding="@dimen/padding"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:text="Sub-Total : "
+                                        android:layout_weight="1"
+                                        android:fontFamily="@font/josefinsans_regular"/>
+
+                                    <TextView
+                                        android:textSize="@dimen/bigtext"
+                                        android:textColor="@color/white"
+                                        android:gravity="left"
+                                        android:layout_gravity="left|center_vertical|center_horizontal|center"
+                                        android:id="@+id/subtotal_amount"
                                         android:padding="@dimen/padding"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"

@@ -49,7 +49,7 @@ import retrofit2.Response;
 public class MyOrdersDetailActivity extends AppCompatActivity {
     ActivityMyOrdersDetailBinding binding;
     String date_and_time, order_id, service_type, payment_type, package_type, vehicle_make, vehicle_model, vehicle_no, vehicle_id, package_value,
-    total_amount, discount_amount, payment_mode, package_months, valid, status, wash_details, extra_interior, cancel_subscription, payment_history,
+    total_amount, gst, gst_amount, subtotal_amount, discount_amount, payment_mode, package_months, valid, status, wash_details, extra_interior, cancel_subscription, payment_history,
     schedule_date, schedule_time, work_done, next_due, work_image, work_image_date;
     List<OrdersList.PaymentDetails> paymentDetails;
     SessionManager sessionManager;
@@ -76,6 +76,9 @@ public class MyOrdersDetailActivity extends AppCompatActivity {
         vehicle_id=intent.getStringExtra(Constant.DE_VECID );
         package_value=intent.getStringExtra(Constant.DE_PACKVALUE);
         total_amount=intent.getStringExtra(Constant.DE_TOTAMOUNT);
+        gst=intent.getStringExtra(Constant.DE_GST);
+        gst_amount=intent.getStringExtra(Constant.DE_GSTAMOUNT);
+        subtotal_amount=intent.getStringExtra(Constant.DE_SUB_TOTAMOUNT);
         discount_amount=intent.getStringExtra(Constant.DE_DISCOUNTMOUNT);
         payment_mode=intent.getStringExtra(Constant.DE_PAYMODE) ;
         package_months=intent.getStringExtra(Constant.DE_PACKMONTH);
@@ -103,15 +106,22 @@ public class MyOrdersDetailActivity extends AppCompatActivity {
         binding.vecNo.setText(vehicle_no);
         binding.vecId.setText(vehicle_id);
         binding.valid.setText(valid);
-        binding.packageValue.setText("₹ "+package_value);
-        binding.totalAmount.setText("₹ "+total_amount);
-        binding.discountAmount.setText("₹ "+discount_amount);
+
         binding.scheduleDate.setText(schedule_date);
         binding.workDone.setText(work_done);
         binding.paymentMode.setText(payment_mode);
         binding.paidCount.setText(package_months);
         binding.status.setText(status);
         binding.imageDate.setText(work_image_date);
+
+        binding.packageValue.setText("₹ "+package_value);
+        binding.discountAmount.setText("₹ "+discount_amount);
+        binding.subtotalAmount.setText("₹ "+total_amount);
+        binding.taxPercentage.setText(gst+"%");
+        binding.taxAmount.setText("₹ "+gst_amount);
+        binding.totalAmount.setText("₹ "+subtotal_amount);
+
+
 
         if (service_type.equalsIgnoreCase("Addon") && payment_type.equalsIgnoreCase("One Time")) {
 
@@ -280,7 +290,7 @@ public class MyOrdersDetailActivity extends AppCompatActivity {
             //binding.imageField.setVisibility(View.VISIBLE);
             binding.vehicleidField.setVisibility(View.VISIBLE);
             binding.scheduleField.setVisibility(View.VISIBLE);
-            binding.workdoneField.setVisibility(View.VISIBLE);
+            binding.workdoneField.setVisibility(View.GONE);
             binding.cancelOnetime.setVisibility(View.VISIBLE);
 
 //            if(!package_value.equals("100")){
@@ -320,8 +330,9 @@ public class MyOrdersDetailActivity extends AppCompatActivity {
             //binding.imageField.setVisibility(View.VISIBLE);
             binding.vehicleidField.setVisibility(View.VISIBLE);
             binding.scheduleField.setVisibility(View.VISIBLE);
-            binding.workdoneField.setVisibility(View.VISIBLE);
+            binding.workdoneField.setVisibility(View.GONE);
             binding.cancelOnetime.setVisibility(View.VISIBLE);
+            binding.viewWashdetails.setVisibility(View.GONE);
 
 //            if(!package_value.equals("100")){
 //                binding.imageField.setVisibility(View.VISIBLE);

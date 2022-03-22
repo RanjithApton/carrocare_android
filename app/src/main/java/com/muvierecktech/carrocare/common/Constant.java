@@ -43,7 +43,7 @@ public class Constant {
 
     public static String WASH = "Daily Car Wash";
     public static String BWASH = "Daily Bike Wash";
-    public static String INSURANCE = "Doorstep Car Insurance";
+    public static String INSURANCE = "Doorstep Insurance";
     public static String ADDON = "Wax Polish";
     public static String EXTRAINT = "Extra Interior";
     public static String CARMACHINE = "Doorstep Car Machine Polish";
@@ -81,6 +81,8 @@ public class Constant {
     public static String ONETIME_CAR_TYPE;
     public static String ONETIME_ADDITIONAL;
     public static String ONETIME_CAR_FINAL_PRICE;
+    public static String ONETIME_CAR_GST_AMOUNT;
+    public static String ONETIME_CAR_SUB_TOTAL;
 
     public static String ACTIONMONTH = "monthly_payment";
     public static String ACTIONONE = "onetime_payment";
@@ -119,6 +121,9 @@ public class Constant {
     public static String DE_VECID = "vehicle_id";
     public static String DE_PACKVALUE = "package_value";
     public static String DE_TOTAMOUNT = "total_amount";
+    public static String DE_GST = "gst";
+    public static String DE_GSTAMOUNT = "gst_amount";
+    public static String DE_SUB_TOTAMOUNT = "subtotal_amount";
     public static String DE_DISCOUNTMOUNT = "discount_amount";
     public static String DE_PAYMODE = "payment_mode";
     public static String DE_PACKMONTH = "package_months";

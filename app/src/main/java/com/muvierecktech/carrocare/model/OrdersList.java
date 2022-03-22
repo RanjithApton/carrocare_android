@@ -21,6 +21,9 @@ public class OrdersList {
         public  String vehicle_id;
         public  String package_value;
         public  String total_amount;
+        public  String gst;
+        public  String gst_amount;
+        public  String sub_total_amount;
         public  String discount_amount;
         public  String payment_mode;
         public  String valid;

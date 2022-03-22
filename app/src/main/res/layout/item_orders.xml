@@ -21,6 +21,7 @@
             app:cardPreventCornerOverlap="true"
             app:cardElevation="5dp">
             <LinearLayout
+                android:layout_margin="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -54,12 +55,12 @@
                 </LinearLayout>
 
                 <View
-                    android:background="@color/gray"
+                    android:background="@color/trans"
                     android:layout_width="match_parent"
-                    android:layout_height="2dp"/>
+                    android:layout_height="1dp"/>
 
                 <LinearLayout
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/margin"
@@ -124,7 +125,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textColor="@color/dark_gray"
-                            android:text="Mode of Delivery : "
+                            android:text="Service type : "
                             android:fontFamily="@font/josefinsans_regular"
                             android:textSize="@dimen/medtext"
                             tools:ignore="MissingConstraints" />
@@ -144,7 +145,7 @@
 
                 </LinearLayout>
                 <LinearLayout
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"

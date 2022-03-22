@@ -170,6 +170,9 @@ public interface ApiInterface {
                                       @Field("vehicle_id") String vehicle_id,
                                       @Field("service_type") String service_type,
                                       @Field("tot_amt") String tot_amt,
+                                      @Field("gst") String gst,
+                                      @Field("gst_amount") String gst_amount,
+                                      @Field("sub_tot_amt") String sub_tot_amt,
                                       @Field("schedule_date") String schedule_date,
                                       @Field("schedule_time") String schedule_time);
 
@@ -185,6 +188,9 @@ public interface ApiInterface {
                                           @Field("paid_months") String paid_months,
                                           @Field("fine_amount") String fine_amount,
                                           @Field("tot_amt") String tot_amt,
+                                          @Field("gst") String gst,
+                                          @Field("gst_amount") String gst_amount,
+                                          @Field("sub_tot_amt") String sub_tot_amt,
                                           @Field("service_type") String service_type);
 
     @FormUrlEncoded
@@ -199,6 +205,9 @@ public interface ApiInterface {
                                            @Field("paid_months") String paid_months,
                                            @Field("fine_amount") String fine_amount,
                                            @Field("tot_amt") String tot_amt,
+                                           @Field("gst") String gst,
+                                           @Field("gst_amount") String gst_amount,
+                                           @Field("sub_tot_amt") String sub_tot_amt,
                                            @Field("service_type") String service_type,
                                            @Field("schedule_date") String schedule_date,
                                            @Field("schedule_time") String schedule_time);
@@ -214,6 +223,9 @@ public interface ApiInterface {
                                       @Field("vehicle_id") String vehicle_id,
                                       @Field("service_type") String service_type,
                                       @Field("tot_amt") String tot_amt,
+                                      @Field("gst") String gst,
+                                      @Field("gst_amount") String gst_amount,
+                                      @Field("sub_tot_amt") String sub_tot_amt,
                                       @Field("schedule_date") String schedule_date,
                                       @Field("schedule_time") String schedule_time,
                                       @Field("success_action") String success_action);
@@ -229,6 +241,9 @@ public interface ApiInterface {
                                           @Field("paid_months") String paid_months,
                                           @Field("fine_amount") String fine_amount,
                                           @Field("tot_amt") String tot_amt,
+                                          @Field("gst") String gst,
+                                          @Field("gst_amount") String gst_amount,
+                                          @Field("sub_tot_amt") String sub_tot_amt,
                                           @Field("service_type") String service_type,
                                           @Field("success_action") String success_action);
 
@@ -243,6 +258,9 @@ public interface ApiInterface {
                                            @Field("paid_months") String paid_months,
                                            @Field("fine_amount") String fine_amount,
                                            @Field("tot_amt") String tot_amt,
+                                           @Field("gst") String gst,
+                                           @Field("gst_amount") String gst_amount,
+                                           @Field("sub_tot_amt") String sub_tot_amt,
                                            @Field("service_type") String service_type,
                                            @Field("schedule_date") String schedule_date,
                                            @Field("schedule_time") String schedule_time,
@@ -302,6 +320,9 @@ public interface ApiInterface {
                                        @Field("vehicle_id") String vehicle_id,
                                        @Field("service_type") String service_type,
                                        @Field("tot_amt") String tot_amt,
+                                       @Field("gst") String gst,
+                                       @Field("gst_amount") String gst_amount,
+                                       @Field("sub_tot_amt") String sub_tot_amt,
                                        @Field("schedule_date") String schedule_date,
                                        @Field("schedule_time") String schedule_time,
                                        @Field("success_action") String success_action,
@@ -321,6 +342,9 @@ public interface ApiInterface {
                                        @Field("vehicle_id") String vehicle_id,
                                        @Field("service_type") String service_type,
                                        @Field("tot_amt") String tot_amt,
+                                       @Field("gst") String gst,
+                                       @Field("gst_amount") String gst_amount,
+                                       @Field("sub_tot_amt") String sub_tot_amt,
                                        @Field("schedule_date") String schedule_date,
                                        @Field("schedule_time") String schedule_time,
                                        @Field("address") String address,
@@ -330,18 +354,21 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("Android_API/api-1.2.6/save_order.php")
     Call<JsonObject> saveOrderDoorStepCOD(@Field("action") String action,
-                                       @Field("customer_id") String customer_id,
-                                       @Field("token") String token,
-                                       @Field("pack_type") String pack_type,
-                                       @Field("pack_amount") String pack_amount,
-                                       @Field("vehicle_id") String vehicle_id,
-                                       @Field("service_type") String service_type,
-                                       @Field("tot_amt") String tot_amt,
-                                       @Field("schedule_date") String schedule_date,
-                                       @Field("schedule_time") String schedule_time,
-                                       @Field("address") String address,
-                                       @Field("latitude") String latitude,
-                                       @Field("longitude") String longitude);
+                                          @Field("customer_id") String customer_id,
+                                          @Field("token") String token,
+                                          @Field("pack_type") String pack_type,
+                                          @Field("pack_amount") String pack_amount,
+                                          @Field("vehicle_id") String vehicle_id,
+                                          @Field("service_type") String service_type,
+                                          @Field("tot_amt") String tot_amt,
+                                          @Field("gst") String gst,
+                                          @Field("gst_amount") String gst_amount,
+                                          @Field("sub_tot_amt") String sub_tot_amt,
+                                          @Field("schedule_date") String schedule_date,
+                                          @Field("schedule_time") String schedule_time,
+                                          @Field("address") String address,
+                                          @Field("latitude") String latitude,
+                                          @Field("longitude") String longitude);
 
     @FormUrlEncoded
     @POST("Android_API/api-1.2.6/cancel_cod_order.php")

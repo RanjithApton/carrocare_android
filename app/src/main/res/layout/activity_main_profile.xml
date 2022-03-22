@@ -132,6 +132,7 @@
                             android:text="Home"
                             android:textSize="@dimen/bigtext"
                             android:layout_weight="1"
+                            android:gravity="center|left"
                             android:layout_gravity="center"
                             android:textColor="@color/black"
                             android:drawablePadding="@dimen/marginhalf"
@@ -168,6 +169,7 @@
                             android:text="Service"
                             android:textSize="@dimen/bigtext"
                             android:layout_weight="1"
+                            android:gravity="center|left"
                             android:layout_gravity="center"
                             android:textColor="@color/black"
                             android:drawablePadding="@dimen/marginhalf"
@@ -204,6 +206,7 @@
                             android:text="Profile"
                             android:textSize="@dimen/bigtext"
                             android:layout_weight="1"
+                            android:gravity="center|left"
                             android:layout_gravity="center"
                             android:textColor="@color/black"
                             android:drawablePadding="@dimen/marginhalf"
@@ -242,6 +245,7 @@
                             android:textColor="@color/black"
                             android:fontFamily="@font/josefinsans_bold"
                             android:drawableLeft="@drawable/ic_orders_24"
+                            android:gravity="center|left"
                             android:layout_gravity="center"
                             android:drawablePadding="@dimen/marginhalf"/>
                         <ImageView
@@ -279,6 +283,7 @@
                             android:fontFamily="@font/josefinsans_bold"
                             android:drawableLeft="@drawable/ic_orders_24"
                             android:layout_gravity="center"
+                            android:gravity="center|left"
                             android:drawablePadding="@dimen/marginhalf"/>
                         <ImageView
                             android:layout_width="30dp"
@@ -315,6 +320,7 @@
                             android:layout_height="wrap_content"
                             android:text="Vehicle Details"
                             android:textSize="@dimen/paratext"
+                            android:gravity="center|left"
                             android:layout_gravity="center"
                             android:layout_marginLeft="@dimen/marginhalf"
                             android:layout_marginRight="@dimen/marginhalf"
@@ -347,6 +353,7 @@
                             android:textSize="@dimen/bigtext"
                             android:fontFamily="@font/josefinsans_bold"
                             android:layout_gravity="center"
+                            android:gravity="center|left"
                             android:textColor="@color/black"
                             android:layout_weight="1"
                             android:drawableLeft="@drawable/ic_about_24"
@@ -384,6 +391,7 @@
                             android:fontFamily="@font/josefinsans_bold"
                             android:textColor="@color/black"
                             android:layout_gravity="center"
+                            android:gravity="center|left"
                             android:drawableLeft="@drawable/ic_faqt_24"
                             android:drawablePadding="@dimen/marginhalf"/>
                         <ImageView
@@ -418,6 +426,7 @@
                             android:layout_weight="1"
                             android:textColor="@color/black"
                             android:layout_gravity="center"
+                            android:gravity="center|left"
                             android:drawableLeft="@drawable/ic_terms_24"
                             android:fontFamily="@font/josefinsans_bold"
                             android:drawablePadding="@dimen/marginhalf"/>
@@ -455,6 +464,7 @@
                             android:textColor="@color/black"
                             android:fontFamily="@font/josefinsans_bold"
                             android:layout_gravity="center"
+                            android:gravity="center|left"
                             android:drawableLeft="@drawable/ic_help_24"
                             android:drawablePadding="@dimen/marginhalf"/>
                         <ImageView
@@ -491,6 +501,7 @@
                             android:textColor="@color/black"
                             android:fontFamily="@font/josefinsans_bold"
                             android:layout_gravity="center"
+                            android:gravity="center|left"
                             android:drawableLeft="@drawable/ic_contact_24"
                             android:drawablePadding="@dimen/marginhalf"/>
                         <ImageView
@@ -526,6 +537,7 @@
                             android:textSize="@dimen/bigtext"
                             android:fontFamily="@font/josefinsans_bold"
                             android:layout_gravity="center"
+                            android:gravity="center|left"
                             android:drawableLeft="@drawable/ic_privacy_24"
                             android:drawablePadding="@dimen/marginhalf"/>
                         <ImageView
@@ -561,6 +573,7 @@
                             android:textColor="@color/black"
                             android:fontFamily="@font/josefinsans_bold"
                             android:layout_gravity="center"
+                            android:gravity="center|left"
                             android:drawableLeft="@drawable/ic_share_24"
                             android:drawablePadding="@dimen/marginhalf"/>
                         <ImageView
@@ -596,6 +609,7 @@
                             android:textColor="@color/black"
                             android:fontFamily="@font/josefinsans_bold"
                             android:layout_gravity="center"
+                            android:gravity="center|left"
                             android:drawableLeft="@drawable/ic_rate_24"
                             android:drawablePadding="@dimen/marginhalf"/>
                         <ImageView
@@ -606,17 +620,66 @@
                             app:srcCompat="@drawable/ic_baseline_arrow_forward_ios_24"
                             />
                     </LinearLayout>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:background="@color/gray"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/marginhalf"
+                        android:layout_marginRight="@dimen/marginhalf"
+                        android:layout_marginTop="@dimen/margin"
+                        android:layout_marginBottom="@dimen/margin"
+                        android:padding="@dimen/paddinglow"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/logout_txt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Logout"
+                            android:textSize="@dimen/bigtext"
+                            android:layout_weight="1"
+                            android:textColor="@color/red"
+                            android:fontFamily="@font/josefinsans_bold"
+                            android:layout_gravity="center"
+                            android:gravity="center|left"
+                            android:drawableLeft="@drawable/ic_logout_24"
+                            android:drawablePadding="@dimen/marginhalf"/>
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:padding="@dimen/paddinglow"
+                            app:tint="@color/red"
+                            app:srcCompat="@drawable/ic_baseline_arrow_forward_ios_24"
+                            />
+                    </LinearLayout>
                 </LinearLayout>
+                <TextView
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/version_edt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
+                    android:textSize="@dimen/bigtext"
+                    android:text="@string/develop"
+                    android:textColor="@color/black" />
                 <!--            </android.support.v7.widget.CardView>-->
             </LinearLayout>
         </ScrollView>
         <LinearLayout
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_alignParentBottom="true"
             android:background="@drawable/bg">
             <TextView
-                android:id="@+id/logout_txt"
+                android:id="@+id/logout_txt123"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Logout"

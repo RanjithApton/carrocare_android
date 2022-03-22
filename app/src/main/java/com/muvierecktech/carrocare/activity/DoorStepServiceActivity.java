@@ -162,6 +162,7 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
     Activity activity;
     Context context;
     String pay_type = "";
+    String gstamount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -230,6 +231,8 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
         HashMap<String,String> hashMap = sessionManager.getUserDetails();
         token = hashMap.get(SessionManager.KEY_TOKEN);
         customerid = hashMap.get(SessionManager.KEY_USERID);
+        custmob = hashMap.get(SessionManager.KEY_USERMOBILE);
+        custemail = hashMap.get(SessionManager.KEY_USEREMAIL);
 
         work();
 
@@ -244,6 +247,15 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
         binding.addVehcileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Constant.LOAD_FROM = "add";
+                startActivity(new Intent(DoorStepServiceActivity.this,MapAddVechileActivity.class));
+                finish();
+            }
+        });
+
+        binding.addBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 Constant.LOAD_FROM = "add";
                 startActivity(new Intent(DoorStepServiceActivity.this,MapAddVechileActivity.class));
                 finish();
@@ -824,7 +836,7 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
                 .setDimAmount(0.5f)
                 .show();
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        Call<JsonObject> call = apiInterface.createOrderId("create_orderid",Constant.ONETIME_CAR_FINAL_PRICE +"");
+        Call<JsonObject> call = apiInterface.createOrderId("create_orderid",Constant.ONETIME_CAR_SUB_TOTAL +"");
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
@@ -871,6 +883,9 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
                 Constant.ONETIME_CAR_ID +"",
                 Constant.ONETIME_SERVICE_TYPE +"",
                 Constant.ONETIME_CAR_FINAL_PRICE +"",
+                Constant.GST_PERCENTAGE +"",
+                Constant.ONETIME_CAR_GST_AMOUNT +"",
+                Constant.ONETIME_CAR_SUB_TOTAL +"",
                 Constant.ONETIME_DATE +"",
                 Constant.ONETIME_TIME +"",
                 "onetime_payment",
@@ -916,7 +931,7 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
             jSONObject.put("description", "");
             jSONObject.put("order_id", Constant.RAZOR_PAY_ORDER_ID);
             jSONObject.put("currency", "INR");
-            int i = Integer.parseInt(Constant.ONETIME_CAR_FINAL_PRICE);
+            int i = Integer.parseInt(Constant.ONETIME_CAR_SUB_TOTAL);
             Log.e("AMOUNTRZP", String.valueOf(i));
             jSONObject.put("amount", i);
             JSONObject jSONObject2 = new JSONObject();
@@ -987,6 +1002,9 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
                     Constant.ONETIME_CAR_ID +"",
                     Constant.ONETIME_SERVICE_TYPE +"",
                     Constant.ONETIME_CAR_FINAL_PRICE +"",
+                    Constant.GST_PERCENTAGE +"",
+                    Constant.ONETIME_CAR_GST_AMOUNT +"",
+                    Constant.ONETIME_CAR_SUB_TOTAL +"",
                     Constant.ONETIME_DATE +"",
                     Constant.ONETIME_TIME +"",
                     sessionManager.getData(SessionManager.MAP_ADDRESS) +"",
@@ -1006,7 +1024,7 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
                             Intent intent = new Intent(DoorStepServiceActivity.this,PaymentSucessActivity.class);
                             intent.putExtra("status","success");
                             intent.putExtra("type","online");
-                            intent.putExtra("amount",Constant.ONETIME_CAR_FINAL_PRICE);
+                            intent.putExtra("amount",Constant.ONETIME_CAR_SUB_TOTAL);
                             startActivity(intent);
                             finish();
                         }else if (jsonObject.optString("code").equalsIgnoreCase("201")) {
@@ -1014,7 +1032,7 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
                             Intent intent = new Intent(DoorStepServiceActivity.this,PaymentSucessActivity.class);
                             intent.putExtra("status","failure");
                             intent.putExtra("type","online");
-                            intent.putExtra("amount",Constant.ONETIME_CAR_FINAL_PRICE);
+                            intent.putExtra("amount",Constant.ONETIME_CAR_SUB_TOTAL);
                             startActivity(intent);
                         }
                     } catch (JSONException e) {
@@ -1070,6 +1088,9 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
                     Constant.ONETIME_CAR_ID +"",
                     Constant.ONETIME_SERVICE_TYPE +"",
                     Constant.ONETIME_CAR_FINAL_PRICE +"",
+                    Constant.GST_PERCENTAGE +"",
+                    Constant.ONETIME_CAR_GST_AMOUNT +"",
+                    Constant.ONETIME_CAR_SUB_TOTAL +"",
                     Constant.ONETIME_DATE +"",
                     Constant.ONETIME_TIME +"",
                     sessionManager.getData(SessionManager.MAP_ADDRESS) +"",
@@ -1089,7 +1110,7 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
                             Intent intent = new Intent(DoorStepServiceActivity.this,PaymentSucessActivity.class);
                             intent.putExtra("status","success");
                             intent.putExtra("type","cod");
-                            intent.putExtra("amount",Constant.ONETIME_CAR_FINAL_PRICE);
+                            intent.putExtra("amount",Constant.ONETIME_CAR_SUB_TOTAL);
                             startActivity(intent);
                             finish();
                         }else if (jsonObject.optString("code").equalsIgnoreCase("201")) {
@@ -1097,7 +1118,7 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
                             Intent intent = new Intent(DoorStepServiceActivity.this,PaymentSucessActivity.class);
                             intent.putExtra("status","failure");
                             intent.putExtra("type","cod");
-                            intent.putExtra("amount",Constant.ONETIME_CAR_FINAL_PRICE);
+                            intent.putExtra("amount",Constant.ONETIME_CAR_SUB_TOTAL);
                             startActivity(intent);
                         }
                     } catch (JSONException e) {
@@ -1145,6 +1166,7 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
 
     private void carWash() {
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(DoorStepServiceActivity.this, R.style.BottomSheetDialogTheme);
+        bottomSheetDialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         View bottomview = LayoutInflater.from(getApplicationContext())
                 .inflate(R.layout.layout_bottom_carwash,
                         (RelativeLayout)findViewById(R.id.carwashSheet));
@@ -1327,35 +1349,50 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
         extreriorCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                extreriorCheck.setChecked(true);
+                if(extreriorCheck.isChecked()){
+                    extreriorCheck.setChecked(false);
+                }else
+                    extreriorCheck.setChecked(true);
             }
         });
 
         interiorCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                interiorCheck.setChecked(true);
+                if(interiorCheck.isChecked()){
+                    interiorCheck.setChecked(false);
+                }else
+                    interiorCheck.setChecked(true);
             }
         });
 
         polishingCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                polisingCheck.setChecked(true);
+                if(polisingCheck.isChecked()){
+                    polisingCheck.setChecked(false);
+                }else
+                    polisingCheck.setChecked(true);
             }
         });
 
         waxCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                waxCheck.setChecked(true);
+                if(waxCheck.isChecked()){
+                    waxCheck.setChecked(false);
+                }else
+                    waxCheck.setChecked(true);
             }
         });
 
         sanitizeCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sanitizeCheck.setChecked(true);
+                if(sanitizeCheck.isChecked()){
+                    sanitizeCheck.setChecked(false);
+                }else
+                    sanitizeCheck.setChecked(true);
             }
         });
 
@@ -1661,21 +1698,30 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
         carpolishngCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                carpolishngCheck.setChecked(true);
+                if(carpolishngCheck.isChecked()){
+                    carpolishngCheck.setChecked(false);
+                }else
+                    carpolishngCheck.setChecked(true);
             }
         });
 
         interiordetalingCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intertiordetailingCheck.setChecked(true);
+                if(intertiordetailingCheck.isChecked()){
+                    intertiordetailingCheck.setChecked(false);
+                }else
+                    intertiordetailingCheck.setChecked(true);
             }
         });
 
         windowtintingCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                windowtintingCheck.setChecked(true);
+                if(windowtintingCheck.isChecked()){
+                    windowtintingCheck.setChecked(false);
+                }else
+                    windowtintingCheck.setChecked(true);
             }
         });
 
@@ -1807,7 +1853,26 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
             public void onClick(View view) {
                 bottomSheetDialog.dismiss();
                 Constant.ONETIME_ADDITIONAL = "Painting";
-                apicall();
+                //apicall();
+
+                String phoneNumberWithCountryCode = "+917418712862";
+                String message = "Hi Carrocare team.\n I want more information about Doorstep painting";
+
+                boolean isWhatsappInstalled = whatsappInstalledOrNot("com.whatsapp");
+                if (isWhatsappInstalled) {
+                    startActivity(
+                            new Intent(Intent.ACTION_VIEW,
+                                    Uri.parse(
+                                            String.format("https://api.whatsapp.com/send?phone=%s&text=%s", phoneNumberWithCountryCode, message)
+                                    )
+                            )
+                    );
+                }else {
+                    Toast.makeText(DoorStepServiceActivity.this, "WhatsApp not Installed", Toast.LENGTH_SHORT).show();
+//                    Uri uri = Uri.parse("market://details?id=com.whatsapp");
+//                    Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
+//                    startActivity(goToMarket);
+                }
             }
         });
 
@@ -1815,6 +1880,18 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
 
         bottomSheetDialog.setContentView(bottomview);
         bottomSheetDialog.show();
+    }
+
+    private boolean whatsappInstalledOrNot(String uri) {
+        PackageManager pm = getPackageManager();
+        boolean app_installed = false;
+        try {
+            pm.getPackageInfo(uri, PackageManager.GET_ACTIVITIES);
+            app_installed = true;
+        } catch (PackageManager.NameNotFoundException e) {
+            app_installed = false;
+        }
+        return app_installed;
     }
 
     private void battery() {
@@ -1834,8 +1911,26 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
             @Override
             public void onClick(View view) {
                 Constant.ONETIME_ADDITIONAL = "battery";
-                apicall();
+                //apicall();
                 bottomSheetDialog.dismiss();
+                String phoneNumberWithCountryCode = "+917418712862";
+                String message = "Hi Carrocare team.\n I want more information about Doorstep battery changing";
+
+                boolean isWhatsappInstalled = whatsappInstalledOrNot("com.whatsapp");
+                if (isWhatsappInstalled) {
+                    startActivity(
+                            new Intent(Intent.ACTION_VIEW,
+                                    Uri.parse(
+                                            String.format("https://api.whatsapp.com/send?phone=%s&text=%s", phoneNumberWithCountryCode, message)
+                                    )
+                            )
+                    );
+                }else {
+                    Toast.makeText(DoorStepServiceActivity.this, "WhatsApp not Installed", Toast.LENGTH_SHORT).show();
+//                    Uri uri = Uri.parse("market://details?id=com.whatsapp");
+//                    Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
+//                    startActivity(goToMarket);
+                }
             }
         });
 
@@ -1903,20 +1998,24 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
             }
         });
 
-        TextView subTotal, Tax, Total;
+        TextView subTotal, Percentage, Tax, Total;
         subTotal = bottomview.findViewById(R.id.sub_total);
         Total = bottomview.findViewById(R.id.total_amount);
+        Percentage = bottomview.findViewById(R.id.tax_percentage_edt);
         Tax = bottomview.findViewById(R.id.taxtext);
 
         subTotal.setText("₹ "+Constant.ONETIME_CAR_PRICE);
-
+        Percentage.setText("Taxes "+Constant.GST_PERCENTAGE+"%");
         int before_tax = Integer.parseInt(Constant.ONETIME_CAR_PRICE);
 
-        int taxAmt = ((18 * before_tax) / 100);
+        int taxAmt = ((Constant.GST_PERCENTAGE * before_tax) / 100);
+        gstamount = String.valueOf(taxAmt);
         int finalAmt = taxAmt + before_tax;
         Tax.setText("₹ "+taxAmt);
         Total.setText("₹ "+finalAmt);
-        Constant.ONETIME_CAR_FINAL_PRICE = String.valueOf(finalAmt);
+        Constant.ONETIME_CAR_FINAL_PRICE = String.valueOf(before_tax);
+        Constant.ONETIME_CAR_GST_AMOUNT = String.valueOf(taxAmt);
+        Constant.ONETIME_CAR_SUB_TOTAL = String.valueOf(finalAmt);
 
         RadioButton cod, online;
         cod = bottomview.findViewById(R.id.cod_check);

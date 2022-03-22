@@ -159,7 +159,7 @@ public class VehicleListAdapter extends RecyclerView.Adapter {
                         String thisDate = currentDate.format(todayDate);
 
                         int before_tax = Integer.parseInt(tottal_amt);
-                        int taxAmt = ((18 * before_tax) / 100);
+                        int taxAmt = ((Constant.GST_PERCENTAGE * before_tax) / 100);
                         int finalAmt = taxAmt + before_tax;
 
                         String result = databaseHelper.AddUpdateOrder(action+"",

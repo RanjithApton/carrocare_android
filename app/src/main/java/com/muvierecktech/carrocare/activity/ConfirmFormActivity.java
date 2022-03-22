@@ -80,7 +80,7 @@ public class ConfirmFormActivity extends BaseActivity implements View.OnClickLis
         Collections.addAll(type_item, type);
 
         if (intent.hasExtra("headername")){
-            if (header.equalsIgnoreCase("Doorstep Car Insurance")){
+            if (header.equalsIgnoreCase("Doorstep Insurance")){
                 binding.info.setVisibility(View.VISIBLE);
                 binding.headerName.setText(header);
                 form = "car_insurance";

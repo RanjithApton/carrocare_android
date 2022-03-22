@@ -60,7 +60,7 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
     SQLiteDatabase sqLiteDatabase;
     Cursor cursor;
 
-    String type,customerid,token,carprice,carid,paidMonths,fineAmount,totalAmountStr,date,time;
+    String type,customerid,token,carprice,carid,paidMonths,fineAmount,gstAmount,totalAmountStr,subtotal,date,time;
 
     @SuppressLint("LongLogTag")
     @Override
@@ -73,6 +73,8 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
         HashMap<String,String> hashMap = sessionManager.getUserDetails();
         customerid = hashMap.get(SessionManager.KEY_USERID);
         token = hashMap.get(SessionManager.KEY_TOKEN);
+        custmob = hashMap.get(SessionManager.KEY_USERMOBILE);
+        custemail = hashMap.get(SessionManager.KEY_USEREMAIL);
 
         Checkout.preload(getApplicationContext());
 
@@ -108,7 +110,7 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
 
         SQLiteDatabase sQLiteDatabase = databaseHelper.getReadableDatabase();
 
-        Cursor rawQuery = sQLiteDatabase.rawQuery(" SELECT SUM (" + databaseHelper.TOTAL + ") FROM " + TABLE_NAME, null);
+        Cursor rawQuery = sQLiteDatabase.rawQuery(" SELECT SUM (" + databaseHelper.SUB_TOTAL + ") FROM " + TABLE_NAME, null);
         rawQuery.moveToFirst();
 
         total = Integer.parseInt(String.valueOf(rawQuery.getInt(0)));
@@ -257,11 +259,11 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
                     String carid = cursor.getString(5);
                     String paidMonths = cursor.getString(6);
                     String fineAmount = cursor.getString(7);
-                    String gstAmount = cursor.getString(7);
-                    String totalAmountStr = cursor.getString(8);
-                    String subtotal = cursor.getString(9);
-                    String date = cursor.getString(10);
-                    String time = cursor.getString(11);
+                    String gstAmount = cursor.getString(8);
+                    String totalAmountStr = cursor.getString(9);
+                    String subtotal = cursor.getString(10);
+                    String date = cursor.getString(11);
+                    String time = cursor.getString(12);
 
 
                     if (type.equalsIgnoreCase("onetime_wash_payment")) {
@@ -281,6 +283,9 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
                                 paidMonths + "",
                                 fineAmount + "",
                                 totalAmountStr + "",
+                                Constant.GST_PERCENTAGE+"",
+                                gstAmount+"",
+                                subtotal+"",
                                 "Wash",
                                 "onetime_wash_payment");
                         call.enqueue(new Callback<JsonObject>() {
@@ -331,6 +336,9 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
                                 paidMonths + "",
                                 fineAmount + "",
                                 totalAmountStr + "",
+                                Constant.GST_PERCENTAGE+"",
+                                gstAmount+"",
+                                subtotal+"",
                                 "AddOn",
                                 date +"",
                                 time +"",
@@ -380,6 +388,9 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
                                 carid+"",
                                 "AddOn",
                                 carprice+"",
+                                Constant.GST_PERCENTAGE+"",
+                                gstAmount+"",
+                                subtotal+"",
                                 date +"",
                                 time +"",
                                 "onetime_payment");
@@ -429,6 +440,9 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
                                 carid+"",
                                 "Disinsfection",
                                 carprice+"",
+                                Constant.GST_PERCENTAGE+"",
+                                gstAmount+"",
+                                subtotal+"",
                                 date +"",
                                 time +"",
                                 "onetime_payment");
@@ -559,14 +573,16 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
             if (cursor.moveToFirst()) {
                 do {
 
-                    type = cursor.getString(3);
-                    carprice = cursor.getString(7);
-                    carid = cursor.getString(8);
-                    paidMonths = cursor.getString(9);
-                    fineAmount = cursor.getString(10);
-                    totalAmountStr = cursor.getString(11);
-                    date = cursor.getString(12);
-                    time = cursor.getString(13);
+                    type = cursor.getString(0);
+                    carprice = cursor.getString(4);
+                    carid = cursor.getString(5);
+                    paidMonths = cursor.getString(6);
+                    fineAmount = cursor.getString(7);
+                    gstAmount = cursor.getString(8);
+                    totalAmountStr = cursor.getString(9);
+                    subtotal = cursor.getString(10);
+                    date = cursor.getString(11);
+                    time = cursor.getString(12);
 
 
                     if (type.equalsIgnoreCase("onetime_wash_payment")) {
@@ -630,6 +646,9 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
                 paidMonths + "",
                 fineAmount + "",
                 totalAmountStr + "",
+                Constant.GST_PERCENTAGE+"",
+                gstAmount+"",
+                subtotal+"",
                 "Wash");
         call.enqueue(new Callback<JsonObject>() {
             @Override
@@ -681,6 +700,9 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
                 paidMonths + "",
                 fineAmount + "",
                 totalAmountStr + "",
+                Constant.GST_PERCENTAGE+"",
+                gstAmount+"",
+                subtotal+"",
                 "AddOn",
                 date +"",
                 time +"");
@@ -737,6 +759,9 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
                 carid+"",
                 "AddOn",
                 carprice+"",
+                Constant.GST_PERCENTAGE+"",
+                gstAmount+"",
+                subtotal+"",
                 date +"",
                 time +"");
         call.enqueue(new Callback<JsonObject>() {
@@ -789,6 +814,9 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
                 carid+"",
                 "Disinsfection",
                 carprice+"",
+                Constant.GST_PERCENTAGE+"",
+                gstAmount+"",
+                subtotal+"",
                 date +"",
                 time +"");
         call.enqueue(new Callback<JsonObject>() {

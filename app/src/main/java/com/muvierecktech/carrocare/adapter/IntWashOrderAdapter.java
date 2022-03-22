@@ -86,6 +86,9 @@ public class IntWashOrderAdapter extends RecyclerView.Adapter {
                         intent.putExtra(Constant.DE_VECID ,ordersList.get(pos).vehicle_id);
                         intent.putExtra(Constant.DE_PACKVALUE,ordersList.get(pos).package_value);
                         intent.putExtra(Constant.DE_TOTAMOUNT,ordersList.get(pos).total_amount);
+                        intent.putExtra(Constant.DE_GST,ordersList.get(pos).gst);
+                        intent.putExtra(Constant.DE_GSTAMOUNT,ordersList.get(pos).gst_amount);
+                        intent.putExtra(Constant.DE_SUB_TOTAMOUNT,ordersList.get(pos).sub_total_amount);
                         intent.putExtra(Constant.DE_DISCOUNTMOUNT,ordersList.get(pos).discount_amount);
                         intent.putExtra(Constant.DE_PAYMODE ,ordersList.get(pos).payment_mode);
                         intent.putExtra(Constant.DE_PACKMONTH,ordersList.get(pos).paid_count);
