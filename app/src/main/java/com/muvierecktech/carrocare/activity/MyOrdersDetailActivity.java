@@ -148,13 +148,13 @@ public class MyOrdersDetailActivity extends AppCompatActivity {
             binding.viewExtrainterior.setVisibility(View.GONE);
             binding.cancel.setVisibility(View.GONE);
             binding.viewhistory.setVisibility(View.GONE);
-            binding.vehiclemakeField.setVisibility(View.GONE);
-            binding.vehiclemodelField.setVisibility(View.GONE);
-            binding.vehiclenoField.setVisibility(View.GONE);
-            binding.paymentmodeField.setVisibility(View.GONE);
+            binding.vehiclemakeField.setVisibility(View.VISIBLE);
+            binding.vehiclemodelField.setVisibility(View.VISIBLE);
+            binding.vehiclenoField.setVisibility(View.VISIBLE);
+            binding.paymentmodeField.setVisibility(View.VISIBLE);
             binding.paidcountField.setVisibility(View.GONE);
             binding.validField.setVisibility(View.GONE);
-            binding.statusField.setVisibility(View.GONE);
+            binding.statusField.setVisibility(View.VISIBLE);
             //binding.imageField.setVisibility(View.VISIBLE);
             binding.vehicleidField.setVisibility(View.VISIBLE);
             binding.scheduleField.setVisibility(View.VISIBLE);
@@ -280,18 +280,18 @@ public class MyOrdersDetailActivity extends AppCompatActivity {
             binding.viewExtrainterior.setVisibility(View.GONE);
             binding.cancel.setVisibility(View.GONE);
             binding.viewhistory.setVisibility(View.GONE);
-            binding.vehiclemakeField.setVisibility(View.GONE);
-            binding.vehiclemodelField.setVisibility(View.GONE);
-            binding.vehiclenoField.setVisibility(View.GONE);
-            binding.paymentmodeField.setVisibility(View.GONE);
+            binding.vehiclemakeField.setVisibility(View.VISIBLE);
+            binding.vehiclemodelField.setVisibility(View.VISIBLE);
+            binding.vehiclenoField.setVisibility(View.VISIBLE);
+            binding.paymentmodeField.setVisibility(View.VISIBLE);
             binding.paidcountField.setVisibility(View.GONE);
             binding.validField.setVisibility(View.GONE);
-            binding.statusField.setVisibility(View.GONE);
+            binding.statusField.setVisibility(View.VISIBLE);
             //binding.imageField.setVisibility(View.VISIBLE);
             binding.vehicleidField.setVisibility(View.VISIBLE);
             binding.scheduleField.setVisibility(View.VISIBLE);
             binding.workdoneField.setVisibility(View.GONE);
-            binding.cancelOnetime.setVisibility(View.VISIBLE);
+            //binding.cancelOnetime.setVisibility(View.VISIBLE);
 
 //            if(!package_value.equals("100")){
 //                binding.imageField.setVisibility(View.VISIBLE);
@@ -320,18 +320,18 @@ public class MyOrdersDetailActivity extends AppCompatActivity {
             binding.viewExtrainterior.setVisibility(View.GONE);
             binding.cancel.setVisibility(View.GONE);
             binding.viewhistory.setVisibility(View.GONE);
-            binding.vehiclemakeField.setVisibility(View.GONE);
-            binding.vehiclemodelField.setVisibility(View.GONE);
-            binding.vehiclenoField.setVisibility(View.GONE);
-            binding.paymentmodeField.setVisibility(View.GONE);
+            binding.vehiclemakeField.setVisibility(View.VISIBLE);
+            binding.vehiclemodelField.setVisibility(View.VISIBLE);
+            binding.vehiclenoField.setVisibility(View.VISIBLE);
+            binding.paymentmodeField.setVisibility(View.VISIBLE);
             binding.paidcountField.setVisibility(View.GONE);
             binding.validField.setVisibility(View.GONE);
-            binding.statusField.setVisibility(View.GONE);
+            binding.statusField.setVisibility(View.VISIBLE);
             //binding.imageField.setVisibility(View.VISIBLE);
             binding.vehicleidField.setVisibility(View.VISIBLE);
             binding.scheduleField.setVisibility(View.VISIBLE);
             binding.workdoneField.setVisibility(View.GONE);
-            binding.cancelOnetime.setVisibility(View.VISIBLE);
+            //binding.cancelOnetime.setVisibility(View.VISIBLE);
             binding.viewWashdetails.setVisibility(View.GONE);
 
 //            if(!package_value.equals("100")){
@@ -353,7 +353,7 @@ public class MyOrdersDetailActivity extends AppCompatActivity {
             }
         }
 
-        binding.cancelOnetime.setOnClickListener(new View.OnClickListener() {
+        binding.cancelOnetime123.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder dialog = new AlertDialog.Builder(MyOrdersDetailActivity.this);
@@ -474,6 +474,8 @@ public class MyOrdersDetailActivity extends AppCompatActivity {
             }
         });
     }
+
+    
 
     private void cancelOrder() {
 

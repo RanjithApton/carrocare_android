@@ -9,6 +9,7 @@ public class CartList {
     public String carid;
     public String paidmonth;
     public String fine;
+    public String gst;
     public String gstamount;
     public String total;
     public String sub_total;
@@ -19,7 +20,7 @@ public class CartList {
 
     }
 
-    public CartList(String type, String imge, String model, String number, String carprice, String carid, String paidmonth, String fine, String gstamount, String total, String sub_total, String date, String time) {
+    public CartList(String type, String imge, String model, String number, String carprice, String carid, String paidmonth, String fine, String gst, String gstamount, String total, String sub_total, String date, String time) {
         this.type = type;
         this.imge = imge;
         this.model = model;
@@ -28,6 +29,7 @@ public class CartList {
         this.carid = carid;
         this.paidmonth = paidmonth;
         this.fine = fine;
+        this.gst = gst;
         this.gstamount = gstamount;
         this.total = total;
         this.sub_total = sub_total;
@@ -97,6 +99,14 @@ public class CartList {
 
     public void setFine(String fine) {
         this.fine = fine;
+    }
+
+    public String getGst() {
+        return gst;
+    }
+
+    public void setGst(String gst) {
+        this.gst = gst;
     }
 
     public String getGstamount() {

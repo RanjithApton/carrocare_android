@@ -8,6 +8,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.muvierecktech.carrocare.R;
+import com.muvierecktech.carrocare.common.ApiConfig;
 import com.muvierecktech.carrocare.common.SessionManager;
 
 import java.util.HashMap;
@@ -28,6 +29,9 @@ public class IntroActivity extends AppCompatActivity {
 
         HashMap<String,String> hashMap = sessionManager.getUserDetails();
         accesstoken = hashMap.get(SessionManager.KEY_TOKEN);
+
+        ApiConfig.displayLocationSettingsRequest(IntroActivity.this);
+        ApiConfig.getLocation(IntroActivity.this);
 
         /*started thread*/
         Runnable threadJob = new MyRunnable();

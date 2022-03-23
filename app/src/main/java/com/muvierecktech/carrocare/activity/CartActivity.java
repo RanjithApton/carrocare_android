@@ -59,7 +59,7 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
     SQLiteDatabase sqLiteDatabase;
     Cursor cursor;
 
-    String type,customerid,token,carprice,carid,paidMonths,fineAmount,gstAmount,totalAmountStr,subtotal,date,time;
+    String type,customerid,token,carprice,carid,paidMonths,fineAmount,gst,gstAmount,totalAmountStr,subtotal,date,time;
 
     @SuppressLint("LongLogTag")
     @Override
@@ -262,11 +262,12 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
                     String carid = cursor.getString(5);
                     String paidMonths = cursor.getString(6);
                     String fineAmount = cursor.getString(7);
-                    String gstAmount = cursor.getString(8);
-                    String totalAmountStr = cursor.getString(9);
-                    String subtotal = cursor.getString(10);
-                    String date = cursor.getString(11);
-                    String time = cursor.getString(12);
+                    String gst = cursor.getString(8);
+                    String gstAmount = cursor.getString(9);
+                    String totalAmountStr = cursor.getString(10);
+                    String subtotal = cursor.getString(11);
+                    String date = cursor.getString(12);
+                    String time = cursor.getString(13);
 
 
                     if (type.equalsIgnoreCase("onetime_wash_payment")) {
@@ -286,7 +287,7 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
                                 paidMonths + "",
                                 fineAmount + "",
                                 totalAmountStr + "",
-                                Constant.GST_PERCENTAGE+"",
+                                gst+"",
                                 gstAmount+"",
                                 subtotal+"",
                                 "Wash",
@@ -339,7 +340,7 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
                                 paidMonths + "",
                                 fineAmount + "",
                                 totalAmountStr + "",
-                                Constant.GST_PERCENTAGE+"",
+                                gst+"",
                                 gstAmount+"",
                                 subtotal+"",
                                 "AddOn",
@@ -391,7 +392,7 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
                                 carid+"",
                                 "AddOn",
                                 carprice+"",
-                                Constant.GST_PERCENTAGE+"",
+                                gst+"",
                                 gstAmount+"",
                                 subtotal+"",
                                 date +"",
@@ -443,7 +444,7 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
                                 carid+"",
                                 "Disinsfection",
                                 carprice+"",
-                                Constant.GST_PERCENTAGE+"",
+                                gst+"",
                                 gstAmount+"",
                                 subtotal+"",
                                 date +"",
@@ -581,11 +582,12 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
                     carid = cursor.getString(5);
                     paidMonths = cursor.getString(6);
                     fineAmount = cursor.getString(7);
-                    gstAmount = cursor.getString(8);
-                    totalAmountStr = cursor.getString(9);
-                    subtotal = cursor.getString(10);
-                    date = cursor.getString(11);
-                    time = cursor.getString(12);
+                    gst = cursor.getString(8);
+                    gstAmount = cursor.getString(9);
+                    totalAmountStr = cursor.getString(10);
+                    subtotal = cursor.getString(11);
+                    date = cursor.getString(12);
+                    time = cursor.getString(13);
 
 
                     if (type.equalsIgnoreCase("onetime_wash_payment")) {
@@ -649,7 +651,7 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
                 paidMonths + "",
                 fineAmount + "",
                 totalAmountStr + "",
-                Constant.GST_PERCENTAGE+"",
+                gst+"",
                 gstAmount+"",
                 subtotal+"",
                 "Wash");
@@ -703,7 +705,7 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
                 paidMonths + "",
                 fineAmount + "",
                 totalAmountStr + "",
-                Constant.GST_PERCENTAGE+"",
+                gst+"",
                 gstAmount+"",
                 subtotal+"",
                 "AddOn",
@@ -762,7 +764,7 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
                 carid+"",
                 "AddOn",
                 carprice+"",
-                Constant.GST_PERCENTAGE+"",
+                gst+"",
                 gstAmount+"",
                 subtotal+"",
                 date +"",
@@ -817,7 +819,7 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
                 carid+"",
                 "Disinsfection",
                 carprice+"",
-                Constant.GST_PERCENTAGE+"",
+                gst+"",
                 gstAmount+"",
                 subtotal+"",
                 date +"",

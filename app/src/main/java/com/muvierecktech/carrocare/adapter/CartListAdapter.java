@@ -77,6 +77,7 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.viewHo
         }
         holder.pack_amount.setText("₹ " +dbm.getCarprice());
         holder.before_total_amount.setText("₹ " +dbm.getTotal());
+        holder.tax_percentage.setText(dbm.getGst()+"%");
         holder.tax_total_amount.setText("₹ " +dbm.getGstamount());
         holder.total.setText("₹ " +dbm.getSub_total());
 
@@ -119,7 +120,7 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.viewHo
     public class viewHolder extends RecyclerView.ViewHolder {
         ImageView car_img;
         ImageView del_img;
-        TextView car_name,car_no,action,type,month,pack_amount, before_total_amount, tax_total_amount, total;
+        TextView car_name,car_no,action,type,month,pack_amount, before_total_amount, tax_percentage, tax_total_amount, total;
         public viewHolder(View itemView) {
             super(itemView);
             car_img = (ImageView) itemView.findViewById(R.id.cart_car_img);
@@ -133,6 +134,7 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.viewHo
             pack_amount = (TextView) itemView.findViewById(R.id.pack_amount);
             before_total_amount = (TextView) itemView.findViewById(R.id.before_total_amount);
             tax_total_amount = (TextView) itemView.findViewById(R.id.tax_total_amount);
+            tax_percentage = (TextView) itemView.findViewById(R.id.tax_percentage);
         }
     }
 }
