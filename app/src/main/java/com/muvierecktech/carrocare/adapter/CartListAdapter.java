@@ -14,27 +14,23 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.muvierecktech.carrocare.R;
-import com.muvierecktech.carrocare.activity.CarDetailsActivity;
 import com.muvierecktech.carrocare.activity.CartActivity;
-import com.muvierecktech.carrocare.activity.MainActivity;
-import com.muvierecktech.carrocare.activity.PaymentOptionActivity;
-import com.muvierecktech.carrocare.common.DatabaseHelper;
 import com.muvierecktech.carrocare.common.MyDatabaseHelper;
-import com.muvierecktech.carrocare.model.DBModel;
+import com.muvierecktech.carrocare.model.CartList;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-public class DBAdapter extends RecyclerView.Adapter<DBAdapter.viewHolder> {
+public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.viewHolder> {
     Context context;
     Activity activity;
-    ArrayList<DBModel> arrayList;
+    ArrayList<CartList> arrayList;
     MyDatabaseHelper databaseHelper;
     public static int cart_count;
 
-    public DBAdapter(Context context,Activity activity, ArrayList<DBModel> arrayList) {
+    public CartListAdapter(Context context, Activity activity, ArrayList<CartList> arrayList) {
         this.activity = activity;
         this.context = context;
         this.arrayList = arrayList;
@@ -49,7 +45,7 @@ public class DBAdapter extends RecyclerView.Adapter<DBAdapter.viewHolder> {
 
     @Override
     public void onBindViewHolder(final viewHolder holder, final int position) {
-        final DBModel dbm = arrayList.get(position);
+        final CartList dbm = arrayList.get(position);
 
         databaseHelper = new MyDatabaseHelper(context);
 
@@ -79,6 +75,9 @@ public class DBAdapter extends RecyclerView.Adapter<DBAdapter.viewHolder> {
         }else{
             holder.month.setText(dbm.getPaidmonth()+ " Months");
         }
+        holder.pack_amount.setText("₹ " +dbm.getCarprice());
+        holder.before_total_amount.setText("₹ " +dbm.getTotal());
+        holder.tax_total_amount.setText("₹ " +dbm.getGstamount());
         holder.total.setText("₹ " +dbm.getSub_total());
 
         holder.del_img.setOnClickListener(new View.OnClickListener() {
@@ -90,27 +89,16 @@ public class DBAdapter extends RecyclerView.Adapter<DBAdapter.viewHolder> {
                 builder.setCancelable(false);
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-
-//                        int result = databaseHelper.deleteItem(dbm.getSno());
-//
-//                        if(result > 0){
-//                            Toast.makeText(context, "Removed", Toast.LENGTH_SHORT).show();
-//                            arrayList.remove(dbm);
-//                            notifyDataSetChanged();
-//                            Intent intent = new Intent(context,CartActivity.class);
-//                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                            context.startActivity(intent);
-//                        }else{
-//                            Toast.makeText(context, "Error on Removeing, Check once", Toast.LENGTH_SHORT).show();
-//                        }
                         databaseHelper.DeleteOrderData(dbm.getType(), dbm.getCarid());
                         Toast.makeText(context, "Removed", Toast.LENGTH_SHORT).show();
                         arrayList.remove(dbm);
+                        ((CartActivity)activity).getData();
+                        activity.invalidateOptionsMenu();
                         notifyDataSetChanged();
-                        Intent intent = new Intent(context,CartActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        context.startActivity(intent);
-
+                        if (getItemCount() == 0) {
+                            ((CartActivity)activity).binding.novehicle.setVisibility(View.VISIBLE);
+                            ((CartActivity)activity).binding.lyttotal.setVisibility(View.GONE);
+                        }
                     }
                 });
                 builder.setNegativeButton("No",null);
@@ -130,18 +118,21 @@ public class DBAdapter extends RecyclerView.Adapter<DBAdapter.viewHolder> {
 
     public class viewHolder extends RecyclerView.ViewHolder {
         ImageView car_img;
-        Button del_img;
-        TextView car_name,car_no,action,type,month,total;
+        ImageView del_img;
+        TextView car_name,car_no,action,type,month,pack_amount, before_total_amount, tax_total_amount, total;
         public viewHolder(View itemView) {
             super(itemView);
             car_img = (ImageView) itemView.findViewById(R.id.cart_car_img);
-            del_img = (Button) itemView.findViewById(R.id.remove);
+            del_img = (ImageView) itemView.findViewById(R.id.delete_img);
             car_name = (TextView) itemView.findViewById(R.id.cart_model);
             car_no = (TextView) itemView.findViewById(R.id.cart_veno);
             action = (TextView) itemView.findViewById(R.id.cart_action);
             type = (TextView) itemView.findViewById(R.id.cart_serice);
             month = (TextView) itemView.findViewById(R.id.cart_sub_type);
             total = (TextView) itemView.findViewById(R.id.car_price);
+            pack_amount = (TextView) itemView.findViewById(R.id.pack_amount);
+            before_total_amount = (TextView) itemView.findViewById(R.id.before_total_amount);
+            tax_total_amount = (TextView) itemView.findViewById(R.id.tax_total_amount);
         }
     }
 }

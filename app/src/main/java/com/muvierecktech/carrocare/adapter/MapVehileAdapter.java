@@ -119,14 +119,17 @@ public class MapVehileAdapter extends RecyclerView.Adapter {
             }
         });
 
+        viewHolder.checkBox.setTag(viewHolder);
         viewHolder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
                 if(isChecked==true){
-                    Constant.ONETIME_CAR_TYPE = vecDetails.get(position).vehicle_category;
-                    Constant.ONETIME_CAR_ID = vecDetails.get(position).vehicle_id;
-                    Constant.ONETIME_PACK_TYPE = vecDetails.get(position).vehicle_category;
+                    MyViewHolder viewHolder1 = (MyViewHolder) buttonView.getTag();
+                    int pos = viewHolder1.getAdapterPosition();
+                    Constant.ONETIME_CAR_TYPE = vecDetails.get(pos).vehicle_category;
+                    Constant.ONETIME_CAR_ID = vecDetails.get(pos).vehicle_id;
+                    Constant.ONETIME_PACK_TYPE = vecDetails.get(pos).vehicle_category;
                     //Toast.makeText(context, Constant.ONETIME_CAR_TYPE, Toast.LENGTH_SHORT).show();
                 }
             }

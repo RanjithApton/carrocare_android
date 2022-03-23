@@ -1,6 +1,6 @@
 package com.muvierecktech.carrocare.model;
 
-public class DBModel {
+public class CartList {
     public String type;
     public String imge;
     public String model;
@@ -15,11 +15,11 @@ public class DBModel {
     public String date;
     public String time;
 
-    public DBModel() {
+    public CartList() {
 
     }
 
-    public DBModel(String type, String imge, String model, String number, String carprice, String carid, String paidmonth, String fine, String gstamount, String total, String sub_total, String date, String time) {
+    public CartList(String type, String imge, String model, String number, String carprice, String carid, String paidmonth, String fine, String gstamount, String total, String sub_total, String date, String time) {
         this.type = type;
         this.imge = imge;
         this.model = model;

@@ -1,15 +1,12 @@
 package com.muvierecktech.carrocare.common;
 
-import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import androidx.annotation.Nullable;
-
-import com.muvierecktech.carrocare.model.DBModel;
+import com.muvierecktech.carrocare.model.CartList;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -121,8 +118,8 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         return count;
     }
 
-    public ArrayList<DBModel> getItems() {
-        ArrayList<DBModel> arrayList = new ArrayList<>();
+    public ArrayList<CartList> getItems() {
+        ArrayList<CartList> arrayList = new ArrayList<>();
 
         // select all query
         String select_query= "SELECT *FROM " + TABLE_NAME;
@@ -133,7 +130,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         // looping through all rows and adding to list
         if (cursor.moveToFirst()) {
             do {
-                DBModel cartList = new DBModel();
+                CartList cartList = new CartList();
                 cartList.setType(cursor.getString(0));
                 cartList.setImge(cursor.getString(1));
                 cartList.setModel(cursor.getString(2));

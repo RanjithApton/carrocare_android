@@ -5,9 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
-import com.muvierecktech.carrocare.model.DBModel;
+import com.muvierecktech.carrocare.model.CartList;
 
 import java.util.ArrayList;
 
@@ -83,8 +82,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return db.insert(TABLE_NAME,null,contentValues);
     }
 
-    public ArrayList<DBModel> getItems() {
-        ArrayList<DBModel> arrayList = new ArrayList<>();
+    public ArrayList<CartList> getItems() {
+        ArrayList<CartList> arrayList = new ArrayList<>();
 
         // select all query
         String select_query= "SELECT *FROM " + TABLE_NAME;
@@ -95,7 +94,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // looping through all rows and adding to list
         if (cursor.moveToFirst()) {
             do {
-                DBModel dbModel = new DBModel();
+                CartList dbModel = new CartList();
 //                dbModel.setSno(Integer.valueOf(cursor.getString(0)));
 //                dbModel.setCusid(cursor.getString(1));
 //                dbModel.setToken(cursor.getString(2));

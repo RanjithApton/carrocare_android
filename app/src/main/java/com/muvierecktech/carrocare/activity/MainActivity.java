@@ -2,7 +2,6 @@ package com.muvierecktech.carrocare.activity;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -12,10 +11,8 @@ import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -34,11 +31,10 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.gson.Gson;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.muvierecktech.carrocare.R;
-import com.muvierecktech.carrocare.adapter.DBAdapter;
+import com.muvierecktech.carrocare.adapter.CartListAdapter;
 import com.muvierecktech.carrocare.adapter.IntWashOrderAdapter;
 import com.muvierecktech.carrocare.adapter.SliderAdapter;
 import com.muvierecktech.carrocare.common.Constant;
-import com.muvierecktech.carrocare.common.DatabaseHelper;
 import com.muvierecktech.carrocare.common.MyDatabaseHelper;
 import com.muvierecktech.carrocare.common.SessionManager;
 import com.muvierecktech.carrocare.databinding.ActivityMainBinding;
@@ -46,16 +42,9 @@ import com.muvierecktech.carrocare.model.LoginDetails;
 import com.muvierecktech.carrocare.model.OrdersList;
 import com.muvierecktech.carrocare.model.SettingsList;
 import com.muvierecktech.carrocare.model.SliderList;
-import com.muvierecktech.carrocare.model.VehicleExtraList;
 import com.muvierecktech.carrocare.restapi.ApiClient;
 import com.muvierecktech.carrocare.restapi.ApiInterface;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -77,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
     List<String> ser_type_wash;
     List<String> ser_type_addon;
     MyDatabaseHelper databaseHelper;
-    DBAdapter dbAdapter;
+    CartListAdapter dbAdapter;
     @SuppressLint("LongLogTag")
     @Override
     protected void onCreate(Bundle savedInstanceState) {

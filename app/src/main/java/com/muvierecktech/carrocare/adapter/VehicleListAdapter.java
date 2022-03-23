@@ -27,6 +27,7 @@ import com.muvierecktech.carrocare.model.VehicleDetails;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -154,9 +155,12 @@ public class VehicleListAdapter extends RecyclerView.Adapter {
                     if(isChecked){
                         databaseHelper.CheckOrderExists(action,carid);
 
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.add(Calendar.DAY_OF_YEAR, 1);
+                        Date tomorrow = calendar.getTime();
                         SimpleDateFormat currentDate = new SimpleDateFormat("dd/MM/yyyy");
                         Date todayDate = new Date();
-                        String thisDate = currentDate.format(todayDate);
+                        String thisDate = currentDate.format(tomorrow);
 
                         int before_tax = Integer.parseInt(tottal_amt);
                         int taxAmt = ((Constant.GST_PERCENTAGE * before_tax) / 100);

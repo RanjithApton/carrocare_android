@@ -78,6 +78,15 @@ public class ContactUsActivity extends AppCompatActivity
             }
         });
 
+        binding.devCompany.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String url = "https://www.muvierecktech.com/";
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
+            }
+        });
 
         binding.whatsapp.setOnClickListener(new View.OnClickListener() {
             @Override

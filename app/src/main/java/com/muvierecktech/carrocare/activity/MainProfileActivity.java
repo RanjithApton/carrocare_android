@@ -51,6 +51,16 @@ public class MainProfileActivity extends AppCompatActivity implements PostServic
         }
         binding.versionEdt.setText("Version "+versionName+"\n"+"© Muviereck Technologies Pvt Ltd.");
 
+        binding.versionEdt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String url = "https://www.muvierecktech.com/";
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
+            }
+        });
+
         binding.profilename.setText(name);
         binding.profileNum.setText(mobile);
         binding.back.setOnClickListener(new View.OnClickListener() {

@@ -28,13 +28,12 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.muvierecktech.carrocare.R;
-import com.muvierecktech.carrocare.adapter.DBAdapter;
+import com.muvierecktech.carrocare.adapter.CartListAdapter;
 import com.muvierecktech.carrocare.common.Constant;
-import com.muvierecktech.carrocare.common.DatabaseHelper;
 import com.muvierecktech.carrocare.common.MyDatabaseHelper;
 import com.muvierecktech.carrocare.common.SessionManager;
 import com.muvierecktech.carrocare.databinding.ActivityCartBinding;
-import com.muvierecktech.carrocare.model.DBModel;
+import com.muvierecktech.carrocare.model.CartList;
 import com.muvierecktech.carrocare.restapi.ApiClient;
 import com.muvierecktech.carrocare.restapi.ApiInterface;
 import com.razorpay.Checkout;
@@ -53,7 +52,7 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
 
     MyDatabaseHelper databaseHelper;
     String Sum;
-    ArrayList<DBModel> arrayList;
+    ArrayList<CartList> arrayList;
     String custmob,custemail,razorpayid;
     public static int total;
     SessionManager sessionManager;
@@ -68,13 +67,15 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_cart);
         binding = DataBindingUtil.setContentView(this,R.layout.activity_cart);
-
+        databaseHelper = new MyDatabaseHelper(this);
         sessionManager = new SessionManager(this);
         HashMap<String,String> hashMap = sessionManager.getUserDetails();
         customerid = hashMap.get(SessionManager.KEY_USERID);
         token = hashMap.get(SessionManager.KEY_TOKEN);
         custmob = hashMap.get(SessionManager.KEY_USERMOBILE);
         custemail = hashMap.get(SessionManager.KEY_USEREMAIL);
+
+        getData();
 
         Checkout.preload(getApplicationContext());
 
@@ -86,53 +87,55 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
             }
         });
 
-        databaseHelper = new MyDatabaseHelper(this);
-
-        int totalItemOfCart = databaseHelper.getTotalItemOfCart();
-
-        Log.e("Total item of cart--->   ",""+totalItemOfCart);
-
-        showTotal();
-
-        showCartItem();
-
-        binding.tvCheckout.setOnClickListener(new View.OnClickListener() {
+        binding.txtcheckout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 workmode();
             }
         });
 
+        binding.imgcheckout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                workmode();
+            }
+        });
 
     }
 
-    public void showTotal(){
+    public void getData(){
+        SetDataTotal();
+        arrayList = new ArrayList<>(databaseHelper.getItems());
+        binding.rvCartitem.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        binding.rvCartitem.setItemAnimator(new DefaultItemAnimator());
+        CartListAdapter adapter = new CartListAdapter(getApplicationContext(),this,arrayList);
+        binding.rvCartitem.setAdapter(adapter);
+    }
 
+    @SuppressLint("SetTextI18n")
+    public void SetDataTotal(){
         SQLiteDatabase sQLiteDatabase = databaseHelper.getReadableDatabase();
+        Cursor rawQuery1 = sQLiteDatabase.rawQuery(" SELECT SUM (" + databaseHelper.TOTAL + ") FROM " + TABLE_NAME, null);
+        rawQuery1.moveToFirst();
+        binding.txtstotal.setText("₹ " + Integer.parseInt(String.valueOf(rawQuery1.getInt(0))));
+
+        Cursor rawQuery2 = sQLiteDatabase.rawQuery(" SELECT SUM (" + databaseHelper.GST_AMOUNT + ") FROM " + TABLE_NAME, null);
+        rawQuery2.moveToFirst();
+        binding.txttaxtotal.setText("₹ " + Integer.parseInt(String.valueOf(rawQuery2.getInt(0))));
 
         Cursor rawQuery = sQLiteDatabase.rawQuery(" SELECT SUM (" + databaseHelper.SUB_TOTAL + ") FROM " + TABLE_NAME, null);
         rawQuery.moveToFirst();
-
         total = Integer.parseInt(String.valueOf(rawQuery.getInt(0)));
+        binding.txtsubtotal.setText("₹ " + total);
+        binding.txttotal.setText(databaseHelper.getTotalItemOfCart()+" Items  "+"₹ " + total);
 
         final ArrayList<String> idslist = databaseHelper.getCartList();
         if (idslist.isEmpty()) {
             binding.novehicle.setVisibility(View.VISIBLE);
-            binding.footer.setVisibility(View.GONE);
-            binding.footTop.setVisibility(View.GONE);
+            binding.lyttotal.setVisibility(View.GONE);
         }else{
             binding.novehicle.setVisibility(View.GONE);
-            binding.footer.setVisibility(View.VISIBLE);
-            binding.footTop.setVisibility(View.VISIBLE);
-        }
-
-
-        binding.tvTotals.setText("₹ " + total);
-
-        if(total == 0){
-
-        }else{
-
+            binding.lyttotal.setVisibility(View.VISIBLE);
         }
 
     }
@@ -854,14 +857,6 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
         startActivity(new Intent(CartActivity.this, CongratsActivity.class));
         finish();
         databaseHelper.DeleteAllOrderData();
-    }
-
-    public void showCartItem(){
-        arrayList = new ArrayList<>(databaseHelper.getItems());
-        binding.rvCartitem.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        binding.rvCartitem.setItemAnimator(new DefaultItemAnimator());
-        DBAdapter adapter = new DBAdapter(getApplicationContext(),this,arrayList);
-        binding.rvCartitem.setAdapter(adapter);
     }
 
     @Override
