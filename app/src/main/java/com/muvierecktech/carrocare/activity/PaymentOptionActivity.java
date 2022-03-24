@@ -620,9 +620,9 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
                 carid+"",
                 paidMonths+"",
                 fineAmount+"",
+                tottal_amt+"",
                 Constant.GST_PERCENTAGE+"",
                 taxAmt+"",
-                tottal_amt+"",
                 String.valueOf(finalAmt),
                 binding.preferDate.getText().toString()+"",
                 time+"");
@@ -660,9 +660,9 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
                 carid+"",
                 "0",
                 "0",
+                carprice+"",
                 Constant.GST_PERCENTAGE+"",
                 taxAmt+"",
-                carprice+"",
                 String.valueOf(finalAmt),
                 binding.preferDate.getText().toString()+"",
                 time+"");
@@ -1361,10 +1361,10 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
                 carid+"",
                 paidMonths + "",
                 fineAmount + "",
-                totalAmountStr + "",
+                carprice+"",
                 Constant.GST_PERCENTAGE+"",
                 "0",
-                carprice+"",
+                totalAmountStr + "",
                 "Wash");
         call.enqueue(new Callback<JsonObject>() {
             @Override
@@ -1415,10 +1415,10 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
                 carid+"",
                 paidMonths + "",
                 fineAmount + "",
-                totalAmountStr + "",
+                carprice+"",
                 Constant.GST_PERCENTAGE+"",
                 "0",
-                carprice+"",
+                totalAmountStr + "",
                 "AddOn",
                 binding.preferDate.getText().toString(),
                 time);

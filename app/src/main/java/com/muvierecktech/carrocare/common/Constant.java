@@ -80,9 +80,9 @@ public class Constant {
     public static String ONETIME_TIME;
     public static String ONETIME_CAR_TYPE;
     public static String ONETIME_ADDITIONAL;
-    public static String ONETIME_CAR_FINAL_PRICE;
-    public static String ONETIME_CAR_GST_AMOUNT;
     public static String ONETIME_CAR_SUB_TOTAL;
+    public static String ONETIME_CAR_GST_AMOUNT;
+    public static String ONETIME_CAR_FINAL_PRICE;
 
     public static String ACTIONMONTH = "monthly_payment";
     public static String ACTIONONE = "onetime_payment";

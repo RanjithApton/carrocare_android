@@ -10,7 +10,7 @@ import com.muvierecktech.carrocare.activity.LoginActivity;
 import java.util.HashMap;
 
 public class SessionManager {
-    SharedPreferences sharedPreferences;
+    static SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     Context context;
     int PRIVATE_MODE = 0;
@@ -40,6 +40,10 @@ public class SessionManager {
         this.context = context;
         sharedPreferences = context.getSharedPreferences(PREF_NAME,PRIVATE_MODE);
         editor = sharedPreferences.edit();
+    }
+
+    public static void setDeviceToken(String token) {
+        sharedPreferences.edit().putString("DEVICETOKEN", token).apply();
     }
 
     public void setData(String id, String val) {

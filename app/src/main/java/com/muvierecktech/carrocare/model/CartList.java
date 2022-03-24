@@ -9,10 +9,10 @@ public class CartList {
     public String carid;
     public String paidmonth;
     public String fine;
+    public String sub_total;
     public String gst;
     public String gstamount;
     public String total;
-    public String sub_total;
     public String date;
     public String time;
 
@@ -20,7 +20,7 @@ public class CartList {
 
     }
 
-    public CartList(String type, String imge, String model, String number, String carprice, String carid, String paidmonth, String fine, String gst, String gstamount, String total, String sub_total, String date, String time) {
+    public CartList(String type, String imge, String model, String number, String carprice, String carid, String paidmonth, String fine, String sub_total, String gst, String gstamount, String total, String date, String time) {
         this.type = type;
         this.imge = imge;
         this.model = model;
@@ -29,10 +29,10 @@ public class CartList {
         this.carid = carid;
         this.paidmonth = paidmonth;
         this.fine = fine;
+        this.sub_total = sub_total;
         this.gst = gst;
         this.gstamount = gstamount;
         this.total = total;
-        this.sub_total = sub_total;
         this.date = date;
         this.time = time;
     }
@@ -101,6 +101,14 @@ public class CartList {
         this.fine = fine;
     }
 
+    public String getSub_total() {
+        return sub_total;
+    }
+
+    public void setSub_total(String sub_total) {
+        this.sub_total = sub_total;
+    }
+
     public String getGst() {
         return gst;
     }
@@ -123,14 +131,6 @@ public class CartList {
 
     public void setTotal(String total) {
         this.total = total;
-    }
-
-    public String getSub_total() {
-        return sub_total;
-    }
-
-    public void setSub_total(String sub_total) {
-        this.sub_total = sub_total;
     }
 
     public String getDate() {

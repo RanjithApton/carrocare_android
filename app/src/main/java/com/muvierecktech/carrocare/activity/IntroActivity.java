@@ -15,7 +15,7 @@ import java.util.HashMap;
 
 public class IntroActivity extends AppCompatActivity {
     SharedPreferences prefs = null;
-    private static int SPLASH_TIME_OUT = 2000;
+    private static int SPLASH_TIME_OUT = 1000;
     private Thread startThread;
     SessionManager sessionManager;
     String accesstoken;
@@ -29,9 +29,6 @@ public class IntroActivity extends AppCompatActivity {
 
         HashMap<String,String> hashMap = sessionManager.getUserDetails();
         accesstoken = hashMap.get(SessionManager.KEY_TOKEN);
-
-        ApiConfig.displayLocationSettingsRequest(IntroActivity.this);
-        ApiConfig.getLocation(IntroActivity.this);
 
         /*started thread*/
         Runnable threadJob = new MyRunnable();

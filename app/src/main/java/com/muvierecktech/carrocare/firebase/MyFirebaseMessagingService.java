@@ -19,6 +19,8 @@ import com.muvierecktech.carrocare.activity.MyOrdersActivity;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Map;
+
 @SuppressLint("MissingFirebaseInstanceTokenRefresh")
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
@@ -28,26 +30,36 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     public void onMessageReceived(RemoteMessage remoteMessage) {
         if (remoteMessage.getData().size() > 0) {
             try {
-                JSONObject json = new JSONObject(remoteMessage.getData().toString());
-                System.out.println("=====n_response " + json.toString());
-                sendPushNotification(json);
+                RemoteMessage.Notification notification = remoteMessage.getNotification();
+                Map<String, String> data = remoteMessage.getData();
+
+//                JSONObject json = new JSONObject(remoteMessage.getData().toString());
+//                System.out.println("=====n_response " + json.toString());
+                Log.e(TAG,  data.toString());
+                Log.e(TAG, "onMessageReceived: DATA"+remoteMessage.getData().get("message") );
+                sendPushNotification(data);
             } catch (Exception e) {
                 Log.e(TAG, "Exception: " + e.getMessage());
             }
+        }else {
+            Log.e(TAG,  remoteMessage.getFrom());
         }
     }
 
-    private void sendPushNotification(JSONObject json) {
+    private void sendPushNotification(Map<String, String> data) {
+        String title = "";
+        String message = "";
+        String type = "";
+        String id = "";
+        String imageUrl = "";
         try {
 
-            JSONObject data = json.getJSONObject("data");
+            title = data.get("title");
+            message = data.get("message");
+            imageUrl = data.get("image");
 
-            String title = data.getString("title");
-            String message = data.getString("message");
-            String imageUrl = data.getString("image");
-
-            String type = data.getString("type");
-            String id = data.getString("id");
+            type =  data.get("screen");
+            id =  data.get("id");
 
             Intent intent = null;
             if (type != null) {
@@ -80,7 +92,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 }
             }
             MyNotificationManager mNotificationManager = new MyNotificationManager(getApplicationContext());
-            //Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            intent = new Intent(getApplicationContext(), MainActivity.class);
 
             if (imageUrl.equals("null") || imageUrl.equals("")) {
                 mNotificationManager.showSmallNotification(title, message, intent);
@@ -89,8 +101,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             }
 
 
-        } catch (JSONException e) {
-            Log.e(TAG, "Json Exception: " + e.getMessage());
         } catch (Exception e) {
             Log.e(TAG, "Exception: " + e.getMessage());
         }

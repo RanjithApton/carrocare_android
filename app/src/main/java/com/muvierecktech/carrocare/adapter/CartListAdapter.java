@@ -76,10 +76,10 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.viewHo
             holder.month.setText(dbm.getPaidmonth()+ " Months");
         }
         holder.pack_amount.setText("₹ " +dbm.getCarprice());
-        holder.before_total_amount.setText("₹ " +dbm.getTotal());
+        holder.before_total_amount.setText("₹ " +dbm.getSub_total());
         holder.tax_percentage.setText(dbm.getGst()+"%");
         holder.tax_total_amount.setText("₹ " +dbm.getGstamount());
-        holder.total.setText("₹ " +dbm.getSub_total());
+        holder.total.setText("₹ " +dbm.getTotal());
 
         holder.del_img.setOnClickListener(new View.OnClickListener() {
             @Override

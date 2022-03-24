@@ -56,4 +56,9 @@
         <item name="android:background">@android:color/transparent</item>
     </style>
 
+    <style name="whiteProgressbar" parent="ThemeOverlay.AppCompat.Light">
+        <item name="colorAccent">@color/white</item>
+    </style>
+
+
 </resources>

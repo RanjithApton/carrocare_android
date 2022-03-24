@@ -33,6 +33,7 @@ public class IntroductionActivity extends AppCompatActivity {
         Runnable threadJob = new MyRunnable();
         startThread = new Thread(threadJob);
         startThread.start();
+
     }
     private class MyRunnable implements Runnable {
         @Override

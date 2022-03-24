@@ -174,9 +174,9 @@ public class VehicleListAdapter extends RecyclerView.Adapter {
                                 carid+"",
                                 paidMonths+"",
                                 fineAmount+"",
+                                tottal_amt+"",
                                 Constant.GST_PERCENTAGE+"",
                                 taxAmt+"",
-                                tottal_amt+"",
                                 String.valueOf(finalAmt),
                                 thisDate+"",
                                 "Any Time");

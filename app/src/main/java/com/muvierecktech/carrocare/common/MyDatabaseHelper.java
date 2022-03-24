@@ -28,10 +28,10 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     public static final String CAR_ID = "carid";
     public static final String P_MONTHS = "paidmonth";
     public static final String FINE = "fine";
+    public static final String SUB_TOTAL = "sub_total";
     public static final String GST = "gst";
     public static final String GST_AMOUNT = "gst_amount";
     public static final String TOTAL = "total";
-    public static final String SUB_TOTAL = "sub_total";
     public static final String SCH_DATE = "date";
     public static final String SCH_TIME = "time";
 
@@ -47,10 +47,10 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
             CAR_ID + " TEXT ," +
             P_MONTHS + " TEXT ," +
             FINE + " TEXT ," +
+            SUB_TOTAL + " TEXT ," +
             GST + " TEXT ," +
             GST_AMOUNT + " TEXT ," +
             TOTAL + " TEXT ," +
-            SUB_TOTAL + " TEXT ," +
             SCH_DATE + " TEXT ," +
             SCH_TIME + " TEXT )";
 
@@ -141,10 +141,10 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                 cartList.setCarid(cursor.getString(5));
                 cartList.setPaidmonth(cursor.getString(6));
                 cartList.setFine(cursor.getString(7));
-                cartList.setGst(cursor.getString(8));
-                cartList.setGstamount(cursor.getString(9));
-                cartList.setTotal(cursor.getString(10));
-                cartList.setSub_total(cursor.getString(11));
+                cartList.setSub_total(cursor.getString(8));
+                cartList.setGst(cursor.getString(9));
+                cartList.setGstamount(cursor.getString(10));
+                cartList.setTotal(cursor.getString(11));
                 cartList.setDate(cursor.getString(12));
                 cartList.setTime(cursor.getString(13));
 
@@ -163,10 +163,10 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                              String carid,
                              String paidmonth,
                              String fine,
+                             String sub_total,
                              String gst,
                              String gst_amount,
                              String total,
-                             String sub_total,
                              String date,
                              String time) {
         try {
@@ -181,10 +181,10 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
             values.put(CAR_ID, carid);
             values.put(P_MONTHS, paidmonth);
             values.put(FINE, fine);
+            values.put(SUB_TOTAL, sub_total);
             values.put(GST, gst);
             values.put(GST_AMOUNT, gst_amount);
             values.put(TOTAL, total);
-            values.put(SUB_TOTAL, sub_total);
             values.put(SCH_DATE, date);
             values.put(SCH_TIME, time);
 
@@ -201,10 +201,10 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                                 String carid,
                                 String paidmonth,
                                 String fine,
+                                String sub_total,
                                 String gst,
                                 String gst_amount,
                                 String total,
-                                String sub_total,
                                 String date,
                                 String time) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -212,10 +212,10 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
         values.put(P_MONTHS, paidmonth);
         values.put(FINE, fine);
+        values.put(SUB_TOTAL, sub_total);
         values.put(GST, gst);
         values.put(GST_AMOUNT, gst_amount);
         values.put(TOTAL, total);
-        values.put(SUB_TOTAL, sub_total);
         values.put(SCH_DATE, date);
         values.put(SCH_TIME, time);
 
@@ -243,19 +243,19 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                                  String carid,
                                  String paidmonth,
                                  String fine,
+                                 String sub_total,
                                  String gst,
                                  String gstamount,
                                  String total,
-                                 String sub_total,
                                  String date,
                                  String time) {
 
         int qty = Integer.parseInt(CheckOrderExists(type, carid));
 
         if (qty == 0) {
-            AddOrderData(type+"", imge+"", model+"", number+"", carprice+"", carid+"", paidmonth+"", fine+"",gst+"", gstamount+"",total+"", sub_total+"", date+"", time+"");
+            AddOrderData(type+"", imge+"", model+"", number+"", carprice+"", carid+"", paidmonth+"", fine+"",sub_total+"", gst+"", gstamount+"",total+"", date+"", time+"");
         } else {
-            UpdateOrderData(type+"", carid+"", paidmonth+"", fine+"", gst+"",gstamount+"", total+"", sub_total+"", date+"", time+"");
+            UpdateOrderData(type+"", carid+"", paidmonth+"", fine+"",sub_total+"", gst+"",gstamount+"", total+"",  date+"", time+"");
         }
         return "1";
     }

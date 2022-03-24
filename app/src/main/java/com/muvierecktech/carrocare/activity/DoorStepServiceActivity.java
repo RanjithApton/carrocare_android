@@ -836,7 +836,7 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
                 .setDimAmount(0.5f)
                 .show();
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        Call<JsonObject> call = apiInterface.createOrderId("create_orderid",Constant.ONETIME_CAR_SUB_TOTAL +"");
+        Call<JsonObject> call = apiInterface.createOrderId("create_orderid",Constant.ONETIME_CAR_FINAL_PRICE +"");
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
@@ -882,10 +882,10 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
                 Constant.ONETIME_CAR_PRICE +"",
                 Constant.ONETIME_CAR_ID +"",
                 Constant.ONETIME_SERVICE_TYPE +"",
-                Constant.ONETIME_CAR_FINAL_PRICE +"",
+                Constant.ONETIME_CAR_SUB_TOTAL +"",
                 Constant.GST_PERCENTAGE +"",
                 Constant.ONETIME_CAR_GST_AMOUNT +"",
-                Constant.ONETIME_CAR_SUB_TOTAL +"",
+                Constant.ONETIME_CAR_FINAL_PRICE +"",
                 Constant.ONETIME_DATE +"",
                 Constant.ONETIME_TIME +"",
                 "onetime_payment",
@@ -1087,10 +1087,10 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
                     Constant.ONETIME_CAR_PRICE +"",
                     Constant.ONETIME_CAR_ID +"",
                     Constant.ONETIME_SERVICE_TYPE +"",
-                    Constant.ONETIME_CAR_FINAL_PRICE +"",
+                    Constant.ONETIME_CAR_SUB_TOTAL +"",
                     Constant.GST_PERCENTAGE +"",
                     Constant.ONETIME_CAR_GST_AMOUNT +"",
-                    Constant.ONETIME_CAR_SUB_TOTAL +"",
+                    Constant.ONETIME_CAR_FINAL_PRICE +"",
                     Constant.ONETIME_DATE +"",
                     Constant.ONETIME_TIME +"",
                     sessionManager.getData(SessionManager.MAP_ADDRESS) +"",
@@ -2013,9 +2013,9 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
         int finalAmt = taxAmt + before_tax;
         Tax.setText("₹ "+taxAmt);
         Total.setText("₹ "+finalAmt);
-        Constant.ONETIME_CAR_FINAL_PRICE = String.valueOf(before_tax);
+        Constant.ONETIME_CAR_SUB_TOTAL = String.valueOf(before_tax);
         Constant.ONETIME_CAR_GST_AMOUNT = String.valueOf(taxAmt);
-        Constant.ONETIME_CAR_SUB_TOTAL = String.valueOf(finalAmt);
+        Constant.ONETIME_CAR_FINAL_PRICE = String.valueOf(finalAmt);
 
         RadioButton cod, online;
         cod = bottomview.findViewById(R.id.cod_check);

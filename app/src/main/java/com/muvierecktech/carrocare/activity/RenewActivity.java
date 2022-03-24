@@ -252,9 +252,9 @@ public class RenewActivity extends AppCompatActivity {
                 carid+"",
                 paidMonths+"",
                 fineAmount+"",
+                tottal_amt+"",
                 Constant.GST_PERCENTAGE+"",
                 taxAmt+"",
-                tottal_amt+"",
                 String.valueOf(finalAmt),
                 binding.preferDate.getText().toString()+"",
                 time+"");
@@ -294,9 +294,9 @@ public class RenewActivity extends AppCompatActivity {
                 carid+"",
                 "1",
                 "0",
+                carprice+"",
                 Constant.GST_PERCENTAGE+"",
                 taxAmt+"",
-                carprice+"",
                 String.valueOf(finalAmt),
                 binding.preferDate1.getText().toString()+"",
                 time+"");

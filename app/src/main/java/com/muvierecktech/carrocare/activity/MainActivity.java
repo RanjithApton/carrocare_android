@@ -34,6 +34,7 @@ import com.muvierecktech.carrocare.R;
 import com.muvierecktech.carrocare.adapter.CartListAdapter;
 import com.muvierecktech.carrocare.adapter.IntWashOrderAdapter;
 import com.muvierecktech.carrocare.adapter.SliderAdapter;
+import com.muvierecktech.carrocare.common.ApiConfig;
 import com.muvierecktech.carrocare.common.Constant;
 import com.muvierecktech.carrocare.common.MyDatabaseHelper;
 import com.muvierecktech.carrocare.common.SessionManager;
@@ -83,6 +84,9 @@ public class MainActivity extends AppCompatActivity {
         binding.username.setText("Hi "+username+" !");
 
         databaseHelper = new MyDatabaseHelper(this);
+
+        ApiConfig.displayLocationSettingsRequest(MainActivity.this);
+        ApiConfig.getLocation(MainActivity.this);
 
         //int totalItemOfCart = databaseHelper.getTotalItemOfCart();
 

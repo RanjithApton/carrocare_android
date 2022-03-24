@@ -28,6 +28,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.kaopiz.kprogresshud.KProgressHUD;
+import com.muvierecktech.carrocare.common.ApiConfig;
 import com.muvierecktech.carrocare.common.DatabaseHelper;
 import com.muvierecktech.carrocare.databinding.ActivityLoginBinding;
 import com.muvierecktech.carrocare.model.LoginDetails;
@@ -57,15 +58,20 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
-        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(new OnSuccessListener<InstanceIdResult>() {
-            @SuppressLint("LongLogTag")
+        sessionManager = new SessionManager(this);
+        ApiConfig.displayLocationSettingsRequest(LoginActivity.this);
+        ApiConfig.getLocation(LoginActivity.this);
+
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener( this,  new OnSuccessListener<InstanceIdResult>() {
+            @Override
             public void onSuccess(InstanceIdResult instanceIdResult) {
-                String token = instanceIdResult.getToken();
-                firebase_id = token;
-                Log.e("Firebase Token-------------------->", token);
+                String newToken = instanceIdResult.getToken();
+                Log.e("newToken",newToken);
+                firebase_id = newToken;
             }
         });
-        sessionManager = new SessionManager(this);
+
+
         binding.signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

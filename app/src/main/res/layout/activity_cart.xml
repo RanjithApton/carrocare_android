@@ -157,7 +157,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/txtsubtotal"
+                android:id="@+id/txttotal"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -178,7 +178,7 @@
             android:paddingBottom="8dp">
 
             <TextView
-                android:id="@+id/txttotal"
+                android:id="@+id/txtfinaltotal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"

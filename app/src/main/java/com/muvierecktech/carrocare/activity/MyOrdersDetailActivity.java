@@ -116,10 +116,10 @@ public class MyOrdersDetailActivity extends AppCompatActivity {
 
         binding.packageValue.setText("₹ "+package_value);
         binding.discountAmount.setText("₹ "+discount_amount);
-        binding.subtotalAmount.setText("₹ "+total_amount);
+        binding.subtotalAmount.setText("₹ "+subtotal_amount);
         binding.taxPercentage.setText(gst+"%");
         binding.taxAmount.setText("₹ "+gst_amount);
-        binding.totalAmount.setText("₹ "+subtotal_amount);
+        binding.totalAmount.setText("₹ "+total_amount);
 
 
 
