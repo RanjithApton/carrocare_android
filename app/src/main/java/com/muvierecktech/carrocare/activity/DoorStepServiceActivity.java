@@ -50,8 +50,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.daimajia.slider.library.Animations.DescriptionAnimation;
-import com.daimajia.slider.library.SliderLayout;
+
+
 import com.github.florent37.singledateandtimepicker.SingleDateAndTimePicker;
 import com.github.florent37.singledateandtimepicker.dialog.SingleDateAndTimePickerDialog;
 import com.google.android.gms.common.ConnectionResult;
@@ -106,7 +106,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
-import in.goodiebag.carouselpicker.CarouselPicker;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -151,8 +151,6 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
     private Date defaultDate;
     String custmob,custemail,razorpayid;
     public boolean carCheck = false ;
-
-    CarouselPicker carouselPicker;
 
     public ArrayList<String> service_type;
 

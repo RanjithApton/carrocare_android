@@ -117,7 +117,7 @@
                             android:gravity="center"
                             android:textSize="@dimen/bigtext"
                             android:textColor="@color/white"
-                            android:text="Order" />
+                            android:text="Order Id" />
                         <View
                             android:layout_width="2dp"
                             android:layout_height="match_parent"

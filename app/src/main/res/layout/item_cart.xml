@@ -104,6 +104,7 @@
                         android:textSize="@dimen/bigtext"/>
 
                     <TextView
+                        android:visibility="gone"
                         android:id="@+id/cart_sub_type"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

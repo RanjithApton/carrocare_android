@@ -60,8 +60,9 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.viewHo
         holder.action.setText(dbm.getType());
         if(holder.action.getText().equals("onetime_wash_payment")){
             holder.type.setText("Wash");
+            holder.month.setVisibility(View.VISIBLE);
         }else if(holder.action.getText().equals("onetime_wax_payment")){
-            holder.type.setText("Add On");
+            holder.type.setText("Wax polish");
         } else if(holder.action.getText().equals("onetime_payment")){
             holder.type.setText("Extra Interior");
         } else if(holder.action.getText().equals("onetime_disinsfection_payment")){
