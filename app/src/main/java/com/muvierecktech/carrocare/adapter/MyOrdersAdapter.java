@@ -47,7 +47,7 @@ public class MyOrdersAdapter extends RecyclerView.Adapter  {
         viewHolder.payment_id.setText(""+ordersList.get(position).order_id);
         viewHolder.service_type.setText(ordersList.get(position).service_type);
         viewHolder.package_type.setText(ordersList.get(position).package_type);
-        viewHolder.vec_make.setText(ordersList.get(position).vehicle_make+"-"+ordersList.get(position).vehicle_model);
+        viewHolder.status.setText(ordersList.get(position).status);
         viewHolder.vehicleno.setText(ordersList.get(position).vehicle_no);
         viewHolder.card.setTag(viewHolder);
         viewHolder.card.setOnClickListener(new View.OnClickListener() {
@@ -136,7 +136,7 @@ public class MyOrdersAdapter extends RecyclerView.Adapter  {
         return ordersList.size();
     }
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView service_type,package_type,vec_make,vehicleno,payment_id,date;
+        TextView service_type,package_type,status,vehicleno,payment_id,date;
         CardView card;
         Button viewmore;
         public MyViewHolder(View itemLayoutView) {
@@ -145,7 +145,7 @@ public class MyOrdersAdapter extends RecyclerView.Adapter  {
             service_type = (TextView)itemLayoutView.findViewById(R.id.service_type);
             package_type = (TextView)itemLayoutView.findViewById(R.id.package_type);
             vehicleno = (TextView)itemLayoutView.findViewById(R.id.vec_no);
-            vec_make = (TextView)itemLayoutView.findViewById(R.id.vec_makemodel);
+            status = (TextView)itemLayoutView.findViewById(R.id.status);
             payment_id = (TextView)itemLayoutView.findViewById(R.id.payment_id);
             date = (TextView)itemLayoutView.findViewById(R.id.date);
             viewmore = (Button) itemLayoutView.findViewById(R.id.view_more);

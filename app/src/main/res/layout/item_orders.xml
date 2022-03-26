@@ -87,7 +87,7 @@
                             android:textColor="@color/black"
                             android:gravity="center|left"
                             android:layout_weight="1"
-                            android:fontFamily="@font/josefinsans_regular"
+                            android:fontFamily="@font/josefinsans_bold"
                             android:textSize="@dimen/bigtext"
                             tools:ignore="MissingConstraints" />
                         <TextView
@@ -126,6 +126,7 @@
                             android:layout_height="wrap_content"
                             android:textColor="@color/dark_gray"
                             android:text="Service type : "
+                            android:gravity="right"
                             android:fontFamily="@font/josefinsans_regular"
                             android:textSize="@dimen/medtext"
                             tools:ignore="MissingConstraints" />
@@ -136,9 +137,9 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center|left"
                             android:textColor="@color/black"
-                            android:gravity="center|left"
                             android:layout_weight="1"
-                            android:fontFamily="@font/josefinsans_regular"
+                            android:gravity="center|right"
+                            android:fontFamily="@font/josefinsans_bold"
                             android:textSize="@dimen/bigtext"
                             tools:ignore="MissingConstraints" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -174,7 +175,7 @@
                             android:textColor="@color/black"
                             android:gravity="center|left"
                             android:layout_weight="1"
-                            android:fontFamily="@font/josefinsans_regular"
+                            android:fontFamily="@font/josefinsans_bold"
                             android:textSize="@dimen/bigtext"
                             tools:ignore="MissingConstraints" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -187,21 +188,23 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textColor="@color/dark_gray"
-                            android:text="Vechile Type : "
+                            android:text="Status : "
                             android:fontFamily="@font/josefinsans_regular"
                             android:textSize="@dimen/medtext"
+                            android:gravity="right"
                             tools:ignore="MissingConstraints" />
                         <TextView
                             app:layout_constraintTop_toBottomOf="@+id/txt4"
-                            android:id="@+id/vec_makemodel"
+                            android:id="@+id/status"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center|left"
+                            android:layout_gravity="center|right"
                             android:textColor="@color/black"
-                            android:gravity="center|left"
+                            android:gravity="center|right"
                             android:layout_weight="1"
-                            android:fontFamily="@font/josefinsans_regular"
+                            android:fontFamily="@font/josefinsans_bold"
                             android:textSize="@dimen/bigtext"
+                            android:textAllCaps="true"
                             tools:ignore="MissingConstraints" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </LinearLayout>
