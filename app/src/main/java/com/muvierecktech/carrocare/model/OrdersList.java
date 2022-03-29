@@ -30,6 +30,7 @@ public class OrdersList {
         public  String paid_count;
         public  String next_due;
         public  String status;
+        public  String reason;
         public  String wash_details;
         public  String extra_interior;
         public  String cancel_subscription;

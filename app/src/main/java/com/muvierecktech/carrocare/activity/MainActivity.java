@@ -322,6 +322,13 @@ public class MainActivity extends AppCompatActivity {
 //                            }
                         }
 
+                    binding.detailrl.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            binding.detailrl.setVisibility(View.GONE);
+                        }
+                    });
+
 
 
                     IntWashOrderAdapter intWashOrderAdapter = new IntWashOrderAdapter(MainActivity.this, body.orders);

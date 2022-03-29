@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
@@ -49,6 +50,20 @@ public class MyOrdersAdapter extends RecyclerView.Adapter  {
         viewHolder.package_type.setText(ordersList.get(position).package_type);
         viewHolder.status.setText(ordersList.get(position).status);
         viewHolder.vehicleno.setText(ordersList.get(position).vehicle_no);
+
+        if(ordersList.get(position).status.equals("Cancel Requested")){
+            viewHolder.status.setTextColor(context.getResources().getColor(R.color.red));
+        }
+
+        if (ordersList.get(position).service_type.equalsIgnoreCase("Door step Wash") ||
+                ordersList.get(position).service_type.equalsIgnoreCase("Door step Detailing") ||
+                ordersList.get(position).service_type.equalsIgnoreCase("Door step AddOn")) {
+            if(ordersList.get(position).status.equals("Cancel Requested")){
+                viewHolder.reason_ll.setVisibility(View.VISIBLE);
+                viewHolder.reason_txt.setText(ordersList.get(position).reason);
+            }
+        }
+
         viewHolder.card.setTag(viewHolder);
         viewHolder.card.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,9 +151,10 @@ public class MyOrdersAdapter extends RecyclerView.Adapter  {
         return ordersList.size();
     }
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView service_type,package_type,status,vehicleno,payment_id,date;
+        TextView service_type,package_type,status,vehicleno,payment_id,date,reason_txt;
         CardView card;
         Button viewmore;
+        LinearLayout reason_ll;
         public MyViewHolder(View itemLayoutView) {
             super(itemLayoutView);
             card = (CardView) itemLayoutView.findViewById(R.id.cardorder);
@@ -149,6 +165,8 @@ public class MyOrdersAdapter extends RecyclerView.Adapter  {
             payment_id = (TextView)itemLayoutView.findViewById(R.id.payment_id);
             date = (TextView)itemLayoutView.findViewById(R.id.date);
             viewmore = (Button) itemLayoutView.findViewById(R.id.view_more);
+            reason_ll = itemLayoutView.findViewById(R.id.reason_ll);
+            reason_txt = itemLayoutView.findViewById(R.id.reason_txt);
         }
     }
 

@@ -149,6 +149,7 @@ public class ProfileActivity extends AppCompatActivity {
         binding.apartnameEdt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                spinner_item.clear();
                 spinner_item.addAll(apartmentname);
                 binding.spinner.performClick();
                 //spinner_item.clear();

@@ -58,41 +58,39 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             message = data.get("message");
             imageUrl = data.get("image");
 
-            type =  data.get("screen");
+            type =  data.get("type");
             id =  data.get("id");
 
             Intent intent = null;
-            if (type != null) {
-                if (type.equals("carwash")){
-                    intent = new Intent(getApplicationContext(), CarWashActivity.class);
+            if (type.equals("carwash")){
+                intent = new Intent(getApplicationContext(), CarWashActivity.class);
 //                        intent.putExtra("id", id);
-                } else if (type.equals("bikewash")){
-                    intent = new Intent(getApplicationContext(), BikeWashActivity.class);
+            } else if (type.equals("bikewash")){
+                intent = new Intent(getApplicationContext(), BikeWashActivity.class);
 //                        intent.putExtra("id", id);
-                } else if (type.equals("waxpolish")){
-                    intent = new Intent(getApplicationContext(), AddOnActivity.class);
+            } else if (type.equals("waxpolish")){
+                intent = new Intent(getApplicationContext(), AddOnActivity.class);
 //                        intent.putExtra("id", id);
-                }else if (type.equals("extra")){
-                    intent = new Intent(getApplicationContext(), ExtraInteriorActivity.class);
+            }else if (type.equals("extra")){
+                intent = new Intent(getApplicationContext(), ExtraInteriorActivity.class);
 //                        intent.putExtra("id", id);
-                } else if (type.equals("carpolish")){
-                    intent = new Intent(getApplicationContext(), CarPolishActivity.class);
+            } else if (type.equals("carpolish")){
+                intent = new Intent(getApplicationContext(), CarPolishActivity.class);
 //                        intent.putExtra("id", id);
-                } else if (type.equals("insurance")){
-                    intent = new Intent(getApplicationContext(), ConfirmFormActivity.class);
+            } else if (type.equals("insurance")){
+                intent = new Intent(getApplicationContext(), ConfirmFormActivity.class);
 //                        intent.putExtra("id", id);
-                } else if (type.equals("orders")){
-                    intent = new Intent(getApplicationContext(), MyOrdersActivity.class);
+            } else if (type.equals("orders")){
+                intent = new Intent(getApplicationContext(), MyOrdersActivity.class);
 //                        intent.putExtra("id", id);
-                } else if (type.equals("cart")){
-                    intent = new Intent(getApplicationContext(), CartActivity.class);
+            } else if (type.equals("cart")){
+                intent = new Intent(getApplicationContext(), CartActivity.class);
 //                        intent.putExtra("id", id);
-                }else {
-                    intent = new Intent(getApplicationContext(), MainActivity.class);
-                }
+            }else {
+                intent = new Intent(getApplicationContext(), MainActivity.class);
             }
             MyNotificationManager mNotificationManager = new MyNotificationManager(getApplicationContext());
-            intent = new Intent(getApplicationContext(), MainActivity.class);
+            //intent = new Intent(getApplicationContext(), MainActivity.class);
 
             if (imageUrl.equals("null") || imageUrl.equals("")) {
                 mNotificationManager.showSmallNotification(title, message, intent);

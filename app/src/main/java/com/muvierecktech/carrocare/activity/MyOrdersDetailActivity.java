@@ -291,13 +291,14 @@ public class MyOrdersDetailActivity extends AppCompatActivity {
             binding.vehicleidField.setVisibility(View.VISIBLE);
             binding.scheduleField.setVisibility(View.VISIBLE);
             binding.workdoneField.setVisibility(View.GONE);
-            //binding.cancelOnetime.setVisibility(View.VISIBLE);
+            binding.cancelOnetime.setVisibility(View.VISIBLE);
 
-//            if(!package_value.equals("100")){
-//                binding.imageField.setVisibility(View.VISIBLE);
-//            }else{
-//                binding.imageField.setVisibility(View.GONE);
-//            }
+            if(status.equals("Cancel Requested")){
+                binding.cancelOnetime.setVisibility(View.GONE);
+            }else{
+                binding.cancelOnetime.setVisibility(View.VISIBLE);
+            }
+
             binding.imageField.setVisibility(View.GONE);
 //            if(work_done.equalsIgnoreCase("No")){
 //                binding.imageField.setVisibility(View.GONE);
@@ -353,7 +354,7 @@ public class MyOrdersDetailActivity extends AppCompatActivity {
             }
         }
 
-        binding.cancelOnetime123.setOnClickListener(new View.OnClickListener() {
+        binding.cancelOnetime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder dialog = new AlertDialog.Builder(MyOrdersDetailActivity.this);
@@ -522,6 +523,9 @@ public class MyOrdersDetailActivity extends AppCompatActivity {
                                     finish();
                                 }else if (jsonObject.optString("code").equalsIgnoreCase("201")) {
                                     Toast.makeText(MyOrdersDetailActivity.this,jsonObject.optString("message"),Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(MyOrdersDetailActivity.this,MyOrdersActivity.class);
+                                    startActivity(intent);
+                                    finish();
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();

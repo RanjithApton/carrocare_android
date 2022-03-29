@@ -37,7 +37,8 @@ public class MyNotificationManager {
     public void showBigNotification(String title, String message, String url, Intent intent) {
         //PendingIntent resultPendingIntent = PendingIntent.getActivity(mCtx, ID_BIG_NOTIFICATION, intent, PendingIntent.FLAG_UPDATE_CURRENT);
        // intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         PendingIntent resultPendingIntent = PendingIntent.getActivity(mCtx, 0, intent,0);
 
         NotificationCompat.BigPictureStyle bigPictureStyle = new NotificationCompat.BigPictureStyle();
@@ -50,7 +51,7 @@ public class MyNotificationManager {
         Notification notification;
         notification = mBuilder.setSmallIcon(R.mipmap.ic_launcher).setTicker(title).setWhen(0)
                 .setAutoCancel(true)
-                //.setContentIntent(resultPendingIntent)
+                .setContentIntent(resultPendingIntent)
                 .setContentTitle(Html.fromHtml(title).toString())
                 .setContentText(Html.fromHtml(message).toString())
                 .setCategory(NotificationCompat.CATEGORY_MESSAGE)
@@ -76,7 +77,9 @@ public class MyNotificationManager {
         //PendingIntent resultPendingIntent = PendingIntent.getActivity(mCtx, ID_SMALL_NOTIFICATION, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        
         PendingIntent resultPendingIntent = PendingIntent.getActivity(mCtx, 0, intent,0);
 
 
@@ -86,7 +89,7 @@ public class MyNotificationManager {
         Notification notification;
         notification = mBuilder.setSmallIcon(R.mipmap.ic_launcher).setTicker(title).setWhen(0)
                 .setAutoCancel(true)
-                //.setContentIntent(resultPendingIntent)
+                .setContentIntent(resultPendingIntent)
                 .setContentTitle(Html.fromHtml(title).toString())
                 .setContentText(Html.fromHtml(message).toString())
                 .setCategory(NotificationCompat.CATEGORY_MESSAGE)
