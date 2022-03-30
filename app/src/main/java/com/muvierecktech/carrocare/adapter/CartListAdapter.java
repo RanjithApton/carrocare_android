@@ -82,7 +82,7 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.viewHo
         }
         holder.pack_amount.setText("₹ " +dbm.getCarprice());
         holder.before_total_amount.setText("₹ " +dbm.getSub_total());
-        holder.tax_percentage.setText(dbm.getGst()+"%");
+        holder.tax_percentage.setText("Tax amount: ("+dbm.getGst()+"%)");
         holder.tax_total_amount.setText("₹ " +dbm.getGstamount());
         holder.total.setText("₹ " +dbm.getTotal());
         holder.schedule_date.setText(dbm.getDate()+" "+dbm.getTime());
