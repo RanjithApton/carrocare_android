@@ -50,6 +50,7 @@ public class MyOrdersAdapter extends RecyclerView.Adapter  {
         viewHolder.package_type.setText(ordersList.get(position).package_type);
         viewHolder.status.setText(ordersList.get(position).status);
         viewHolder.vehicleno.setText(ordersList.get(position).vehicle_no);
+        viewHolder.payment_type.setText(ordersList.get(position).payment_mode);
 
         if(ordersList.get(position).status.equals("Cancel Requested")){
             viewHolder.status.setTextColor(context.getResources().getColor(R.color.red));
@@ -151,7 +152,7 @@ public class MyOrdersAdapter extends RecyclerView.Adapter  {
         return ordersList.size();
     }
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView service_type,package_type,status,vehicleno,payment_id,date,reason_txt;
+        TextView service_type,package_type,status,vehicleno,payment_id,date,reason_txt, payment_type;
         CardView card;
         Button viewmore;
         LinearLayout reason_ll;
@@ -167,6 +168,7 @@ public class MyOrdersAdapter extends RecyclerView.Adapter  {
             viewmore = (Button) itemLayoutView.findViewById(R.id.view_more);
             reason_ll = itemLayoutView.findViewById(R.id.reason_ll);
             reason_txt = itemLayoutView.findViewById(R.id.reason_txt);
+            payment_type = itemLayoutView.findViewById(R.id.payment_type);
         }
     }
 

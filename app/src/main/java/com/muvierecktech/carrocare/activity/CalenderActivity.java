@@ -168,7 +168,8 @@ public class CalenderActivity extends AppCompatActivity {
                                 binding.preferDate.setText(year + "-" +(monthOfYear + 1) + "-" +dayOfMonth);
                             }
                         }, year, month, day);
-                picker.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+                //picker.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+                picker.getDatePicker().setMinDate(System.currentTimeMillis()+24*60*60*1000);
                 picker.show();
             }
         });

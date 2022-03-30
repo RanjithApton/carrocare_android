@@ -32,18 +32,43 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center|left"
                         android:textColor="@color/dark_gray"
                         android:text="Order Id : "
-                        android:layout_weight="4"
                         android:gravity="left"
                         android:padding="@dimen/paddinglow"
                         android:fontFamily="@font/josefinsans_regular"
                         android:textSize="@dimen/medtext"/>
                     <TextView
                         android:id="@+id/payment_id"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|left"
+                        android:textColor="@color/black"
+                        android:layout_weight="1"
+                        android:padding="@dimen/paddinglow"
+                        android:fontFamily="@font/josefinsans_bold"
+                        android:textSize="@dimen/bigtext"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|left"
+                        android:textColor="@color/dark_gray"
+                        android:text="Payment type : "
+                        android:gravity="left"
+                        android:padding="@dimen/paddinglow"
+                        android:fontFamily="@font/josefinsans_regular"
+                        android:textSize="@dimen/medtext"/>
+                    <TextView
+                        android:id="@+id/payment_type"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center|left"

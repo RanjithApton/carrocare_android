@@ -2,6 +2,7 @@ package com.muvierecktech.carrocare.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,11 +14,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.muvierecktech.carrocare.R;
 import com.muvierecktech.carrocare.activity.CartActivity;
 import com.muvierecktech.carrocare.activity.PaymentOptionActivity;
+import com.muvierecktech.carrocare.activity.RenewActivity;
 import com.muvierecktech.carrocare.activity.VehicleListActivity;
 import com.muvierecktech.carrocare.common.Constant;
 import com.muvierecktech.carrocare.common.DatabaseHelper;
@@ -46,7 +49,6 @@ public class VehicleListAdapter extends RecyclerView.Adapter {
         this.price = carprice;
         this.header = header;
         this.carname = carname;
-
     }
 
     @Override
@@ -155,41 +157,56 @@ public class VehicleListAdapter extends RecyclerView.Adapter {
                     if(isChecked){
                         databaseHelper.CheckOrderExists(action,carid);
 
-                        Calendar calendar = Calendar.getInstance();
-                        calendar.add(Calendar.DAY_OF_YEAR, 1);
-                        Date tomorrow = calendar.getTime();
-                        SimpleDateFormat currentDate = new SimpleDateFormat("dd/MM/yyyy");
-                        Date todayDate = new Date();
-                        String thisDate = currentDate.format(tomorrow);
+                        if (!action.equalsIgnoreCase(Constant.ACTIONWASHONE)){
 
-                        int before_tax = Integer.parseInt(tottal_amt);
-                        int taxAmt = ((Constant.GST_PERCENTAGE * before_tax) / 100);
-                        int finalAmt = taxAmt + before_tax;
+                            ((VehicleListActivity)context).binding.popupCard1.setVisibility(View.VISIBLE);
+                            ((VehicleListActivity)context).addCartWithTime(action+"",
+                                    carimage+"",
+                                    carmakemodel+"",
+                                    carno+"",
+                                    onetimecarprice+"",
+                                    carid+"",
+                                    paidMonths+"",
+                                    fineAmount+"",
+                                    tottal_amt+"");
 
-                        String result = databaseHelper.AddUpdateOrder(action+"",
-                                carimage+"",
-                                carmakemodel+"",
-                                carno+"",
-                                onetimecarprice+"",
-                                carid+"",
-                                paidMonths+"",
-                                fineAmount+"",
-                                tottal_amt+"",
-                                Constant.GST_PERCENTAGE+"",
-                                taxAmt+"",
-                                String.valueOf(finalAmt),
-                                thisDate+"",
-                                "Any Time");
+                        } else{
+                            Calendar calendar = Calendar.getInstance();
+                            calendar.add(Calendar.DAY_OF_YEAR, 1);
+                            Date tomorrow = calendar.getTime();
+                            SimpleDateFormat currentDate = new SimpleDateFormat("dd/MM/yyyy");
+                            Date todayDate = new Date();
+                            String thisDate = currentDate.format(tomorrow);
+
+                            int before_tax = Integer.parseInt(tottal_amt);
+                            int taxAmt = ((Constant.GST_PERCENTAGE * before_tax) / 100);
+                            int finalAmt = taxAmt + before_tax;
+
+                            String result = databaseHelper.AddUpdateOrder(action+"",
+                                    carimage+"",
+                                    carmakemodel+"",
+                                    carno+"",
+                                    onetimecarprice+"",
+                                    carid+"",
+                                    paidMonths+"",
+                                    fineAmount+"",
+                                    tottal_amt+"",
+                                    Constant.GST_PERCENTAGE+"",
+                                    taxAmt+"",
+                                    String.valueOf(finalAmt),
+                                    thisDate+"",
+                                    "Any Time");
 //
-                        if(result.equalsIgnoreCase("1")){
-                            Toast.makeText(context, "Added to Smart Checkout ", Toast.LENGTH_SHORT).show();
-                            ((VehicleListActivity)context).showCartCount();
-                        }else{
-                            Toast.makeText(context, "Failed. ", Toast.LENGTH_SHORT).show();
-                        }
+                            if(result.equalsIgnoreCase("1")){
+                                Toast.makeText(context, "Added to Smart Checkout ", Toast.LENGTH_SHORT).show();
+                                ((VehicleListActivity)context).showCartCount();
+                            }else{
+                                Toast.makeText(context, "Failed. ", Toast.LENGTH_SHORT).show();
+                            }
 
-                        ((VehicleListActivity)context).binding.addvehicle.setVisibility(View.GONE);
-                        ((VehicleListActivity)context).binding.makepayment.setVisibility(View.VISIBLE);
+                            ((VehicleListActivity)context).binding.addvehicle.setVisibility(View.GONE);
+                            ((VehicleListActivity)context).binding.makepayment.setVisibility(View.VISIBLE);
+                        }
 
                     }
                     else if(!isChecked){

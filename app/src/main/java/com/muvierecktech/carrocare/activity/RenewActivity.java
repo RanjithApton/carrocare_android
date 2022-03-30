@@ -166,7 +166,8 @@ public class RenewActivity extends AppCompatActivity {
                                 binding.preferDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
                             }
                         }, year, month, day);
-                picker.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+                //picker.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+                picker.getDatePicker().setMinDate(System.currentTimeMillis()+24*60*60*1000);
                 picker.show();
             }
         });

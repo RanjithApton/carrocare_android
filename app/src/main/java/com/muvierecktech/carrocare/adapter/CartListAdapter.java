@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -63,10 +64,13 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.viewHo
             holder.month.setVisibility(View.VISIBLE);
         }else if(holder.action.getText().equals("onetime_wax_payment")){
             holder.type.setText("Wax polish");
+            holder.schedule_ll.setVisibility(View.VISIBLE);
         } else if(holder.action.getText().equals("onetime_payment")){
             holder.type.setText("Extra Interior");
+            holder.schedule_ll.setVisibility(View.VISIBLE);
         } else if(holder.action.getText().equals("onetime_disinsfection_payment")){
             holder.type.setText("Disinsfection");
+            holder.schedule_ll.setVisibility(View.VISIBLE);
         }
         holder.month.setText(dbm.getPaidmonth());
         if(holder.month.getText().equals("1")){
@@ -81,6 +85,7 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.viewHo
         holder.tax_percentage.setText(dbm.getGst()+"%");
         holder.tax_total_amount.setText("₹ " +dbm.getGstamount());
         holder.total.setText("₹ " +dbm.getTotal());
+        holder.schedule_date.setText(dbm.getDate()+" "+dbm.getTime());
 
         holder.del_img.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,7 +126,8 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.viewHo
     public class viewHolder extends RecyclerView.ViewHolder {
         ImageView car_img;
         ImageView del_img;
-        TextView car_name,car_no,action,type,month,pack_amount, before_total_amount, tax_percentage, tax_total_amount, total;
+        TextView car_name,car_no,action,type,month,pack_amount, before_total_amount, tax_percentage, tax_total_amount, total, schedule_date;
+        LinearLayout schedule_ll;
         public viewHolder(View itemView) {
             super(itemView);
             car_img = (ImageView) itemView.findViewById(R.id.cart_car_img);
@@ -136,6 +142,8 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.viewHo
             before_total_amount = (TextView) itemView.findViewById(R.id.before_total_amount);
             tax_total_amount = (TextView) itemView.findViewById(R.id.tax_total_amount);
             tax_percentage = (TextView) itemView.findViewById(R.id.tax_percentage);
+            schedule_ll = (LinearLayout) itemView.findViewById(R.id.schedule_ll);
+            schedule_date = itemView.findViewById(R.id.schedule_date);
         }
     }
 }

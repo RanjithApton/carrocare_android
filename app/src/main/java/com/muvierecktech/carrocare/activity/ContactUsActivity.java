@@ -91,7 +91,7 @@ public class ContactUsActivity extends AppCompatActivity
         binding.whatsapp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String phoneNumberWithCountryCode = "+917418712862";
+                String phoneNumberWithCountryCode = "+917904015630";
                 String message = "Hi Carrocare team...";
 
                 boolean isWhatsappInstalled = whatsappInstalledOrNot("com.whatsapp");

@@ -18,6 +18,7 @@ import com.muvierecktech.carrocare.activity.MapAddVechileActivity;
 import com.muvierecktech.carrocare.activity.MyVechiclesAddActivity;
 import com.muvierecktech.carrocare.activity.PaymentOptionActivity;
 import com.muvierecktech.carrocare.activity.RenewActivity;
+import com.muvierecktech.carrocare.activity.VehicleListActivity;
 
 public class PreferredAdapter extends RecyclerView.Adapter {
     public Context context;
@@ -136,6 +137,14 @@ public class PreferredAdapter extends RecyclerView.Adapter {
                     ((RenewActivity)context).binding.preferredtimeEdt1.setText(prefer[pos]);
                     ((RenewActivity)context).time = prefer[pos];
                     ((RenewActivity)context).binding.timeLl.setVisibility(View.GONE);
+                }else if (type.equalsIgnoreCase("smart_check")){
+                    MyViewHolder viewHolder1 = (MyViewHolder) view.getTag();
+                    int pos = viewHolder1.getAdapterPosition();
+                    lastSelectedPosition = pos;
+                    notifyDataSetChanged();
+                    ((VehicleListActivity)context).binding.preferredtimeEdt1.setText(prefer[pos]);
+                    ((VehicleListActivity)context).time = prefer[pos];
+                    ((VehicleListActivity)context).binding.timeLl.setVisibility(View.GONE);
                 }
 
                 else if (type.equalsIgnoreCase("12")){

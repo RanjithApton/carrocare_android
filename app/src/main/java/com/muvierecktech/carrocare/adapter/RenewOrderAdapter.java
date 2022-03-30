@@ -121,7 +121,6 @@ public class RenewOrderAdapter extends RecyclerView.Adapter {
                     int finalAmt = taxAmt + Integer.parseInt(ordersList.get(pos).package_value);
                     ((RenewActivity)context).binding.taxTotal.setText("₹ " + taxAmt);
                     ((RenewActivity)context).binding.totalAmount.setText("₹ " +finalAmt);
-
                 }
 
                 else if(ordersList.get(pos).service_type.equalsIgnoreCase("Disinsfection")){
