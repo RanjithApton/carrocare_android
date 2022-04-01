@@ -1853,7 +1853,7 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
                 Constant.ONETIME_ADDITIONAL = "Painting";
                 //apicall();
 
-                String phoneNumberWithCountryCode = "+917418712862";
+                String phoneNumberWithCountryCode = "+917904015630";
                 String message = "Hi Carrocare team.\n I want more information about Doorstep painting";
 
                 boolean isWhatsappInstalled = whatsappInstalledOrNot("com.whatsapp");
@@ -1911,7 +1911,7 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
                 Constant.ONETIME_ADDITIONAL = "battery";
                 //apicall();
                 bottomSheetDialog.dismiss();
-                String phoneNumberWithCountryCode = "+917418712862";
+                String phoneNumberWithCountryCode = "+917904015630";
                 String message = "Hi Carrocare team.\n I want more information about Doorstep battery changing";
 
                 boolean isWhatsappInstalled = whatsappInstalledOrNot("com.whatsapp");

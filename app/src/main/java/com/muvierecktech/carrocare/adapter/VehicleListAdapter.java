@@ -3,6 +3,7 @@ package com.muvierecktech.carrocare.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -154,59 +155,173 @@ public class VehicleListAdapter extends RecyclerView.Adapter {
                 carno = vecDetails.get(pos).vehicle_no;
                 carid = vecDetails.get(pos).vehicle_id;
 
+                final String carprice, onetimeService;
+
+                carprice = price;
+                onetimeService = onetimecarprice;
+
                     if(isChecked){
                         databaseHelper.CheckOrderExists(action,carid);
+                        String service_type = "";
 
-                        if (!action.equalsIgnoreCase(Constant.ACTIONWASHONE)){
+                        if (header.equalsIgnoreCase(Constant.WASH)){
+                            service_type = "Wash";
+                            ((VehicleListActivity)context).binding.serviceType.setText("Wash");
+                            ((VehicleListActivity)context).binding.serviceType1.setText("Wash");
+                        }else if (header.equalsIgnoreCase(Constant.BWASH)) {
+                            service_type = "Wash";
+                            ((VehicleListActivity)context).binding.serviceType.setText("Wash");
+                            ((VehicleListActivity)context).binding.serviceType1.setText("Wash");
+                        } else if (header.equalsIgnoreCase(Constant.ADDON)){
+                            service_type = "AddOn";
+                            ((VehicleListActivity)context).binding.serviceType.setText("AddOn");
+                            ((VehicleListActivity)context).binding.serviceType1.setText("AddOn");
+                        } else if (header.equalsIgnoreCase(Constant.EXTRAINT)) {
+                            service_type = "AddOn";
+                            ((VehicleListActivity)context).binding.serviceType.setText("AddOn");
+                            ((VehicleListActivity)context).binding.serviceType1.setText("AddOn");
+                        } else if (header.equalsIgnoreCase(Constant.DISINSFECTION)){
+                            service_type = "Disinsfection";
+                            ((VehicleListActivity)context).binding.serviceType.setText("Disinsfection");
+                            ((VehicleListActivity)context).binding.serviceType1.setText("Disinsfection");
+                        }
 
+
+                        if(carprice.equalsIgnoreCase("100")){
                             ((VehicleListActivity)context).binding.popupCard1.setVisibility(View.VISIBLE);
-                            ((VehicleListActivity)context).addCartWithTime(action+"",
-                                    carimage+"",
-                                    carmakemodel+"",
-                                    carno+"",
-                                    onetimecarprice+"",
-                                    carid+"",
-                                    paidMonths+"",
-                                    fineAmount+"",
-                                    tottal_amt+"");
+                            ((VehicleListActivity)context).binding.subscriptionType.setText("One Time");
+                            ((VehicleListActivity)context).binding.packageType.setText(vecDetails.get(pos).vehicle_category);
+                            ((VehicleListActivity)context).binding.packageMrp.setText("₹ " +carprice);
+                            ((VehicleListActivity)context).binding.total.setText("₹ " +carprice);
+                            int taxAmt = ((Constant.GST_PERCENTAGE * Integer.parseInt(carprice)) / 100);
+                            int finalAmt = taxAmt + Integer.parseInt(carprice);
+                            ((VehicleListActivity)context).binding.taxTotal.setText("₹ " + taxAmt);
+                            ((VehicleListActivity)context).binding.totalAmount.setText("₹ " +finalAmt);
+                        }
+                        else if(service_type.equalsIgnoreCase("Disinsfection")){
+                            ((VehicleListActivity)context).binding.popupCard1.setVisibility(View.VISIBLE);
+                            //((VehicleListActivity)context).binding.serviceType.setText(ordersList.get(pos).service_type);
+                            ((VehicleListActivity)context).binding.subscriptionType.setText("One Time");
+                            ((VehicleListActivity)context).binding.packageType.setText(vecDetails.get(pos).vehicle_category);
+                            ((VehicleListActivity)context).binding.packageMrp.setText("₹ " +carprice);
+                            ((VehicleListActivity)context).binding.total.setText("₹ " +carprice);
+                            int taxAmt = ((Constant.GST_PERCENTAGE * Integer.parseInt(carprice)) / 100);
+                            int finalAmt = taxAmt + Integer.parseInt(carprice);
+                            ((VehicleListActivity)context).binding.taxTotal.setText("₹ " + taxAmt);
+                            ((VehicleListActivity)context).binding.totalAmount.setText("₹ " +finalAmt);
+                            //((RenewActivity)context).binding.totalAmount.setText("₹ " +ordersList.get(pos).package_value);
+                        }
+                        else{
 
-                        } else{
-                            Calendar calendar = Calendar.getInstance();
-                            calendar.add(Calendar.DAY_OF_YEAR, 1);
-                            Date tomorrow = calendar.getTime();
-                            SimpleDateFormat currentDate = new SimpleDateFormat("dd/MM/yyyy");
-                            Date todayDate = new Date();
-                            String thisDate = currentDate.format(tomorrow);
-
-                            int before_tax = Integer.parseInt(tottal_amt);
-                            int taxAmt = ((Constant.GST_PERCENTAGE * before_tax) / 100);
-                            int finalAmt = taxAmt + before_tax;
-
-                            String result = databaseHelper.AddUpdateOrder(action+"",
-                                    carimage+"",
-                                    carmakemodel+"",
-                                    carno+"",
-                                    onetimecarprice+"",
-                                    carid+"",
-                                    paidMonths+"",
-                                    fineAmount+"",
-                                    tottal_amt+"",
-                                    Constant.GST_PERCENTAGE+"",
-                                    taxAmt+"",
-                                    String.valueOf(finalAmt),
-                                    thisDate+"",
-                                    "Any Time");
-//
-                            if(result.equalsIgnoreCase("1")){
-                                Toast.makeText(context, "Added to Smart Checkout ", Toast.LENGTH_SHORT).show();
-                                ((VehicleListActivity)context).showCartCount();
-                            }else{
-                                Toast.makeText(context, "Failed. ", Toast.LENGTH_SHORT).show();
+                            if(service_type.equalsIgnoreCase("Wash")) {
+                                ((VehicleListActivity) context).binding.popupCard.setVisibility(View.VISIBLE);
+                                ((VehicleListActivity) context).binding.extraL0.setVisibility(View.GONE);
+                                //((VehicleListActivity) context).binding.serviceType1.setText(ordersList.get(pos).service_type);
+                                ((VehicleListActivity) context).binding.packageType1.setText(vecDetails.get(pos).vehicle_category);
+                                ((VehicleListActivity) context).binding.packageMrp1.setText("₹ " + carprice);
+                                ((VehicleListActivity) context).binding.subscriptionType1.setVisibility(View.VISIBLE);
+                                ((VehicleListActivity) context).binding.subscriptionType01.setVisibility(View.GONE);
+                            }else if(service_type.equalsIgnoreCase("AddOn") &&
+                                    !carprice.equalsIgnoreCase("100")){
+                                ((VehicleListActivity) context).binding.popupCard.setVisibility(View.VISIBLE);
+                                ((VehicleListActivity) context).binding.extraL0.setVisibility(View.VISIBLE);
+                                //((VehicleListActivity) context).binding.serviceType1.setText(ordersList.get(pos).service_type);
+                                ((VehicleListActivity) context).binding.packageType1.setText(vecDetails.get(pos).vehicle_category);
+                                ((VehicleListActivity) context).binding.packageMrp1.setText("₹ " + carprice);
+                                ((VehicleListActivity) context).binding.subscriptionType1.setVisibility(View.GONE);
+                                ((VehicleListActivity) context).binding.subscriptionType01.setVisibility(View.VISIBLE);
+                                ((VehicleListActivity) context).binding.subscriptionType01.setText(Constant.ONETIME);
                             }
 
-                            ((VehicleListActivity)context).binding.addvehicle.setVisibility(View.GONE);
-                            ((VehicleListActivity)context).binding.makepayment.setVisibility(View.VISIBLE);
                         }
+
+                        ((VehicleListActivity)context).checkOnetime(carprice,carid,onetimeService);
+
+                        final String finalCarid = carid;
+                        String finalService_type = service_type;
+
+                        ((VehicleListActivity)context).binding.addToCart.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                if(finalService_type.equalsIgnoreCase("AddOn") &&
+                                        !carprice.equalsIgnoreCase("100")) {
+                                    if (((VehicleListActivity) context).binding.preferDate.getText().length() > 0 && !TextUtils.isEmpty(((VehicleListActivity) context).time)) {
+                                        ((VehicleListActivity) context).checkIfExists(finalService_type, finalCarid, carmakemodel, carno);
+                                    } else {
+                                        Toast.makeText(context, Constant.CHOOSEDATETIME, Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                                else{
+                                    ((VehicleListActivity) context).checkIfExists(finalService_type, finalCarid, carmakemodel, carno);
+                                }
+                            }
+                        });
+
+
+                        ((VehicleListActivity)context).binding.addToCart1.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                if (((VehicleListActivity)context).binding.preferDate1.getText().length()>0 && ((VehicleListActivity)context).binding.preferredtimeEdt1.getText().length()>0){
+                                    ((VehicleListActivity)context).checkIfExists1( finalService_type, finalCarid,carmakemodel,carno,carprice);
+                                }else {
+                                    Toast.makeText(context,Constant.CHOOSEDATETIME,Toast.LENGTH_SHORT).show();
+                                }
+
+                            }
+                        });
+
+                        //final String servicetype,carmakemodel,carno;
+
+//                        if (!action.equalsIgnoreCase(Constant.ACTIONWASHONE)){
+//
+//                            ((VehicleListActivity)context).binding.popupCard1.setVisibility(View.VISIBLE);
+//                            ((VehicleListActivity)context).addCartWithTime(action+"",
+//                                    carimage+"",
+//                                    carmakemodel+"",
+//                                    carno+"",
+//                                    onetimecarprice+"",
+//                                    carid+"",
+//                                    paidMonths+"",
+//                                    fineAmount+"",
+//                                    tottal_amt+"");
+//
+//                        } else{
+//                            Calendar calendar = Calendar.getInstance();
+//                            calendar.add(Calendar.DAY_OF_YEAR, 1);
+//                            Date tomorrow = calendar.getTime();
+//                            SimpleDateFormat currentDate = new SimpleDateFormat("dd/MM/yyyy");
+//                            Date todayDate = new Date();
+//                            String thisDate = currentDate.format(tomorrow);
+//
+//                            int before_tax = Integer.parseInt(tottal_amt);
+//                            int taxAmt = ((Constant.GST_PERCENTAGE * before_tax) / 100);
+//                            int finalAmt = taxAmt + before_tax;
+//
+//                            String result = databaseHelper.AddUpdateOrder(action+"",
+//                                    carimage+"",
+//                                    carmakemodel+"",
+//                                    carno+"",
+//                                    onetimecarprice+"",
+//                                    carid+"",
+//                                    paidMonths+"",
+//                                    fineAmount+"",
+//                                    tottal_amt+"",
+//                                    Constant.GST_PERCENTAGE+"",
+//                                    taxAmt+"",
+//                                    String.valueOf(finalAmt),
+//                                    thisDate+"",
+//                                    "Any Time");
+////
+//                            if(result.equalsIgnoreCase("1")){
+//                                Toast.makeText(context, "Added to Smart Checkout ", Toast.LENGTH_SHORT).show();
+//                                ((VehicleListActivity)context).showCartCount();
+//                            }else{
+//                                Toast.makeText(context, "Failed. ", Toast.LENGTH_SHORT).show();
+//                            }
+//
+//                            ((VehicleListActivity)context).binding.addvehicle.setVisibility(View.GONE);
+//                            ((VehicleListActivity)context).binding.makepayment.setVisibility(View.VISIBLE);
+//                        }
 
                     }
                     else if(!isChecked){

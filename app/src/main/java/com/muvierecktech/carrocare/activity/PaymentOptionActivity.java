@@ -131,8 +131,8 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
         if(Constant.GST_PERCENTAGE != 0){
             binding.taxField.setVisibility(View.VISIBLE);
             binding.taxField1.setVisibility(View.VISIBLE);
-            binding.taxPercentage.setText("Taxes "+Constant.GST_PERCENTAGE+"%");
-            binding.taxPercentage1.setText("Taxes "+Constant.GST_PERCENTAGE+"%");
+            binding.taxPercentage.setText("Taxes ("+Constant.GST_PERCENTAGE+"%)");
+            binding.taxPercentage1.setText("Taxes ("+Constant.GST_PERCENTAGE+"%)");
         }else{
             binding.taxField.setVisibility(View.GONE);
             binding.taxField1.setVisibility(View.GONE);

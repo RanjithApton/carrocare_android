@@ -137,7 +137,15 @@ public class PreferredAdapter extends RecyclerView.Adapter {
                     ((RenewActivity)context).binding.preferredtimeEdt1.setText(prefer[pos]);
                     ((RenewActivity)context).time = prefer[pos];
                     ((RenewActivity)context).binding.timeLl.setVisibility(View.GONE);
-                }else if (type.equalsIgnoreCase("smart_check")){
+                }else if (type.equalsIgnoreCase("smart_wax")){
+                    MyViewHolder viewHolder1 = (MyViewHolder) view.getTag();
+                    int pos = viewHolder1.getAdapterPosition();
+                    lastSelectedPosition = pos;
+                    notifyDataSetChanged();
+                    ((VehicleListActivity)context).binding.preferredtimeEdt.setText(prefer[pos]);
+                    ((VehicleListActivity)context).time = prefer[pos];
+                    ((VehicleListActivity)context).binding.timeLl.setVisibility(View.GONE);
+                }else if (type.equalsIgnoreCase("smart_ext")){
                     MyViewHolder viewHolder1 = (MyViewHolder) view.getTag();
                     int pos = viewHolder1.getAdapterPosition();
                     lastSelectedPosition = pos;

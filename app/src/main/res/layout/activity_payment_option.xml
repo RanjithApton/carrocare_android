@@ -64,8 +64,20 @@
                 </RelativeLayout>
             </LinearLayout>
         </LinearLayout>
-        <ScrollView android:background="@drawable/bg" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_below="@+id/header">
-            <LinearLayout android:orientation="vertical" android:paddingBottom="100dp" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="match_parent">
+
+        <ScrollView
+            android:background="@drawable/bg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/header">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:paddingBottom="100dp"
+                android:clipToPadding="false"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
                 <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
                     android:id="@+id/spinner"
                     android:layout_width="match_parent"
@@ -75,6 +87,7 @@
                     app:smsp_isSearchable="true"
                     app:smsp_multilineError="false"
                     app:smsp_selectedItemListColor="@color/colorPrimary" />
+
                 <LinearLayout android:orientation="vertical" android:id="@+id/extra_ll" android:layout_width="match_parent" android:layout_height="wrap_content">
                     <TextView android:visibility="gone" android:textSize="@dimen/paratext" android:textColor="#000" android:layout_gravity="left|center_vertical|center_horizontal|center" android:id="@+id/extra_txt" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_margin="@dimen/marginlow" android:text="Extra Interior" android:fontFamily="@font/josefinsans_bold"/>
                     <androidx.cardview.widget.CardView android:fitsSystemWindows="true" android:layout_width="match_parent" android:layout_height="wrap_content" android:elevation="5dp" app:cardBackgroundColor="@color/white" app:cardCornerRadius="9dp" app:cardElevation="5dp" app:cardPreventCornerOverlap="true" app:cardUseCompatPadding="true">
@@ -160,7 +173,9 @@
                         </LinearLayout>
                         <LinearLayout android:layout_gravity="center" android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content">
                             <TextView android:textSize="@dimen/bigtext" android:textColor="@color/black" android:layout_gravity="left|center_vertical|center_horizontal|center" android:padding="@dimen/paddinglow" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Package Type" android:layout_weight="1" android:fontFamily="@font/josefinsans_regular"/>
-                            <TextView android:textSize="@dimen/bigtext" android:textColor="@color/black" android:layout_gravity="left|center_vertical|center_horizontal|center" android:id="@+id/package_type1" android:padding="@dimen/paddinglow" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_weight="1" android:fontFamily="@font/josefinsans_regular"/>
+                            <TextView
+                                android:textAllCaps="true"
+                                android:textSize="@dimen/bigtext" android:textColor="@color/black" android:layout_gravity="left|center_vertical|center_horizontal|center" android:id="@+id/package_type1" android:padding="@dimen/paddinglow" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_weight="1" android:fontFamily="@font/josefinsans_regular"/>
                         </LinearLayout>
                         <LinearLayout android:layout_gravity="center" android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content">
                             <TextView android:textSize="@dimen/bigtext" android:textColor="@color/black" android:layout_gravity="left|center_vertical|center_horizontal|center" android:padding="@dimen/paddinglow" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Package (MRP)" android:layout_weight="1" android:fontFamily="@font/josefinsans_regular"/>
@@ -168,7 +183,7 @@
                         </LinearLayout>
                         <LinearLayout android:layout_gravity="center" android:orientation="horizontal" android:id="@+id/discount_field" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content">
                             <TextView android:textSize="@dimen/bigtext" android:textColor="@color/black" android:layout_gravity="left|center_vertical|center_horizontal|center" android:padding="@dimen/paddinglow" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Discount Amount" android:layout_weight="1" android:fontFamily="@font/josefinsans_regular"/>
-                            <TextView android:textSize="@dimen/bigtext" android:textColor="@color/black" android:layout_gravity="left|center_vertical|center_horizontal|center" android:id="@+id/discount_amount1" android:padding="@dimen/paddinglow" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_weight="1" android:fontFamily="@font/josefinsans_regular"/>
+                            <TextView android:textSize="@dimen/heading" android:textColor="@color/black" android:layout_gravity="left|center_vertical|center_horizontal|center" android:id="@+id/discount_amount1" android:padding="@dimen/paddinglow" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_weight="1" android:fontFamily="@font/josefinsans_regular"/>
                         </LinearLayout>
                         <LinearLayout android:layout_gravity="center" android:orientation="horizontal" android:id="@+id/fine_field" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content">
                             <TextView android:textSize="@dimen/bigtext" android:textColor="@color/black" android:layout_gravity="left|center_vertical|center_horizontal|center" android:padding="@dimen/paddinglow" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Fine Amount" android:layout_weight="1" android:fontFamily="@font/josefinsans_regular"/>
@@ -181,7 +196,7 @@
                             <ImageView android:layout_gravity="left|center_vertical|center_horizontal|center" android:padding="@dimen/padding" android:visibility="gone" android:layout_width="30dp" android:layout_height="30dp" android:src="@drawable/ic_baseline_arrow_forward_ios_24" android:layout_alignParentRight="true" android:layout_centerVertical="true" android:rotation="90"/>
                         </LinearLayout>
                         <LinearLayout android:layout_gravity="center" android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content">
-                            <TextView android:textSize="@dimen/bigtext" android:textColor="@color/black" android:layout_gravity="left|center_vertical|center_horizontal|center" android:padding="@dimen/paddinglow" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Total :" android:layout_weight="1" android:fontFamily="@font/josefinsans_bold"/>
+                            <TextView android:textSize="@dimen/bigtext" android:textColor="@color/black" android:layout_gravity="left|center_vertical|center_horizontal|center" android:padding="@dimen/paddinglow" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Sub Total :" android:layout_weight="1" android:fontFamily="@font/josefinsans_bold"/>
                             <TextView android:textSize="@dimen/bigtext" android:textColor="@color/black" android:layout_gravity="left|center_vertical|center_horizontal|center" android:id="@+id/total1" android:padding="@dimen/paddinglow" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_weight="1" android:fontFamily="@font/josefinsans_bold"/>
                         </LinearLayout>
                         <LinearLayout android:id="@+id/tax_field1" android:layout_gravity="center" android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content">
@@ -200,40 +215,270 @@
                 </androidx.cardview.widget.CardView>
 
 
-                <androidx.cardview.widget.CardView android:id="@+id/subs_card" android:fitsSystemWindows="true" android:layout_width="match_parent" android:layout_height="wrap_content" android:elevation="7dp" app:cardBackgroundColor="@color/white" app:cardCornerRadius="9dp" app:cardElevation="7dp" app:cardPreventCornerOverlap="true" app:cardUseCompatPadding="true">
-                    <LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content">
-                        <TextView android:textSize="@dimen/heading" android:textColor="@color/white" android:gravity="center" android:layout_gravity="left|center_vertical|center_horizontal|center" android:id="@+id/subs_head" android:background="@color/colorPrimary" android:padding="@dimen/paddinghigh" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Monthly Subscription" android:fontFamily="@font/josefinsans_bold"/>
-                        <LinearLayout android:layout_gravity="center" android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content">
-                            <TextView android:textSize="@dimen/bigtext" android:textColor="@color/black" android:layout_gravity="left|center_vertical|center_horizontal|center" android:padding="@dimen/paddinglow" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Service Type" android:layout_weight="1" android:fontFamily="@font/josefinsans_regular"/>
-                            <TextView android:textSize="@dimen/bigtext" android:textColor="@color/black" android:layout_gravity="left|center_vertical|center_horizontal|center" android:id="@+id/service_type" android:padding="@dimen/paddinglow" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_weight="1" android:fontFamily="@font/josefinsans_regular"/>
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/subs_card"
+                    android:fitsSystemWindows="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:elevation="7dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="9dp"
+                    app:cardElevation="7dp"
+                    app:cardPreventCornerOverlap="true"
+                    app:cardUseCompatPadding="true">
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:textSize="@dimen/heading"
+                            android:textColor="@color/white"
+                            android:gravity="center"
+                            android:layout_gravity="left|center_vertical|center_horizontal|center"
+                            android:id="@+id/subs_head"
+                            android:background="@color/colorPrimary"
+                            android:padding="@dimen/paddinghigh"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Monthly Subscription"
+                            android:fontFamily="@font/josefinsans_bold"/>
+                        <LinearLayout
+                            android:layout_gravity="center"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:textSize="@dimen/bigtext"
+                                android:textColor="@color/black"
+                                android:layout_gravity="left|center_vertical|center_horizontal|center"
+                                android:padding="@dimen/paddinglow"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Service Type"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/josefinsans_regular"/>
+                            <TextView
+                                android:textSize="@dimen/bigtext"
+                                android:textColor="@color/black"
+                                android:layout_gravity="left|center_vertical|center_horizontal|center"
+                                android:id="@+id/service_type"
+                                android:padding="@dimen/paddinglow"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/josefinsans_regular"/>
                         </LinearLayout>
-                        <LinearLayout android:layout_gravity="center" android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content">
-                            <TextView android:textSize="@dimen/bigtext" android:textColor="@color/black" android:layout_gravity="left|center_vertical|center_horizontal|center" android:padding="@dimen/paddinglow" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Subscription Type" android:layout_weight="1" android:fontFamily="@font/josefinsans_regular"/>
-                            <TextView android:textSize="@dimen/bigtext" android:textColor="@color/black" android:layout_gravity="left|center_vertical|center_horizontal|center" android:id="@+id/subscription_type" android:padding="@dimen/paddinglow" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_weight="1" android:fontFamily="@font/josefinsans_regular"/>
+                        <LinearLayout
+                            android:layout_gravity="center"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:textSize="@dimen/bigtext"
+                                android:textColor="@color/black"
+                                android:layout_gravity="left|center_vertical|center_horizontal|center"
+                                android:padding="@dimen/paddinglow"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Subscription Type"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/josefinsans_regular"/>
+                            <TextView
+                                android:textSize="@dimen/bigtext"
+                                android:textColor="@color/black"
+                                android:layout_gravity="left|center_vertical|center_horizontal|center"
+                                android:id="@+id/subscription_type"
+                                android:padding="@dimen/paddinglow"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/josefinsans_regular"/>
                         </LinearLayout>
-                        <LinearLayout android:layout_gravity="center" android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content">
-                            <TextView android:textSize="@dimen/bigtext" android:textColor="@color/black" android:layout_gravity="left|center_vertical|center_horizontal|center" android:padding="@dimen/paddinglow" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Package Type" android:layout_weight="1" android:fontFamily="@font/josefinsans_regular"/>
-                            <TextView android:textSize="@dimen/bigtext" android:textColor="@color/black" android:layout_gravity="left|center_vertical|center_horizontal|center" android:id="@+id/package_type" android:padding="@dimen/paddinglow" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_weight="1" android:fontFamily="@font/josefinsans_regular"/>
+                        <LinearLayout
+                            android:layout_gravity="center"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:textSize="@dimen/bigtext"
+                                android:textColor="@color/black"
+                                android:layout_gravity="left|center_vertical|center_horizontal|center"
+                                android:padding="@dimen/paddinglow"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Package Type"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/josefinsans_regular"/>
+                            <TextView
+                                android:textAllCaps="true"
+                                android:textSize="@dimen/heading"
+                                android:textColor="@color/black"
+                                android:layout_gravity="left|center_vertical|center_horizontal|center"
+                                android:id="@+id/package_type"
+                                android:padding="@dimen/paddinglow"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/josefinsans_regular"/>
                         </LinearLayout>
-                        <LinearLayout android:layout_gravity="center" android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content">
-                            <TextView android:textSize="@dimen/bigtext" android:textColor="@color/black" android:layout_gravity="left|center_vertical|center_horizontal|center" android:padding="@dimen/paddinglow" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Package (MRP)" android:layout_weight="1" android:fontFamily="@font/josefinsans_regular"/>
-                            <TextView android:textSize="@dimen/bigtext" android:textColor="@color/black" android:layout_gravity="left|center_vertical|center_horizontal|center" android:id="@+id/package_mrp" android:padding="@dimen/paddinglow" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_weight="1" android:fontFamily="@font/josefinsans_regular"/>
+                        <LinearLayout
+                            android:layout_gravity="center"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:textSize="@dimen/bigtext"
+                                android:textColor="@color/black"
+                                android:layout_gravity="left|center_vertical|center_horizontal|center"
+                                android:padding="@dimen/paddinglow"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Package (MRP)"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/josefinsans_regular"/>
+                            <TextView
+                                android:textSize="@dimen/bigtext"
+                                android:textColor="@color/black"
+                                android:layout_gravity="left|center_vertical|center_horizontal|center"
+                                android:id="@+id/package_mrp"
+                                android:padding="@dimen/paddinglow"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/josefinsans_regular"/>
                         </LinearLayout>
-                        <LinearLayout android:layout_gravity="center" android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content">
-                            <TextView android:textSize="@dimen/bigtext" android:textColor="@color/black" android:layout_gravity="left|center_vertical|center_horizontal|center" android:padding="@dimen/paddinglow" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Total :" android:layout_weight="1" android:fontFamily="@font/josefinsans_bold"/>
-                            <TextView android:textSize="@dimen/bigtext" android:textColor="@color/black" android:layout_gravity="left|center_vertical|center_horizontal|center" android:id="@+id/total" android:padding="@dimen/paddinglow" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_weight="1" android:fontFamily="@font/josefinsans_bold"/>
+
+                        <LinearLayout
+                            android:layout_gravity="center"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:textSize="@dimen/bigtext"
+                                android:textColor="@color/black"
+                                android:layout_gravity="left|center_vertical|center_horizontal|center"
+                                android:padding="@dimen/paddinglow"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Sub Total :"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/josefinsans_bold"/>
+                            <TextView
+                                android:textSize="@dimen/bigtext"
+                                android:textColor="@color/black"
+                                android:layout_gravity="left|center_vertical|center_horizontal|center"
+                                android:id="@+id/total"
+                                android:padding="@dimen/paddinglow"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/josefinsans_bold"/>
                         </LinearLayout>
-                        <LinearLayout android:id="@+id/tax_field" android:layout_gravity="center" android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content">
-                            <TextView android:textSize="@dimen/bigtext" android:textColor="@color/black" android:layout_gravity="left|center_vertical|center_horizontal|center" android:id="@+id/tax_percentage" android:padding="@dimen/paddinglow" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Taxed :" android:layout_weight="1" android:fontFamily="@font/josefinsans_bold"/>
-                            <TextView android:textSize="@dimen/bigtext" android:textColor="@color/black" android:layout_gravity="left|center_vertical|center_horizontal|center" android:id="@+id/tax_total" android:padding="@dimen/paddinglow" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_weight="1" android:fontFamily="@font/josefinsans_bold"/>
+
+
+                        <LinearLayout
+                            android:id="@+id/tax_field"
+                            android:layout_gravity="center"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:textSize="@dimen/bigtext"
+                                android:textColor="@color/black"
+                                android:layout_gravity="left|center_vertical|center_horizontal|center"
+                                android:id="@+id/tax_percentage"
+                                android:padding="@dimen/paddinglow"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Taxed :"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/josefinsans_bold"/>
+                            <TextView
+                                android:textSize="@dimen/bigtext"
+                                android:textColor="@color/black"
+                                android:layout_gravity="left|center_vertical|center_horizontal|center"
+                                android:id="@+id/tax_total"
+                                android:padding="@dimen/paddinglow"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/josefinsans_bold"/>
                         </LinearLayout>
-                        <LinearLayout android:gravity="center" android:orientation="horizontal" android:id="@+id/bottom" android:background="@drawable/bg" android:layout_width="match_parent" android:layout_height="100dp" android:layout_alignParentBottom="true">
-                            <LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/marginhalf" android:layout_marginTop="@dimen/margin" android:layout_marginRight="@dimen/marginhalf" android:layout_marginBottom="@dimen/margin" android:layout_weight="1">
-                                <TextView android:textSize="@dimen/bigtext" android:textStyle="bold" android:textColor="#000" android:gravity="left|center_vertical|center_horizontal|center" android:layout_gravity="left|center_vertical|center_horizontal|center" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Total amount" android:layout_weight="1" android:fontFamily="@font/josefinsans_regular"/>
-                                <TextView android:textSize="@dimen/heading" android:textColor="#000" android:gravity="left|center_vertical|center_horizontal|center" android:layout_gravity="left|center_vertical|center_horizontal|center" android:id="@+id/total_amount" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Rs.0" android:layout_weight="1" android:fontFamily="@font/josefinsans_bold"/>
+
+
+                        <LinearLayout
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:id="@+id/bottom"
+                            android:background="@drawable/bg"
+                            android:layout_width="match_parent"
+                            android:layout_height="100dp"
+                            android:layout_alignParentBottom="true">
+                            <LinearLayout
+                                android:orientation="vertical"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/marginhalf"
+                                android:layout_marginTop="@dimen/margin"
+                                android:layout_marginRight="@dimen/marginhalf"
+                                android:layout_marginBottom="@dimen/margin"
+                                android:layout_weight="1">
+                                <TextView
+                                    android:textSize="@dimen/bigtext"
+                                    android:textStyle="bold"
+                                    android:textColor="#000"
+                                    android:gravity="left|center_vertical|center_horizontal|center"
+                                    android:layout_gravity="left|center_vertical|center_horizontal|center"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Total amount"
+                                    android:layout_weight="1"
+                                    android:fontFamily="@font/josefinsans_regular"/>
+                                <TextView
+                                    android:textSize="@dimen/heading"
+                                    android:textColor="#000"
+                                    android:gravity="left|center_vertical|center_horizontal|center"
+                                    android:layout_gravity="left|center_vertical|center_horizontal|center"
+                                    android:id="@+id/total_amount"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Rs.0"
+                                    android:layout_weight="1"
+                                    android:fontFamily="@font/josefinsans_bold"/>
                             </LinearLayout>
-                            <Button android:textSize="@dimen/bigtext" android:textStyle="bold" android:textColor="@color/white" android:visibility="gone" android:gravity="center" android:layout_gravity="center" android:id="@+id/paynow" android:background="@drawable/login_bg" android:paddingLeft="50dp" android:paddingRight="50dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="20dp" android:text="Pay Now" android:textAllCaps="true" android:fontFamily="@font/josefinsans_bold"/>
-                            <Button android:textSize="@dimen/bigtext" android:textStyle="bold" android:textColor="@color/white" android:gravity="center" android:layout_gravity="center" android:id="@+id/add_toCart1" android:background="@drawable/login_bg" android:paddingLeft="50dp" android:paddingRight="50dp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="20dp" android:text="Add to Cart" android:textAllCaps="true" android:fontFamily="@font/josefinsans_bold"/>
+                            <Button
+                                android:textSize="@dimen/bigtext"
+                                android:textStyle="bold"
+                                android:textColor="@color/white"
+                                android:visibility="gone"
+                                android:gravity="center"
+                                android:layout_gravity="center"
+                                android:id="@+id/paynow"
+                                android:background="@drawable/login_bg"
+                                android:paddingLeft="50dp"
+                                android:paddingRight="50dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="20dp"
+                                android:text="Pay Now"
+                                android:textAllCaps="true"
+                                android:fontFamily="@font/josefinsans_bold"/>
+                            <Button
+                                android:textSize="@dimen/bigtext"
+                                android:textStyle="bold"
+                                android:textColor="@color/white"
+                                android:gravity="center"
+                                android:layout_gravity="center"
+                                android:id="@+id/add_toCart1"
+                                android:background="@drawable/login_bg"
+                                android:paddingLeft="50dp"
+                                android:paddingRight="50dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="20dp"
+                                android:text="Add to Cart"
+                                android:textAllCaps="true"
+                                android:fontFamily="@font/josefinsans_bold"/>
                         </LinearLayout>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>

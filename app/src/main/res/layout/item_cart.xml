@@ -142,8 +142,8 @@
                             android:id="@+id/schedule_date"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:gravity="right"
-                            android:layout_gravity="center|right"
+                            android:gravity="left"
+                            android:layout_gravity="center|left"
                             android:textColor="@color/black"
                             android:fontFamily="@font/josefinsans_bold"
                             android:textSize="@dimen/bigtext"/>

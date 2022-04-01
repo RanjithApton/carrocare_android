@@ -105,8 +105,8 @@ public class RenewActivity extends AppCompatActivity {
         if(Constant.GST_PERCENTAGE != 0){
             binding.taxField.setVisibility(View.VISIBLE);
             binding.taxField1.setVisibility(View.VISIBLE);
-            binding.taxPercentage.setText("Taxes "+Constant.GST_PERCENTAGE+"%");
-            binding.taxPercentage1.setText("Taxes "+Constant.GST_PERCENTAGE+"%");
+            binding.taxPercentage.setText("Taxes ("+Constant.GST_PERCENTAGE+"%)");
+            binding.taxPercentage1.setText("Taxes ("+Constant.GST_PERCENTAGE+"%)");
         }else{
             binding.taxField.setVisibility(View.GONE);
             binding.taxField1.setVisibility(View.GONE);
@@ -208,7 +208,8 @@ public class RenewActivity extends AppCompatActivity {
                                 binding.preferDate1.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
                             }
                         }, year, month, day);
-                picker.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+                //picker.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+                picker.getDatePicker().setMinDate(System.currentTimeMillis()+24*60*60*1000);
                 picker.show();
             }
         });
