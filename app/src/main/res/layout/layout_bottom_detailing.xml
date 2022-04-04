@@ -223,6 +223,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:visibility="gone"
                     android:orientation="horizontal"
                     android:weightSum="2"
                     android:layout_width="match_parent"

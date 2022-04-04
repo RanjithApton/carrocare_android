@@ -54,6 +54,8 @@ public class MyOrdersAdapter extends RecyclerView.Adapter  {
 
         if(ordersList.get(position).status.equals("Cancel Requested")){
             viewHolder.status.setTextColor(context.getResources().getColor(R.color.red));
+        }else{
+            viewHolder.status.setTextColor(context.getResources().getColor(R.color.black));
         }
 
         if (ordersList.get(position).service_type.equalsIgnoreCase("Door step Wash") ||
@@ -62,6 +64,8 @@ public class MyOrdersAdapter extends RecyclerView.Adapter  {
             if(ordersList.get(position).status.equals("Cancel Requested")){
                 viewHolder.reason_ll.setVisibility(View.VISIBLE);
                 viewHolder.reason_txt.setText(ordersList.get(position).reason);
+            }else{
+                viewHolder.reason_ll.setVisibility(View.GONE);
             }
         }
 
