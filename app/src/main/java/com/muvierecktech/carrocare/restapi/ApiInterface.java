@@ -307,7 +307,7 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST("doorstep_details.php")
-    Call<DoorStepCarWash> doorStepService(@Field("action") String action);
+    Call<DoorStepCarWash> doorStepService(@Field("action") String action, @Field("type") String type);
 
     @FormUrlEncoded
     @POST("save_order.php")

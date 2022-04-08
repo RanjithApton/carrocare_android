@@ -150,6 +150,8 @@ public class ForgetActivity extends AppCompatActivity {
                                 }
                             }
                         });
+                    }else if (jsonObject.optString("code").equalsIgnoreCase("201")) {
+                        Toast.makeText(ForgetActivity.this,jsonObject.optString("message"), Toast.LENGTH_SHORT).show();
                     }
                 }catch (JSONException e) {
                         e.printStackTrace();
