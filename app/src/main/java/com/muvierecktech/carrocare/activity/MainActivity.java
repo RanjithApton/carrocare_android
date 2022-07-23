@@ -13,6 +13,7 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -187,6 +188,89 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         work();
+
+
+        // Doorstep service 23-07-2022
+        binding.myVechicle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,MyVehiclesActivity.class);
+                startActivity(intent);
+            }
+        });
+        binding.carWash.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (TextUtils.isEmpty(apartname) || apartname == null || apartname.equalsIgnoreCase("null")){
+                    Constant.LOAD_FROM = "main";
+                    Intent intent = new Intent(MainActivity.this,ProfileActivity.class);
+                    startActivity(intent);
+                    finish();
+                }else {
+                    Intent intent = new Intent(MainActivity.this,CarWashActivity.class);
+                    //intent.putExtra("headername", Constant.WASH);
+                    startActivity(intent);
+                }
+            }
+        });
+        binding.carDisinfection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (TextUtils.isEmpty(apartname) || apartname == null || apartname.equalsIgnoreCase("null")){
+                    Constant.LOAD_FROM = "main";
+                    Intent intent = new Intent(MainActivity.this,ProfileActivity.class);
+                    startActivity(intent);
+                    finish();
+                }else {
+                    Intent intent = new Intent(MainActivity.this,DisinfectionActivity.class);
+                    //intent.putExtra("headername", Constant.WASH);
+                    startActivity(intent);
+                }
+            }
+        });
+        binding.bikeWash.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                if (TextUtils.isEmpty(apartname) || apartname == null || apartname.equalsIgnoreCase("null")) {
+                    Constant.LOAD_FROM = "main";
+                    Intent intent = new Intent(MainActivity.this,ProfileActivity.class);
+                    startActivity(intent);
+                    finish();
+                }else {
+                    Intent intent = new Intent(MainActivity.this,BikeWashActivity.class);
+                    //intent.putExtra("headername", Constant.BWASH);
+                    startActivity(intent);
+                }
+            }
+        });
+        binding.carService.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (TextUtils.isEmpty(apartname) || apartname == null || apartname.equalsIgnoreCase("null")){
+                    Constant.LOAD_FROM = "main";
+                    Intent intent = new Intent(MainActivity.this,ProfileActivity.class);
+                    startActivity(intent);
+                    finish();
+                }else {
+                    Intent intent = new Intent(MainActivity.this,AddOnActivity.class);
+                    //intent.putExtra("headername",Constant.ADDON);
+                    startActivity(intent);
+                }
+            }
+        });
+        binding.extraInterior.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                if (TextUtils.isEmpty(apartname) || apartname == null || apartname.equalsIgnoreCase("null")){
+                    Constant.LOAD_FROM = "main";
+                    Intent intent = new Intent(MainActivity.this,ProfileActivity.class);
+                    startActivity(intent);
+                    finish();
+                }else {
+                    Intent intent = new Intent(MainActivity.this, ExtraInteriorActivity.class);
+                    //intent.putExtra("headername",Constant.EXTRAINT);
+                    startActivity(intent);
+                }
+            }
+        });
 
     }
 

@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "1063808094094-75qfuvo47uukqnd9d3vq30n0nd9n7tjd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.muvierecktech.carrocare",
+            "certificate_hash": "d71f26f655456163b2af15a16a0eb4dbd1099435"
+          }
+        },
+        {
           "client_id": "1063808094094-b5c3o79kh8ejcfpo0g1lthtd9v9ea47p.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

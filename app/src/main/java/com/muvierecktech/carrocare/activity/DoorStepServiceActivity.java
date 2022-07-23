@@ -25,6 +25,7 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.net.ConnectivityManager;
@@ -1267,24 +1268,42 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
                 Constant.ONETIME_ADDITIONAL = "Painting";
                 //apicall();
 
-                String phoneNumberWithCountryCode = "+917904015630";
-                String message = "Hi Carrocare team.\n I want more information about Doorstep painting";
+                try{
 
-                boolean isWhatsappInstalled = whatsappInstalledOrNot("com.whatsapp");
-                if (isWhatsappInstalled) {
-                    startActivity(
-                            new Intent(Intent.ACTION_VIEW,
-                                    Uri.parse(
-                                            String.format("https://api.whatsapp.com/send?phone=%s&text=%s", phoneNumberWithCountryCode, message)
-                                    )
-                            )
-                    );
-                }else {
-                    Toast.makeText(DoorStepServiceActivity.this, "WhatsApp not Installed", Toast.LENGTH_SHORT).show();
-//                    Uri uri = Uri.parse("market://details?id=com.whatsapp");
-//                    Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
-//                    startActivity(goToMarket);
+                    String whatsapp_number = "+917904015630";
+                    String message = "Hi Carrocare team.\n I want more information about Doorstep painting";
+                    PackageManager packageManager = getApplicationContext().getPackageManager();
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    String url = "https://api.whatsapp.com/send?phone="+ whatsapp_number +"&text=" + URLEncoder.encode(message, "UTF-8");
+                    i.setPackage(isAppInstalled());
+                    i.setData(Uri.parse(url));
+                    if (i.resolveActivity(packageManager) != null) {
+                        startActivity(i);
+                    }else {
+                        Toast.makeText(DoorStepServiceActivity.this, "Whatsapp not installed.", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
+
+//                String phoneNumberWithCountryCode = "+917904015630";
+//
+//
+//                boolean isWhatsappInstalled = whatsappInstalledOrNot("com.whatsapp");
+//                if (isWhatsappInstalled) {
+//                    startActivity(
+//                            new Intent(Intent.ACTION_VIEW,
+//                                    Uri.parse(
+//                                            String.format("https://api.whatsapp.com/send?phone=%s&text=%s", phoneNumberWithCountryCode, message)
+//                                    )
+//                            )
+//                    );
+//                }else {
+//                    Toast.makeText(DoorStepServiceActivity.this, "WhatsApp not Installed", Toast.LENGTH_SHORT).show();
+////                    Uri uri = Uri.parse("market://details?id=com.whatsapp");
+////                    Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
+////                    startActivity(goToMarket);
+//                }
             }
         });
 
@@ -1325,29 +1344,62 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
                 Constant.ONETIME_ADDITIONAL = "battery";
                 //apicall();
                 bottomSheetDialog.dismiss();
-                String phoneNumberWithCountryCode = "+917904015630";
-                String message = "Hi Carrocare team.\n I want more information about Doorstep battery changing";
 
-                boolean isWhatsappInstalled = whatsappInstalledOrNot("com.whatsapp");
-                if (isWhatsappInstalled) {
-                    startActivity(
-                            new Intent(Intent.ACTION_VIEW,
-                                    Uri.parse(
-                                            String.format("https://api.whatsapp.com/send?phone=%s&text=%s", phoneNumberWithCountryCode, message)
-                                    )
-                            )
-                    );
-                }else {
-                    Toast.makeText(DoorStepServiceActivity.this, "WhatsApp not Installed", Toast.LENGTH_SHORT).show();
-//                    Uri uri = Uri.parse("market://details?id=com.whatsapp");
-//                    Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
-//                    startActivity(goToMarket);
+                try{
+
+                    String whatsapp_number = "+917904015630";
+                    String message = "Hi Carrocare team.\n I want more information about Doorstep battery changing";
+                    PackageManager packageManager = getApplicationContext().getPackageManager();
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    String url = "https://api.whatsapp.com/send?phone="+ whatsapp_number +"&text=" + URLEncoder.encode(message, "UTF-8");
+                    i.setPackage(isAppInstalled());
+                    i.setData(Uri.parse(url));
+                    if (i.resolveActivity(packageManager) != null) {
+                        startActivity(i);
+                    }else {
+                        Toast.makeText(DoorStepServiceActivity.this, "Whatsapp not installed.", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
+
+//                String phoneNumberWithCountryCode = "+917904015630";
+//                String message = "Hi Carrocare team.\n I want more information about Doorstep battery changing";
+//
+//                boolean isWhatsappInstalled = whatsappInstalledOrNot("com.whatsapp");
+//                if (isWhatsappInstalled) {
+//                    startActivity(
+//                            new Intent(Intent.ACTION_VIEW,
+//                                    Uri.parse(
+//                                            String.format("https://api.whatsapp.com/send?phone=%s&text=%s", phoneNumberWithCountryCode, message)
+//                                    )
+//                            )
+//                    );
+//                }else {
+//                    Toast.makeText(DoorStepServiceActivity.this, "WhatsApp not Installed", Toast.LENGTH_SHORT).show();
+////                    Uri uri = Uri.parse("market://details?id=com.whatsapp");
+////                    Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
+////                    startActivity(goToMarket);
+//                }
             }
         });
 
         bottomSheetDialog.setContentView(bottomview);
         bottomSheetDialog.show();
+    }
+
+    private String isAppInstalled() {
+        String app_installed = null;
+        PackageManager packageManager = getApplicationContext().getPackageManager();
+        for (PackageInfo packageInfo : packageManager.getInstalledPackages(0)) {
+            if(packageInfo.packageName.equals("com.whatsapp.w4b")){
+                app_installed ="com.whatsapp.w4b";
+            } else if (packageInfo.packageName.equals("com.whatsapp")) {
+                app_installed ="com.whatsapp";
+            }
+            return app_installed;
+        }
+        return app_installed;
     }
 
     public void pickDateTime() {

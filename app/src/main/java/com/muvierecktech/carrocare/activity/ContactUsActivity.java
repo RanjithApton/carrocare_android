@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 
 import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -32,6 +33,7 @@ import com.muvierecktech.carrocare.restapi.ApiInterface;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -91,30 +93,65 @@ public class ContactUsActivity extends AppCompatActivity
         binding.whatsapp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String phoneNumberWithCountryCode = "+917904015630";
-                String message = "Hi Carrocare team...";
 
-                boolean isWhatsappInstalled = whatsappInstalledOrNot("com.whatsapp");
-                if (isWhatsappInstalled) {
-                    startActivity(
-                            new Intent(Intent.ACTION_VIEW,
-                                    Uri.parse(
-                                            String.format("https://api.whatsapp.com/send?phone=%s&text=%s", phoneNumberWithCountryCode, message)
-                                    )
-                            )
-                    );
-                }else {
-                    Toast.makeText(ContactUsActivity.this, "WhatsApp not Installed", Toast.LENGTH_SHORT).show();
-//                    Uri uri = Uri.parse("market://details?id=com.whatsapp");
-//                    Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
-//                    startActivity(goToMarket);
+
+
+                try{
+
+                    String whatsapp_number = "+917904015630";
+                    String message = "Hi Carrocare team ";
+                    PackageManager packageManager = getApplicationContext().getPackageManager();
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    String url = "https://api.whatsapp.com/send?phone="+ whatsapp_number +"&text=" + URLEncoder.encode(message, "UTF-8");
+                    i.setPackage(isAppInstalled());
+                    i.setData(Uri.parse(url));
+                    if (i.resolveActivity(packageManager) != null) {
+                        startActivity(i);
+                    }else {
+                        Toast.makeText(ContactUsActivity.this, "Whatsapp not installed.", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
+
+//                String phoneNumberWithCountryCode = "+917904015630";
+//                String message = "Hi Carrocare team...";
+//
+//                boolean isWhatsappInstalled = whatsappInstalledOrNot("com.whatsapp");
+//                if (isWhatsappInstalled) {
+//                    startActivity(
+//                            new Intent(Intent.ACTION_VIEW,
+//                                    Uri.parse(
+//                                            String.format("https://api.whatsapp.com/send?phone=%s&text=%s", phoneNumberWithCountryCode, message)
+//                                    )
+//                            )
+//                    );
+//                }else {
+//                    Toast.makeText(ContactUsActivity.this, "WhatsApp not Installed", Toast.LENGTH_SHORT).show();
+////                    Uri uri = Uri.parse("market://details?id=com.whatsapp");
+////                    Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
+////                    startActivity(goToMarket);
+//                }
             }
         });
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
 //        MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
 //        mapFragment.getMapAsync(this);
+    }
+
+    private String isAppInstalled() {
+        String app_installed = null;
+        PackageManager packageManager = getApplicationContext().getPackageManager();
+        for (PackageInfo packageInfo : packageManager.getInstalledPackages(0)) {
+            if(packageInfo.packageName.equals("com.whatsapp.w4b")){
+                app_installed ="com.whatsapp.w4b";
+            } else if (packageInfo.packageName.equals("com.whatsapp")) {
+                app_installed ="com.whatsapp";
+            }
+            return app_installed;
+        }
+        return app_installed;
     }
 
     private boolean whatsappInstalledOrNot(String uri) {

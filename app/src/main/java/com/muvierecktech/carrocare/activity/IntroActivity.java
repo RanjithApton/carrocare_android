@@ -30,6 +30,8 @@ public class IntroActivity extends AppCompatActivity {
         HashMap<String,String> hashMap = sessionManager.getUserDetails();
         accesstoken = hashMap.get(SessionManager.KEY_TOKEN);
 
+        sessionManager.setData(SessionManager.USER_WANTS,"apartment");
+
         /*started thread*/
         Runnable threadJob = new MyRunnable();
         startThread = new Thread(threadJob);
