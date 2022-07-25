@@ -27,6 +27,7 @@ import com.kaopiz.kprogresshud.KProgressHUD;
 import com.muvierecktech.carrocare.R;
 import com.muvierecktech.carrocare.adapter.MakeModelAdapter;
 import com.muvierecktech.carrocare.adapter.VechicleCategoryAdapter;
+import com.muvierecktech.carrocare.common.ApiConfig;
 import com.muvierecktech.carrocare.common.Constant;
 import com.muvierecktech.carrocare.common.SessionManager;
 import com.muvierecktech.carrocare.databinding.ActivityMapAddVechileBinding;
@@ -160,19 +161,22 @@ public class MapAddVechileActivity extends AppCompatActivity implements View.OnC
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                JsonElement jsonElement = response.body();
                 hud.dismiss();
                 try {
-                    JSONObject jsonObject = new JSONObject(jsonElement.toString());
-                    if (jsonObject.optString("code").equalsIgnoreCase("200")) {
-                        Gson gson = new Gson();
-                        Toast.makeText(MapAddVechileActivity.this, jsonObject.optString("message"), Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(MapAddVechileActivity.this,DoorStepServiceActivity.class));
-                        finish();
-                    } else {
-                        Toast.makeText(MapAddVechileActivity.this, jsonObject.optString("message"), Toast.LENGTH_SHORT).show();
+                    if(response.isSuccessful()){
+                        JsonElement jsonElement = response.body();
+                        JSONObject jsonObject = new JSONObject(jsonElement.toString());
+                        if (jsonObject.optString("code").equalsIgnoreCase("200")) {
+                            Gson gson = new Gson();
+                            Toast.makeText(MapAddVechileActivity.this, jsonObject.optString("message"), Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(MapAddVechileActivity.this,DoorStepServiceActivity.class));
+                            finish();
+                        } else {
+                            Toast.makeText(MapAddVechileActivity.this, jsonObject.optString("message"), Toast.LENGTH_SHORT).show();
+                        }
+                    } else{
+                        ApiConfig.responseToast(MapAddVechileActivity.this, response.code());
                     }
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -236,18 +240,26 @@ public class MapAddVechileActivity extends AppCompatActivity implements View.OnC
         call.enqueue(new Callback<MakeModelList>() {
             @Override
             public void onResponse(Call<MakeModelList> call, Response<MakeModelList> response) {
-                makeModelList = response.body();
                 hud.dismiss();
-                if (makeModelList.code.equalsIgnoreCase("200")) {
-                    Gson gson = new Gson();
-                    String json = gson.toJson(makeModelList);
-                    vehicleList = makeModelList.vehicle;
-                    for (int i = 0; i < vehicleList.size(); i++) {
-                        makemodel.addAll(Collections.singleton(vehicleList.get(i).vehicle_make + "-" + vehicleList.get(i).vehicle_model));
-                    }
+                try{
+                    if(response.isSuccessful()){
+                        makeModelList = response.body();
+                        if (makeModelList.code.equalsIgnoreCase("200")) {
+                            Gson gson = new Gson();
+                            String json = gson.toJson(makeModelList);
+                            vehicleList = makeModelList.vehicle;
+                            for (int i = 0; i < vehicleList.size(); i++) {
+                                makemodel.addAll(Collections.singleton(vehicleList.get(i).vehicle_make + "-" + vehicleList.get(i).vehicle_model));
+                            }
 
-                }else if (makeModelList.code.equalsIgnoreCase("201")){
-                    Toast.makeText(MapAddVechileActivity.this,makeModelList.message,Toast.LENGTH_SHORT).show();
+                        }else if (makeModelList.code.equalsIgnoreCase("201")){
+                            Toast.makeText(MapAddVechileActivity.this,makeModelList.message,Toast.LENGTH_SHORT).show();
+                        }
+                    } else{
+                        ApiConfig.responseToast(MapAddVechileActivity.this, response.code());
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
             @Override

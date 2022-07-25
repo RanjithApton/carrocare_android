@@ -28,6 +28,7 @@ import com.google.gson.JsonObject;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.muvierecktech.carrocare.R;
 import com.muvierecktech.carrocare.adapter.PreferredTimeAdapter;
+import com.muvierecktech.carrocare.common.ApiConfig;
 import com.muvierecktech.carrocare.common.Constant;
 import com.muvierecktech.carrocare.common.SessionManager;
 import com.muvierecktech.carrocare.databinding.ActivityCalenderBinding;
@@ -244,73 +245,81 @@ public class CalenderActivity extends AppCompatActivity {
         call.enqueue(new Callback<VehicleExtraList>() {
             @Override
             public void onResponse(Call<VehicleExtraList> call, Response<VehicleExtraList> response) {
-                final VehicleExtraList vehicleExtraList = response.body();
                 hud.dismiss();
-                if (vehicleExtraList.code.equalsIgnoreCase("200")) {
-                    Gson gson = new Gson();
-                    String json = gson.toJson(vehicleExtraList);
+                try{
+                    if(response.isSuccessful()){
+                        final VehicleExtraList vehicleExtraList = response.body();
+                        if (vehicleExtraList.code.equalsIgnoreCase("200")) {
+                            Gson gson = new Gson();
+                            String json = gson.toJson(vehicleExtraList);
 //                    binding.noorders.setVisibility(View.GONE);
 //                    binding..setVisibility(View.VISIBLE);
-                    extraInteriors = vehicleExtraList.extra_interior;
-                    try {
-                        for (int i = 0 ; i < extraInteriors.size(); i++) {
-                            @SuppressLint("SimpleDateFormat") DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-                            Calendar calendar = Calendar.getInstance();
-                            Date datestart;
-                            datestart = formatter.parse(extraInteriors.get(i).schedule_date);
-                            calendar.setTime(datestart);
-                            binding.calendarView.setDate(calendar);
-                            mEventDays.add(new EventDay(calendar, R.drawable.car_wash));
-                        }
-                        binding.calendarView.setEvents(mEventDays);
-                        Log.e("Event", String.valueOf(mEventDays));
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-
-                    binding.calendarView.setOnDayClickListener(new OnDayClickListener() {
-                        @Override
-                        public void onDayClick(EventDay eventDay) {
+                            extraInteriors = vehicleExtraList.extra_interior;
                             try {
-                                if (eventDay.getImageResource() == R.drawable.car_wash) {
-                                    for (int i = 0; i < extraInteriors.size(); i++) {
-                                        @SuppressLint("SimpleDateFormat") DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-                                        Calendar calendar = Calendar.getInstance();
-                                        Date datestart;
-                                        datestart = formatter.parse(extraInteriors.get(i).schedule_date);
-                                        calendar.setTime(datestart);
-                                        Log.e("CALENDAREXTRA", calendar.toString() + "****" + eventDay);
-                                        if (eventDay.getCalendar().equals(calendar)) {
-                                            if (extraInteriors.get(i).schedule_date.equalsIgnoreCase("No")) {
-                                                previewPopup1("Internal Clean", "No Data Found");
-                                            } else {
-                                                CalenderActivity calenderActivity = CalenderActivity.this;
-                                                String str = extraInteriors.get(i).vehicle_image;
-                                                previewPopup(str, "Internal Clean", "Wash Date : " + extraInteriors.get(i).schedule_date,"");
-                                            }
-                                        }
-                                        /*if (eventDay.getCalendar().equals(calendar)) {
-                                            previewPopup(extraInteriors.get(i).vehicle_image, "Internal Clean");
-                                        }*/
-                                    }
+                                for (int i = 0 ; i < extraInteriors.size(); i++) {
+                                    @SuppressLint("SimpleDateFormat") DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                                    Calendar calendar = Calendar.getInstance();
+                                    Date datestart;
+                                    datestart = formatter.parse(extraInteriors.get(i).schedule_date);
+                                    calendar.setTime(datestart);
+                                    binding.calendarView.setDate(calendar);
+                                    mEventDays.add(new EventDay(calendar, R.drawable.car_wash));
                                 }
-
+                                binding.calendarView.setEvents(mEventDays);
+                                Log.e("Event", String.valueOf(mEventDays));
                             } catch (ParseException e) {
                                 e.printStackTrace();
                             }
-                        }
-                    });
+
+                            binding.calendarView.setOnDayClickListener(new OnDayClickListener() {
+                                @Override
+                                public void onDayClick(EventDay eventDay) {
+                                    try {
+                                        if (eventDay.getImageResource() == R.drawable.car_wash) {
+                                            for (int i = 0; i < extraInteriors.size(); i++) {
+                                                @SuppressLint("SimpleDateFormat") DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                                                Calendar calendar = Calendar.getInstance();
+                                                Date datestart;
+                                                datestart = formatter.parse(extraInteriors.get(i).schedule_date);
+                                                calendar.setTime(datestart);
+                                                Log.e("CALENDAREXTRA", calendar.toString() + "****" + eventDay);
+                                                if (eventDay.getCalendar().equals(calendar)) {
+                                                    if (extraInteriors.get(i).schedule_date.equalsIgnoreCase("No")) {
+                                                        previewPopup1("Internal Clean", "No Data Found");
+                                                    } else {
+                                                        CalenderActivity calenderActivity = CalenderActivity.this;
+                                                        String str = extraInteriors.get(i).vehicle_image;
+                                                        previewPopup(str, "Internal Clean", "Wash Date : " + extraInteriors.get(i).schedule_date,"");
+                                                    }
+                                                }
+                                        /*if (eventDay.getCalendar().equals(calendar)) {
+                                            previewPopup(extraInteriors.get(i).vehicle_image, "Internal Clean");
+                                        }*/
+                                            }
+                                        }
+
+                                    } catch (ParseException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            });
 
 //                    MyOrdersAdapter mainAdapter = new MyOrdersAdapter(CalenderActivity.this,ordersList.orders);
 //                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(CalenderActivity.this,LinearLayoutManager.VERTICAL,false);
 //                    binding.ordersRc.setLayoutManager(linearLayoutManager);
 //                    binding.ordersRc.setAdapter(mainAdapter);
 
-                }else  if (vehicleExtraList.code.equalsIgnoreCase("203")) {
-                    sessionManager.logoutUsers();
-                }else  if (vehicleExtraList.code.equalsIgnoreCase("201")){
+                        }else  if (vehicleExtraList.code.equalsIgnoreCase("203")) {
+                            sessionManager.logoutUsers();
+                        }else  if (vehicleExtraList.code.equalsIgnoreCase("201")){
 
-                    Toast.makeText(CalenderActivity.this,vehicleExtraList.message,Toast.LENGTH_SHORT).show();
+                            Toast.makeText(CalenderActivity.this,vehicleExtraList.message,Toast.LENGTH_SHORT).show();
+                        }
+                    } else{
+                        ApiConfig.responseToast(CalenderActivity.this, response.code());
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
             @Override
@@ -389,20 +398,23 @@ public class CalenderActivity extends AppCompatActivity {
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                JsonElement jsonElement = response.body();
                 hud.dismiss();
                 try {
-                    JSONObject jsonObject = new JSONObject(jsonElement.toString());
-                    if (jsonObject.optString("code").equalsIgnoreCase("200")) {
-                        Gson gson = new Gson();
-                        Toast.makeText(CalenderActivity.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
-                        finish();
-                    }else  if (jsonObject.optString("code").equalsIgnoreCase("203")) {
-                        sessionManager.logoutUsers();
-                    }else  if (jsonObject.optString("code").equalsIgnoreCase("201")){
-                        Toast.makeText(CalenderActivity.this,jsonObject.optString("message"),Toast.LENGTH_SHORT).show();
+                    if(response.isSuccessful()){
+                        JsonElement jsonElement = response.body();
+                        JSONObject jsonObject = new JSONObject(jsonElement.toString());
+                        if (jsonObject.optString("code").equalsIgnoreCase("200")) {
+                            Gson gson = new Gson();
+                            Toast.makeText(CalenderActivity.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
+                            finish();
+                        }else  if (jsonObject.optString("code").equalsIgnoreCase("203")) {
+                            sessionManager.logoutUsers();
+                        }else  if (jsonObject.optString("code").equalsIgnoreCase("201")){
+                            Toast.makeText(CalenderActivity.this,jsonObject.optString("message"),Toast.LENGTH_SHORT).show();
+                        }
+                    } else{
+                        ApiConfig.responseToast(CalenderActivity.this, response.code());
                     }
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -531,138 +543,146 @@ public class CalenderActivity extends AppCompatActivity {
         call.enqueue(new Callback<VehicleWashList>() {
             @Override
             public void onResponse(Call<VehicleWashList> call, Response<VehicleWashList> response) {
-                final VehicleWashList vehicleWashList = response.body();
                 hud.dismiss();
-                if (vehicleWashList.code.equalsIgnoreCase("200")) {
-                    Gson gson = new Gson();
-                    String json = gson.toJson(vehicleWashList);
-                    washDetails = vehicleWashList.wash_details;
-                        try {
-                            for (int i = 0 ; i < washDetails.size(); i++) {
-                                @SuppressLint("SimpleDateFormat") DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-                                Calendar calendar = Calendar.getInstance();
-                                Date datestart;
-                                datestart = formatter.parse(washDetails.get(i).date);
-                                calendar.setTime(datestart);
-                                binding.calendarView.setDate(calendar);
-                                mEventDays.add(new EventDay(calendar, R.drawable.car_wash));
-                            }
-                            binding.calendarView.setEvents(mEventDays);
-                            Log.e("Event", String.valueOf(mEventDays));
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-                    extraDetails = vehicleWashList.internal_details;
-                    try {
-                        for (int i = 0 ; i < extraDetails.size(); i++) {
-                            @SuppressLint("SimpleDateFormat") DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-                            Calendar calendar = Calendar.getInstance();
-                            Calendar calendar1 = Calendar.getInstance();
-                            Date datestart,dateend;
-                            if (!TextUtils.isEmpty(extraDetails.get(i).schedule_date1)){
-                                datestart = formatter.parse(extraDetails.get(i).schedule_date1);
-                                calendar.setTime(datestart);
-                                binding.calendarView.setDate(calendar);
-                                mEventDays.add(new EventDay(calendar, R.drawable.car_extra));
-                            }
-                            if (!TextUtils.isEmpty(extraDetails.get(i).schedule_date2)){
-                                dateend = formatter.parse(extraDetails.get(i).schedule_date2);
-                                calendar1.setTime(dateend);
-                                binding.calendarView.setDate(calendar1);
-                                mEventDays.add(new EventDay(calendar1, R.drawable.car_extra));
-                            }
-                            if (!TextUtils.isEmpty(extraDetails.get(i).schedule_date1) && !TextUtils.isEmpty(extraDetails.get(i).schedule_date2)){
-                                binding.addinternal.setVisibility(View.GONE);
-                            }else {
-                                binding.addinternal.setVisibility(View.VISIBLE);
-                                final int finalI = i;
-                                binding.submit.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                        if (binding.preferDate.getText().toString().length()>0 && binding.preferredtimeEdt.getText().toString().length()>0){
-                                            if(TextUtils.isEmpty(extraDetails.get(finalI).schedule_date1) && TextUtils.isEmpty(extraDetails.get(finalI).schedule_date2)){
-                                                workinternal("1",extraDetails.get(finalI).id);
-                                            }else if(!TextUtils.isEmpty(extraDetails.get(finalI).schedule_date1) && TextUtils.isEmpty(extraDetails.get(finalI).schedule_date2)){
-                                                workinternal("2",extraDetails.get(finalI).id);
-                                            }
-                                        }else {
-                                            Toast.makeText(CalenderActivity.this,Constant.CHOOSEDATETIME,Toast.LENGTH_SHORT).show();
-                                        }
-                                    }
-                                });
-                            }
-                        }
-                        binding.calendarView.setEvents(mEventDays);
-                        Log.e("Event", String.valueOf(mEventDays));
-
-
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-
-                    binding.calendarView.setOnDayClickListener(new OnDayClickListener() {
-                        @Override
-                        public void onDayClick(EventDay eventDay) {
+                try{
+                    if(response.isSuccessful()){
+                        final VehicleWashList vehicleWashList = response.body();
+                        if (vehicleWashList.code.equalsIgnoreCase("200")) {
+                            Gson gson = new Gson();
+                            String json = gson.toJson(vehicleWashList);
+                            washDetails = vehicleWashList.wash_details;
                             try {
-                                if (eventDay.getImageResource() == R.drawable.car_wash) {
-                                    for (int i = 0; i < washDetails.size(); i++) {
-                                        @SuppressLint("SimpleDateFormat") DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-                                        Calendar calendar = Calendar.getInstance();
-                                        Date datestart;
-                                        datestart = formatter.parse(washDetails.get(i).date);
+                                for (int i = 0 ; i < washDetails.size(); i++) {
+                                    @SuppressLint("SimpleDateFormat") DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                                    Calendar calendar = Calendar.getInstance();
+                                    Date datestart;
+                                    datestart = formatter.parse(washDetails.get(i).date);
+                                    calendar.setTime(datestart);
+                                    binding.calendarView.setDate(calendar);
+                                    mEventDays.add(new EventDay(calendar, R.drawable.car_wash));
+                                }
+                                binding.calendarView.setEvents(mEventDays);
+                                Log.e("Event", String.valueOf(mEventDays));
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+                            extraDetails = vehicleWashList.internal_details;
+                            try {
+                                for (int i = 0 ; i < extraDetails.size(); i++) {
+                                    @SuppressLint("SimpleDateFormat") DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                                    Calendar calendar = Calendar.getInstance();
+                                    Calendar calendar1 = Calendar.getInstance();
+                                    Date datestart,dateend;
+                                    if (!TextUtils.isEmpty(extraDetails.get(i).schedule_date1)){
+                                        datestart = formatter.parse(extraDetails.get(i).schedule_date1);
                                         calendar.setTime(datestart);
-                                        Log.e("CALENDARWASH", calendar.toString() + "****" + eventDay);
-                                        if (eventDay.getCalendar().equals(calendar)) {
-                                            previewPopup(washDetails.get(i).vehicle_image, "External Wash", washDetails.get(i).date,"");
-                                        }
+                                        binding.calendarView.setDate(calendar);
+                                        mEventDays.add(new EventDay(calendar, R.drawable.car_extra));
                                     }
-                                }else if (eventDay.getImageResource() == R.drawable.car_extra) {
-                                    for (int i = 0; i < extraDetails.size(); i++) {
-                                        @SuppressLint("SimpleDateFormat") DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-                                        Calendar calendar = Calendar.getInstance();
-                                        Calendar calendar1 = Calendar.getInstance();
-                                        Date datestart, dateend;
-//                                    datestart = formatter.parse(extraDetails.get(i).updated_date);
-//                                    calendar.setTime(datestart);
-                                        if (!TextUtils.isEmpty(extraDetails.get(i).schedule_date1)) {
-                                            datestart = formatter.parse(extraDetails.get(i).schedule_date1);
-                                            calendar.setTime(datestart);
-                                        }
-                                        if (!TextUtils.isEmpty(extraDetails.get(i).schedule_date2)) {
-                                            dateend = formatter.parse(extraDetails.get(i).schedule_date2);
-                                            calendar1.setTime(dateend);
-                                        }
-                                        if (eventDay.getCalendar().equals(calendar)) {
-                                            if (extraDetails.get(i).schedule_work_status1.equalsIgnoreCase("No")) {
-                                                previewPopup1("Inrernal Wash", "No Data Found");
-                                            } else {
-                                                String str = extraDetails.get(i).vehicle_image1;
-                                                previewPopup(str, "Internal Wash", "Wash Date : " + extraDetails.get(i).schedule_date1,"Washed Status: Cleaned");
+                                    if (!TextUtils.isEmpty(extraDetails.get(i).schedule_date2)){
+                                        dateend = formatter.parse(extraDetails.get(i).schedule_date2);
+                                        calendar1.setTime(dateend);
+                                        binding.calendarView.setDate(calendar1);
+                                        mEventDays.add(new EventDay(calendar1, R.drawable.car_extra));
+                                    }
+                                    if (!TextUtils.isEmpty(extraDetails.get(i).schedule_date1) && !TextUtils.isEmpty(extraDetails.get(i).schedule_date2)){
+                                        binding.addinternal.setVisibility(View.GONE);
+                                    }else {
+                                        binding.addinternal.setVisibility(View.VISIBLE);
+                                        final int finalI = i;
+                                        binding.submit.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
+                                                if (binding.preferDate.getText().toString().length()>0 && binding.preferredtimeEdt.getText().toString().length()>0){
+                                                    if(TextUtils.isEmpty(extraDetails.get(finalI).schedule_date1) && TextUtils.isEmpty(extraDetails.get(finalI).schedule_date2)){
+                                                        workinternal("1",extraDetails.get(finalI).id);
+                                                    }else if(!TextUtils.isEmpty(extraDetails.get(finalI).schedule_date1) && TextUtils.isEmpty(extraDetails.get(finalI).schedule_date2)){
+                                                        workinternal("2",extraDetails.get(finalI).id);
+                                                    }
+                                                }else {
+                                                    Toast.makeText(CalenderActivity.this,Constant.CHOOSEDATETIME,Toast.LENGTH_SHORT).show();
+                                                }
                                             }
-                                            //previewPopup(extraDetails.get(i).vehicle_image1, "Internal Wash");
-                                        } else if (eventDay.getCalendar().equals(calendar1)) {
-                                            if (extraDetails.get(i).schedule_work_status2.equalsIgnoreCase("No")) {
-                                                previewPopup1("Inrernal Wash", "No Data Found");
-                                            } else {
-                                                String str2 = extraDetails.get(i).vehicle_image1;
-                                                previewPopup(str2, "Internal Wash", "Wash Date : " + extraDetails.get(i).schedule_date2,"Washed Status: Cleaned");
-                                            }
-                                            //previewPopup(extraDetails.get(i).vehicle_image2, "Internal Wash");
-                                        }
+                                        });
                                     }
                                 }
+                                binding.calendarView.setEvents(mEventDays);
+                                Log.e("Event", String.valueOf(mEventDays));
+
 
                             } catch (ParseException e) {
                                 e.printStackTrace();
                             }
+
+                            binding.calendarView.setOnDayClickListener(new OnDayClickListener() {
+                                @Override
+                                public void onDayClick(EventDay eventDay) {
+                                    try {
+                                        if (eventDay.getImageResource() == R.drawable.car_wash) {
+                                            for (int i = 0; i < washDetails.size(); i++) {
+                                                @SuppressLint("SimpleDateFormat") DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                                                Calendar calendar = Calendar.getInstance();
+                                                Date datestart;
+                                                datestart = formatter.parse(washDetails.get(i).date);
+                                                calendar.setTime(datestart);
+                                                Log.e("CALENDARWASH", calendar.toString() + "****" + eventDay);
+                                                if (eventDay.getCalendar().equals(calendar)) {
+                                                    previewPopup(washDetails.get(i).vehicle_image, "External Wash", washDetails.get(i).date,"");
+                                                }
+                                            }
+                                        }else if (eventDay.getImageResource() == R.drawable.car_extra) {
+                                            for (int i = 0; i < extraDetails.size(); i++) {
+                                                @SuppressLint("SimpleDateFormat") DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                                                Calendar calendar = Calendar.getInstance();
+                                                Calendar calendar1 = Calendar.getInstance();
+                                                Date datestart, dateend;
+//                                    datestart = formatter.parse(extraDetails.get(i).updated_date);
+//                                    calendar.setTime(datestart);
+                                                if (!TextUtils.isEmpty(extraDetails.get(i).schedule_date1)) {
+                                                    datestart = formatter.parse(extraDetails.get(i).schedule_date1);
+                                                    calendar.setTime(datestart);
+                                                }
+                                                if (!TextUtils.isEmpty(extraDetails.get(i).schedule_date2)) {
+                                                    dateend = formatter.parse(extraDetails.get(i).schedule_date2);
+                                                    calendar1.setTime(dateend);
+                                                }
+                                                if (eventDay.getCalendar().equals(calendar)) {
+                                                    if (extraDetails.get(i).schedule_work_status1.equalsIgnoreCase("No")) {
+                                                        previewPopup1("Inrernal Wash", "No Data Found");
+                                                    } else {
+                                                        String str = extraDetails.get(i).vehicle_image1;
+                                                        previewPopup(str, "Internal Wash", "Wash Date : " + extraDetails.get(i).schedule_date1,"Washed Status: Cleaned");
+                                                    }
+                                                    //previewPopup(extraDetails.get(i).vehicle_image1, "Internal Wash");
+                                                } else if (eventDay.getCalendar().equals(calendar1)) {
+                                                    if (extraDetails.get(i).schedule_work_status2.equalsIgnoreCase("No")) {
+                                                        previewPopup1("Inrernal Wash", "No Data Found");
+                                                    } else {
+                                                        String str2 = extraDetails.get(i).vehicle_image1;
+                                                        previewPopup(str2, "Internal Wash", "Wash Date : " + extraDetails.get(i).schedule_date2,"Washed Status: Cleaned");
+                                                    }
+                                                    //previewPopup(extraDetails.get(i).vehicle_image2, "Internal Wash");
+                                                }
+                                            }
+                                        }
+
+                                    } catch (ParseException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            });
+
+
+                        }else  if (vehicleWashList.code.equalsIgnoreCase("203")) {
+                            sessionManager.logoutUsers();
+                        }else  if (vehicleWashList.code.equalsIgnoreCase("201")){
+                            Toast.makeText(CalenderActivity.this,vehicleWashList.message,Toast.LENGTH_SHORT).show();
                         }
-                    });
-
-
-                }else  if (vehicleWashList.code.equalsIgnoreCase("203")) {
-                    sessionManager.logoutUsers();
-                }else  if (vehicleWashList.code.equalsIgnoreCase("201")){
-                    Toast.makeText(CalenderActivity.this,vehicleWashList.message,Toast.LENGTH_SHORT).show();
+                    } else{
+                        ApiConfig.responseToast(CalenderActivity.this, response.code());
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
             @Override

@@ -25,6 +25,7 @@ import com.google.gson.JsonObject;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.muvierecktech.carrocare.R;
 import com.muvierecktech.carrocare.adapter.PreferredAdapter;
+import com.muvierecktech.carrocare.common.ApiConfig;
 import com.muvierecktech.carrocare.common.BaseActivity;
 import com.muvierecktech.carrocare.common.Constant;
 import com.muvierecktech.carrocare.common.SessionManager;
@@ -166,23 +167,29 @@ public class ConfirmFormActivity extends BaseActivity implements View.OnClickLis
         call.enqueue(new Callback<ServicePriceList>() {
             @Override
             public void onResponse(Call<ServicePriceList> call, Response<ServicePriceList> response) {
-                final ServicePriceList servicePriceList = response.body();
                 hud.dismiss();
-                if (servicePriceList.code.equalsIgnoreCase("200")) {
-                    Gson gson = new Gson();
-                    String json = gson.toJson(servicePriceList);
-
-//                    binding.description.setText(HtmlCompat.fromHtml(servicePriceList.description+"",0));
-                    description = servicePriceList.description;
-                    binding.info.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            Intent intent = new Intent(ConfirmFormActivity.this,InfoActivity.class);
-                            intent.putExtra("headername",Constant.CARINSURANCE);
-                            intent.putExtra("description",description);
-                            startActivity(intent);
+                try {
+                    if(response.isSuccessful()){
+                        final ServicePriceList servicePriceList = response.body();
+                        if (servicePriceList.code.equalsIgnoreCase("200")) {
+                            Gson gson = new Gson();
+                            String json = gson.toJson(servicePriceList);
+                            description = servicePriceList.description;
+                            binding.info.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    Intent intent = new Intent(ConfirmFormActivity.this, InfoActivity.class);
+                                    intent.putExtra("headername", Constant.CARINSURANCE);
+                                    intent.putExtra("description", description);
+                                    startActivity(intent);
+                                }
+                            });
                         }
-                    });
+                    } else{
+                        ApiConfig.responseToast(ConfirmFormActivity.this, response.code());
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
             @Override
@@ -236,18 +243,21 @@ public class ConfirmFormActivity extends BaseActivity implements View.OnClickLis
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                JsonElement jsonElement = response.body();
                 hud.dismiss();
                 try {
-                    JSONObject jsonObject = new JSONObject(jsonElement.toString());
-                    if (jsonObject.optString("code").equalsIgnoreCase("200")) {
-                        Gson gson = new Gson();
-                        Toast.makeText(ConfirmFormActivity.this,jsonObject.optString("message"),Toast.LENGTH_SHORT).show();
-                        finish();
-                    }else {
-                        Toast.makeText(ConfirmFormActivity.this,jsonObject.optString("message"),Toast.LENGTH_SHORT).show();
+                    if(response.isSuccessful()){
+                        JsonElement jsonElement = response.body();
+                        JSONObject jsonObject = new JSONObject(jsonElement.toString());
+                        if (jsonObject.optString("code").equalsIgnoreCase("200")) {
+                            Gson gson = new Gson();
+                            Toast.makeText(ConfirmFormActivity.this,jsonObject.optString("message"),Toast.LENGTH_SHORT).show();
+                            finish();
+                        }else {
+                            Toast.makeText(ConfirmFormActivity.this,jsonObject.optString("message"),Toast.LENGTH_SHORT).show();
+                        }
+                    } else{
+                        ApiConfig.responseToast(ConfirmFormActivity.this, response.code());
                     }
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

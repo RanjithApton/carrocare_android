@@ -31,6 +31,7 @@ import com.muvierecktech.carrocare.adapter.MakeModelAdapter;
 import com.muvierecktech.carrocare.adapter.ParkingareaAdapter;
 import com.muvierecktech.carrocare.adapter.PreferredAdapter;
 import com.muvierecktech.carrocare.adapter.VechicleCategoryAdapter;
+import com.muvierecktech.carrocare.common.ApiConfig;
 import com.muvierecktech.carrocare.common.Constant;
 import com.muvierecktech.carrocare.common.SessionManager;
 import com.muvierecktech.carrocare.databinding.ActivityMyVechiclesAddBinding;
@@ -186,18 +187,21 @@ public class MyVechiclesAddActivity extends AppCompatActivity implements View.On
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                JsonElement jsonElement = response.body();
                 hud.dismiss();
                 try {
-                    JSONObject jsonObject = new JSONObject(jsonElement.toString());
-                    if (jsonObject.optString("code").equalsIgnoreCase("200")) {
-                        Gson gson = new Gson();
-                        Toast.makeText(MyVechiclesAddActivity.this, jsonObject.optString("message"), Toast.LENGTH_SHORT).show();
-                        finish();
-                    } else {
-                        Toast.makeText(MyVechiclesAddActivity.this, jsonObject.optString("message"), Toast.LENGTH_SHORT).show();
+                    if(response.isSuccessful()){
+                        JsonElement jsonElement = response.body();
+                        JSONObject jsonObject = new JSONObject(jsonElement.toString());
+                        if (jsonObject.optString("code").equalsIgnoreCase("200")) {
+                            Gson gson = new Gson();
+                            Toast.makeText(MyVechiclesAddActivity.this, jsonObject.optString("message"), Toast.LENGTH_SHORT).show();
+                            finish();
+                        } else {
+                            Toast.makeText(MyVechiclesAddActivity.this, jsonObject.optString("message"), Toast.LENGTH_SHORT).show();
+                        }
+                    } else{
+                        ApiConfig.responseToast(MyVechiclesAddActivity.this, response.code());
                     }
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -321,18 +325,23 @@ public class MyVechiclesAddActivity extends AppCompatActivity implements View.On
         call.enqueue(new Callback<ApartmentList>() {
             @Override
             public void onResponse(Call<ApartmentList> call, Response<ApartmentList> response) {
-                ApartmentList apartmentList = response.body();
                 hud.dismiss();
-                if (apartmentList.code.equalsIgnoreCase("200")){
-                    apartments = apartmentList.Apartment;
-                    int pos = 0;
-                    //apartmentname.add(0,Constant.APARTMENTNAME);
-                    for(int i = 0; i < apartments.size(); i++){
-                        //Storing names to string array
-                        String items = apartments.get(i).name;
-                        apartmentname.add(items);
-//                        pos = i;
+                try{
+                    if(response.isSuccessful()){
+                        ApartmentList apartmentList = response.body();
+                        if (apartmentList.code.equalsIgnoreCase("200")){
+                            apartments = apartmentList.Apartment;
+                            int pos = 0;
+                            for(int i = 0; i < apartments.size(); i++){
+                                String items = apartments.get(i).name;
+                                apartmentname.add(items);
+                            }
+                        }
+                    } else{
+                        ApiConfig.responseToast(MyVechiclesAddActivity.this, response.code());
                     }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
             @Override
@@ -359,14 +368,21 @@ public class MyVechiclesAddActivity extends AppCompatActivity implements View.On
         call.enqueue(new Callback<ParkingareaList>() {
             @Override
             public void onResponse(Call<ParkingareaList> call, Response<ParkingareaList> response) {
-                ParkingareaList body = response.body();
                 hud.dismiss();
-                if (body.code.equalsIgnoreCase("200")) {
-                    parkingarea = body.data;
-                    //parkingareaname.add(0, Constant.PARKINGNAME);
-                    for (int i = 0; i < parkingarea.size(); i++) {
-                        parkingareaname.add(parkingarea.get(i).name);
+                try{
+                    if(response.isSuccessful()){
+                        ParkingareaList body = response.body();
+                        if (body.code.equalsIgnoreCase("200")) {
+                            parkingarea = body.data;
+                            for (int i = 0; i < parkingarea.size(); i++) {
+                                parkingareaname.add(parkingarea.get(i).name);
+                            }
+                        }
+                    } else{
+                        ApiConfig.responseToast(MyVechiclesAddActivity.this, response.code());
                     }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
 
@@ -393,18 +409,26 @@ public class MyVechiclesAddActivity extends AppCompatActivity implements View.On
         call.enqueue(new Callback<MakeModelList>() {
             @Override
             public void onResponse(Call<MakeModelList> call, Response<MakeModelList> response) {
-                final MakeModelList makeModelList = response.body();
                 hud.dismiss();
-                if (makeModelList.code.equalsIgnoreCase("200")) {
-                    Gson gson = new Gson();
-                    String json = gson.toJson(makeModelList);
-                    vehicleList = makeModelList.vehicle;
+                try{
+                    if(response.isSuccessful()){
+                        final MakeModelList makeModelList = response.body();
+                        if (makeModelList.code.equalsIgnoreCase("200")) {
+                            Gson gson = new Gson();
+                            String json = gson.toJson(makeModelList);
+                            vehicleList = makeModelList.vehicle;
 
-                    for (int i = 0; i < vehicleList.size(); i++) {
-                        makemodel.addAll(Collections.singleton(vehicleList.get(i).vehicle_make + "-" + vehicleList.get(i).vehicle_model));
+                            for (int i = 0; i < vehicleList.size(); i++) {
+                                makemodel.addAll(Collections.singleton(vehicleList.get(i).vehicle_make + "-" + vehicleList.get(i).vehicle_model));
+                            }
+                        }else if (makeModelList.code.equalsIgnoreCase("201")){
+                            Toast.makeText(MyVechiclesAddActivity.this,makeModelList.message,Toast.LENGTH_SHORT).show();
+                        }
+                    } else{
+                        ApiConfig.responseToast(MyVechiclesAddActivity.this, response.code());
                     }
-                }else if (makeModelList.code.equalsIgnoreCase("201")){
-                    Toast.makeText(MyVechiclesAddActivity.this,makeModelList.message,Toast.LENGTH_SHORT).show();
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
             @Override

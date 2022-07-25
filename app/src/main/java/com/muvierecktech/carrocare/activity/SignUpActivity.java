@@ -26,6 +26,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.kaopiz.kprogresshud.KProgressHUD;
+import com.muvierecktech.carrocare.common.ApiConfig;
 import com.muvierecktech.carrocare.common.SessionManager;
 import com.muvierecktech.carrocare.databinding.ActivitySignUpBinding;
 import com.muvierecktech.carrocare.model.LoginDetails;
@@ -164,86 +165,90 @@ public class SignUpActivity extends AppCompatActivity {
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                JsonElement jsonElement = response.body();
                 hud.dismiss();
                 try {
-                    JSONObject jsonObject = new JSONObject(jsonElement.toString());
-                    if (jsonObject.optString("code").equalsIgnoreCase("200")) {
-                        Gson gson = new Gson();
-                        otp = jsonObject.optString("OTP");
-                        binding.loginBtn.setText("Resend OTP");
-                        binding.submitBtn.setVisibility(View.VISIBLE);
-                        binding.otpRl.setVisibility(View.VISIBLE);
-                        binding.otpEdt.setText(null);
-                        binding.passEdt.setText(null);
-                        binding.conpassEdt.setText(null);
-                        binding.loginBtn.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                if (binding.loginBtn.getText().toString().equals("Send OTP")) {
-                                    if (binding.nameEdt.getText().toString().length() > 0 && binding.emailEdt.getText().toString().length() > 0
-                                            && binding.mobileEdt.getText().toString().length() > 0) {
-                                        if (binding.mobileEdt.getText().toString().length() == 10) {
-                                            if (emailValidator(binding.emailEdt.getText().toString())) {
-                                                worksendOtp();
+                    if(response.isSuccessful()){
+                        JsonElement jsonElement = response.body();
+                        JSONObject jsonObject = new JSONObject(jsonElement.toString());
+                        if (jsonObject.optString("code").equalsIgnoreCase("200")) {
+                            Gson gson = new Gson();
+                            otp = jsonObject.optString("OTP");
+                            binding.loginBtn.setText("Resend OTP");
+                            binding.submitBtn.setVisibility(View.VISIBLE);
+                            binding.otpRl.setVisibility(View.VISIBLE);
+                            binding.otpEdt.setText(null);
+                            binding.passEdt.setText(null);
+                            binding.conpassEdt.setText(null);
+                            binding.loginBtn.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    if (binding.loginBtn.getText().toString().equals("Send OTP")) {
+                                        if (binding.nameEdt.getText().toString().length() > 0 && binding.emailEdt.getText().toString().length() > 0
+                                                && binding.mobileEdt.getText().toString().length() > 0) {
+                                            if (binding.mobileEdt.getText().toString().length() == 10) {
+                                                if (emailValidator(binding.emailEdt.getText().toString())) {
+                                                    worksendOtp();
+                                                }
                                             }
                                         }
-                                    }
-                                } else if (binding.loginBtn.getText().toString().equals("Resend OTP")) {
-                                    if (binding.nameEdt.getText().toString().length() > 0 && binding.emailEdt.getText().toString().length() > 0
-                                            && binding.mobileEdt.getText().toString().length() > 0 && binding.otpEdt.getText().toString().length() > 0) {
-                                        if (binding.mobileEdt.getText().toString().length() == 10) {
-                                            if (emailValidator(binding.emailEdt.getText().toString())) {
-                                                binding.otpEdt.setText(null);
+                                    } else if (binding.loginBtn.getText().toString().equals("Resend OTP")) {
+                                        if (binding.nameEdt.getText().toString().length() > 0 && binding.emailEdt.getText().toString().length() > 0
+                                                && binding.mobileEdt.getText().toString().length() > 0 && binding.otpEdt.getText().toString().length() > 0) {
+                                            if (binding.mobileEdt.getText().toString().length() == 10) {
+                                                if (emailValidator(binding.emailEdt.getText().toString())) {
+                                                    binding.otpEdt.setText(null);
 
+                                                }
                                             }
                                         }
                                     }
                                 }
-                            }
-                        });
-                        binding.submitBtn.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                if (binding.passRl.getVisibility() == View.GONE) {
-                                    if (binding.nameEdt.getText().toString().length() > 0 && binding.emailEdt.getText().toString().length() > 0
-                                            && binding.mobileEdt.getText().toString().length() > 0 && binding.otpEdt.getText().toString().length() > 0) {
-                                        if (binding.mobileEdt.getText().toString().length() == 10) {
-                                            if (emailValidator(binding.emailEdt.getText().toString())) {
+                            });
+                            binding.submitBtn.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    if (binding.passRl.getVisibility() == View.GONE) {
+                                        if (binding.nameEdt.getText().toString().length() > 0 && binding.emailEdt.getText().toString().length() > 0
+                                                && binding.mobileEdt.getText().toString().length() > 0 && binding.otpEdt.getText().toString().length() > 0) {
+                                            if (binding.mobileEdt.getText().toString().length() == 10) {
+                                                if (emailValidator(binding.emailEdt.getText().toString())) {
 //                                workcheckOtp();
-                                                if (binding.otpEdt.getText().toString().equals(otp)) {
-                                                    binding.passRl.setVisibility(View.VISIBLE);
-                                                    binding.conpassRl.setVisibility(View.VISIBLE);
+                                                    if (binding.otpEdt.getText().toString().equals(otp)) {
+                                                        binding.passRl.setVisibility(View.VISIBLE);
+                                                        binding.conpassRl.setVisibility(View.VISIBLE);
+                                                    } else
+                                                        Toast.makeText(SignUpActivity.this, Constant.VALIDOTP, Toast.LENGTH_LONG).show();
                                                 } else
-                                                    Toast.makeText(SignUpActivity.this, Constant.VALIDOTP, Toast.LENGTH_LONG).show();
+                                                    Toast.makeText(SignUpActivity.this, Constant.VALIDEMAIL, Toast.LENGTH_LONG).show();
                                             } else
-                                                Toast.makeText(SignUpActivity.this, Constant.VALIDEMAIL, Toast.LENGTH_LONG).show();
+                                                Toast.makeText(SignUpActivity.this, Constant.VALIDMOBILE, Toast.LENGTH_LONG).show();
                                         } else
-                                            Toast.makeText(SignUpActivity.this, Constant.VALIDMOBILE, Toast.LENGTH_LONG).show();
-                                    } else
-                                        Toast.makeText(SignUpActivity.this, Constant.DETAILS, Toast.LENGTH_LONG).show();
-                                } else {
-                                    if (binding.nameEdt.getText().toString().length() > 0 && binding.emailEdt.getText().toString().length() > 0
-                                            && binding.mobileEdt.getText().toString().length() > 0 && binding.otpEdt.getText().toString().length() > 0
-                                            && binding.passEdt.getText().toString().length() > 0 && binding.conpassEdt.getText().toString().length() > 0) {
-                                        if (binding.mobileEdt.getText().toString().length() == 10) {
-                                            if (emailValidator(binding.emailEdt.getText().toString())) {
-                                                if (binding.passEdt.getText().toString().equalsIgnoreCase(binding.conpassEdt.getText().toString())) {
-                                                    workregister();
+                                            Toast.makeText(SignUpActivity.this, Constant.DETAILS, Toast.LENGTH_LONG).show();
+                                    } else {
+                                        if (binding.nameEdt.getText().toString().length() > 0 && binding.emailEdt.getText().toString().length() > 0
+                                                && binding.mobileEdt.getText().toString().length() > 0 && binding.otpEdt.getText().toString().length() > 0
+                                                && binding.passEdt.getText().toString().length() > 0 && binding.conpassEdt.getText().toString().length() > 0) {
+                                            if (binding.mobileEdt.getText().toString().length() == 10) {
+                                                if (emailValidator(binding.emailEdt.getText().toString())) {
+                                                    if (binding.passEdt.getText().toString().equalsIgnoreCase(binding.conpassEdt.getText().toString())) {
+                                                        workregister();
+                                                    } else
+                                                        Toast.makeText(SignUpActivity.this, Constant.PASSNOTMATCH, Toast.LENGTH_LONG).show();
                                                 } else
-                                                    Toast.makeText(SignUpActivity.this, Constant.PASSNOTMATCH, Toast.LENGTH_LONG).show();
+                                                    Toast.makeText(SignUpActivity.this, Constant.VALIDEMAIL, Toast.LENGTH_LONG).show();
                                             } else
-                                                Toast.makeText(SignUpActivity.this, Constant.VALIDEMAIL, Toast.LENGTH_LONG).show();
+                                                Toast.makeText(SignUpActivity.this, Constant.VALIDMOBILE, Toast.LENGTH_LONG).show();
                                         } else
-                                            Toast.makeText(SignUpActivity.this, Constant.VALIDMOBILE, Toast.LENGTH_LONG).show();
-                                    } else
-                                        Toast.makeText(SignUpActivity.this, Constant.DETAILS, Toast.LENGTH_LONG).show();
+                                            Toast.makeText(SignUpActivity.this, Constant.DETAILS, Toast.LENGTH_LONG).show();
+                                    }
                                 }
-                            }
-                        });
-                    }else {
-                        Toast.makeText(SignUpActivity.this,jsonObject.optString("message"),Toast.LENGTH_SHORT).show();
+                            });
+                        }else {
+                            Toast.makeText(SignUpActivity.this,jsonObject.optString("message"),Toast.LENGTH_SHORT).show();
 
+                        }
+                    } else{
+                        ApiConfig.responseToast(SignUpActivity.this, response.code());
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -308,29 +313,36 @@ public class SignUpActivity extends AppCompatActivity {
         call.enqueue(new Callback<LoginDetails>() {
             @Override
             public void onResponse(Call<LoginDetails> call, Response<LoginDetails> response) {
-                final LoginDetails loginDetails = response.body();
                 hud.dismiss();
-                if (loginDetails.code.equalsIgnoreCase("200")) {
-                    Gson gson = new Gson();
-                    String json = gson.toJson(loginDetails);
-                    sessionManager.UserName(loginDetails.name);
-                    sessionManager.UserEmail(loginDetails.email);
-                    sessionManager.UserToken(loginDetails.token);
-                    sessionManager.UserId(loginDetails.customer_id);
+                try{
+                    if(response.isSuccessful()){
+                        final LoginDetails loginDetails = response.body();
+                        if (loginDetails.code.equalsIgnoreCase("200")) {
+                            Gson gson = new Gson();
+                            String json = gson.toJson(loginDetails);
+                            sessionManager.UserName(loginDetails.name);
+                            sessionManager.UserEmail(loginDetails.email);
+                            sessionManager.UserToken(loginDetails.token);
+                            sessionManager.UserId(loginDetails.customer_id);
 //                    sessionManager.(loginDetails.usercode);
-                    sessionManager.UserMobile(loginDetails.mobile);
-                    sessionManager.UserStatus(loginDetails.status);
-                    sessionManager.UserApartBuilding(loginDetails.apartment_building);
-                    sessionManager.UserApartName(loginDetails.apartment_name);
-                    sessionManager.UserFlatno(loginDetails.flat_no);
+                            sessionManager.UserMobile(loginDetails.mobile);
+                            sessionManager.UserStatus(loginDetails.status);
+                            sessionManager.UserApartBuilding(loginDetails.apartment_building);
+                            sessionManager.UserApartName(loginDetails.apartment_name);
+                            sessionManager.UserFlatno(loginDetails.flat_no);
 
-                    Intent intent = new Intent(SignUpActivity.this,MainActivity.class);
-                    startActivity(intent);
-                    finish();
-                } else if (loginDetails.code.equalsIgnoreCase("201")) {
-                    Toast.makeText(SignUpActivity.this, loginDetails.message, Toast.LENGTH_LONG).show();
+                            Intent intent = new Intent(SignUpActivity.this,MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        } else if (loginDetails.code.equalsIgnoreCase("201")) {
+                            Toast.makeText(SignUpActivity.this, loginDetails.message, Toast.LENGTH_LONG).show();
+                        }
+                    } else{
+                        ApiConfig.responseToast(SignUpActivity.this, response.code());
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-
             }
             @Override
             public void onFailure(Call<LoginDetails> call, Throwable t) {

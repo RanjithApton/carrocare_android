@@ -734,21 +734,29 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
         call.enqueue(new Callback<VehicleDetails>() {
             @Override
             public void onResponse(Call<VehicleDetails> call, Response<VehicleDetails> response) {
-                final VehicleDetails vehicleDetails = response.body();
                 hud.dismiss();
-                if (vehicleDetails.code.equalsIgnoreCase("200")) {
-                    Gson gson = new Gson();
-                    String json = gson.toJson(vehicleDetails);
-                    binding.vehicleRv.setVisibility(View.VISIBLE);
+                try{
+                    if(response.isSuccessful()){
+                        final VehicleDetails vehicleDetails = response.body();
+                        if (vehicleDetails.code.equalsIgnoreCase("200")) {
+                            Gson gson = new Gson();
+                            String json = gson.toJson(vehicleDetails);
+                            binding.vehicleRv.setVisibility(View.VISIBLE);
 
-                    MapVehileAdapter mainAdapter = new MapVehileAdapter(DoorStepServiceActivity.this,vehicleDetails.details);
-                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(DoorStepServiceActivity.this,LinearLayoutManager.HORIZONTAL,false);
-                    binding.vehicleRv.setLayoutManager(linearLayoutManager);
-                    binding.vehicleRv.setAdapter(mainAdapter);
-                }else if (vehicleDetails.code.equalsIgnoreCase("201")) {
-                    binding.vehicleRv.setVisibility(View.GONE);
-                }else if (vehicleDetails.code.equalsIgnoreCase("203")) {
-                    sessionManager.logoutUsers();
+                            MapVehileAdapter mainAdapter = new MapVehileAdapter(DoorStepServiceActivity.this,vehicleDetails.details);
+                            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(DoorStepServiceActivity.this,LinearLayoutManager.HORIZONTAL,false);
+                            binding.vehicleRv.setLayoutManager(linearLayoutManager);
+                            binding.vehicleRv.setAdapter(mainAdapter);
+                        }else if (vehicleDetails.code.equalsIgnoreCase("201")) {
+                            binding.vehicleRv.setVisibility(View.GONE);
+                        }else if (vehicleDetails.code.equalsIgnoreCase("203")) {
+                            sessionManager.logoutUsers();
+                        }
+                    } else{
+                        ApiConfig.responseToast(DoorStepServiceActivity.this, response.code());
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
             @Override
@@ -801,21 +809,25 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                JsonElement jsonElement = response.body();
                 hud.dismiss();
                 try {
-                    JSONObject jsonObject = new JSONObject(jsonElement.toString());
-                    if (jsonObject.optString("code").equalsIgnoreCase("200")) {
-                        Gson gson = new Gson();
+                    if(response.isSuccessful()){
+                        JsonElement jsonElement = response.body();
+                        JSONObject jsonObject = new JSONObject(jsonElement.toString());
+                        if (jsonObject.optString("code").equalsIgnoreCase("200")) {
+                            Gson gson = new Gson();
 
-                        Constant.RAZOR_PAY_KEY_SECRET = jsonObject.optString("secretkey");
-                        Constant.RAZOR_PAY_KEY_VALUE = jsonObject.optString("keyid");
+                            Constant.RAZOR_PAY_KEY_SECRET = jsonObject.optString("secretkey");
+                            Constant.RAZOR_PAY_KEY_VALUE = jsonObject.optString("keyid");
 
-                        createOrderId();
+                            createOrderId();
 
 
-                        //startwashonetimepayment();
+                            //startwashonetimepayment();
 
+                        }
+                    } else{
+                        ApiConfig.responseToast(DoorStepServiceActivity.this, response.code());
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -842,18 +854,23 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                JsonElement jsonElement = response.body();
+
                 hud.dismiss();
                 try {
-                    JSONObject jsonObject = new JSONObject(jsonElement.toString());
-                    if (jsonObject.optString("code").equalsIgnoreCase("200")) {
-                        Gson gson = new Gson();
+                    if(response.isSuccessful()){
+                        JsonElement jsonElement = response.body();
+                        JSONObject jsonObject = new JSONObject(jsonElement.toString());
+                        if (jsonObject.optString("code").equalsIgnoreCase("200")) {
+                            Gson gson = new Gson();
 
-                        Constant.RAZOR_PAY_ORDER_ID = jsonObject.optString("rzp_order_id");
+                            Constant.RAZOR_PAY_ORDER_ID = jsonObject.optString("rzp_order_id");
 
-                        createTempOrder();
-                        //startwashonetimepayment();
+                            createTempOrder();
+                            //startwashonetimepayment();
 
+                        }
+                    } else{
+                        ApiConfig.responseToast(DoorStepServiceActivity.this, response.code());
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -897,15 +914,19 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                JsonElement jsonElement = response.body();
                 hud.dismiss();
                 try {
-                    JSONObject jsonObject = new JSONObject(jsonElement.toString());
-                    if (jsonObject.optString("code").equalsIgnoreCase("200")) {
-                        Gson gson = new Gson();
-                        tempOrderSuccess();
-                    }else if (jsonObject.optString("code").equalsIgnoreCase("201")) {
-                        Toast.makeText(DoorStepServiceActivity.this,jsonObject.optString("result"),Toast.LENGTH_SHORT).show();
+                    if(response.isSuccessful()){
+                        JsonElement jsonElement = response.body();
+                        JSONObject jsonObject = new JSONObject(jsonElement.toString());
+                        if (jsonObject.optString("code").equalsIgnoreCase("200")) {
+                            Gson gson = new Gson();
+                            tempOrderSuccess();
+                        }else if (jsonObject.optString("code").equalsIgnoreCase("201")) {
+                            Toast.makeText(DoorStepServiceActivity.this,jsonObject.optString("result"),Toast.LENGTH_SHORT).show();
+                        }
+                    } else{
+                        ApiConfig.responseToast(DoorStepServiceActivity.this, response.code());
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -1015,27 +1036,31 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
             call.enqueue(new Callback<JsonObject>() {
                 @Override
                 public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                    JsonElement jsonElement = response.body();
                     hud.dismiss();
                     try {
-                        JSONObject jsonObject = new JSONObject(jsonElement.toString());
-                        if (jsonObject.optString("code").equalsIgnoreCase("200")) {
-                            Gson gson = new Gson();
-                            Toast.makeText(DoorStepServiceActivity.this,jsonObject.optString("result"),Toast.LENGTH_SHORT).show();
-                            Log.e("payresponse",""+jsonObject.optString("result"));
-                            Intent intent = new Intent(DoorStepServiceActivity.this,PaymentSucessActivity.class);
-                            intent.putExtra("status","success");
-                            intent.putExtra("type","online");
-                            intent.putExtra("amount",Constant.ONETIME_CAR_FINAL_PRICE);
-                            startActivity(intent);
-                            finish();
-                        }else if (jsonObject.optString("code").equalsIgnoreCase("201")) {
-                            Toast.makeText(DoorStepServiceActivity.this,jsonObject.optString("result"),Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(DoorStepServiceActivity.this,PaymentSucessActivity.class);
-                            intent.putExtra("status","failure");
-                            intent.putExtra("type","online");
-                            intent.putExtra("amount",Constant.ONETIME_CAR_FINAL_PRICE);
-                            startActivity(intent);
+                        if(response.isSuccessful()){
+                            JsonElement jsonElement = response.body();
+                            JSONObject jsonObject = new JSONObject(jsonElement.toString());
+                            if (jsonObject.optString("code").equalsIgnoreCase("200")) {
+                                Gson gson = new Gson();
+                                Toast.makeText(DoorStepServiceActivity.this,jsonObject.optString("result"),Toast.LENGTH_SHORT).show();
+                                Log.e("payresponse",""+jsonObject.optString("result"));
+                                Intent intent = new Intent(DoorStepServiceActivity.this,PaymentSucessActivity.class);
+                                intent.putExtra("status","success");
+                                intent.putExtra("type","online");
+                                intent.putExtra("amount",Constant.ONETIME_CAR_FINAL_PRICE);
+                                startActivity(intent);
+                                finish();
+                            }else if (jsonObject.optString("code").equalsIgnoreCase("201")) {
+                                Toast.makeText(DoorStepServiceActivity.this,jsonObject.optString("result"),Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(DoorStepServiceActivity.this,PaymentSucessActivity.class);
+                                intent.putExtra("status","failure");
+                                intent.putExtra("type","online");
+                                intent.putExtra("amount",Constant.ONETIME_CAR_FINAL_PRICE);
+                                startActivity(intent);
+                            }
+                        } else{
+                            ApiConfig.responseToast(DoorStepServiceActivity.this, response.code());
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -1101,27 +1126,31 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
             call.enqueue(new Callback<JsonObject>() {
                 @Override
                 public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                    JsonElement jsonElement = response.body();
                     hud.dismiss();
                     try {
-                        JSONObject jsonObject = new JSONObject(jsonElement.toString());
-                        if (jsonObject.optString("code").equalsIgnoreCase("200")) {
-                            Gson gson = new Gson();
-                            Toast.makeText(DoorStepServiceActivity.this,jsonObject.optString("result"),Toast.LENGTH_SHORT).show();
-                            Log.e("payresponse",""+jsonObject.optString("result"));
-                            Intent intent = new Intent(DoorStepServiceActivity.this,PaymentSucessActivity.class);
-                            intent.putExtra("status","success");
-                            intent.putExtra("type","cod");
-                            intent.putExtra("amount",Constant.ONETIME_CAR_FINAL_PRICE);
-                            startActivity(intent);
-                            finish();
-                        }else if (jsonObject.optString("code").equalsIgnoreCase("201")) {
-                            Toast.makeText(DoorStepServiceActivity.this,jsonObject.optString("result"),Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(DoorStepServiceActivity.this,PaymentSucessActivity.class);
-                            intent.putExtra("status","failure");
-                            intent.putExtra("type","cod");
-                            intent.putExtra("amount",Constant.ONETIME_CAR_FINAL_PRICE);
-                            startActivity(intent);
+                        if(response.isSuccessful()){
+                            JsonElement jsonElement = response.body();
+                            JSONObject jsonObject = new JSONObject(jsonElement.toString());
+                            if (jsonObject.optString("code").equalsIgnoreCase("200")) {
+                                Gson gson = new Gson();
+                                Toast.makeText(DoorStepServiceActivity.this,jsonObject.optString("result"),Toast.LENGTH_SHORT).show();
+                                Log.e("payresponse",""+jsonObject.optString("result"));
+                                Intent intent = new Intent(DoorStepServiceActivity.this,PaymentSucessActivity.class);
+                                intent.putExtra("status","success");
+                                intent.putExtra("type","cod");
+                                intent.putExtra("amount",Constant.ONETIME_CAR_FINAL_PRICE);
+                                startActivity(intent);
+                                finish();
+                            }else if (jsonObject.optString("code").equalsIgnoreCase("201")) {
+                                Toast.makeText(DoorStepServiceActivity.this,jsonObject.optString("result"),Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(DoorStepServiceActivity.this,PaymentSucessActivity.class);
+                                intent.putExtra("status","failure");
+                                intent.putExtra("type","cod");
+                                intent.putExtra("amount",Constant.ONETIME_CAR_FINAL_PRICE);
+                                startActivity(intent);
+                            }
+                        } else{
+                            ApiConfig.responseToast(DoorStepServiceActivity.this, response.code());
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -1179,41 +1208,49 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
             call.enqueue(new Callback<DoorStepCarWash>() {
                 @Override
                 public void onResponse(Call<DoorStepCarWash> call, Response<DoorStepCarWash> response) {
-                    final DoorStepCarWash doorStepCarWash = response.body();
                     hud.dismiss();
-                    if (doorStepCarWash.code.equalsIgnoreCase("200")) {
-                        Gson gson = new Gson();
-                        String json = gson.toJson(doorStepCarWash);
+                    try{
+                        if(response.isSuccessful()){
+                            final DoorStepCarWash doorStepCarWash = response.body();
+                            if (doorStepCarWash.code.equalsIgnoreCase("200")) {
+                                Gson gson = new Gson();
+                                String json = gson.toJson(doorStepCarWash);
 
-                        DoorstepServiceAdapter doorstepServiceAdapter = new DoorstepServiceAdapter(DoorStepServiceActivity.this,doorStepCarWash.services,action);
+                                DoorstepServiceAdapter doorstepServiceAdapter = new DoorstepServiceAdapter(DoorStepServiceActivity.this,doorStepCarWash.services,action);
 
-                        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(DoorStepServiceActivity.this, R.style.BottomSheetDialogTheme);
-                        bottomSheetDialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
-                        View bottomview = LayoutInflater.from(getApplicationContext())
-                                .inflate(R.layout.layout_bottom_carwash,
-                                        (RelativeLayout)findViewById(R.id.carwashSheet));
-                        //bottomSheetDialog.setCancelable(false);
-                        bottomview.findViewById(R.id.close_popup).setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                bottomSheetDialog.dismiss();
+                                BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(DoorStepServiceActivity.this, R.style.BottomSheetDialogTheme);
+                                bottomSheetDialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+                                View bottomview = LayoutInflater.from(getApplicationContext())
+                                        .inflate(R.layout.layout_bottom_carwash,
+                                                (RelativeLayout)findViewById(R.id.carwashSheet));
+                                //bottomSheetDialog.setCancelable(false);
+                                bottomview.findViewById(R.id.close_popup).setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        bottomSheetDialog.dismiss();
+                                    }
+                                });
+
+                                botAmount = bottomview.findViewById(R.id.bot_amount);
+                                totalAmount = bottomview.findViewById(R.id.totalAmount);
+                                button_processed = bottomview.findViewById(R.id.button_processed);
+                                RecyclerView servive_rv = bottomview.findViewById(R.id.servive_rv);
+
+                                servive_rv.setAdapter(doorstepServiceAdapter);
+                                GridLayoutManager gridLayoutManager = new GridLayoutManager(DoorStepServiceActivity.this,2);
+                                servive_rv.setLayoutManager(gridLayoutManager);
+
+
+                                bottomSheetDialog.setContentView(bottomview);
+                                bottomSheetDialog.show();
+
+
                             }
-                        });
-
-                        botAmount = bottomview.findViewById(R.id.bot_amount);
-                        totalAmount = bottomview.findViewById(R.id.totalAmount);
-                        button_processed = bottomview.findViewById(R.id.button_processed);
-                        RecyclerView servive_rv = bottomview.findViewById(R.id.servive_rv);
-
-                        servive_rv.setAdapter(doorstepServiceAdapter);
-                        GridLayoutManager gridLayoutManager = new GridLayoutManager(DoorStepServiceActivity.this,2);
-                        servive_rv.setLayoutManager(gridLayoutManager);
-
-
-                        bottomSheetDialog.setContentView(bottomview);
-                        bottomSheetDialog.show();
-
-
+                        } else{
+                            ApiConfig.responseToast(DoorStepServiceActivity.this, response.code());
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 }
 

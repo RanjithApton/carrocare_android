@@ -21,6 +21,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import com.google.android.gms.common.api.Api;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
@@ -147,29 +148,37 @@ public class LoginActivity extends AppCompatActivity {
         call.enqueue(new Callback<LoginDetails>() {
             @Override
             public void onResponse(Call<LoginDetails> call, Response<LoginDetails> response) {
-                LoginDetails loginDetails = response.body();
                 hud.dismiss();
-                if (loginDetails.code.equalsIgnoreCase("200")) {
-                    Gson gson = new Gson();
-                    String json = gson.toJson(loginDetails);
-                    sessionManager.UserName(loginDetails.name);
-                    sessionManager.UserEmail(loginDetails.email);
-                    sessionManager.UserToken(loginDetails.token);
-                    sessionManager.UserId(loginDetails.customer_id);
+                try{
+                    if(response.isSuccessful()){
+                        LoginDetails loginDetails = response.body();
+
+                        if (loginDetails.code.equalsIgnoreCase("200")) {
+                            Gson gson = new Gson();
+                            String json = gson.toJson(loginDetails);
+                            sessionManager.UserName(loginDetails.name);
+                            sessionManager.UserEmail(loginDetails.email);
+                            sessionManager.UserToken(loginDetails.token);
+                            sessionManager.UserId(loginDetails.customer_id);
 //                    sessionManager.userCode(loginDetails.usercode);
-                    sessionManager.UserMobile(loginDetails.mobile);
-                    sessionManager.UserStatus(loginDetails.status);
-                    sessionManager.UserApartBuilding(loginDetails.apartment_building);
-                    sessionManager.UserApartName(loginDetails.apartment_name);
-                    sessionManager.UserFlatno(loginDetails.flat_no);
+                            sessionManager.UserMobile(loginDetails.mobile);
+                            sessionManager.UserStatus(loginDetails.status);
+                            sessionManager.UserApartBuilding(loginDetails.apartment_building);
+                            sessionManager.UserApartName(loginDetails.apartment_name);
+                            sessionManager.UserFlatno(loginDetails.flat_no);
                     /*Intent intent = new Intent(LoginActivity.this,MainActivity.class);
                     startActivity(intent);
                     finish();*/
-                    workmode();
-                } else  if (loginDetails.code.equalsIgnoreCase("201")) {
-                    Toast.makeText(LoginActivity.this, loginDetails.message, Toast.LENGTH_LONG).show();
+                            workmode();
+                        } else  if (loginDetails.code.equalsIgnoreCase("201")) {
+                            Toast.makeText(LoginActivity.this, loginDetails.message, Toast.LENGTH_LONG).show();
+                        }
+                    } else{
+                        ApiConfig.responseToast(LoginActivity.this, response.code());
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-
             }
             @Override
             public void onFailure(Call<LoginDetails> loginDetails, Throwable t) {
@@ -221,16 +230,20 @@ public class LoginActivity extends AppCompatActivity {
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                JsonElement jsonElement = response.body();
                 try {
-                    JSONObject jsonObject = new JSONObject(jsonElement.toString());
-                    if (jsonObject.optString("code").equalsIgnoreCase("200")) {
-                        Gson gson = new Gson();
-                        sessionManager.UserToken(jsonObject.optString(SessionManager.KEY_TOKEN));
-                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                        finish();
-                    }else if (jsonObject.optString("code").equalsIgnoreCase("201")) {
-                        Toast.makeText(LoginActivity.this, jsonObject.optString("message"), Toast.LENGTH_SHORT).show();
+                    if(response.isSuccessful()){
+                        JsonElement jsonElement = response.body();
+                        JSONObject jsonObject = new JSONObject(jsonElement.toString());
+                        if (jsonObject.optString("code").equalsIgnoreCase("200")) {
+                            Gson gson = new Gson();
+                            sessionManager.UserToken(jsonObject.optString(SessionManager.KEY_TOKEN));
+                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                            finish();
+                        }else if (jsonObject.optString("code").equalsIgnoreCase("201")) {
+                            Toast.makeText(LoginActivity.this, jsonObject.optString("message"), Toast.LENGTH_SHORT).show();
+                        }
+                    } else{
+                        ApiConfig.responseToast(LoginActivity.this, response.code());
                     }
                 }catch (JSONException e) {
                     e.printStackTrace();

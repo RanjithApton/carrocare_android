@@ -10,15 +10,20 @@
         <entry key="..\:/Android Workspace/CarroCare/app/src/main/res/drawable/ic_unchecked_circle.xml" value="0.2203125" />
         <entry key="..\:/Android Workspace/CarroCare/app/src/main/res/layout/activity_add_vehicle.xml" value="0.20416666666666666" />
         <entry key="..\:/Android Workspace/CarroCare/app/src/main/res/layout/activity_apartment_service.xml" value="0.20416666666666666" />
+        <entry key="..\:/Android Workspace/CarroCare/app/src/main/res/layout/activity_calender.xml" value="0.20416666666666666" />
+        <entry key="..\:/Android Workspace/CarroCare/app/src/main/res/layout/activity_internalwash.xml" value="0.20416666666666666" />
         <entry key="..\:/Android Workspace/CarroCare/app/src/main/res/layout/activity_introduction.xml" value="0.16" />
         <entry key="..\:/Android Workspace/CarroCare/app/src/main/res/layout/activity_main.xml" value="0.20416666666666666" />
         <entry key="..\:/Android Workspace/CarroCare/app/src/main/res/layout/activity_main_profile.xml" value="0.20416666666666666" />
+        <entry key="..\:/Android Workspace/CarroCare/app/src/main/res/layout/activity_payment_web.xml" value="0.20416666666666666" />
         <entry key="..\:/Android Workspace/CarroCare/app/src/main/res/layout/item_apartments.xml" value="0.20416666666666666" />
         <entry key="..\:/Android Workspace/CarroCare/app/src/main/res/layout/item_cars.xml" value="0.20416666666666666" />
         <entry key="..\:/Android Workspace/CarroCare/app/src/main/res/layout/item_myvehicle.xml" value="0.20102564102564102" />
         <entry key="..\:/Android Workspace/CarroCare/app/src/main/res/layout/item_pick_order.xml" value="0.20416666666666666" />
         <entry key="..\:/Android Workspace/CarroCare/app/src/main/res/layout/item_renew.xml" value="0.20416666666666666" />
+        <entry key="..\:/Android Workspace/CarroCare/app/src/main/res/layout/item_slider.xml" value="0.20416666666666666" />
         <entry key="..\:/Android Workspace/CarroCare/app/src/main/res/layout/item_vehicle.xml" value="0.20102564102564102" />
+        <entry key="..\:/Android Workspace/CarroCare/app/src/main/res/layout/lyt_update.xml" value="0.20416666666666666" />
         <entry key="..\:/Android Workspace/CarroCare/app/src/main/res/menu/menu_bottom_navigation_basic.xml" value="0.20416666666666666" />
       </map>
     </option>

@@ -30,6 +30,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.muvierecktech.carrocare.adapter.PreferredAdapter;
+import com.muvierecktech.carrocare.common.ApiConfig;
 import com.muvierecktech.carrocare.common.DatabaseHelper;
 import com.muvierecktech.carrocare.common.MyDatabaseHelper;
 import com.muvierecktech.carrocare.databinding.ActivityPaymentOptionBinding;
@@ -708,66 +709,74 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
             @SuppressLint("LongLogTag")
             @Override
             public void onResponse(Call<OneTimeWashCheckout> call, Response<OneTimeWashCheckout> response) {
-                OneTimeWashCheckout body = response.body();
-                if (body.code.equalsIgnoreCase("200")) {
-                    Log.e("Reponse---------------------", body.code);
-                    result = body.result;
-                    for (int i = 0; i < result.size(); i++) {
-                        if (result.get(i).order_exists.equalsIgnoreCase("0")) {
-                            fineAmount = result.get(i).fine_amount;
+                try{
+                    if(response.isSuccessful()){
+                        OneTimeWashCheckout body = response.body();
+                        if (body.code.equalsIgnoreCase("200")) {
+                            Log.e("Reponse---------------------", body.code);
+                            result = body.result;
+                            for (int i = 0; i < result.size(); i++) {
+                                if (result.get(i).order_exists.equalsIgnoreCase("0")) {
+                                    fineAmount = result.get(i).fine_amount;
 
-                            //showing Discount filed
-                            if (result.get(i).discount_amount.equalsIgnoreCase("0")) {
-                                discountAmount = result.get(i).discount_amount;
-                                binding.discountField.setVisibility(View.GONE);
-                                binding.discountAmount1.setText(result.get(i).discount_amount);
-                            } else {
-                                binding.discountField.setVisibility(View.VISIBLE);
-                                discountAmount = result.get(i).discount_amount;
-                                binding.discountAmount1.setText(result.get(i).discount_amount);
+                                    //showing Discount filed
+                                    if (result.get(i).discount_amount.equalsIgnoreCase("0")) {
+                                        discountAmount = result.get(i).discount_amount;
+                                        binding.discountField.setVisibility(View.GONE);
+                                        binding.discountAmount1.setText(result.get(i).discount_amount);
+                                    } else {
+                                        binding.discountField.setVisibility(View.VISIBLE);
+                                        discountAmount = result.get(i).discount_amount;
+                                        binding.discountAmount1.setText(result.get(i).discount_amount);
+                                    }
+
+                                } else {
+                                    binding.fineField.setVisibility(View.VISIBLE);
+                                    if (result.get(i).fine_amount.equalsIgnoreCase("0")) {
+                                        fineAmount = result.get(i).fine_amount;
+                                        binding.fineField.setVisibility(View.GONE);
+                                        binding.fineAmount1.setText(result.get(i).fine_amount);
+                                    } else {
+                                        binding.fineField.setVisibility(View.VISIBLE);
+                                        fineAmount = result.get(i).fine_amount;
+                                        binding.fineAmount1.setText(result.get(i).fine_amount);
+                                    }
+
+                                    //showing Discount filed
+                                    if (result.get(i).discount_amount.equalsIgnoreCase("0")) {
+                                        discountAmount = result.get(i).discount_amount;
+                                        binding.discountField.setVisibility(View.GONE);
+                                        binding.discountAmount1.setText("₹ "+result.get(i).discount_amount);
+                                    } else {
+                                        binding.discountField.setVisibility(View.VISIBLE);
+                                        discountAmount = result.get(i).discount_amount;
+                                        binding.discountAmount1.setText("₹ "+result.get(i).discount_amount);
+                                    }
+
+                                    if (result.get(i).total_amount.equalsIgnoreCase("0")) {
+                                        onetimecarprice.equals(carprice);
+                                        //Log.e("is 0","Price"+onetimecarprice);
+                                    }else{
+                                        onetimecarprice = result.get(i).total_amount;
+                                        binding.total1.setText("₹ " +result.get(i).total_amount);
+                                        int taxAmt = ((Constant.GST_PERCENTAGE * Integer.parseInt(result.get(i).total_amount)) / 100);
+                                        int finalAmt = taxAmt + Integer.parseInt(result.get(i).total_amount);
+                                        binding.taxTotal1.setText("₹ " + taxAmt);
+                                        binding.totalAmount1.setText("₹ " +finalAmt);
+                                        //Log.e("not 0","Price"+onetimecarprice);
+                                    }
+
+                                }
+
                             }
-
-                        } else {
-                            binding.fineField.setVisibility(View.VISIBLE);
-                            if (result.get(i).fine_amount.equalsIgnoreCase("0")) {
-                                fineAmount = result.get(i).fine_amount;
-                                binding.fineField.setVisibility(View.GONE);
-                                binding.fineAmount1.setText(result.get(i).fine_amount);
-                            } else {
-                                binding.fineField.setVisibility(View.VISIBLE);
-                                fineAmount = result.get(i).fine_amount;
-                                binding.fineAmount1.setText(result.get(i).fine_amount);
-                            }
-
-                            //showing Discount filed
-                            if (result.get(i).discount_amount.equalsIgnoreCase("0")) {
-                                discountAmount = result.get(i).discount_amount;
-                                binding.discountField.setVisibility(View.GONE);
-                                binding.discountAmount1.setText("₹ "+result.get(i).discount_amount);
-                            } else {
-                                binding.discountField.setVisibility(View.VISIBLE);
-                                discountAmount = result.get(i).discount_amount;
-                                binding.discountAmount1.setText("₹ "+result.get(i).discount_amount);
-                            }
-
-                            if (result.get(i).total_amount.equalsIgnoreCase("0")) {
-                                onetimecarprice.equals(carprice);
-                                //Log.e("is 0","Price"+onetimecarprice);
-                            }else{
-                                onetimecarprice = result.get(i).total_amount;
-                                binding.total1.setText("₹ " +result.get(i).total_amount);
-                                int taxAmt = ((Constant.GST_PERCENTAGE * Integer.parseInt(result.get(i).total_amount)) / 100);
-                                int finalAmt = taxAmt + Integer.parseInt(result.get(i).total_amount);
-                                binding.taxTotal1.setText("₹ " + taxAmt);
-                                binding.totalAmount1.setText("₹ " +finalAmt);
-                                //Log.e("not 0","Price"+onetimecarprice);
-                            }
-
+                        } else if (body.code.equalsIgnoreCase("201")) {
+                            Toast.makeText(PaymentOptionActivity.this,body.staus,Toast.LENGTH_SHORT).show();
                         }
-
+                    } else{
+                        ApiConfig.responseToast(PaymentOptionActivity.this, response.code());
                     }
-                } else if (body.code.equalsIgnoreCase("201")) {
-                    Toast.makeText(PaymentOptionActivity.this,body.staus,Toast.LENGTH_SHORT).show();
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
 
@@ -807,82 +816,85 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
             @SuppressLint("LongLogTag")
             @Override
             public void onResponse(Call<OneTimeWashCheckout> call, Response<OneTimeWashCheckout> response) {
-                OneTimeWashCheckout body = response.body();
-                if (body.code.equalsIgnoreCase("200")) {
-                    Log.e("Reponse---------------------", body.code);
-                    result = body.result;
-                    for (int i = 0; i < result.size(); i++) {
-                        if (result.get(i).order_exists.equalsIgnoreCase("0")) {
-                            fineAmount = result.get(i).fine_amount;
+                try{
+                    if(response.isSuccessful()){
+                        OneTimeWashCheckout body = response.body();
+                        if (body.code.equalsIgnoreCase("200")) {
+                            Log.e("Reponse---------------------", body.code);
+                            result = body.result;
+                            for (int i = 0; i < result.size(); i++) {
+                                if (result.get(i).order_exists.equalsIgnoreCase("0")) {
+                                    fineAmount = result.get(i).fine_amount;
 
-                            if (result.get(i).total_amount.equalsIgnoreCase("0")) {
-                                onetimecarprice.equals(carprice);
-                                //Log.e("is 0","Price"+onetimecarprice);
-                            }else{
-                                onetimecarprice = result.get(i).total_amount;
-                                binding.total1.setText("₹ " +result.get(i).total_amount);
-                                int taxAmt = ((Constant.GST_PERCENTAGE * Integer.parseInt(result.get(i).total_amount)) / 100);
-                                int finalAmt = taxAmt + Integer.parseInt(result.get(i).total_amount);
-                                binding.taxTotal1.setText("₹ " + taxAmt);
-                                binding.totalAmount1.setText("₹ " +finalAmt);
-                                //binding.totalAmount1.setText("₹ " +result.get(i).total_amount);
-                                //Log.e("not 0","Price"+onetimecarprice);
+                                    if (result.get(i).total_amount.equalsIgnoreCase("0")) {
+                                        onetimecarprice.equals(carprice);
+                                        //Log.e("is 0","Price"+onetimecarprice);
+                                    }else{
+                                        onetimecarprice = result.get(i).total_amount;
+                                        binding.total1.setText("₹ " +result.get(i).total_amount);
+                                        int taxAmt = ((Constant.GST_PERCENTAGE * Integer.parseInt(result.get(i).total_amount)) / 100);
+                                        int finalAmt = taxAmt + Integer.parseInt(result.get(i).total_amount);
+                                        binding.taxTotal1.setText("₹ " + taxAmt);
+                                        binding.totalAmount1.setText("₹ " +finalAmt);
+                                        //binding.totalAmount1.setText("₹ " +result.get(i).total_amount);
+                                        //Log.e("not 0","Price"+onetimecarprice);
+                                    }
+
+                                    //showing Discount filed
+                                    if (result.get(i).discount_amount.equalsIgnoreCase("0")) {
+                                        discountAmount = result.get(i).discount_amount;
+                                        binding.discountField.setVisibility(View.GONE);
+                                        binding.discountAmount1.setText(result.get(i).discount_amount);
+                                    } else {
+                                        binding.discountField.setVisibility(View.VISIBLE);
+                                        discountAmount = result.get(i).discount_amount;
+                                        binding.discountAmount1.setText(result.get(i).discount_amount);
+                                    }
+
+                                } else {
+                                    binding.fineField.setVisibility(View.VISIBLE);
+                                    if (result.get(i).fine_amount.equalsIgnoreCase("0")) {
+                                        fineAmount = result.get(i).fine_amount;
+                                        binding.fineField.setVisibility(View.GONE);
+                                        binding.fineAmount1.setText(result.get(i).fine_amount);
+                                    } else {
+                                        binding.fineField.setVisibility(View.VISIBLE);
+                                        fineAmount = result.get(i).fine_amount;
+                                        binding.fineAmount1.setText(result.get(i).fine_amount);
+                                    }
+
+                                    if (result.get(i).discount_amount.equalsIgnoreCase("0")) {
+                                        discountAmount = result.get(i).discount_amount;
+                                        binding.discountField.setVisibility(View.GONE);
+                                        binding.discountAmount1.setText("₹ "+result.get(i).discount_amount);
+                                    } else {
+                                        binding.discountField.setVisibility(View.VISIBLE);
+                                        discountAmount = result.get(i).discount_amount;
+                                        binding.discountAmount1.setText("₹ "+result.get(i).discount_amount);
+                                    }
+
+                                    if (result.get(i).total_amount.equalsIgnoreCase("0")) {
+                                        onetimecarprice.equals(carprice);
+                                    }else{
+                                        onetimecarprice = result.get(i).total_amount;
+                                        binding.total1.setText("₹ " +result.get(i).total_amount);
+                                        int taxAmt = ((Constant.GST_PERCENTAGE * Integer.parseInt(result.get(i).total_amount)) / 100);
+                                        int finalAmt = taxAmt + Integer.parseInt(result.get(i).total_amount);
+                                        binding.taxTotal1.setText("₹ " + taxAmt);
+                                        binding.totalAmount1.setText("₹ " +finalAmt);
+                                    }
+
+                                }
                             }
-
-                            //showing Discount filed
-                            if (result.get(i).discount_amount.equalsIgnoreCase("0")) {
-                                discountAmount = result.get(i).discount_amount;
-                                binding.discountField.setVisibility(View.GONE);
-                                binding.discountAmount1.setText(result.get(i).discount_amount);
-                            } else {
-                                binding.discountField.setVisibility(View.VISIBLE);
-                                discountAmount = result.get(i).discount_amount;
-                                binding.discountAmount1.setText(result.get(i).discount_amount);
-                            }
-
-                        } else {
-                            binding.fineField.setVisibility(View.VISIBLE);
-                            if (result.get(i).fine_amount.equalsIgnoreCase("0")) {
-                                fineAmount = result.get(i).fine_amount;
-                                binding.fineField.setVisibility(View.GONE);
-                                binding.fineAmount1.setText(result.get(i).fine_amount);
-                            } else {
-                                binding.fineField.setVisibility(View.VISIBLE);
-                                fineAmount = result.get(i).fine_amount;
-                                binding.fineAmount1.setText(result.get(i).fine_amount);
-                            }
-
-                            //showing Discount filed
-                            if (result.get(i).discount_amount.equalsIgnoreCase("0")) {
-                                discountAmount = result.get(i).discount_amount;
-                                binding.discountField.setVisibility(View.GONE);
-                                binding.discountAmount1.setText("₹ "+result.get(i).discount_amount);
-                            } else {
-                                binding.discountField.setVisibility(View.VISIBLE);
-                                discountAmount = result.get(i).discount_amount;
-                                binding.discountAmount1.setText("₹ "+result.get(i).discount_amount);
-                            }
-
-                            if (result.get(i).total_amount.equalsIgnoreCase("0")) {
-                                onetimecarprice.equals(carprice);
-                                //Log.e("is 0","Price"+onetimecarprice);
-                            }else{
-                                onetimecarprice = result.get(i).total_amount;
-                                binding.total1.setText("₹ " +result.get(i).total_amount);
-                                int taxAmt = ((Constant.GST_PERCENTAGE * Integer.parseInt(result.get(i).total_amount)) / 100);
-                                int finalAmt = taxAmt + Integer.parseInt(result.get(i).total_amount);
-                                binding.taxTotal1.setText("₹ " + taxAmt);
-                                binding.totalAmount1.setText("₹ " +finalAmt);
-                                //binding.totalAmount1.setText("₹ " +result.get(i).total_amount);
-                                //Log.e("not 0","Price"+onetimecarprice);
-                            }
-
                         }
-
+                        else if (body.code.equalsIgnoreCase("201")) {
+                            Toast.makeText(PaymentOptionActivity.this,body.staus,Toast.LENGTH_SHORT).show();
+                        }
+                    } else{
+                        ApiConfig.responseToast(PaymentOptionActivity.this, response.code());
                     }
-                }
-                else if (body.code.equalsIgnoreCase("201")) {
-                    Toast.makeText(PaymentOptionActivity.this,body.staus,Toast.LENGTH_SHORT).show();
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
 
@@ -933,36 +945,40 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                JsonElement jsonElement = response.body();
                 hud.dismiss();
                 try {
-                    JSONObject jsonObject = new JSONObject(jsonElement.toString());
-                    if (jsonObject.optString("code").equalsIgnoreCase("200")) {
-                        Gson gson = new Gson();
+                    if(response.isSuccessful()){
+                        JsonElement jsonElement = response.body();
+                        JSONObject jsonObject = new JSONObject(jsonElement.toString());
+                        if (jsonObject.optString("code").equalsIgnoreCase("200")) {
+                            Gson gson = new Gson();
 
-                        Constant.RAZOR_PAY_KEY_SECRET = jsonObject.optString("secretkey");
-                        Constant.RAZOR_PAY_KEY_VALUE = jsonObject.optString("keyid");
+                            Constant.RAZOR_PAY_KEY_SECRET = jsonObject.optString("secretkey");
+                            Constant.RAZOR_PAY_KEY_VALUE = jsonObject.optString("keyid");
 
-                        if (action.equalsIgnoreCase(Constant.ACTIONMONTH)){
-                            work();
+                            if (action.equalsIgnoreCase(Constant.ACTIONMONTH)){
+                                work();
 //                    startPaymentMonth();
-                        }else if (action.equalsIgnoreCase(Constant.ACTIONONE)) {
-                            if (binding.preferDate.getText().length()>0 && !TextUtils.isEmpty(time)){
-                                startPayment();
-                            }else {
-                                Toast.makeText(PaymentOptionActivity.this,Constant.CHOOSEDATETIME,Toast.LENGTH_SHORT).show();
-                            }
-                        } else if (action.equalsIgnoreCase(Constant.ACTIONWASHONE)) {
-                            startwashonetimepayment();
-                        }
-                        else if (action.equalsIgnoreCase(Constant.ACTIONEXTRAONE)) {
-                            if (binding.preferDate.getText().length()>0 && !TextUtils.isEmpty(time)){
+                            }else if (action.equalsIgnoreCase(Constant.ACTIONONE)) {
+                                if (binding.preferDate.getText().length()>0 && !TextUtils.isEmpty(time)){
+                                    startPayment();
+                                }else {
+                                    Toast.makeText(PaymentOptionActivity.this,Constant.CHOOSEDATETIME,Toast.LENGTH_SHORT).show();
+                                }
+                            } else if (action.equalsIgnoreCase(Constant.ACTIONWASHONE)) {
                                 startwashonetimepayment();
-                            }else {
-                                Toast.makeText(PaymentOptionActivity.this,Constant.CHOOSEDATETIME,Toast.LENGTH_SHORT).show();
                             }
-                        }
+                            else if (action.equalsIgnoreCase(Constant.ACTIONEXTRAONE)) {
+                                if (binding.preferDate.getText().length()>0 && !TextUtils.isEmpty(time)){
+                                    startwashonetimepayment();
+                                }else {
+                                    Toast.makeText(PaymentOptionActivity.this,Constant.CHOOSEDATETIME,Toast.LENGTH_SHORT).show();
+                                }
+                            }
 
+                        }
+                    } else{
+                        ApiConfig.responseToast(PaymentOptionActivity.this, response.code());
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -1017,26 +1033,29 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                JsonElement jsonElement = response.body();
                 hud.dismiss();
                 try {
-                    JSONObject jsonObject = new JSONObject(jsonElement.toString());
-                    if (jsonObject.optString("code").equalsIgnoreCase("200")) {
-                        Gson gson = new Gson();
-                        Intent intent = new Intent(PaymentOptionActivity.this,PaymentWebActivity.class);
-                        intent.putExtra("package_type",carcat);
-                        intent.putExtra("vehicle_type",cartype);
-                        intent.putExtra("subscription_type","Monthly");
-                        intent.putExtra("service_type",binding.serviceType.getText().toString());
-                        intent.putExtra("vehicle_id",carid);
-                        intent.putExtra("customer_id",customerid);
-                        intent.putExtra("amount",carprice);
-                        startActivity(intent);
-                        finish();
-                    }else if (jsonObject.optString("code").equalsIgnoreCase("201")) {
-                        Toast.makeText(PaymentOptionActivity.this,jsonObject.optString("message"),Toast.LENGTH_SHORT).show();
+                    if(response.isSuccessful()){
+                        JsonElement jsonElement = response.body();
+                        JSONObject jsonObject = new JSONObject(jsonElement.toString());
+                        if (jsonObject.optString("code").equalsIgnoreCase("200")) {
+                            Gson gson = new Gson();
+                            Intent intent = new Intent(PaymentOptionActivity.this,PaymentWebActivity.class);
+                            intent.putExtra("package_type",carcat);
+                            intent.putExtra("vehicle_type",cartype);
+                            intent.putExtra("subscription_type","Monthly");
+                            intent.putExtra("service_type",binding.serviceType.getText().toString());
+                            intent.putExtra("vehicle_id",carid);
+                            intent.putExtra("customer_id",customerid);
+                            intent.putExtra("amount",carprice);
+                            startActivity(intent);
+                            finish();
+                        }else if (jsonObject.optString("code").equalsIgnoreCase("201")) {
+                            Toast.makeText(PaymentOptionActivity.this,jsonObject.optString("message"),Toast.LENGTH_SHORT).show();
+                        }
+                    } else{
+                        ApiConfig.responseToast(PaymentOptionActivity.this, response.code());
                     }
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -1319,18 +1338,23 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                JsonElement jsonElement = response.body();
+
                 hud.dismiss();
                 try {
-                    JSONObject jsonObject = new JSONObject(jsonElement.toString());
-                    if (jsonObject.optString("code").equalsIgnoreCase("200")) {
-                        Gson gson = new Gson();
-                        Toast.makeText(PaymentOptionActivity.this,jsonObject.optString("result"),Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(PaymentOptionActivity.this,CongratsActivity.class);
-                        startActivity(intent);
-                        finish();
-                    }else if (jsonObject.optString("code").equalsIgnoreCase("201")) {
-                        Toast.makeText(PaymentOptionActivity.this,jsonObject.optString("result"),Toast.LENGTH_SHORT).show();
+                    if(response.isSuccessful()){
+                        JsonElement jsonElement = response.body();
+                        JSONObject jsonObject = new JSONObject(jsonElement.toString());
+                        if (jsonObject.optString("code").equalsIgnoreCase("200")) {
+                            Gson gson = new Gson();
+                            Toast.makeText(PaymentOptionActivity.this,jsonObject.optString("result"),Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(PaymentOptionActivity.this,CongratsActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }else if (jsonObject.optString("code").equalsIgnoreCase("201")) {
+                            Toast.makeText(PaymentOptionActivity.this,jsonObject.optString("result"),Toast.LENGTH_SHORT).show();
+                        }
+                    } else{
+                        ApiConfig.responseToast(PaymentOptionActivity.this, response.code());
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -1370,22 +1394,27 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                JsonElement body = response.body();
+
                 hud.dismiss();
                 try {
-                    JSONObject jSONObject = new JSONObject(body.toString());
-                    if (jSONObject.optString("code").equalsIgnoreCase("200")) {
-                        new Gson();
-                        Toast.makeText(PaymentOptionActivity.this, jSONObject.optString("result"), Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(PaymentOptionActivity.this, CongratsActivity.class));
-                        finish();
-                    } else if (jSONObject.optString("code").equalsIgnoreCase("201")) {
-                        Toast.makeText(PaymentOptionActivity.this, jSONObject.optString("result"), Toast.LENGTH_SHORT).show();
-                    }
-                    else if (jSONObject.optString("message").equalsIgnoreCase("success")){
-                        Toast.makeText(PaymentOptionActivity.this, jSONObject.optString("result"), Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(PaymentOptionActivity.this, CongratsActivity.class));
-                        finish();
+                    if(response.isSuccessful()){
+                        JsonElement body = response.body();
+                        JSONObject jSONObject = new JSONObject(body.toString());
+                        if (jSONObject.optString("code").equalsIgnoreCase("200")) {
+                            new Gson();
+                            Toast.makeText(PaymentOptionActivity.this, jSONObject.optString("result"), Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(PaymentOptionActivity.this, CongratsActivity.class));
+                            finish();
+                        } else if (jSONObject.optString("code").equalsIgnoreCase("201")) {
+                            Toast.makeText(PaymentOptionActivity.this, jSONObject.optString("result"), Toast.LENGTH_SHORT).show();
+                        }
+                        else if (jSONObject.optString("message").equalsIgnoreCase("success")){
+                            Toast.makeText(PaymentOptionActivity.this, jSONObject.optString("result"), Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(PaymentOptionActivity.this, CongratsActivity.class));
+                            finish();
+                        }
+                    } else{
+                        ApiConfig.responseToast(PaymentOptionActivity.this, response.code());
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -1426,21 +1455,26 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                JsonElement body = response.body();
+
                 hud.dismiss();
                 try {
-                    JSONObject jSONObject = new JSONObject(body.toString());
-                    if (jSONObject.optString("code").equalsIgnoreCase("200")) {
-                        new Gson();
-                        Toast.makeText(PaymentOptionActivity.this, jSONObject.optString("result"), Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(PaymentOptionActivity.this, CongratsActivity.class));
-                        finish();
-                    } else if (jSONObject.optString("code").equalsIgnoreCase("201")) {
-                        Toast.makeText(PaymentOptionActivity.this, jSONObject.optString("result"), Toast.LENGTH_SHORT).show();
-                    } else if (jSONObject.optString("message").equalsIgnoreCase("success")){
-                        Toast.makeText(PaymentOptionActivity.this, jSONObject.optString("result"), Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(PaymentOptionActivity.this, CongratsActivity.class));
-                        finish();
+                    if(response.isSuccessful()){
+                        JsonElement body = response.body();
+                        JSONObject jSONObject = new JSONObject(body.toString());
+                        if (jSONObject.optString("code").equalsIgnoreCase("200")) {
+                            new Gson();
+                            Toast.makeText(PaymentOptionActivity.this, jSONObject.optString("result"), Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(PaymentOptionActivity.this, CongratsActivity.class));
+                            finish();
+                        } else if (jSONObject.optString("code").equalsIgnoreCase("201")) {
+                            Toast.makeText(PaymentOptionActivity.this, jSONObject.optString("result"), Toast.LENGTH_SHORT).show();
+                        } else if (jSONObject.optString("message").equalsIgnoreCase("success")){
+                            Toast.makeText(PaymentOptionActivity.this, jSONObject.optString("result"), Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(PaymentOptionActivity.this, CongratsActivity.class));
+                            finish();
+                        }
+                    } else{
+                        ApiConfig.responseToast(PaymentOptionActivity.this, response.code());
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -1467,18 +1501,22 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                JsonElement jsonElement = response.body();
                 hud.dismiss();
                 try {
-                    JSONObject jsonObject = new JSONObject(jsonElement.toString());
-                    if (jsonObject.optString("code").equalsIgnoreCase("200")) {
-                        Gson gson = new Gson();
-                        Toast.makeText(PaymentOptionActivity.this,jsonObject.optString("result"),Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(PaymentOptionActivity.this,CongratsActivity.class);
-                        startActivity(intent);
-                        finish();
-                    }else if (jsonObject.optString("code").equalsIgnoreCase("201")) {
-                        Toast.makeText(PaymentOptionActivity.this,jsonObject.optString("result"),Toast.LENGTH_SHORT).show();
+                    if(response.isSuccessful()){
+                        JsonElement jsonElement = response.body();
+                        JSONObject jsonObject = new JSONObject(jsonElement.toString());
+                        if (jsonObject.optString("code").equalsIgnoreCase("200")) {
+                            Gson gson = new Gson();
+                            Toast.makeText(PaymentOptionActivity.this,jsonObject.optString("result"),Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(PaymentOptionActivity.this,CongratsActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }else if (jsonObject.optString("code").equalsIgnoreCase("201")) {
+                            Toast.makeText(PaymentOptionActivity.this,jsonObject.optString("result"),Toast.LENGTH_SHORT).show();
+                        }
+                    } else{
+                        ApiConfig.responseToast(PaymentOptionActivity.this, response.code());
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

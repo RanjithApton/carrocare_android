@@ -23,6 +23,7 @@ import com.kaopiz.kprogresshud.KProgressHUD;
 import com.muvierecktech.carrocare.R;
 import com.muvierecktech.carrocare.adapter.MyVehicleAdapter;
 import com.muvierecktech.carrocare.adapter.VehicleListAdapter;
+import com.muvierecktech.carrocare.common.ApiConfig;
 import com.muvierecktech.carrocare.common.SessionManager;
 import com.muvierecktech.carrocare.databinding.ActivityMyVehiclesBinding;
 import com.muvierecktech.carrocare.model.VehicleDetails;
@@ -108,23 +109,31 @@ public class MyVehiclesActivity extends AppCompatActivity {
         call.enqueue(new Callback<VehicleDetails>() {
             @Override
             public void onResponse(Call<VehicleDetails> call, Response<VehicleDetails> response) {
-                final VehicleDetails vehicleDetails = response.body();
                 hud.dismiss();
-                if (vehicleDetails.code.equalsIgnoreCase("200")) {
-                    Gson gson = new Gson();
-                    String json = gson.toJson(vehicleDetails);
-                    binding.novehicle.setVisibility(View.GONE);
-                    binding.vehiclelistRc.setVisibility(View.VISIBLE);
+                try{
+                    if(response.isSuccessful()){
+                        final VehicleDetails vehicleDetails = response.body();
+                        if (vehicleDetails.code.equalsIgnoreCase("200")) {
+                            Gson gson = new Gson();
+                            String json = gson.toJson(vehicleDetails);
+                            binding.novehicle.setVisibility(View.GONE);
+                            binding.vehiclelistRc.setVisibility(View.VISIBLE);
 
-                    MyVehicleAdapter myVehicleAdapter = new MyVehicleAdapter(MyVehiclesActivity.this,vehicleDetails.details);
-                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MyVehiclesActivity.this,LinearLayoutManager.VERTICAL,false);
-                    binding.vehiclelistRc.setLayoutManager(linearLayoutManager);
-                    binding.vehiclelistRc.setAdapter(myVehicleAdapter);
-                }else if (vehicleDetails.code.equalsIgnoreCase("201")) {
-                    binding.novehicle.setVisibility(View.VISIBLE);
-                    binding.vehiclelistRc.setVisibility(View.GONE);
-                }else if (vehicleDetails.code.equalsIgnoreCase("203")) {
-                    sessionManager.logoutUsers();
+                            MyVehicleAdapter myVehicleAdapter = new MyVehicleAdapter(MyVehiclesActivity.this,vehicleDetails.details);
+                            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MyVehiclesActivity.this,LinearLayoutManager.VERTICAL,false);
+                            binding.vehiclelistRc.setLayoutManager(linearLayoutManager);
+                            binding.vehiclelistRc.setAdapter(myVehicleAdapter);
+                        }else if (vehicleDetails.code.equalsIgnoreCase("201")) {
+                            binding.novehicle.setVisibility(View.VISIBLE);
+                            binding.vehiclelistRc.setVisibility(View.GONE);
+                        }else if (vehicleDetails.code.equalsIgnoreCase("203")) {
+                            sessionManager.logoutUsers();
+                        }
+                    } else{
+                        ApiConfig.responseToast(MyVehiclesActivity.this, response.code());
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
             @Override

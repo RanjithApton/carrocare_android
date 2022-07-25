@@ -281,6 +281,20 @@ public interface ApiInterface {
             ,@Field("id") String id);
 
     @FormUrlEncoded
+    @POST("internal_clean_schedule_new.php")
+    Call<JsonObject> interScheduleNew(@Field("customer_id") String customer_id,
+                                      @Field("token") String token,
+                                      @Field("vehicle_id") String vehicle_id,
+                                      @Field("order_id") String order_id,
+                                      @Field("schedule_date1") String schedule_date1,
+                                      @Field("schedule_time1") String schedule_time1,
+                                      @Field("schedule_date2") String schedule_date2,
+                                      @Field("schedule_time2") String schedule_time2,
+                                      @Field("comment_box") String comment_box,
+                                      @Field("id") String id
+    );
+
+    @FormUrlEncoded
     @POST("extrainterior.php")
     Call<VehicleExtraList> extraDetails(@Field("customer_id") String customer_id, @Field("token") String token, @Field("vehicle_id") String vehicle_id);
 

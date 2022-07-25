@@ -161,42 +161,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-                <RelativeLayout
+
+                <com.denzcoskun.imageslider.ImageSlider
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:id="@+id/imageSlider"
                     android:layout_width="match_parent"
-                    android:layout_height="240dp"
-                    android:id="@+id/imageslider">
+                    android:layout_height="200dp"
+                    app:auto_cycle="true"
+                    app:corner_radius="0"
+                    app:delay="0"
+                    app:error_image="@drawable/placeholder"
+                    app:period="1500"
+                    app:placeholder="@drawable/placeholder"
+                    app:selected_dot="@drawable/default_selected_dot"
+                    app:unselected_dot="@drawable/default_unselected_dot" />
 
-                    <com.github.demono.AutoScrollViewPager
-                        android:id="@+id/sliders"
-                        android:layout_width="match_parent"
-                        android:layout_height="200dp" />
-
-                    <me.relex.circleindicator.CircleIndicator
-                        android:id="@+id/indicator"
-                        android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:layout_alignParentBottom="true"
-                        android:layout_centerHorizontal="true"
-                        app:ci_animator="@animator/indicator_animator"
-                        app:ci_animator_reverse="@animator/indicator_animator_reverse"
-                        app:ci_drawable="@drawable/black_radius_square"
-                        />
-                    <!--                <com.viewpagerindicator.LinePageIndicator-->
-                    <!--                    android:id="@+id/indicator"-->
-                    <!--                    android:padding="5dip"-->
-                    <!--                    android:layout_height="wrap_content"-->
-                    <!--                    android:layout_width="fill_parent"-->
-                    <!--                    app:unselectedColor="@color/colorPrimary"-->
-                    <!--                    app:selectedColor="@color/green"-->
-                    <!--                    android:layout_alignParentBottom="true"-->
-                    <!--                    />-->
-                    <ImageView
-                        android:id="@+id/progress_loader"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_centerInParent="true"
-                        android:visibility="visible"/>
-                </RelativeLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

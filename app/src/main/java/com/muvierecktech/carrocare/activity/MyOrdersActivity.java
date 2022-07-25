@@ -20,6 +20,7 @@ import com.google.gson.Gson;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.muvierecktech.carrocare.R;
 import com.muvierecktech.carrocare.adapter.MyOrdersAdapter;
+import com.muvierecktech.carrocare.common.ApiConfig;
 import com.muvierecktech.carrocare.common.SessionManager;
 
 import com.muvierecktech.carrocare.databinding.ActivityMyOrdersBinding;
@@ -105,25 +106,33 @@ public class MyOrdersActivity extends AppCompatActivity {
         call.enqueue(new Callback<OrdersList>() {
             @Override
             public void onResponse(Call<OrdersList> call, Response<OrdersList> response) {
-                final OrdersList ordersList = response.body();
                 hud.dismiss();
-                if (ordersList.code.equalsIgnoreCase("200")) {
-                    Gson gson = new Gson();
-                    String json = gson.toJson(ordersList);
-                    binding.noorders.setVisibility(View.GONE);
-                    binding.ordersRc.setVisibility(View.VISIBLE);
+                try{
+                    if(response.isSuccessful()){
+                        final OrdersList ordersList = response.body();
+                        if (ordersList.code.equalsIgnoreCase("200")) {
+                            Gson gson = new Gson();
+                            String json = gson.toJson(ordersList);
+                            binding.noorders.setVisibility(View.GONE);
+                            binding.ordersRc.setVisibility(View.VISIBLE);
 
-                    MyOrdersAdapter mainAdapter = new MyOrdersAdapter(MyOrdersActivity.this,ordersList.orders);
-                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MyOrdersActivity.this,LinearLayoutManager.VERTICAL,false);
-                    binding.ordersRc.setLayoutManager(linearLayoutManager);
-                    binding.ordersRc.setAdapter(mainAdapter);
+                            MyOrdersAdapter mainAdapter = new MyOrdersAdapter(MyOrdersActivity.this,ordersList.orders);
+                            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MyOrdersActivity.this,LinearLayoutManager.VERTICAL,false);
+                            binding.ordersRc.setLayoutManager(linearLayoutManager);
+                            binding.ordersRc.setAdapter(mainAdapter);
 
-                }else  if (ordersList.code.equalsIgnoreCase("203")) {
-                    sessionManager.logoutUsers();
-                }else  if (ordersList.code.equalsIgnoreCase("201")){
-                    binding.noorders.setVisibility(View.VISIBLE);
-                    binding.bottomLl.setVisibility(View.GONE);
-                    binding.ordersRc.setVisibility(View.GONE);
+                        }else  if (ordersList.code.equalsIgnoreCase("203")) {
+                            sessionManager.logoutUsers();
+                        }else  if (ordersList.code.equalsIgnoreCase("201")){
+                            binding.noorders.setVisibility(View.VISIBLE);
+                            binding.bottomLl.setVisibility(View.GONE);
+                            binding.ordersRc.setVisibility(View.GONE);
+                        }
+                    } else{
+                        ApiConfig.responseToast(MyOrdersActivity.this, response.code());
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
             @Override

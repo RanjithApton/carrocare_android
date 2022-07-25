@@ -27,6 +27,7 @@ import com.kaopiz.kprogresshud.KProgressHUD;
 import com.muvierecktech.carrocare.R;
 import com.muvierecktech.carrocare.adapter.IntWashPrefTimeAdapter;
 import com.muvierecktech.carrocare.adapter.PreferredTimeAdapter;
+import com.muvierecktech.carrocare.common.ApiConfig;
 import com.muvierecktech.carrocare.common.Constant;
 import com.muvierecktech.carrocare.common.SessionManager;
 import com.muvierecktech.carrocare.databinding.ActivityInternalwashBinding;
@@ -66,6 +67,8 @@ public class InternalwashActivity extends AppCompatActivity {
     String vehicle_model;
     List<VehicleWashList.WashDetails> washDetails;
 
+    String one_edit = "1", two_edit = "1";
+
     /* access modifiers changed from: protected */
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
@@ -93,48 +96,123 @@ public class InternalwashActivity extends AppCompatActivity {
         binding.preferDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final Calendar cldr = Calendar.getInstance();
-                int day = cldr.get(Calendar.DAY_OF_MONTH);
-                int month = cldr.get(Calendar.MONTH);
-                int year = cldr.get(Calendar.YEAR);
-                // date picker dialog
-                picker = new DatePickerDialog(InternalwashActivity.this,
-                        new DatePickerDialog.OnDateSetListener() {
-                            @Override
-                            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                                binding.preferDate.setText(year + "-" +(monthOfYear + 1) + "-" +dayOfMonth);
-                            }
-                        }, year, month, day);
-                //picker.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
-                picker.getDatePicker().setMinDate(System.currentTimeMillis()+24*60*60*1000);
-                picker.show();
+                if(one_edit.equalsIgnoreCase("1")){
+                    final Calendar cldr = Calendar.getInstance();
+                    int day = cldr.get(Calendar.DAY_OF_MONTH);
+                    int month = cldr.get(Calendar.MONTH);
+                    int year = cldr.get(Calendar.YEAR);
+                    // date picker dialog
+                    picker = new DatePickerDialog(InternalwashActivity.this,
+                            new DatePickerDialog.OnDateSetListener() {
+                                @Override
+                                public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                                    binding.preferDate.setText(year + "-" +(monthOfYear + 1) + "-" +dayOfMonth);
+                                }
+                            }, year, month, day);
+                    //picker.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+                    picker.getDatePicker().setMinDate(System.currentTimeMillis()+24*60*60*1000);
+                    picker.show();
+                } else{
+                    Toast.makeText(InternalwashActivity.this, "Not editable", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         binding.preferredtimeEdt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (TextUtils.isEmpty(binding.preferDate.getText().toString())){
-                    Toast.makeText(InternalwashActivity.this,"Choose Preferred Schedule",Toast.LENGTH_SHORT).show();
-                }else {
-                    binding.timerl.setVisibility(View.VISIBLE);
-                    IntWashPrefTimeAdapter intWashPrefTimeAdapter = new IntWashPrefTimeAdapter(InternalwashActivity.this, preTime);
-                    LinearLayoutManager linearLayoutManage = new LinearLayoutManager(InternalwashActivity.this, LinearLayoutManager.VERTICAL, false);
-                    binding.timeRc.setLayoutManager(linearLayoutManage);
-                    binding.timeRc.setAdapter(intWashPrefTimeAdapter);
+                if(one_edit.equalsIgnoreCase("1")){
+                    if (TextUtils.isEmpty(binding.preferDate.getText().toString())){
+                        Toast.makeText(InternalwashActivity.this,"Choose Preferred Schedule",Toast.LENGTH_SHORT).show();
+                    }else {
+                        binding.timerl.setVisibility(View.VISIBLE);
+                        IntWashPrefTimeAdapter intWashPrefTimeAdapter = new IntWashPrefTimeAdapter(InternalwashActivity.this, preTime,"1");
+                        LinearLayoutManager linearLayoutManage = new LinearLayoutManager(InternalwashActivity.this, LinearLayoutManager.VERTICAL, false);
+                        binding.timeRc.setLayoutManager(linearLayoutManage);
+                        binding.timeRc.setAdapter(intWashPrefTimeAdapter);
+                    }
+                } else{
+                    Toast.makeText(InternalwashActivity.this, "Not editable", Toast.LENGTH_SHORT).show();
                 }
             }
         });
         binding.prefertimeImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (TextUtils.isEmpty(binding.preferDate.getText().toString())) {
-                    Toast.makeText(InternalwashActivity.this, "Choose Preferred Schedule", Toast.LENGTH_SHORT).show();
-                } else {
-                    binding.timerl.setVisibility(View.VISIBLE);
-                    IntWashPrefTimeAdapter intWashPrefTimeAdapter = new IntWashPrefTimeAdapter(InternalwashActivity.this, preTime);
-                    LinearLayoutManager linearLayoutManage = new LinearLayoutManager(InternalwashActivity.this, LinearLayoutManager.VERTICAL, false);
-                    binding.timeRc.setLayoutManager(linearLayoutManage);
-                    binding.timeRc.setAdapter(intWashPrefTimeAdapter);
+                if(one_edit.equalsIgnoreCase("1")){
+                    if (TextUtils.isEmpty(binding.preferDate.getText().toString())) {
+                        Toast.makeText(InternalwashActivity.this, "Choose Preferred Schedule", Toast.LENGTH_SHORT).show();
+                    } else {
+                        binding.timerl.setVisibility(View.VISIBLE);
+                        IntWashPrefTimeAdapter intWashPrefTimeAdapter = new IntWashPrefTimeAdapter(InternalwashActivity.this, preTime,"1");
+                        LinearLayoutManager linearLayoutManage = new LinearLayoutManager(InternalwashActivity.this, LinearLayoutManager.VERTICAL, false);
+                        binding.timeRc.setLayoutManager(linearLayoutManage);
+                        binding.timeRc.setAdapter(intWashPrefTimeAdapter);
+                    }
+                } else{
+                    Toast.makeText(InternalwashActivity.this, "Not editable", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+
+        // Internal wash 2
+        binding.preferDate2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(two_edit.equalsIgnoreCase("1")){
+                    final Calendar cldr = Calendar.getInstance();
+                    int day = cldr.get(Calendar.DAY_OF_MONTH);
+                    int month = cldr.get(Calendar.MONTH);
+                    int year = cldr.get(Calendar.YEAR);
+                    // date picker dialog
+                    picker = new DatePickerDialog(InternalwashActivity.this,
+                            new DatePickerDialog.OnDateSetListener() {
+                                @Override
+                                public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                                    binding.preferDate2.setText(year + "-" +(monthOfYear + 1) + "-" +dayOfMonth);
+                                }
+                            }, year, month, day);
+                    //picker.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+                    picker.getDatePicker().setMinDate(System.currentTimeMillis()+24*60*60*1000);
+                    picker.show();
+                } else{
+                    Toast.makeText(InternalwashActivity.this, "Not editable", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        binding.preferredtimeEdt2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(two_edit.equalsIgnoreCase("1")){
+                    if (TextUtils.isEmpty(binding.preferDate2.getText().toString())){
+                        Toast.makeText(InternalwashActivity.this,"Choose Preferred Schedule",Toast.LENGTH_SHORT).show();
+                    }else {
+                        binding.timerl.setVisibility(View.VISIBLE);
+                        IntWashPrefTimeAdapter intWashPrefTimeAdapter = new IntWashPrefTimeAdapter(InternalwashActivity.this, preTime,"2");
+                        LinearLayoutManager linearLayoutManage = new LinearLayoutManager(InternalwashActivity.this, LinearLayoutManager.VERTICAL, false);
+                        binding.timeRc.setLayoutManager(linearLayoutManage);
+                        binding.timeRc.setAdapter(intWashPrefTimeAdapter);
+                    }
+                } else{
+                    Toast.makeText(InternalwashActivity.this, "Not editable", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        binding.prefertimeImg2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(two_edit.equalsIgnoreCase("1")){
+                    if (TextUtils.isEmpty(binding.preferDate2.getText().toString())) {
+                        Toast.makeText(InternalwashActivity.this, "Choose Preferred Schedule", Toast.LENGTH_SHORT).show();
+                    } else {
+                        binding.timerl.setVisibility(View.VISIBLE);
+                        IntWashPrefTimeAdapter intWashPrefTimeAdapter = new IntWashPrefTimeAdapter(InternalwashActivity.this, preTime,"2");
+                        LinearLayoutManager linearLayoutManage = new LinearLayoutManager(InternalwashActivity.this, LinearLayoutManager.VERTICAL, false);
+                        binding.timeRc.setLayoutManager(linearLayoutManage);
+                        binding.timeRc.setAdapter(intWashPrefTimeAdapter);
+                    }
+                } else{
+                    Toast.makeText(InternalwashActivity.this, "Not editable", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -209,25 +287,37 @@ public class InternalwashActivity extends AppCompatActivity {
                 .setDimAmount(0.5f)
                 .show();
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        Call<JsonObject> call = apiInterface.interSchedule(customerid+"",token+"",vehicle_id+"",""+order_id,""+binding.preferDate.getText().toString()
-                ,""+binding.preferredtimeEdt.getText().toString(),""+binding.commentTxt.getText().toString(),""+type,veid+"");
+        Call<JsonObject> call = apiInterface.interScheduleNew(
+                customerid+"",
+                token+"",
+                vehicle_id+"",
+                order_id+"",
+                binding.preferDate.getText().toString()+"",
+                binding.preferredtimeEdt.getText().toString()+"",
+                binding.preferDate2.getText().toString()+"",
+                binding.preferredtimeEdt2.getText().toString()+"",
+                binding.commentTxt.getText().toString()+"",
+                veid+"");
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                JsonElement jsonElement = response.body();
                 hud.dismiss();
                 try {
-                    JSONObject jsonObject = new JSONObject(jsonElement.toString());
-                    if (jsonObject.optString("code").equalsIgnoreCase("200")) {
-                        Gson gson = new Gson();
-                        Toast.makeText(InternalwashActivity.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
-                        finish();
-                    }else  if (jsonObject.optString("code").equalsIgnoreCase("203")) {
-                        sessionManager.logoutUsers();
-                    }else  if (jsonObject.optString("code").equalsIgnoreCase("201")){
-                        Toast.makeText(InternalwashActivity.this,jsonObject.optString("message"),Toast.LENGTH_SHORT).show();
+                    if(response.isSuccessful()){
+                        JsonElement jsonElement = response.body();
+                        JSONObject jsonObject = new JSONObject(jsonElement.toString());
+                        if (jsonObject.optString("code").equalsIgnoreCase("200")) {
+                            Gson gson = new Gson();
+                            Toast.makeText(InternalwashActivity.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
+                            finish();
+                        }else  if (jsonObject.optString("code").equalsIgnoreCase("203")) {
+                            sessionManager.logoutUsers();
+                        }else  if (jsonObject.optString("code").equalsIgnoreCase("201")){
+                            Toast.makeText(InternalwashActivity.this,jsonObject.optString("message"),Toast.LENGTH_SHORT).show();
+                        }
+                    } else{
+                        ApiConfig.responseToast(InternalwashActivity.this, response.code());
                     }
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -261,81 +351,119 @@ public class InternalwashActivity extends AppCompatActivity {
         call.enqueue(new Callback<VehicleWashList>() {
             @Override
             public void onResponse(Call<VehicleWashList> call, Response<VehicleWashList> response) {
-                VehicleWashList body = response.body();
                 hud.dismiss();
-                if (body.code.equalsIgnoreCase("200")) {
-                    new Gson().toJson((Object) body);
-                    washDetails = body.wash_details;
-                    try {
-                        for (int i = 0 ; i < washDetails.size(); i++) {
-                            @SuppressLint("SimpleDateFormat") DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-                            Calendar calendar = Calendar.getInstance();
-                            Date datestart;
-                            datestart = formatter.parse(washDetails.get(i).date);
-                            calendar.setTime(datestart);
-                            mEventDays.add(new EventDay(calendar, R.drawable.car_wash));
-                        }
-                        Log.e("Event", String.valueOf(mEventDays));
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-
-                    extraDetails = body.internal_details;
-
-                    try {
-                        for (int i = 0 ; i < extraDetails.size(); i++) {
-                            @SuppressLint("SimpleDateFormat") DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-                            Calendar calendar = Calendar.getInstance();
-                            Calendar calendar1 = Calendar.getInstance();
-                            if (!TextUtils.isEmpty(extraDetails.get(i).schedule_date1)){
-                                calendar.setTime(formatter.parse(extraDetails.get(i).schedule_date1));
-                                if (!extraDetails.get(i).schedule_date1.equalsIgnoreCase("null")) {
-                                    binding.date1.setText(extraDetails.get(i).schedule_date1);
+                try{
+                    if(response.isSuccessful()){
+                        VehicleWashList body = response.body();
+                        if (body.code.equalsIgnoreCase("200")) {
+                            new Gson().toJson((Object) body);
+                            washDetails = body.wash_details;
+                            washDetails = body.wash_details;
+                            try {
+                                for (int i = 0 ; i < washDetails.size(); i++) {
+                                    @SuppressLint("SimpleDateFormat") DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                                    Calendar calendar = Calendar.getInstance();
+                                    Date datestart;
+                                    datestart = formatter.parse(washDetails.get(i).date);
+                                    calendar.setTime(datestart);
+                                    mEventDays.add(new EventDay(calendar, R.drawable.car_wash));
                                 }
+                                Log.e("Event", String.valueOf(mEventDays));
+                            } catch (ParseException e) {
+                                e.printStackTrace();
                             }
-                            if (!TextUtils.isEmpty(extraDetails.get(i).schedule_date2)){
-                                calendar1.setTime(formatter.parse(extraDetails.get(i).schedule_date1));
-                                if (!extraDetails.get(i).schedule_date1.equalsIgnoreCase("null")) {
-                                    binding.date1.setText(extraDetails.get(i).schedule_date1);
-                                }
-                            }
-                            if (!TextUtils.isEmpty(extraDetails.get(i).schedule_date1) && !TextUtils.isEmpty(extraDetails.get(i).schedule_date2)){
-                                binding.date1.setText("Internal  wash 1 : "+extraDetails.get(i).schedule_date1);
-                                binding.date2.setText("Internal  wash 2 : "+extraDetails.get(i).schedule_date2);
-                                binding.date1.setVisibility(View.VISIBLE);
-                                binding.date2.setVisibility(View.VISIBLE);
-                                binding.note.setVisibility(View.VISIBLE);
-                                binding.internalClean.setVisibility(View.GONE);
-                            }else{
-                                final int finalI = i;
-                                binding.date1.setVisibility(View.GONE);
-                                binding.date2.setVisibility(View.GONE);
-                                binding.note.setVisibility(View.GONE);
-                                binding.internalClean.setVisibility(View.VISIBLE);
+
+                            extraDetails = body.internal_details;
+
+                            try{
+                                VehicleWashList.InternalDetails details = extraDetails.get(extraDetails.size() - 1);
+                                one_edit = details.date1_edit;
+                                two_edit = details.date2_edit;
+                                binding.preferDate.setText(details.schedule_date1);
+                                binding.preferredtimeEdt.setText(details.schedule_time1);
+                                binding.preferDate2.setText(details.schedule_date2);
+                                binding.preferredtimeEdt2.setText(details.schedule_time2);
+
                                 binding.submit.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
-                                        if (binding.preferDate.getText().toString().length()>0 && binding.preferredtimeEdt.getText().toString().length()>0){
-                                            if(TextUtils.isEmpty(extraDetails.get(finalI).schedule_date1) && TextUtils.isEmpty(extraDetails.get(finalI).schedule_date2)){
+                                        if (binding.preferDate.getText().toString().length()>0 && binding.preferredtimeEdt.getText().toString().length()>0 &&
+                                                binding.preferDate2.getText().toString().length()>0 && binding.preferredtimeEdt2.getText().toString().length()>0){
+                                            /*if(TextUtils.isEmpty(extraDetails.get(finalI).schedule_date1)
+                                                    && TextUtils.isEmpty(extraDetails.get(finalI).schedule_date2)){
                                                 workinternal("1",extraDetails.get(finalI).id);
-                                            }else if(!TextUtils.isEmpty(extraDetails.get(finalI).schedule_date1) && TextUtils.isEmpty(extraDetails.get(finalI).schedule_date2)){
+                                            }else if(!TextUtils.isEmpty(extraDetails.get(finalI).schedule_date1)
+                                                    && TextUtils.isEmpty(extraDetails.get(finalI).schedule_date2)){
                                                 workinternal("2",extraDetails.get(finalI).id);
-                                            }
+                                            }*/
+                                            workinternal("2",details.id);
                                         }else {
                                             Toast.makeText(InternalwashActivity.this,Constant.CHOOSEDATETIME,Toast.LENGTH_SHORT).show();
                                         }
                                     }
                                 });
-                            }
-                        }
 
-                    } catch (ParseException e) {
-                        e.printStackTrace();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+
+                            /*for (int i = 0 ; i < extraDetails.size(); i++) {
+                                @SuppressLint("SimpleDateFormat") DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                                Calendar calendar = Calendar.getInstance();
+                                Calendar calendar1 = Calendar.getInstance();
+                                if (!TextUtils.isEmpty(extraDetails.get(i).schedule_date1)){
+                                    calendar.setTime(formatter.parse(extraDetails.get(i).schedule_date1));
+                                    if (!extraDetails.get(i).schedule_date1.equalsIgnoreCase("null")) {
+                                        binding.date1.setText(extraDetails.get(i).schedule_date1);
+                                    }
+                                }
+                                if (!TextUtils.isEmpty(extraDetails.get(i).schedule_date2)){
+                                    calendar1.setTime(formatter.parse(extraDetails.get(i).schedule_date1));
+                                    if (!extraDetails.get(i).schedule_date1.equalsIgnoreCase("null")) {
+                                        binding.date1.setText(extraDetails.get(i).schedule_date1);
+                                    }
+                                }
+                                if (!TextUtils.isEmpty(extraDetails.get(i).schedule_date1) && !TextUtils.isEmpty(extraDetails.get(i).schedule_date2)){
+                                    binding.date1.setText("Internal  wash 1 : "+extraDetails.get(i).schedule_date1);
+                                    binding.date2.setText("Internal  wash 2 : "+extraDetails.get(i).schedule_date2);
+                                    binding.date1.setVisibility(View.VISIBLE);
+                                    binding.date2.setVisibility(View.VISIBLE);
+                                    binding.note.setVisibility(View.VISIBLE);
+                                    binding.internalClean.setVisibility(View.GONE);
+                                }else{
+                                    final int finalI = i;
+                                    binding.date1.setVisibility(View.GONE);
+                                    binding.date2.setVisibility(View.GONE);
+                                    binding.note.setVisibility(View.GONE);
+                                    binding.internalClean.setVisibility(View.VISIBLE);
+                                    binding.submit.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            if (binding.preferDate.getText().toString().length()>0 && binding.preferredtimeEdt.getText().toString().length()>0){
+                                                if(TextUtils.isEmpty(extraDetails.get(finalI).schedule_date1) && TextUtils.isEmpty(extraDetails.get(finalI).schedule_date2)){
+                                                    workinternal("1",extraDetails.get(finalI).id);
+                                                }else if(!TextUtils.isEmpty(extraDetails.get(finalI).schedule_date1) && TextUtils.isEmpty(extraDetails.get(finalI).schedule_date2)){
+                                                    workinternal("2",extraDetails.get(finalI).id);
+                                                }
+                                            }else {
+                                                Toast.makeText(InternalwashActivity.this,Constant.CHOOSEDATETIME,Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                    });
+                                }
+                            }*/
+
+                        } else if (body.code.equalsIgnoreCase("203")) {
+                            sessionManager.logoutUsers();
+                        } else if (body.code.equalsIgnoreCase("201")) {
+                            Toast.makeText(InternalwashActivity.this, body.message, Toast.LENGTH_SHORT).show();
+                        }
+                    } else{
+                        ApiConfig.responseToast(InternalwashActivity.this, response.code());
                     }
-                } else if (body.code.equalsIgnoreCase("203")) {
-                    sessionManager.logoutUsers();
-                } else if (body.code.equalsIgnoreCase("201")) {
-                    Toast.makeText(InternalwashActivity.this, body.message, Toast.LENGTH_SHORT).show();
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
 

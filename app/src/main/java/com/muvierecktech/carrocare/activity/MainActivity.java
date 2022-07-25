@@ -27,6 +27,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import com.denzcoskun.imageslider.models.SlideModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.gson.Gson;
@@ -349,80 +350,55 @@ public class MainActivity extends AppCompatActivity {
         call.enqueue(new Callback<OrdersList>() {
             @Override
             public void onResponse(Call<OrdersList> call, Response<OrdersList> response) {
-                OrdersList body = response.body();
-                if (body.code.equalsIgnoreCase("200")) {
-                    hud.dismiss();
-                    order = body.orders;
-                    orderId.add(0, Constant.ORDERID);
+                try{
+                    if(response.isSuccessful()){
+                        OrdersList body = response.body();
+                        if (body.code.equalsIgnoreCase("200")) {
+                            hud.dismiss();
+                            order = body.orders;
+                            orderId.add(0, Constant.ORDERID);
 
-                    for (int i = 0; i < order.size(); i++) {
-                        orderId.add(order.get(i).order_id);
-                        if (order.get(i).service_type.equalsIgnoreCase("Wash")){
-                            if(order.get(i).status.equalsIgnoreCase("Active") ||
-                                    order.get(i).status.equalsIgnoreCase("Over Due")){
-                                ser_type_wash.add(order.get(i).service_type);
+                            for (int i = 0; i < order.size(); i++) {
+                                orderId.add(order.get(i).order_id);
+                                if (order.get(i).service_type.equalsIgnoreCase("Wash")){
+                                    if(order.get(i).status.equalsIgnoreCase("Active") ||
+                                            order.get(i).status.equalsIgnoreCase("Over Due")){
+                                        ser_type_wash.add(order.get(i).service_type);
+                                    }
+                                }else {
+                                    ser_type_addon.add(order.get(i).service_type);
+                                }
                             }
-                        }else {
-                            ser_type_addon.add(order.get(i).service_type);
-                        }
 
-
-             //           Log.e("*****",""+ser_type_addon+""+ser_type_wash);
-//                        if(order.get(i).service_type.equalsIgnoreCase("Wash")) {
-//                            binding.orderRc.setVisibility(View.VISIBLE);
-//                            binding.noorders.setVisibility(View.GONE);
-//                        }
-////                        else if (
-////                        order.get(i).service_type.equalsIgnoreCase("AddOn")) {
-////                            binding.noorders.setVisibility(View.VISIBLE);
-////                            binding.orderRc.setVisibility(View.GONE);
-////                        }
-//                        else{
-//                            binding.noorders.setVisibility(View.VISIBLE);
-//                            binding.orderRc.setVisibility(View.GONE);
-//                        }
-                        /*if(ser_type_wash.get(i).equalsIgnoreCase("Wash")){
-                            binding.orderRc.setVisibility(View.VISIBLE);
-                            binding.noorders.setVisibility(View.GONE);
-                        }else {
-                            if (order.get(i).service_type.equalsIgnoreCase("AddOn")) {
-
+                            if (!ser_type_wash.isEmpty()) {
+                                binding.orderRc.setVisibility(View.VISIBLE);
+                                binding.noorders.setVisibility(View.GONE);
                             }else{
                                 binding.orderRc.setVisibility(View.GONE);
                                 binding.noorders.setVisibility(View.VISIBLE);
                             }
-                        }*/
 
+                            binding.detailrl.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    binding.detailrl.setVisibility(View.GONE);
+                                }
+                            });
+
+                            IntWashOrderAdapter intWashOrderAdapter = new IntWashOrderAdapter(MainActivity.this, body.orders);
+                            binding.orderRc.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.VERTICAL, false));
+                            binding.orderRc.setAdapter(intWashOrderAdapter);
+
+                        } else if (body.code.equalsIgnoreCase("201")) {
+                            hud.dismiss();
+                            binding.noorders.setVisibility(View.VISIBLE);
+                            binding.orderRc.setVisibility(View.GONE);
+                        }
+                    } else{
+                        ApiConfig.responseToast(MainActivity.this, response.code());
                     }
-                        if (!ser_type_wash.isEmpty()) {
-                            binding.orderRc.setVisibility(View.VISIBLE);
-                            binding.noorders.setVisibility(View.GONE);
-                        }else{
-//                            if (!ser_type_addon.isEmpty()) {
-                                binding.orderRc.setVisibility(View.GONE);
-                                binding.noorders.setVisibility(View.VISIBLE);
-//                            }else{
-//
-//                            }
-                        }
-
-                    binding.detailrl.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            binding.detailrl.setVisibility(View.GONE);
-                        }
-                    });
-
-
-
-                    IntWashOrderAdapter intWashOrderAdapter = new IntWashOrderAdapter(MainActivity.this, body.orders);
-                    binding.orderRc.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.VERTICAL, false));
-                    binding.orderRc.setAdapter(intWashOrderAdapter);
-
-                } else if (body.code.equalsIgnoreCase("201")) {
-                    hud.dismiss();
-                    binding.noorders.setVisibility(View.VISIBLE);
-                    binding.orderRc.setVisibility(View.GONE);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
 
@@ -449,30 +425,38 @@ public class MainActivity extends AppCompatActivity {
         call.enqueue(new Callback<LoginDetails>() {
             @Override
             public void onResponse(Call<LoginDetails> call, Response<LoginDetails> response) {
-                final LoginDetails loginDetails = response.body();
                 hud.dismiss();
-                if (loginDetails.code.equalsIgnoreCase("200")) {
-                    Gson gson = new Gson();
-                    String json = gson.toJson(loginDetails);
-                    sessionManager.UserName(loginDetails.name);
-                    sessionManager.UserEmail(loginDetails.email);
-                    sessionManager.UserToken(loginDetails.token);
-                    sessionManager.UserId(loginDetails.customer_id);
-//                    sessionManager.userCode(loginDetails.usercode);
-                    sessionManager.UserMobile(loginDetails.mobile);
-                    sessionManager.UserStatus(loginDetails.status);
-                    sessionManager.UserApartBuilding(loginDetails.apartment_building);
-                    sessionManager.UserApartName(loginDetails.apartment_name);
-                    apartname = loginDetails.apartment_name;
-                    sessionManager.UserFlatno(loginDetails.flat_no);
-                }else  if (loginDetails.code.equalsIgnoreCase("201")) {
-                    sessionManager.logoutUsers();
+                try{
+                    if(response.isSuccessful()){
+                        final LoginDetails loginDetails = response.body();
+                        if (loginDetails.code.equalsIgnoreCase("200")) {
+                            Gson gson = new Gson();
+                            String json = gson.toJson(loginDetails);
+                            sessionManager.UserName(loginDetails.name);
+                            sessionManager.UserEmail(loginDetails.email);
+                            sessionManager.UserToken(loginDetails.token);
+                            sessionManager.UserId(loginDetails.customer_id);
+                            sessionManager.UserMobile(loginDetails.mobile);
+                            sessionManager.UserStatus(loginDetails.status);
+                            sessionManager.UserApartBuilding(loginDetails.apartment_building);
+                            sessionManager.UserApartName(loginDetails.apartment_name);
+                            apartname = loginDetails.apartment_name;
+                            sessionManager.UserFlatno(loginDetails.flat_no);
+                        }else  if (loginDetails.code.equalsIgnoreCase("201")) {
+                            sessionManager.logoutUsers();
+                        }
+                    } else{
+                        ApiConfig.responseToast(MainActivity.this, response.code());
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
             @Override
             public void onFailure(Call<LoginDetails> call, Throwable t) {
                 hud.dismiss();
                 Toast.makeText(MainActivity.this,"Timeout.Try after sometime",Toast.LENGTH_SHORT).show();
+                Log.e("Profile",""+t.toString());
             }
         });
     }
@@ -488,47 +472,45 @@ public class MainActivity extends AppCompatActivity {
         call.enqueue(new Callback<SliderList>() {
             @Override
             public void onResponse(Call<SliderList> call, Response<SliderList> response) {
-                final SliderList sliderList = response.body();
                 hud.dismiss();
-                if (sliderList.code.equalsIgnoreCase("200")) {
-                    Gson gson = new Gson();
-                    String json = gson.toJson(sliderList);
-                    SliderAdapter offerAdapter = new SliderAdapter(MainActivity.this, sliderList.slider);
-//                    binding.sliders.setInterval(2000);
-//                    binding.sliders.startAutoScroll();
-//                    binding.sliders.setCurrentItem(Integer.MAX_VALUE / 2 - Integer.MAX_VALUE / 2 % ListUtils.getSize(imageIdList))
-                    binding.sliders.setAdapter(offerAdapter);
-                    binding.indicator.setViewPager(binding.sliders);
-                    //Image slider function//
-                    // Auto start of viewpager
-//                    final Handler handler = new Handler();
-//                    final Runnable Update = new Runnable() {
-//                        public void run() {
-//                            if (currentPage == sliders.size()) {
-//                                currentPage = 0;
-//                            }
-//                            binding.sliders.setCurrentItem(currentPage++, true);
-//                        }
-//                    };
-//                    swipeTimer =new Timer();
-//                    swipeTimer.schedule(new TimerTask() {
-//                        @Override
-//                        public void run () {
-//                            Log.d("hjgv","yughi");
-//                            handler.post(Update);
-//                        }
-//                    },delay,period);
-
-                    binding.sliders.setSlideInterval(5000);
-                    binding.sliders.startAutoScroll();
+                try{
+                    if(response.isSuccessful()){
+                        final SliderList sliderList = response.body();
+                        if (sliderList.code.equalsIgnoreCase("200")) {
+                            Gson gson = new Gson();
+                            String json = gson.toJson(sliderList);
+                            SliderAdapter offerAdapter = new SliderAdapter(MainActivity.this, sliderList.slider);
+                            addBannerImages(sliderList.slider);
+                        }
+                    } else{
+                        ApiConfig.responseToast(MainActivity.this, response.code());
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
             @Override
             public void onFailure(Call<SliderList> call, Throwable t) {
                 hud.dismiss();
                 Toast.makeText(MainActivity.this,"Timeout.Try after sometime",Toast.LENGTH_SHORT).show();
+                Log.e("Slider",""+t.toString());
             }
         });
+    }
+
+    private void addBannerImages(List<SliderList.Slider> slider) {
+        try{
+            List<SlideModel> slideModelList = new ArrayList<>();
+
+            for (int i = 0; i < slider.size(); i++) {
+                slideModelList.add(new SlideModel(slider.get(i).simage));
+            }
+
+            binding.imageSlider.setImageList(slideModelList,true);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private boolean isNetworkAvailable() {
@@ -583,26 +565,36 @@ public class MainActivity extends AppCompatActivity {
             call.enqueue(new Callback<SettingsList>() {
                 @Override
                 public void onResponse(Call<SettingsList> call, Response<SettingsList> response) {
-                    final SettingsList settingsList = response.body();
-                    if (settingsList.code.equalsIgnoreCase("200")){
-                        Constant.GST_PERCENTAGE = settingsList.res.gst;
-                        Constant.VERSION_CODE = settingsList.res.current_version;
-                        Constant.REQUIRED_VERSION = settingsList.res.minimum_version;
-                        String versionName = "";
-                        try {
-                            PackageInfo packageInfo = MainActivity.this.getPackageManager().getPackageInfo(MainActivity.this.getPackageName(), 0);
-                            versionName = packageInfo.versionName;
-                        } catch (PackageManager.NameNotFoundException e) {
-                            Log.e("TAG","version name exception is "+e);
+                    try{
+                        if(response.isSuccessful()){
+                            final SettingsList settingsList = response.body();
+                            if (settingsList.code.equalsIgnoreCase("200")){
+                                Gson gson = new Gson();
+                                String json = gson.toJson(settingsList);
+                                Constant.GST_PERCENTAGE = settingsList.res.gst;
+                                Constant.VERSION_CODE = settingsList.res.current_version;
+                                Constant.REQUIRED_VERSION = settingsList.res.minimum_version;
+                                String versionName = "";
+                                try {
+                                    PackageInfo packageInfo = MainActivity.this.getPackageManager().getPackageInfo(MainActivity.this.getPackageName(), 0);
+                                    versionName = packageInfo.versionName;
+                                } catch (PackageManager.NameNotFoundException e) {
+                                    Log.e("TAG","version name exception is "+e);
+                                }
+                                Log.e("VERSION NAME",versionName);
+                                if (compareVersion(versionName, Constant.REQUIRED_VERSION) < 0) {
+                                    Constant.VERSION_STATUS = "1";
+                                    OpenBottomDialog(MainActivity.this);
+                                }else if (compareVersion(versionName, Constant.VERSION_CODE) < 0) {
+                                    Constant.VERSION_STATUS = "0";
+                                    OpenBottomDialog(MainActivity.this);
+                                }
+                            }
+                        } else{
+                            ApiConfig.responseToast(MainActivity.this, response.code());
                         }
-                        Log.e("VERSION NAME",versionName);
-                        if (compareVersion(versionName, Constant.REQUIRED_VERSION) < 0) {
-                            Constant.VERSION_STATUS = "1";
-                            OpenBottomDialog(MainActivity.this);
-                        }else if (compareVersion(versionName, Constant.VERSION_CODE) < 0) {
-                            Constant.VERSION_STATUS = "0";
-                            OpenBottomDialog(MainActivity.this);
-                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 }
 
@@ -610,6 +602,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onFailure(Call<SettingsList> loginDetails, Throwable t) {
 //                progressDialog.dismiss();
                     Toast.makeText(MainActivity.this, "Timeout.Try after sometime", Toast.LENGTH_SHORT).show();
+                    Log.e("Settings",""+t.toString());
                 }
             });
     }

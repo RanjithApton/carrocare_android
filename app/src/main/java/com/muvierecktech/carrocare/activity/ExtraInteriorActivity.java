@@ -15,6 +15,7 @@ import androidx.databinding.DataBindingUtil;
 import com.google.gson.Gson;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.muvierecktech.carrocare.R;
+import com.muvierecktech.carrocare.common.ApiConfig;
 import com.muvierecktech.carrocare.common.Constant;
 import com.muvierecktech.carrocare.common.SessionManager;
 import com.muvierecktech.carrocare.databinding.ActivityExtraInteriorBinding;
@@ -78,40 +79,48 @@ public class ExtraInteriorActivity extends AppCompatActivity {
         final KProgressHUD show = KProgressHUD.create(this).setStyle(KProgressHUD.Style.SPIN_INDETERMINATE).setCancellable(true).setAnimationSpeed(2).setDimAmount(0.5f).show();
         ((ApiInterface) ApiClient.getClient().create(ApiInterface.class)).Service(Constant.ADDONSERVICE).enqueue(new Callback<ServicePriceList>() {
             public void onResponse(Call<ServicePriceList> call, Response<ServicePriceList> response) {
-                ServicePriceList body = response.body();
                 show.dismiss();
-                if (body.code.equalsIgnoreCase("200")) {
-                    new Gson().toJson((Object) body);
-                    service = body.services;
-                    for (int i = 0; i < service.size(); i++) {
-                        if (service.get(i).type.equalsIgnoreCase("extra_interior")) {
-                            binding.carName.setText(service.get(i).type);
-                            carname = service.get(i).type;
-                            binding.carPrice.setText("Total amount\n₹ " + service.get(i).prices);
-                            carprice = service.get(i).prices;
-                            binding.carDesc.setText(HtmlCompat.fromHtml(service.get(i).description, 0));
-                            cardesc = service.get(i).description;
-                            Picasso.get().load(service.get(i).image)
-                                    .placeholder((int) R.drawable.placeholder)
-                                    .error((int) R.drawable.placeholder)
-                                    .into(binding.carImg);
-                            carimg = service.get(i).image;
+                try{
+                    if(response.isSuccessful()){
+                        ServicePriceList body = response.body();
+                        if (body.code.equalsIgnoreCase("200")) {
+                            new Gson().toJson((Object) body);
+                            service = body.services;
+                            for (int i = 0; i < service.size(); i++) {
+                                if (service.get(i).type.equalsIgnoreCase("extra_interior")) {
+                                    binding.carName.setText(service.get(i).type);
+                                    carname = service.get(i).type;
+                                    binding.carPrice.setText("Total amount\n₹ " + service.get(i).prices);
+                                    carprice = service.get(i).prices;
+                                    binding.carDesc.setText(HtmlCompat.fromHtml(service.get(i).description, 0));
+                                    cardesc = service.get(i).description;
+                                    Picasso.get().load(service.get(i).image)
+                                            .placeholder((int) R.drawable.placeholder)
+                                            .error((int) R.drawable.placeholder)
+                                            .into(binding.carImg);
+                                    carimg = service.get(i).image;
 
-                            carid = service.get(i).id;
-                             binding.booknow.setOnClickListener(new View.OnClickListener() {
-                                public void onClick(View view) {
-                                    Intent intent = new Intent(ExtraInteriorActivity.this, VehicleListActivity.class);
-                                    intent.putExtra("carname", carname);
-                                    intent.putExtra("carprice", carprice);
-                                    intent.putExtra("cardesc", cardesc);
-                                    intent.putExtra("carimage", carimg);
-                                    intent.putExtra("carid", carid);
-                                    intent.putExtra("header", headername);
-                                    startActivity(intent);
+                                    carid = service.get(i).id;
+                                    binding.booknow.setOnClickListener(new View.OnClickListener() {
+                                        public void onClick(View view) {
+                                            Intent intent = new Intent(ExtraInteriorActivity.this, VehicleListActivity.class);
+                                            intent.putExtra("carname", carname);
+                                            intent.putExtra("carprice", carprice);
+                                            intent.putExtra("cardesc", cardesc);
+                                            intent.putExtra("carimage", carimg);
+                                            intent.putExtra("carid", carid);
+                                            intent.putExtra("header", headername);
+                                            startActivity(intent);
+                                        }
+                                    });
                                 }
-                            });
+                            }
                         }
+                    } else{
+                        ApiConfig.responseToast(ExtraInteriorActivity.this, response.code());
                     }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
 

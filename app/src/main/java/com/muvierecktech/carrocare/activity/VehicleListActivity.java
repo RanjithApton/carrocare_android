@@ -29,6 +29,7 @@ import com.kaopiz.kprogresshud.KProgressHUD;
 import com.muvierecktech.carrocare.R;
 import com.muvierecktech.carrocare.adapter.PreferredAdapter;
 import com.muvierecktech.carrocare.adapter.VehicleListAdapter;
+import com.muvierecktech.carrocare.common.ApiConfig;
 import com.muvierecktech.carrocare.common.Constant;
 import com.muvierecktech.carrocare.common.DatabaseHelper;
 import com.muvierecktech.carrocare.common.MyDatabaseHelper;
@@ -285,23 +286,31 @@ public class VehicleListActivity extends AppCompatActivity {
         call.enqueue(new Callback<VehicleDetails>() {
             @Override
             public void onResponse(Call<VehicleDetails> call, Response<VehicleDetails> response) {
-                final VehicleDetails vehicleDetails = response.body();
                 hud.dismiss();
-                if (vehicleDetails.code.equalsIgnoreCase("200")) {
-                    Gson gson = new Gson();
-                    String json = gson.toJson(vehicleDetails);
-                    binding.novehicle.setVisibility(View.GONE);
-                    binding.carslistRc.setVisibility(View.VISIBLE);
+                try{
+                    if(response.isSuccessful()){
+                        final VehicleDetails vehicleDetails = response.body();
+                        if (vehicleDetails.code.equalsIgnoreCase("200")) {
+                            Gson gson = new Gson();
+                            String json = gson.toJson(vehicleDetails);
+                            binding.novehicle.setVisibility(View.GONE);
+                            binding.carslistRc.setVisibility(View.VISIBLE);
 
-                    VehicleListAdapter mainAdapter = new VehicleListAdapter(VehicleListActivity.this,vehicleDetails.details,carprice,carname,header);
-                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(VehicleListActivity.this,LinearLayoutManager.VERTICAL,false);
-                    binding.carslistRc.setLayoutManager(linearLayoutManager);
-                    binding.carslistRc.setAdapter(mainAdapter);
-                }else if (vehicleDetails.code.equalsIgnoreCase("201")) {
-                    binding.novehicle.setVisibility(View.VISIBLE);
-                    binding.carslistRc.setVisibility(View.GONE);
-                }else if (vehicleDetails.code.equalsIgnoreCase("203")) {
-                    sessionManager.logoutUsers();
+                            VehicleListAdapter mainAdapter = new VehicleListAdapter(VehicleListActivity.this,vehicleDetails.details,carprice,carname,header);
+                            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(VehicleListActivity.this,LinearLayoutManager.VERTICAL,false);
+                            binding.carslistRc.setLayoutManager(linearLayoutManager);
+                            binding.carslistRc.setAdapter(mainAdapter);
+                        }else if (vehicleDetails.code.equalsIgnoreCase("201")) {
+                            binding.novehicle.setVisibility(View.VISIBLE);
+                            binding.carslistRc.setVisibility(View.GONE);
+                        }else if (vehicleDetails.code.equalsIgnoreCase("203")) {
+                            sessionManager.logoutUsers();
+                        }
+                    } else{
+                        ApiConfig.responseToast(VehicleListActivity.this, response.code());
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
             @Override
@@ -442,90 +451,98 @@ public class VehicleListActivity extends AppCompatActivity {
             @SuppressLint("LongLogTag")
             @Override
             public void onResponse(Call<OneTimeWashCheckout> call, Response<OneTimeWashCheckout> response) {
-                OneTimeWashCheckout body = response.body();
-                if (body.code.equalsIgnoreCase("200")) {
-                    showDropdown();
-                    result = body.result;
-                    for (int i = 0; i < result.size(); i++) {
-                        if (result.get(i).order_exists.equalsIgnoreCase("0")) {
-                            fineAmount = result.get(i).fine_amount;
-                            onetimecarprice = result.get(i).total_amount;
-                            paidMonths = "1";
-                            totalAmountStr = Integer.parseInt(result.get(i).total_amount);
-                            binding.total1.setText("₹ " + onetimecarprice);
-                            int taxAmt = ((Constant.GST_PERCENTAGE * Integer.parseInt(onetimecarprice)) / 100);
-                            int finalAmt = taxAmt + Integer.parseInt(onetimecarprice);
-                            binding.taxTotal1.setText("₹ " + taxAmt);
-                            binding.totalAmount1.setText("₹ " +finalAmt);
-                            //binding.totalAmount1.setText("₹ " + onetimecarprice);
+                try{
+                    if(response.isSuccessful()){
+                        OneTimeWashCheckout body = response.body();
+                        if (body.code.equalsIgnoreCase("200")) {
+                            showDropdown();
+                            result = body.result;
+                            for (int i = 0; i < result.size(); i++) {
+                                if (result.get(i).order_exists.equalsIgnoreCase("0")) {
+                                    fineAmount = result.get(i).fine_amount;
+                                    onetimecarprice = result.get(i).total_amount;
+                                    paidMonths = "1";
+                                    totalAmountStr = Integer.parseInt(result.get(i).total_amount);
+                                    binding.total1.setText("₹ " + onetimecarprice);
+                                    int taxAmt = ((Constant.GST_PERCENTAGE * Integer.parseInt(onetimecarprice)) / 100);
+                                    int finalAmt = taxAmt + Integer.parseInt(onetimecarprice);
+                                    binding.taxTotal1.setText("₹ " + taxAmt);
+                                    binding.totalAmount1.setText("₹ " +finalAmt);
+                                    //binding.totalAmount1.setText("₹ " + onetimecarprice);
 
-                            //showing Discount filed
-                            if (result.get(i).discount_amount.equalsIgnoreCase("0")) {
-                                discountAmount = result.get(i).discount_amount;
-                                binding.discountField.setVisibility(View.GONE);
-                                binding.discountAmount1.setText(result.get(i).discount_amount);
-                            } else {
-                                binding.discountField.setVisibility(View.VISIBLE);
-                                discountAmount = result.get(i).discount_amount;
-                                binding.discountAmount1.setText(result.get(i).discount_amount);
+                                    //showing Discount filed
+                                    if (result.get(i).discount_amount.equalsIgnoreCase("0")) {
+                                        discountAmount = result.get(i).discount_amount;
+                                        binding.discountField.setVisibility(View.GONE);
+                                        binding.discountAmount1.setText(result.get(i).discount_amount);
+                                    } else {
+                                        binding.discountField.setVisibility(View.VISIBLE);
+                                        discountAmount = result.get(i).discount_amount;
+                                        binding.discountAmount1.setText(result.get(i).discount_amount);
+                                    }
+
+                                    if (result.get(i).total_amount.equalsIgnoreCase("0")) {
+                                        //onetimecarprice.equals(carprice);
+                                        //Log.e("is 0","Price"+onetimecarprice);
+                                    }else{
+                                        onetimecarprice = result.get(i).total_amount;
+                                        binding.total1.setText("₹ " +result.get(i).total_amount);
+                                        int taxAmt1 = ((Constant.GST_PERCENTAGE * Integer.parseInt(result.get(i).total_amount)) / 100);
+                                        int finalAmt1 = taxAmt1 + Integer.parseInt(result.get(i).total_amount);
+                                        binding.taxTotal1.setText("₹ " + taxAmt1);
+                                        binding.totalAmount1.setText("₹ " +finalAmt1);
+                                        //binding.totalAmount1.setText("₹ " +result.get(i).total_amount);
+                                        //Log.e("not 0","Price"+onetimecarprice);
+                                    }
+
+                                } else {
+                                    binding.fineField.setVisibility(View.VISIBLE);
+                                    if (result.get(i).fine_amount.equalsIgnoreCase("0")) {
+                                        fineAmount = result.get(i).fine_amount;
+                                        binding.fineField.setVisibility(View.GONE);
+                                        binding.fineAmount1.setText(result.get(i).fine_amount);
+                                    } else {
+                                        binding.fineField.setVisibility(View.VISIBLE);
+                                        fineAmount = result.get(i).fine_amount;
+                                        binding.fineAmount1.setText(result.get(i).fine_amount);
+                                    }
+
+                                    //showing Discount filed
+                                    if (result.get(i).discount_amount.equalsIgnoreCase("0")) {
+                                        discountAmount = result.get(i).discount_amount;
+                                        binding.discountField.setVisibility(View.GONE);
+                                        binding.discountAmount1.setText("₹ "+result.get(i).discount_amount);
+                                    } else {
+                                        binding.discountField.setVisibility(View.VISIBLE);
+                                        discountAmount = result.get(i).discount_amount;
+                                        binding.discountAmount1.setText("₹ "+result.get(i).discount_amount);
+                                    }
+
+                                    if (result.get(i).total_amount.equalsIgnoreCase("0")) {
+                                        //onetimecarprice.equals(carprice);
+                                        //Log.e("is 0","Price"+onetimecarprice);
+                                    }else{
+                                        onetimecarprice = result.get(i).total_amount;
+                                        binding.total1.setText("₹ " +result.get(i).total_amount);
+                                        int taxAmt2 = ((Constant.GST_PERCENTAGE * Integer.parseInt(result.get(i).total_amount)) / 100);
+                                        int finalAmt2 = taxAmt2 + Integer.parseInt(result.get(i).total_amount);
+                                        binding.taxTotal1.setText("₹ " + taxAmt2);
+                                        binding.totalAmount1.setText("₹ " +finalAmt2);
+                                        //binding.totalAmount1.setText("₹ " +result.get(i).total_amount);
+                                        //Log.e("not 0","Price"+onetimecarprice);
+                                    }
+
+                                }
+
                             }
-
-                            if (result.get(i).total_amount.equalsIgnoreCase("0")) {
-                                //onetimecarprice.equals(carprice);
-                                //Log.e("is 0","Price"+onetimecarprice);
-                            }else{
-                                onetimecarprice = result.get(i).total_amount;
-                                binding.total1.setText("₹ " +result.get(i).total_amount);
-                                int taxAmt1 = ((Constant.GST_PERCENTAGE * Integer.parseInt(result.get(i).total_amount)) / 100);
-                                int finalAmt1 = taxAmt1 + Integer.parseInt(result.get(i).total_amount);
-                                binding.taxTotal1.setText("₹ " + taxAmt1);
-                                binding.totalAmount1.setText("₹ " +finalAmt1);
-                                //binding.totalAmount1.setText("₹ " +result.get(i).total_amount);
-                                //Log.e("not 0","Price"+onetimecarprice);
-                            }
-
-                        } else {
-                            binding.fineField.setVisibility(View.VISIBLE);
-                            if (result.get(i).fine_amount.equalsIgnoreCase("0")) {
-                                fineAmount = result.get(i).fine_amount;
-                                binding.fineField.setVisibility(View.GONE);
-                                binding.fineAmount1.setText(result.get(i).fine_amount);
-                            } else {
-                                binding.fineField.setVisibility(View.VISIBLE);
-                                fineAmount = result.get(i).fine_amount;
-                                binding.fineAmount1.setText(result.get(i).fine_amount);
-                            }
-
-                            //showing Discount filed
-                            if (result.get(i).discount_amount.equalsIgnoreCase("0")) {
-                                discountAmount = result.get(i).discount_amount;
-                                binding.discountField.setVisibility(View.GONE);
-                                binding.discountAmount1.setText("₹ "+result.get(i).discount_amount);
-                            } else {
-                                binding.discountField.setVisibility(View.VISIBLE);
-                                discountAmount = result.get(i).discount_amount;
-                                binding.discountAmount1.setText("₹ "+result.get(i).discount_amount);
-                            }
-
-                            if (result.get(i).total_amount.equalsIgnoreCase("0")) {
-                                //onetimecarprice.equals(carprice);
-                                //Log.e("is 0","Price"+onetimecarprice);
-                            }else{
-                                onetimecarprice = result.get(i).total_amount;
-                                binding.total1.setText("₹ " +result.get(i).total_amount);
-                                int taxAmt2 = ((Constant.GST_PERCENTAGE * Integer.parseInt(result.get(i).total_amount)) / 100);
-                                int finalAmt2 = taxAmt2 + Integer.parseInt(result.get(i).total_amount);
-                                binding.taxTotal1.setText("₹ " + taxAmt2);
-                                binding.totalAmount1.setText("₹ " +finalAmt2);
-                                //binding.totalAmount1.setText("₹ " +result.get(i).total_amount);
-                                //Log.e("not 0","Price"+onetimecarprice);
-                            }
-
+                        } else if (body.code.equalsIgnoreCase("201")) {
+                            Toast.makeText(VehicleListActivity.this,body.staus,Toast.LENGTH_SHORT).show();
                         }
-
+                    } else{
+                        ApiConfig.responseToast(VehicleListActivity.this, response.code());
                     }
-                } else if (body.code.equalsIgnoreCase("201")) {
-                    Toast.makeText(VehicleListActivity.this,body.staus,Toast.LENGTH_SHORT).show();
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
 

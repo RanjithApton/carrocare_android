@@ -23,6 +23,7 @@ import com.google.gson.JsonObject;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.muvierecktech.carrocare.R;
 import com.muvierecktech.carrocare.adapter.HelpListAdapter;
+import com.muvierecktech.carrocare.common.ApiConfig;
 import com.muvierecktech.carrocare.common.Constant;
 import com.muvierecktech.carrocare.common.SessionManager;
 import com.muvierecktech.carrocare.databinding.ActivityHelpAndSupportBinding;
@@ -107,18 +108,21 @@ public class HelpAndSupportActivity extends AppCompatActivity {
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                JsonElement jsonElement = response.body();
                 hud.dismiss();
                 try {
-                    JSONObject jsonObject = new JSONObject(jsonElement.toString());
-                    if (jsonObject.optString("code").equalsIgnoreCase("200")) {
-                        Gson gson = new Gson();
-                        Toast.makeText(HelpAndSupportActivity.this,jsonObject.optString("result"),Toast.LENGTH_LONG).show();
-                        finish();
-                    }else {
-                        Toast.makeText(HelpAndSupportActivity.this,jsonObject.optString("message"),Toast.LENGTH_SHORT).show();
+                    if(response.isSuccessful()){
+                        JsonElement jsonElement = response.body();
+                        JSONObject jsonObject = new JSONObject(jsonElement.toString());
+                        if (jsonObject.optString("code").equalsIgnoreCase("200")) {
+                            Gson gson = new Gson();
+                            Toast.makeText(HelpAndSupportActivity.this,jsonObject.optString("result"),Toast.LENGTH_LONG).show();
+                            finish();
+                        }else {
+                            Toast.makeText(HelpAndSupportActivity.this,jsonObject.optString("message"),Toast.LENGTH_SHORT).show();
+                        }
+                    } else{
+                        ApiConfig.responseToast(HelpAndSupportActivity.this, response.code());
                     }
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

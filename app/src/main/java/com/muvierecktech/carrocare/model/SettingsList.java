@@ -6,7 +6,7 @@ public class SettingsList {
     public String message;
     public Settingresponse res;
 
-    public class Settingresponse {
+    public static class Settingresponse {
         public int gst;
         public String current_version;
         public String minimum_version;

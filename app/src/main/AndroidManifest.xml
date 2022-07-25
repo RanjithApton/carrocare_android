@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.muvierecktech.carrocare">
 
     <queries>
@@ -8,7 +9,8 @@
     </queries>
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -24,19 +26,31 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activity.DisinfectionActivity"></activity>
-        <activity android:name=".activity.PaymentSucessActivity" />
-        <activity android:name=".activity.LocateOnMapActivity" />
-        <activity android:name=".activity.MapAddVechileActivity" />
-        <activity android:name=".activity.DoorStepServiceActivity" />
-        <activity android:name=".activity.ApartmentServiceActivity" />
-        <activity android:name=".activity.MyVechiclesAddActivity" />
-        <activity android:name=".activity.MyRemainderActivity" />
-        <activity android:name=".activity.MyVehiclesActivity" />
-        <activity android:name=".activity.RenewActivity" />
-        <activity android:name=".activity.IntroductionActivity" />
+        <activity android:name=".activity.DisinfectionActivity"
+            android:exported="false"/>
+        <activity android:name=".activity.PaymentSucessActivity"
+            android:exported="false"/>
+        <activity android:name=".activity.LocateOnMapActivity"
+            android:exported="false"/>
+        <activity android:name=".activity.MapAddVechileActivity"
+            android:exported="false"/>
+        <activity android:name=".activity.DoorStepServiceActivity"
+            android:exported="false"/>
+        <activity android:name=".activity.ApartmentServiceActivity"
+            android:exported="false"/>
+        <activity android:name=".activity.MyVechiclesAddActivity"
+            android:exported="false"/>
+        <activity android:name=".activity.MyRemainderActivity"
+            android:exported="false"/>
+        <activity android:name=".activity.MyVehiclesActivity"
+            android:exported="false"/>
+        <activity android:name=".activity.RenewActivity"
+            android:exported="false"/>
+        <activity android:name=".activity.IntroductionActivity"
+            android:exported="false"/>
         <activity
             android:name=".activity.CartActivity"
+            android:exported="false"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden">
             <intent-filter>
@@ -47,6 +61,7 @@
         </activity>
         <activity
             android:name=".activity.IntroActivity"
+            android:exported="true"
             android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -57,18 +72,22 @@
         </activity>
         <activity
             android:name=".activity.LoginActivity"
+            android:exported="false"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".activity.SignUpActivity"
+            android:exported="false"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".activity.MainActivity"
+            android:exported="false"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".activity.CarPolishActivity"
+            android:exported="false"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden">
             <intent-filter>
@@ -79,6 +98,7 @@
         </activity>
         <activity
             android:name=".activity.CarWashActivity"
+            android:exported="false"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden">
             <intent-filter>
@@ -89,6 +109,7 @@
         </activity>
         <activity
             android:name=".activity.ExtraInteriorActivity"
+            android:exported="false"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden">
             <intent-filter>
@@ -99,6 +120,7 @@
         </activity>
         <activity
             android:name=".activity.BikeWashActivity"
+            android:exported="false"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden">
             <intent-filter>
@@ -109,18 +131,22 @@
         </activity>
         <activity
             android:name=".activity.SplashActivity"
+            android:exported="false"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".activity.ProfileActivity"
+            android:exported="false"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".activity.MainProfileActivity"
+            android:exported="false"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".activity.ConfirmFormActivity"
+            android:exported="false"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden">
             <intent-filter>
@@ -131,6 +157,7 @@
         </activity>
         <activity
             android:name=".activity.AddOnActivity"
+            android:exported="false"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden">
             <intent-filter>
@@ -141,21 +168,26 @@
         </activity>
         <activity
             android:name=".activity.CarDetailsActivity"
+            android:exported="false"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".activity.ForgetActivity"
+            android:exported="false"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".activity.PaymentOptionActivity"
+            android:exported="false"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.AddVehicleActivity"
+            android:exported="false"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".activity.VehicleListActivity"
+            android:exported="false"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
         <activity
@@ -164,26 +196,32 @@
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".activity.CheckoutActivity"
+            android:exported="false"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".activity.NotificationActivity"
+            android:exported="false"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".activity.CalenderActivity"
+            android:exported="false"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".activity.ContactUsActivity"
+            android:exported="false"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".activity.WebviewActivity"
+            android:exported="false"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".activity.MyOrdersActivity"
+            android:exported="false"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden">
             <intent-filter>
@@ -194,6 +232,7 @@
         </activity>
         <activity
             android:name=".activity.PaymentWebActivity"
+            android:exported="false"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize">
 
@@ -206,18 +245,22 @@
         </activity>
         <activity
             android:name=".activity.InternalwashActivity"
+            android:exported="false"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".activity.MyOrdersDetailActivity"
+            android:exported="false"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".activity.CongratsActivity"
+            android:exported="false"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".activity.HelpAndSupportActivity"
+            android:exported="false"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden" />
 
@@ -225,13 +268,17 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <service android:name=".firebase.MyFirebaseMessagingService">
+        <service
+            android:name=".firebase.MyFirebaseMessagingService"
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
             </intent-filter>
         </service>
-        <service android:name=".firebase.MyFirebaseInstanceIDService">
+        <service
+            android:name=".firebase.MyFirebaseInstanceIDService"
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>

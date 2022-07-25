@@ -29,6 +29,7 @@ import com.google.gson.JsonObject;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.muvierecktech.carrocare.R;
 import com.muvierecktech.carrocare.adapter.CartListAdapter;
+import com.muvierecktech.carrocare.common.ApiConfig;
 import com.muvierecktech.carrocare.common.Constant;
 import com.muvierecktech.carrocare.common.MyDatabaseHelper;
 import com.muvierecktech.carrocare.common.SessionManager;
@@ -181,21 +182,22 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                JsonElement jsonElement = response.body();
+
                 hud.dismiss();
                 try {
-                    JSONObject jsonObject = new JSONObject(jsonElement.toString());
-                    if (jsonObject.optString("code").equalsIgnoreCase("200")) {
-                        Gson gson = new Gson();
+                    if(response.isSuccessful()){
+                        JsonElement jsonElement = response.body();
+                        JSONObject jsonObject = new JSONObject(jsonElement.toString());
+                        if (jsonObject.optString("code").equalsIgnoreCase("200")) {
+                            Gson gson = new Gson();
 
-                        Constant.RAZOR_PAY_KEY_SECRET = jsonObject.optString("secretkey");
-                        Constant.RAZOR_PAY_KEY_VALUE = jsonObject.optString("keyid");
+                            Constant.RAZOR_PAY_KEY_SECRET = jsonObject.optString("secretkey");
+                            Constant.RAZOR_PAY_KEY_VALUE = jsonObject.optString("keyid");
 
-                        createOrderId();
-
-
-                        //startwashonetimepayment();
-
+                            createOrderId();
+                        }
+                    } else{
+                        ApiConfig.responseToast(CartActivity.this, response.code());
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -222,18 +224,18 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                JsonElement jsonElement = response.body();
                 hud.dismiss();
                 try {
-                    JSONObject jsonObject = new JSONObject(jsonElement.toString());
-                    if (jsonObject.optString("code").equalsIgnoreCase("200")) {
-                        Gson gson = new Gson();
-
-                        Constant.RAZOR_PAY_ORDER_ID = jsonObject.optString("rzp_order_id");
-
-                        createTempOrder();
-                        //startwashonetimepayment();
-
+                    if(response.isSuccessful()){
+                        JsonElement jsonElement = response.body();
+                        JSONObject jsonObject = new JSONObject(jsonElement.toString());
+                        if (jsonObject.optString("code").equalsIgnoreCase("200")) {
+                            Gson gson = new Gson();
+                            Constant.RAZOR_PAY_ORDER_ID = jsonObject.optString("rzp_order_id");
+                            createTempOrder();
+                        }
+                    } else{
+                        ApiConfig.responseToast(CartActivity.this, response.code());
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -295,22 +297,22 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
                         call.enqueue(new Callback<JsonObject>() {
                             @Override
                             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                                JsonElement body = response.body();
                                 hud.dismiss();
                                 try {
-                                    JSONObject jSONObject = new JSONObject(body.toString());
-                                    if (jSONObject.optString("code").equalsIgnoreCase("200")) {
-                                        new Gson();
-                                        //Toast.makeText(CartActivity.this, jSONObject.optString("result"), Toast.LENGTH_SHORT).show();
-                                        startwashonetimepayment();
-                                        //paymentSuccess();
-                                        //startActivity(new Intent(CartActivity.this, CongratsActivity.class));
-                                        //finish();
-                                    } else if (jSONObject.optString("code").equalsIgnoreCase("201")) {
-                                        Toast.makeText(CartActivity.this, jSONObject.optString("result"), Toast.LENGTH_SHORT).show();
-                                    }else if (jSONObject.optString("message").equalsIgnoreCase("success")){
-                                        Toast.makeText(CartActivity.this, jSONObject.optString("result"), Toast.LENGTH_SHORT).show();
-                                        //paymentSuccess();
+                                    if(response.isSuccessful()){
+                                        JsonElement body = response.body();
+                                        JSONObject jSONObject = new JSONObject(body.toString());
+                                        if (jSONObject.optString("code").equalsIgnoreCase("200")) {
+                                            new Gson();
+                                            startwashonetimepayment();
+                                        } else if (jSONObject.optString("code").equalsIgnoreCase("201")) {
+                                            Toast.makeText(CartActivity.this, jSONObject.optString("result"), Toast.LENGTH_SHORT).show();
+                                        }else if (jSONObject.optString("message").equalsIgnoreCase("success")){
+                                            Toast.makeText(CartActivity.this, jSONObject.optString("result"), Toast.LENGTH_SHORT).show();
+                                            //paymentSuccess();
+                                        }
+                                    } else{
+                                        ApiConfig.responseToast(CartActivity.this, response.code());
                                     }
                                 } catch (JSONException e) {
                                     e.printStackTrace();
@@ -350,19 +352,19 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
                         call.enqueue(new Callback<JsonObject>() {
                             @Override
                             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                                JsonElement body = response.body();
                                 hud.dismiss();
                                 try {
-                                    JSONObject jSONObject = new JSONObject(body.toString());
-                                    if (jSONObject.optString("code").equalsIgnoreCase("200")) {
-                                        new Gson();
-                                        //Toast.makeText(CartActivity.this, jSONObject.optString("result"), Toast.LENGTH_SHORT).show();
-                                        startwashonetimepayment();
-                                        //paymentSuccess();
-                                        //startActivity(new Intent(CartActivity.this, CongratsActivity.class));
-                                        //finish();
-                                    } else if (jSONObject.optString("code").equalsIgnoreCase("201")) {
-                                        Toast.makeText(CartActivity.this, jSONObject.optString("result"), Toast.LENGTH_SHORT).show();
+                                    if(response.isSuccessful()){
+                                        JsonElement body = response.body();
+                                        JSONObject jSONObject = new JSONObject(body.toString());
+                                        if (jSONObject.optString("code").equalsIgnoreCase("200")) {
+                                            new Gson();
+                                            startwashonetimepayment();
+                                        } else if (jSONObject.optString("code").equalsIgnoreCase("201")) {
+                                            Toast.makeText(CartActivity.this, jSONObject.optString("result"), Toast.LENGTH_SHORT).show();
+                                        }
+                                    } else{
+                                        ApiConfig.responseToast(CartActivity.this, response.code());
                                     }
                                 } catch (JSONException e) {
                                     e.printStackTrace();
@@ -401,20 +403,20 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
                         call.enqueue(new Callback<JsonObject>() {
                             @Override
                             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                                JsonElement jsonElement = response.body();
+
                                 hud.dismiss();
                                 try {
-                                    JSONObject jsonObject = new JSONObject(jsonElement.toString());
-                                    if (jsonObject.optString("code").equalsIgnoreCase("200")) {
-                                        Gson gson = new Gson();
-                                        //Toast.makeText(CartActivity.this,jsonObject.optString("result"),Toast.LENGTH_SHORT).show();
-                                        startwashonetimepayment();
-                                        //paymentSuccess();
-//                        Intent intent = new Intent(CartActivity.this,CongratsActivity.class);
-//                        startActivity(intent);
-//                        finish();
-                                    }else if (jsonObject.optString("code").equalsIgnoreCase("201")) {
-                                        Toast.makeText(CartActivity.this,jsonObject.optString("result"),Toast.LENGTH_SHORT).show();
+                                    if(response.isSuccessful()){
+                                        JsonElement jsonElement = response.body();
+                                        JSONObject jsonObject = new JSONObject(jsonElement.toString());
+                                        if (jsonObject.optString("code").equalsIgnoreCase("200")) {
+                                            Gson gson = new Gson();
+                                            startwashonetimepayment();
+                                        }else if (jsonObject.optString("code").equalsIgnoreCase("201")) {
+                                            Toast.makeText(CartActivity.this,jsonObject.optString("result"),Toast.LENGTH_SHORT).show();
+                                        }
+                                    } else{
+                                        ApiConfig.responseToast(CartActivity.this, response.code());
                                     }
                                 } catch (JSONException e) {
                                     e.printStackTrace();
@@ -453,20 +455,20 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
                         call.enqueue(new Callback<JsonObject>() {
                             @Override
                             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                                JsonElement jsonElement = response.body();
+
                                 hud.dismiss();
                                 try {
-                                    JSONObject jsonObject = new JSONObject(jsonElement.toString());
-                                    if (jsonObject.optString("code").equalsIgnoreCase("200")) {
-                                        Gson gson = new Gson();
-                                        //Toast.makeText(CartActivity.this,jsonObject.optString("result"),Toast.LENGTH_SHORT).show();
-                                        startwashonetimepayment();
-                                        //paymentSuccess();
-//                        Intent intent = new Intent(CartActivity.this,CongratsActivity.class);
-//                        startActivity(intent);
-//                        finish();
-                                    }else if (jsonObject.optString("code").equalsIgnoreCase("201")) {
-                                        Toast.makeText(CartActivity.this,jsonObject.optString("result"),Toast.LENGTH_SHORT).show();
+                                    if(response.isSuccessful()){
+                                        JsonElement jsonElement = response.body();
+                                        JSONObject jsonObject = new JSONObject(jsonElement.toString());
+                                        if (jsonObject.optString("code").equalsIgnoreCase("200")) {
+                                            Gson gson = new Gson();
+                                            startwashonetimepayment();
+                                        }else if (jsonObject.optString("code").equalsIgnoreCase("201")) {
+                                            Toast.makeText(CartActivity.this,jsonObject.optString("result"),Toast.LENGTH_SHORT).show();
+                                        }
+                                    } else{
+                                        ApiConfig.responseToast(CartActivity.this, response.code());
                                     }
                                 } catch (JSONException e) {
                                     e.printStackTrace();
@@ -658,22 +660,27 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                JsonElement body = response.body();
+
                 hud.dismiss();
                 try {
-                    JSONObject jSONObject = new JSONObject(body.toString());
-                    if (jSONObject.optString("code").equalsIgnoreCase("200")) {
-                        new Gson();
-                        Toast.makeText(CartActivity.this, jSONObject.optString("result"), Toast.LENGTH_SHORT).show();
-                        paymentSuccess();
-                        Log.e("payresponse",""+jSONObject.optString("result"));
-                        //startActivity(new Intent(CartActivity.this, CongratsActivity.class));
-                        //finish();
-                    } else if (jSONObject.optString("code").equalsIgnoreCase("201")) {
-                        Toast.makeText(CartActivity.this, jSONObject.optString("result"), Toast.LENGTH_SHORT).show();
-                    }else if (jSONObject.optString("message").equalsIgnoreCase("success")){
-                        Toast.makeText(CartActivity.this, jSONObject.optString("result"), Toast.LENGTH_SHORT).show();
-                        paymentSuccess();
+                    if(response.isSuccessful()){
+                        JsonElement body = response.body();
+                        JSONObject jSONObject = new JSONObject(body.toString());
+                        if (jSONObject.optString("code").equalsIgnoreCase("200")) {
+                            new Gson();
+                            Toast.makeText(CartActivity.this, jSONObject.optString("result"), Toast.LENGTH_SHORT).show();
+                            paymentSuccess();
+                            Log.e("payresponse",""+jSONObject.optString("result"));
+                            //startActivity(new Intent(CartActivity.this, CongratsActivity.class));
+                            //finish();
+                        } else if (jSONObject.optString("code").equalsIgnoreCase("201")) {
+                            Toast.makeText(CartActivity.this, jSONObject.optString("result"), Toast.LENGTH_SHORT).show();
+                        }else if (jSONObject.optString("message").equalsIgnoreCase("success")){
+                            Toast.makeText(CartActivity.this, jSONObject.optString("result"), Toast.LENGTH_SHORT).show();
+                            paymentSuccess();
+                        }
+                    } else{
+                        ApiConfig.responseToast(CartActivity.this, response.code());
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -714,19 +721,23 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                JsonElement body = response.body();
                 hud.dismiss();
                 try {
-                    JSONObject jSONObject = new JSONObject(body.toString());
-                    if (jSONObject.optString("code").equalsIgnoreCase("200")) {
-                        new Gson();
-                        Toast.makeText(CartActivity.this, jSONObject.optString("result"), Toast.LENGTH_SHORT).show();
-                        paymentSuccess();
-                        Log.e("payresponse",""+jSONObject.optString("result"));
-                        //startActivity(new Intent(CartActivity.this, CongratsActivity.class));
-                        //finish();
-                    } else if (jSONObject.optString("code").equalsIgnoreCase("201")) {
-                        Toast.makeText(CartActivity.this, jSONObject.optString("result"), Toast.LENGTH_SHORT).show();
+                    if(response.isSuccessful()){
+                        JsonElement body = response.body();
+                        JSONObject jSONObject = new JSONObject(body.toString());
+                        if (jSONObject.optString("code").equalsIgnoreCase("200")) {
+                            new Gson();
+                            Toast.makeText(CartActivity.this, jSONObject.optString("result"), Toast.LENGTH_SHORT).show();
+                            paymentSuccess();
+                            Log.e("payresponse",""+jSONObject.optString("result"));
+                            //startActivity(new Intent(CartActivity.this, CongratsActivity.class));
+                            //finish();
+                        } else if (jSONObject.optString("code").equalsIgnoreCase("201")) {
+                            Toast.makeText(CartActivity.this, jSONObject.optString("result"), Toast.LENGTH_SHORT).show();
+                        }
+                    } else{
+                        ApiConfig.responseToast(CartActivity.this, response.code());
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -772,20 +783,24 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                JsonElement jsonElement = response.body();
                 hud.dismiss();
                 try {
-                    JSONObject jsonObject = new JSONObject(jsonElement.toString());
-                    if (jsonObject.optString("code").equalsIgnoreCase("200")) {
-                        Gson gson = new Gson();
-                        Toast.makeText(CartActivity.this,jsonObject.optString("result"),Toast.LENGTH_SHORT).show();
-                        paymentSuccess();
-                        Log.e("payresponse",""+jsonObject.optString("result"));
+                    if(response.isSuccessful()){
+                        JsonElement jsonElement = response.body();
+                        JSONObject jsonObject = new JSONObject(jsonElement.toString());
+                        if (jsonObject.optString("code").equalsIgnoreCase("200")) {
+                            Gson gson = new Gson();
+                            Toast.makeText(CartActivity.this,jsonObject.optString("result"),Toast.LENGTH_SHORT).show();
+                            paymentSuccess();
+                            Log.e("payresponse",""+jsonObject.optString("result"));
 //                        Intent intent = new Intent(CartActivity.this,CongratsActivity.class);
 //                        startActivity(intent);
 //                        finish();
-                    }else if (jsonObject.optString("code").equalsIgnoreCase("201")) {
-                        Toast.makeText(CartActivity.this,jsonObject.optString("result"),Toast.LENGTH_SHORT).show();
+                        }else if (jsonObject.optString("code").equalsIgnoreCase("201")) {
+                            Toast.makeText(CartActivity.this,jsonObject.optString("result"),Toast.LENGTH_SHORT).show();
+                        }
+                    } else{
+                        ApiConfig.responseToast(CartActivity.this, response.code());
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -827,20 +842,24 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                JsonElement jsonElement = response.body();
                 hud.dismiss();
                 try {
-                    JSONObject jsonObject = new JSONObject(jsonElement.toString());
-                    if (jsonObject.optString("code").equalsIgnoreCase("200")) {
-                        Gson gson = new Gson();
-                        Toast.makeText(CartActivity.this,jsonObject.optString("result"),Toast.LENGTH_SHORT).show();
-                        paymentSuccess();
-                        Log.e("payresponse",""+jsonObject.optString("result"));
+                    if(response.isSuccessful()){
+                        JsonElement jsonElement = response.body();
+                        JSONObject jsonObject = new JSONObject(jsonElement.toString());
+                        if (jsonObject.optString("code").equalsIgnoreCase("200")) {
+                            Gson gson = new Gson();
+                            Toast.makeText(CartActivity.this,jsonObject.optString("result"),Toast.LENGTH_SHORT).show();
+                            paymentSuccess();
+                            Log.e("payresponse",""+jsonObject.optString("result"));
 //                        Intent intent = new Intent(CartActivity.this,CongratsActivity.class);
 //                        startActivity(intent);
 //                        finish();
-                    }else if (jsonObject.optString("code").equalsIgnoreCase("201")) {
-                        Toast.makeText(CartActivity.this,jsonObject.optString("result"),Toast.LENGTH_SHORT).show();
+                        }else if (jsonObject.optString("code").equalsIgnoreCase("201")) {
+                            Toast.makeText(CartActivity.this,jsonObject.optString("result"),Toast.LENGTH_SHORT).show();
+                        }
+                    } else{
+                        ApiConfig.responseToast(CartActivity.this, response.code());
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

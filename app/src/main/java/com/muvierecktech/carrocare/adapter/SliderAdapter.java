@@ -44,7 +44,7 @@ public class SliderAdapter extends PagerAdapter {
         View itemView = layoutInflater.inflate(R.layout.item_slider, container, false);
 
         ImageView carImg = (ImageView) itemView.findViewById(R.id.car_img);
-        ImageView progress = (ImageView) itemView.findViewById(R.id.progress_loader);
+       // ImageView progress = (ImageView) itemView.findViewById(R.id.progress_loader);
 //        TextView newsText = (TextView) itemView.findViewById(R.id.news_txt);
 //        progress.setVisibility(View.VISIBLE);
         Picasso.get()

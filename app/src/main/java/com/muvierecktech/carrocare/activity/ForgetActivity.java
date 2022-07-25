@@ -20,6 +20,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.muvierecktech.carrocare.R;
+import com.muvierecktech.carrocare.common.ApiConfig;
 import com.muvierecktech.carrocare.common.Constant;
 
 import com.muvierecktech.carrocare.databinding.ActivityForgetBinding;
@@ -115,62 +116,51 @@ public class ForgetActivity extends AppCompatActivity {
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                JsonElement jsonElement = response.body();
                 hud.dismiss();
                 binding.sendOtp.setText("Resend OTP");
                 try {
-                    JSONObject jsonObject = new JSONObject(jsonElement.toString());
-                    if (jsonObject.optString("code").equalsIgnoreCase("200")) {
-                        Gson gson = new Gson();
-                        otp = jsonObject.optString("OTP");
-                        binding.otpRl.setVisibility(View.VISIBLE);
-                        binding.submitBtn.setVisibility(View.VISIBLE);
-                        binding.sendOtp.setText("Resend OTP");
-                        binding.submitBtn.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                if (binding.submitBtn.getText().toString().equalsIgnoreCase("Verify")) {
-                                    if (binding.otpEdt.getText().toString().length() > 0) {
-                                        if (binding.otpEdt.getText().toString().equalsIgnoreCase(otp)) {
-                                            binding.submitBtn.setText("Submit");
-                                            binding.conpassRl.setVisibility(View.VISIBLE);
-                                            binding.passRl.setVisibility(View.VISIBLE);
+                    if(response.isSuccessful()){
+                        JsonElement jsonElement = response.body();
+                        JSONObject jsonObject = new JSONObject(jsonElement.toString());
+                        if (jsonObject.optString("code").equalsIgnoreCase("200")) {
+                            Gson gson = new Gson();
+                            otp = jsonObject.optString("OTP");
+                            binding.otpRl.setVisibility(View.VISIBLE);
+                            binding.submitBtn.setVisibility(View.VISIBLE);
+                            binding.sendOtp.setText("Resend OTP");
+                            binding.submitBtn.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    if (binding.submitBtn.getText().toString().equalsIgnoreCase("Verify")) {
+                                        if (binding.otpEdt.getText().toString().length() > 0) {
+                                            if (binding.otpEdt.getText().toString().equalsIgnoreCase(otp)) {
+                                                binding.submitBtn.setText("Submit");
+                                                binding.conpassRl.setVisibility(View.VISIBLE);
+                                                binding.passRl.setVisibility(View.VISIBLE);
+                                            } else
+                                                Toast.makeText(ForgetActivity.this, Constant.VALIDOTP, Toast.LENGTH_SHORT).show();
                                         } else
-                                            Toast.makeText(ForgetActivity.this, Constant.VALIDOTP, Toast.LENGTH_SHORT).show();
-                                    } else
-                                        Toast.makeText(ForgetActivity.this, Constant.DETAILS, Toast.LENGTH_SHORT).show();
-                                }else {
-                                    if (binding.passEdt.getText().toString().length() > 0 && binding.conpassEdt.getText().toString().length() > 0) {
-                                        if (binding.passEdt.getText().toString().equalsIgnoreCase(binding.conpassEdt.getText().toString())) {
-                                            workForgot();
+                                            Toast.makeText(ForgetActivity.this, Constant.DETAILS, Toast.LENGTH_SHORT).show();
+                                    }else {
+                                        if (binding.passEdt.getText().toString().length() > 0 && binding.conpassEdt.getText().toString().length() > 0) {
+                                            if (binding.passEdt.getText().toString().equalsIgnoreCase(binding.conpassEdt.getText().toString())) {
+                                                workForgot();
+                                            } else
+                                                Toast.makeText(ForgetActivity.this, Constant.PASSNOTMATCH, Toast.LENGTH_SHORT).show();
                                         } else
-                                            Toast.makeText(ForgetActivity.this, Constant.PASSNOTMATCH, Toast.LENGTH_SHORT).show();
-                                    } else
-                                        Toast.makeText(ForgetActivity.this, Constant.DETAILS, Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(ForgetActivity.this, Constant.DETAILS, Toast.LENGTH_SHORT).show();
+                                    }
                                 }
-                            }
-                        });
-                    }else if (jsonObject.optString("code").equalsIgnoreCase("201")) {
-                        Toast.makeText(ForgetActivity.this,jsonObject.optString("message"), Toast.LENGTH_SHORT).show();
+                            });
+                        }else if (jsonObject.optString("code").equalsIgnoreCase("201")) {
+                            Toast.makeText(ForgetActivity.this,jsonObject.optString("message"), Toast.LENGTH_SHORT).show();
+                        }
+                    } else{
+                        ApiConfig.responseToast(ForgetActivity.this, response.code());
                     }
                 }catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-
-//                    Intent intent = new Intent(SignUpActivity.this,MainActivity.class);
-//                    startActivity(intent);
-//                    finish();
-
-//                    sessionManager.UserName(loginDetails.username);
-//                    sessionManager.userEmail(loginDetails.useremail);
-//                    sessionManager.userAccess(loginDetails.accesstoken);
-//                    sessionManager.userId(loginDetails.userid);
-//                    sessionManager.userCode(loginDetails.usercode);
-//                    sessionManager.userMobile(loginDetails.usermobile);
-//                    sessionManager.userStatus(loginDetails.status);
-
-
-
+                    e.printStackTrace();
+                }
             }
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
@@ -219,15 +209,19 @@ public class ForgetActivity extends AppCompatActivity {
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                JsonElement jsonElement = response.body();
                 hud.dismiss();
                 try {
-                    JSONObject jsonObject = new JSONObject(jsonElement.toString());
-                    if (jsonObject.optString("code").equalsIgnoreCase("200")) {
-                        Gson gson = new Gson();
-                        Toast.makeText(ForgetActivity.this,jsonObject.optString("result"),Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(ForgetActivity.this,LoginActivity.class));
-                        finish();
+                    if(response.isSuccessful()){
+                        JsonElement jsonElement = response.body();
+                        JSONObject jsonObject = new JSONObject(jsonElement.toString());
+                        if (jsonObject.optString("code").equalsIgnoreCase("200")) {
+                            Gson gson = new Gson();
+                            Toast.makeText(ForgetActivity.this,jsonObject.optString("result"),Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(ForgetActivity.this,LoginActivity.class));
+                            finish();
+                        }
+                    } else{
+                        ApiConfig.responseToast(ForgetActivity.this, response.code());
                     }
                 }catch (JSONException e) {
                     e.printStackTrace();

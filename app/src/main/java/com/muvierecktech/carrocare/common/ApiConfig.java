@@ -197,7 +197,35 @@ public class ApiConfig {
     }
 
 
-
+    public static void responseToast(Activity activity, int code){
+        String message = "";
+        if(code == 200){
+            message = "Success";
+        } else if(code == 201){
+            message = "Created";
+        } else if(code == 204){
+            message = "No Content";
+        } else if(code == 400){
+            message = "Bad Request";
+        } else if(code == 401){
+            message = "Unauthorised";
+        } else if(code == 403){
+            message = "Forbidden";
+        } else if(code == 404){
+            message = "Not Found";
+        } else if(code == 405){
+            message = "Method Not Allowed";
+        } else if(code == 500){
+            message = "Internal Server Error";
+        } else if(code == 503){
+            message = "Service Unavailable";
+        } else if(code == 429 ){
+            message = "The HTTP 429 Too Many Requests response status code";
+        } else{
+            message = "Unexpected error occurred";
+        }
+        Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
+    }
 
 
 }

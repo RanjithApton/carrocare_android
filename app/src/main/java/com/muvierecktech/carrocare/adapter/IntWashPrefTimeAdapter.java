@@ -19,9 +19,11 @@ public class IntWashPrefTimeAdapter extends RecyclerView.Adapter{
     String[] prefer;
     String type;
     private int lastSelectedPosition = -1;
-    public IntWashPrefTimeAdapter(Context context, String[] predferred) {
+    String date;
+    public IntWashPrefTimeAdapter(Context context, String[] predferred, String date) {
         this.context = context;
         this.prefer = predferred;
+        this.date = date;
         Log.e("Time", String.valueOf(predferred));
     }
 
@@ -30,23 +32,26 @@ public class IntWashPrefTimeAdapter extends RecyclerView.Adapter{
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemLayoutView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_apartments, null);
-        return new PreferredTimeAdapter.MyViewHolder(itemLayoutView);
+        return new MyViewHolder(itemLayoutView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int position) {
-        final PreferredTimeAdapter.MyViewHolder viewHolder = (PreferredTimeAdapter.MyViewHolder) holder;
+        final MyViewHolder viewHolder = (MyViewHolder) holder;
         viewHolder._name.setText(prefer[position]);
         viewHolder._name.setTag(viewHolder);
         viewHolder._name.setChecked(lastSelectedPosition==position);
         viewHolder._name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PreferredTimeAdapter.MyViewHolder viewHolder1 = (PreferredTimeAdapter.MyViewHolder) view.getTag();
+                MyViewHolder viewHolder1 = (MyViewHolder) view.getTag();
                 int pos = viewHolder1.getAdapterPosition();
                 lastSelectedPosition = pos;
                 notifyDataSetChanged();
-                ((InternalwashActivity)context).binding.preferredtimeEdt.setText(prefer[pos]);
+                if(date.equalsIgnoreCase("1"))
+                    ((InternalwashActivity)context).binding.preferredtimeEdt.setText(prefer[pos]);
+                else
+                    ((InternalwashActivity)context).binding.preferredtimeEdt2.setText(prefer[pos]);
                 ((InternalwashActivity)context).binding.timerl.setVisibility(View.GONE);
             }
         });

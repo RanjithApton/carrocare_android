@@ -34,5 +34,7 @@ public class VehicleWashList {
         public String vehicle_image2_dateandtime;
         public String updated_date;
         public String updated_time;
+        public String date1_edit;
+        public String date2_edit;
     }
 }

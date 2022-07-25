@@ -27,6 +27,7 @@ import com.google.gson.JsonObject;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.muvierecktech.carrocare.R;
 import com.muvierecktech.carrocare.adapter.PaymentDetailsAdapter;
+import com.muvierecktech.carrocare.common.ApiConfig;
 import com.muvierecktech.carrocare.common.Constant;
 import com.muvierecktech.carrocare.common.SessionManager;
 import com.muvierecktech.carrocare.databinding.ActivityMyOrdersDetailBinding;
@@ -511,21 +512,25 @@ public class MyOrdersDetailActivity extends AppCompatActivity {
                     call.enqueue(new Callback<JsonObject>() {
                         @Override
                         public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                            JsonElement jsonElement = response.body();
                             hud.dismiss();
                             try {
-                                JSONObject jsonObject = new JSONObject(jsonElement.toString());
-                                if (jsonObject.optString("code").equalsIgnoreCase("200")) {
-                                    Gson gson = new Gson();
-                                    Toast.makeText(MyOrdersDetailActivity.this,jsonObject.optString("message"),Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(MyOrdersDetailActivity.this,MyOrdersActivity.class);
-                                    startActivity(intent);
-                                    finish();
-                                }else if (jsonObject.optString("code").equalsIgnoreCase("201")) {
-                                    Toast.makeText(MyOrdersDetailActivity.this,jsonObject.optString("message"),Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(MyOrdersDetailActivity.this,MyOrdersActivity.class);
-                                    startActivity(intent);
-                                    finish();
+                                if(response.isSuccessful()){
+                                    JsonElement jsonElement = response.body();
+                                    JSONObject jsonObject = new JSONObject(jsonElement.toString());
+                                    if (jsonObject.optString("code").equalsIgnoreCase("200")) {
+                                        Gson gson = new Gson();
+                                        Toast.makeText(MyOrdersDetailActivity.this,jsonObject.optString("message"),Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(MyOrdersDetailActivity.this,MyOrdersActivity.class);
+                                        startActivity(intent);
+                                        finish();
+                                    }else if (jsonObject.optString("code").equalsIgnoreCase("201")) {
+                                        Toast.makeText(MyOrdersDetailActivity.this,jsonObject.optString("message"),Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(MyOrdersDetailActivity.this,MyOrdersActivity.class);
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                } else{
+                                    ApiConfig.responseToast(MyOrdersDetailActivity.this, response.code());
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -585,20 +590,23 @@ public class MyOrdersDetailActivity extends AppCompatActivity {
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                JsonElement jsonElement = response.body();
                 hud.dismiss();
                 try {
-                    JSONObject jsonObject = new JSONObject(jsonElement.toString());
-                    if (jsonObject.optString("code").equalsIgnoreCase("2View.VISIBLEView.VISIBLE")) {
-                        Gson gson = new Gson();
-                        Toast.makeText(MyOrdersDetailActivity.this,jsonObject.optString("result"),Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(MyOrdersDetailActivity.this,MyOrdersActivity.class);
-                        startActivity(intent);
-                        finish();
-                    }else {
-                        Toast.makeText(MyOrdersDetailActivity.this,jsonObject.optString("message"),Toast.LENGTH_SHORT).show();
+                    if(response.isSuccessful()){
+                        JsonElement jsonElement = response.body();
+                        JSONObject jsonObject = new JSONObject(jsonElement.toString());
+                        if (jsonObject.optString("code").equalsIgnoreCase("2View.VISIBLEView.VISIBLE")) {
+                            Gson gson = new Gson();
+                            Toast.makeText(MyOrdersDetailActivity.this,jsonObject.optString("result"),Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(MyOrdersDetailActivity.this,MyOrdersActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }else {
+                            Toast.makeText(MyOrdersDetailActivity.this,jsonObject.optString("message"),Toast.LENGTH_SHORT).show();
+                        }
+                    } else{
+                        ApiConfig.responseToast(MyOrdersDetailActivity.this, response.code());
                     }
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

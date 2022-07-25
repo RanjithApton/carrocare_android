@@ -26,6 +26,7 @@ import com.google.gson.JsonObject;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.muvierecktech.carrocare.R;
 import com.muvierecktech.carrocare.adapter.ApartmentsAdapter;
+import com.muvierecktech.carrocare.common.ApiConfig;
 import com.muvierecktech.carrocare.common.Constant;
 import com.muvierecktech.carrocare.common.SessionManager;
 import com.muvierecktech.carrocare.databinding.ActivityProfileBinding;
@@ -213,22 +214,23 @@ public class ProfileActivity extends AppCompatActivity {
         call.enqueue(new Callback<ApartmentList>() {
             @Override
             public void onResponse(Call<ApartmentList> call, Response<ApartmentList> response) {
-                ApartmentList apartmentList = response.body();
                 hud.dismiss();
-                if (apartmentList.code.equalsIgnoreCase("200")){
-                    apartments = apartmentList.Apartment;
-                    int pos = 0;
-                    //apartmentname.add(0,Constant.APARTMENTNAME);
-                    for(int i = 0; i < apartments.size(); i++){
-                        //Storing names to string array
-                        String items = apartments.get(i).name;
-                        apartmentname.add(items);
+                try{
+                    if(response.isSuccessful()){
+                        ApartmentList apartmentList = response.body();
+                        if (apartmentList.code.equalsIgnoreCase("200")){
+                            apartments = apartmentList.Apartment;
+                            int pos = 0;
+                            for(int i = 0; i < apartments.size(); i++){
+                                String items = apartments.get(i).name;
+                                apartmentname.add(items);
+                            }
+                        }
+                    } else{
+                        ApiConfig.responseToast(ProfileActivity.this, response.code());
                     }
-
-//                    ApartmentsAdapter apartmentsAdapter = new ApartmentsAdapter(ProfileActivity.this,apartmentList.Apartment, "1");
-//                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ProfileActivity.this,LinearLayoutManager.VERTICAL,false);
-//                    binding.apartlistRc.setLayoutManager(linearLayoutManager);
-//                    binding.apartlistRc.setAdapter(apartmentsAdapter);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
             @Override
@@ -251,34 +253,42 @@ public class ProfileActivity extends AppCompatActivity {
         call.enqueue(new Callback<LoginDetails>() {
             @Override
             public void onResponse(Call<LoginDetails> call, Response<LoginDetails> response) {
-                final LoginDetails loginDetails = response.body();
                 hud.dismiss();
-                if (loginDetails.code.equalsIgnoreCase("200")) {
-                    Gson gson = new Gson();
-                    String json = gson.toJson(loginDetails);
-                    sessionManager.UserName(loginDetails.name);
-                    sessionManager.UserEmail(loginDetails.email);
-                    sessionManager.UserToken(loginDetails.token);
-                    sessionManager.UserId(loginDetails.customer_id);
+                try{
+                    if(response.isSuccessful()){
+                        final LoginDetails loginDetails = response.body();
+                        if (loginDetails.code.equalsIgnoreCase("200")) {
+                            Gson gson = new Gson();
+                            String json = gson.toJson(loginDetails);
+                            sessionManager.UserName(loginDetails.name);
+                            sessionManager.UserEmail(loginDetails.email);
+                            sessionManager.UserToken(loginDetails.token);
+                            sessionManager.UserId(loginDetails.customer_id);
 //                    sessionManager.userCode(loginDetails.usercode);
-                    sessionManager.UserMobile(loginDetails.mobile);
-                    sessionManager.UserStatus(loginDetails.status);
-                    sessionManager.UserApartBuilding(loginDetails.apartment_building);
-                    sessionManager.UserApartName(loginDetails.apartment_name);
-                    sessionManager.UserFlatno(loginDetails.flat_no);
+                            sessionManager.UserMobile(loginDetails.mobile);
+                            sessionManager.UserStatus(loginDetails.status);
+                            sessionManager.UserApartBuilding(loginDetails.apartment_building);
+                            sessionManager.UserApartName(loginDetails.apartment_name);
+                            sessionManager.UserFlatno(loginDetails.flat_no);
 
-                    binding.nameEdt.setText(loginDetails.name);
-                    binding.emailEdt.setText(loginDetails.email);
-                    binding.mobileEdt.setText(loginDetails.mobile);
-                    binding.apartnameEdt.setText(loginDetails.apartment_name);
-                    apartname = loginDetails.apartment_name;
-                    binding.apartbuildingEdt.setText(loginDetails.apartment_building);
-                    binding.flatnoEdt.setText(loginDetails.flat_no);
-                    binding.addressEdt.setText(loginDetails.address);
-                    latitude = loginDetails.latitude;
-                    longitude = loginDetails.longitude;
-                }else  if (loginDetails.code.equalsIgnoreCase("201")) {
-                    sessionManager.logoutUsers();
+                            binding.nameEdt.setText(loginDetails.name);
+                            binding.emailEdt.setText(loginDetails.email);
+                            binding.mobileEdt.setText(loginDetails.mobile);
+                            binding.apartnameEdt.setText(loginDetails.apartment_name);
+                            apartname = loginDetails.apartment_name;
+                            binding.apartbuildingEdt.setText(loginDetails.apartment_building);
+                            binding.flatnoEdt.setText(loginDetails.flat_no);
+                            binding.addressEdt.setText(loginDetails.address);
+                            latitude = loginDetails.latitude;
+                            longitude = loginDetails.longitude;
+                        }else  if (loginDetails.code.equalsIgnoreCase("201")) {
+                            sessionManager.logoutUsers();
+                        }
+                    } else{
+                        ApiConfig.responseToast(ProfileActivity.this, response.code());
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
             @Override
@@ -330,20 +340,24 @@ public class ProfileActivity extends AppCompatActivity {
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                JsonElement jsonElement = response.body();
                 hud.dismiss();
                 try {
-                    JSONObject jsonObject = new JSONObject(jsonElement.toString());
-                    if (jsonObject.optString("code").equalsIgnoreCase("200")) {
-                        Gson gson = new Gson();
-                        Toast.makeText(ProfileActivity.this,jsonObject.optString("result"),Toast.LENGTH_SHORT).show();
-                        Intent i = new Intent(ProfileActivity.this, MainActivity.class);
-                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        i.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-                        startActivity(i);
-                    }else {
-                        Toast.makeText(ProfileActivity.this,jsonObject.optString("message"),Toast.LENGTH_SHORT).show();
+                    if(response.isSuccessful()){
+                        JsonElement jsonElement = response.body();
+                        JSONObject jsonObject = new JSONObject(jsonElement.toString());
+                        if (jsonObject.optString("code").equalsIgnoreCase("200")) {
+                            Gson gson = new Gson();
+                            Toast.makeText(ProfileActivity.this,jsonObject.optString("result"),Toast.LENGTH_SHORT).show();
+                            Intent i = new Intent(ProfileActivity.this, MainActivity.class);
+                            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            i.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                            startActivity(i);
+                        }else {
+                            Toast.makeText(ProfileActivity.this,jsonObject.optString("message"),Toast.LENGTH_SHORT).show();
+                        }
+                    } else{
+                        ApiConfig.responseToast(ProfileActivity.this, response.code());
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

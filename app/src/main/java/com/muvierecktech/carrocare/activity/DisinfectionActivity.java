@@ -19,6 +19,7 @@ import com.google.gson.Gson;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.muvierecktech.carrocare.R;
 import com.muvierecktech.carrocare.adapter.MainAdapter;
+import com.muvierecktech.carrocare.common.ApiConfig;
 import com.muvierecktech.carrocare.common.Constant;
 import com.muvierecktech.carrocare.common.SessionManager;
 import com.muvierecktech.carrocare.databinding.ActivityDisinfectionBinding;
@@ -99,28 +100,36 @@ public class DisinfectionActivity extends AppCompatActivity {
         call.enqueue(new Callback<ServicePriceList>() {
             @Override
             public void onResponse(Call<ServicePriceList> call, Response<ServicePriceList> response) {
-                final ServicePriceList servicePriceList = response.body();
                 hud.dismiss();
-                if (servicePriceList.code.equalsIgnoreCase("200")) {
-                    Gson gson = new Gson();
-                    String json = gson.toJson(servicePriceList);
+                try{
+                    if(response.isSuccessful()){
+                        final ServicePriceList servicePriceList = response.body();
+                        if (servicePriceList.code.equalsIgnoreCase("200")) {
+                            Gson gson = new Gson();
+                            String json = gson.toJson(servicePriceList);
 
-                    binding.description.setText(HtmlCompat.fromHtml(servicePriceList.description+"",0));
-                    description = servicePriceList.description;
-                    MainAdapter mainAdapter = new MainAdapter(DisinfectionActivity.this,servicePriceList.services, headername);
-                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(DisinfectionActivity.this,LinearLayoutManager.VERTICAL,false);
-                    binding.carslistRc.setLayoutManager(linearLayoutManager);
-                    binding.carslistRc.setAdapter(mainAdapter);
+                            binding.description.setText(HtmlCompat.fromHtml(servicePriceList.description+"",0));
+                            description = servicePriceList.description;
+                            MainAdapter mainAdapter = new MainAdapter(DisinfectionActivity.this,servicePriceList.services, headername);
+                            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(DisinfectionActivity.this,LinearLayoutManager.VERTICAL,false);
+                            binding.carslistRc.setLayoutManager(linearLayoutManager);
+                            binding.carslistRc.setAdapter(mainAdapter);
 
-                    binding.info.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            Intent intent = new Intent(DisinfectionActivity.this,InfoActivity.class);
-                            intent.putExtra("headername",Constant.DAILYWASH);
-                            intent.putExtra("description",description);
-                            startActivity(intent);
+                            binding.info.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    Intent intent = new Intent(DisinfectionActivity.this,InfoActivity.class);
+                                    intent.putExtra("headername",Constant.DAILYWASH);
+                                    intent.putExtra("description",description);
+                                    startActivity(intent);
+                                }
+                            });
                         }
-                    });
+                    } else{
+                        ApiConfig.responseToast(DisinfectionActivity.this, response.code());
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
             @Override
