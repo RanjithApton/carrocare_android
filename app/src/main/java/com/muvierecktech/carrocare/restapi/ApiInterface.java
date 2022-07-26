@@ -288,9 +288,10 @@ public interface ApiInterface {
                                       @Field("order_id") String order_id,
                                       @Field("schedule_date1") String schedule_date1,
                                       @Field("schedule_time1") String schedule_time1,
+                                      @Field("comment_box1") String comment_box1,
                                       @Field("schedule_date2") String schedule_date2,
                                       @Field("schedule_time2") String schedule_time2,
-                                      @Field("comment_box") String comment_box,
+                                      @Field("comment_box2") String comment_box2,
                                       @Field("id") String id
     );
 

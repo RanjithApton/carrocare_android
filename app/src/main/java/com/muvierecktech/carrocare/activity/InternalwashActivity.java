@@ -294,9 +294,10 @@ public class InternalwashActivity extends AppCompatActivity {
                 order_id+"",
                 binding.preferDate.getText().toString()+"",
                 binding.preferredtimeEdt.getText().toString()+"",
+                binding.commentTxt.getText().toString()+"",
                 binding.preferDate2.getText().toString()+"",
                 binding.preferredtimeEdt2.getText().toString()+"",
-                binding.commentTxt.getText().toString()+"",
+                binding.commentTxt2.getText().toString()+"",
                 veid+"");
         call.enqueue(new Callback<JsonObject>() {
             @Override
@@ -383,23 +384,28 @@ public class InternalwashActivity extends AppCompatActivity {
                                 binding.preferredtimeEdt.setText(details.schedule_time1);
                                 binding.preferDate2.setText(details.schedule_date2);
                                 binding.preferredtimeEdt2.setText(details.schedule_time2);
+                                binding.commentTxt.setText(details.comment_box1);
+                                binding.commentTxt2.setText(details.comment_box2);
 
                                 binding.submit.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
-                                        if (binding.preferDate.getText().toString().length()>0 && binding.preferredtimeEdt.getText().toString().length()>0 &&
-                                                binding.preferDate2.getText().toString().length()>0 && binding.preferredtimeEdt2.getText().toString().length()>0){
-                                            /*if(TextUtils.isEmpty(extraDetails.get(finalI).schedule_date1)
-                                                    && TextUtils.isEmpty(extraDetails.get(finalI).schedule_date2)){
-                                                workinternal("1",extraDetails.get(finalI).id);
-                                            }else if(!TextUtils.isEmpty(extraDetails.get(finalI).schedule_date1)
-                                                    && TextUtils.isEmpty(extraDetails.get(finalI).schedule_date2)){
-                                                workinternal("2",extraDetails.get(finalI).id);
-                                            }*/
+                                        if(TextUtils.isEmpty(details.schedule_date1)){
+                                            if (binding.preferDate.getText().toString().length()>0 && binding.preferredtimeEdt.getText().toString().length()>0){
+                                                workinternal("2",details.id);
+                                            }else {
+                                                Toast.makeText(InternalwashActivity.this,Constant.CHOOSEDATETIME,Toast.LENGTH_SHORT).show();
+                                            }
+                                        } else if(TextUtils.isEmpty(details.schedule_date2)){
+                                            if (binding.preferDate2.getText().toString().length()>0 && binding.preferredtimeEdt2.getText().toString().length()>0){
+                                                workinternal("2",details.id);
+                                            }else {
+                                                Toast.makeText(InternalwashActivity.this,Constant.CHOOSEDATETIME,Toast.LENGTH_SHORT).show();
+                                            }
+                                        } else {
                                             workinternal("2",details.id);
-                                        }else {
-                                            Toast.makeText(InternalwashActivity.this,Constant.CHOOSEDATETIME,Toast.LENGTH_SHORT).show();
                                         }
+
                                     }
                                 });
 

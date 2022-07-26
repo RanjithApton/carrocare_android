@@ -30,6 +30,8 @@ public class VehicleWashList {
         public String schedule_date2;
         public String schedule_time2;
         public String schedule_work_status2;
+        public String comment_box1;
+        public String comment_box2;
         public String vehicle_image2;
         public String vehicle_image2_dateandtime;
         public String updated_date;

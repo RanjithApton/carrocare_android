@@ -164,23 +164,24 @@
                             android:layout_height="wrap_content"
                             android:background="@drawable/edit_bg"
                             android:layout_margin="@dimen/marginhalf">
+
                             <TextView
                                 android:id="@+id/preferredtime_edt"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
-                                android:textSize="@dimen/bigtext"
-                                android:padding="@dimen/paddinghigh"
-                                android:inputType="text"
-                                android:singleLine="true"
-                                android:textColor="@color/black"
-                                android:background="@color/white"
-                                android:fontFamily="@font/josefinsans_regular"
-                                android:layout_marginRight="35dp"
                                 android:layout_marginLeft="3dp"
                                 android:layout_marginTop="3dp"
+                                android:layout_marginRight="35dp"
                                 android:layout_marginBottom="3dp"
-                                android:hint="Preferred Time"/>
+                                android:background="@color/white"
+                                android:fontFamily="@font/josefinsans_regular"
+                                android:hint="Preferred Time"
+                                android:inputType="text"
+                                android:padding="@dimen/paddinghigh"
+                                android:singleLine="true"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/bigtext" />
                             <ImageView
                                 android:id="@+id/prefertime_img"
                                 android:layout_width="30dp"
@@ -192,6 +193,24 @@
                                 android:layout_alignParentRight="true"/>
                         </RelativeLayout>
                     </RelativeLayout>
+
+                    <EditText
+                        android:layout_below="@+id/time_rl"
+                        android:id="@+id/comment_txt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|left"
+                        android:textColor="#000"
+                        android:layout_marginTop="5dp"
+                        android:minLines="3"
+                        android:lines="5"
+                        android:gravity="left"
+                        android:hint="Type Message here"
+                        android:padding="@dimen/paddinghigh"
+                        android:background="@drawable/edit_bg"
+                        android:layout_margin="@dimen/marginhalf"
+                        android:fontFamily="@font/josefinsans_regular"
+                        android:textSize="@dimen/bigtext"/>
 
 
                     <TextView
@@ -256,7 +275,7 @@
 
                     <EditText
                         android:layout_below="@+id/time_rl"
-                        android:id="@+id/comment_txt"
+                        android:id="@+id/comment_txt2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center|left"
