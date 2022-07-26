@@ -150,22 +150,7 @@ public class ProfileActivity extends AppCompatActivity {
         binding.apartnameEdt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                spinner_item.clear();
-                spinner_item.addAll(apartmentname);
                 binding.spinner.performClick();
-                //spinner_item.clear();
-
-                binding.spinner.setAdapter(new ArrayAdapter<String>(ProfileActivity.this, android.R.layout.simple_list_item_1,spinner_item));
-
-                binding.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                        binding.apartnameEdt.setText(spinner_item.get(i));
-                    }
-                    @Override
-                    public void onNothingSelected(AdapterView<?> adapterView) {
-                    }
-                });
             }
         });
 
@@ -225,6 +210,22 @@ public class ProfileActivity extends AppCompatActivity {
                                 String items = apartments.get(i).name;
                                 apartmentname.add(items);
                             }
+
+                            spinner_item.clear();
+                            spinner_item.addAll(apartmentname);
+                            //spinner_item.clear();
+
+                            binding.spinner.setAdapter(new ArrayAdapter<String>(ProfileActivity.this, android.R.layout.simple_list_item_1,spinner_item));
+
+                            binding.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                @Override
+                                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                                    binding.apartnameEdt.setText(spinner_item.get(i));
+                                }
+                                @Override
+                                public void onNothingSelected(AdapterView<?> adapterView) {
+                                }
+                            });
                         }
                     } else{
                         ApiConfig.responseToast(ProfileActivity.this, response.code());

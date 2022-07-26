@@ -11,6 +11,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -515,6 +516,7 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
 
 
     public void startwashonetimepayment() {
+        final Activity activity = this;
         Checkout checkout = new Checkout();
         checkout.setKeyID(Constant.RAZOR_PAY_KEY_VALUE);
         checkout.setImage(R.drawable.logo5234);
@@ -522,11 +524,12 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
             JSONObject jSONObject = new JSONObject();
             jSONObject.put("name", "Carro Care");
             jSONObject.put("description", "");
-            jSONObject.put("order_id", Constant.RAZOR_PAY_ORDER_ID);
+            //jSONObject.put("order_id", Constant.RAZOR_PAY_ORDER_ID);
             jSONObject.put("currency", "INR");
             int i = total;
             Log.e("AMOUNTRZP", String.valueOf(i));
             jSONObject.put("amount", i);
+            jSONObject.put("send_sms_hash",false);
             JSONObject jSONObject2 = new JSONObject();
             jSONObject2.put("email", custemail);
             jSONObject2.put("contact", custmob);

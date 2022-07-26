@@ -130,6 +130,8 @@
                                 android:layout_gravity="center|left"
                                 android:textColor="#000"
                                 android:lines="3"
+                                android:editable="false"
+                                android:focusableInTouchMode="false"
                                 android:hint="Apartment Name"
                                 android:gravity="center|left"
                                 android:fontFamily="@font/josefinsans_light"

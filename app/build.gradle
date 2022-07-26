@@ -8,8 +8,8 @@ android {
         applicationId "com.muvierecktech.carrocare"
         minSdkVersion 23
         targetSdkVersion 30
-        versionCode 14
-        versionName "1.2.6"
+        versionCode 15
+        versionName "1.2.7"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -74,7 +74,7 @@ dependencies {
     implementation 'com.kaopiz:kprogresshud:1.2.0'
 
     // Razorpay
-    implementation 'com.razorpay:checkout:1.6.22'
+    implementation 'com.razorpay:checkout:1.6.23'
 
     // Calender view
     implementation 'com.applandeo:material-calendar-view:1.0.1'
