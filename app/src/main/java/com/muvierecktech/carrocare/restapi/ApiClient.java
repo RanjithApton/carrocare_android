@@ -9,8 +9,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
-    //public static final String BASE_URL = "https://www.carrocare.in/Android_API/";
-    public static final String BASE_URL = "https://www.carrocare.in/test/Android_API/api-1.2.6/";
+    public static final String BASE_URL = "https://www.carrocare.in/Android_API/api-1.2.7/";
+    //public static final String BASE_URL = "https://www.carrocare.in/test/Android_API/api-1.2.6/";
     private static Retrofit retrofit = null;
 
     public static Retrofit getClient() {

@@ -68,7 +68,7 @@ public class IntWashOrderAdapter extends RecyclerView.Adapter {
 //                        Intent intent = new Intent(context, InternalwashActivity.class);
 //                        intent.putExtra(Constant.DE_ORDERID ,ordersList.get(pos).order_id);
 //                        intent.putExtra(Constant.DE_VECID,ordersList.get(pos).vehicle_id);
-                        ((MainActivity)context).binding.orderEdt.setText(ordersList.get(pos).order_id);
+                        //((MainActivity)context).binding.orderEdt.setText(ordersList.get(pos).order_id);
                         //((InternalwashActivity)context).binding.vehicleId.setText(ordersList.get(pos).vehicle_id);
                         //InternalwashActivity.order_id=(ordersList.get(pos).order_id);
                         ((MainActivity)context).binding.orderrl.setVisibility(View.GONE);

@@ -44,6 +44,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import retrofit2.Call;
@@ -376,8 +378,38 @@ public class InternalwashActivity extends AppCompatActivity {
 
                             extraDetails = body.internal_details;
 
+                            Date c = Calendar.getInstance().getTime();
+                            /*System.out.println("Current time => " + c);*/
+
+                            SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+                            String formattedDate = df.format(c);
+                            /*System.out.println("Current time => " + formattedDate);*/
+
+                            int position = extraDetails.size() - 1;
+                            for(int i = 0; i < extraDetails.size(); i++){
+                                SimpleDateFormat date_format = new SimpleDateFormat("yyyy-MM-dd");
+                                String from = "", to = "";
+                                try {
+                                    Date from_date = date_format.parse(extraDetails.get(i).from_date);
+                                    Date to_date = date_format.parse(extraDetails.get(i).to_date);
+                                    SimpleDateFormat dateFormatter_from = new SimpleDateFormat("dd-MMM-yyyy");
+                                    SimpleDateFormat dateFormatter_to = new SimpleDateFormat("dd-MMM-yyyy");
+                                    from = dateFormatter_from.format(from_date);
+                                    to = dateFormatter_to.format(to_date);
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+                                /*System.out.println("Current time => " + from+"****"+to);
+                                System.out.println("position --->"+i+"---< "+checkBetween(formattedDate,from, to));
+                                System.out.println("before position --->"+position);*/
+                                if(checkBetween(formattedDate,from, to)){
+                                    position = i;
+                                }
+                                /*System.out.println("after position --->"+position);*/
+                            }
+
                             try{
-                                VehicleWashList.InternalDetails details = extraDetails.get(extraDetails.size() - 1);
+                                VehicleWashList.InternalDetails details = extraDetails.get(position);
                                 one_edit = details.date1_edit;
                                 two_edit = details.date2_edit;
                                 binding.preferDate.setText(details.schedule_date1);
@@ -485,4 +517,20 @@ public class InternalwashActivity extends AppCompatActivity {
         startActivity(new Intent(InternalwashActivity.this, MainActivity.class));
         finish();
     }
+
+    public static boolean checkBetween(String dateToCheck, String startDate, String endDate) {
+        boolean res = false;
+        SimpleDateFormat fmt1 = new SimpleDateFormat("dd-MMM-yyyy"); //22-05-2013
+        SimpleDateFormat fmt2 = new SimpleDateFormat("dd/MM/yyyy"); //22-05-2013
+        try {
+            Date requestDate = fmt2.parse(dateToCheck);
+            Date fromDate = fmt1.parse(startDate);
+            Date toDate = fmt1.parse(endDate);
+            res = requestDate.compareTo(fromDate) >= 0 && requestDate.compareTo(toDate) <=0;
+        }catch(ParseException pex){
+            pex.printStackTrace();
+        }
+        return res;
+    }
+
 }
