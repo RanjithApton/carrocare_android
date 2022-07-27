@@ -8,6 +8,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -117,9 +118,22 @@ public class MyOrdersDetailActivity extends AppCompatActivity {
 
         binding.packageValue.setText("₹ "+package_value);
         binding.discountAmount.setText("₹ "+discount_amount);
-        binding.subtotalAmount.setText("₹ "+subtotal_amount);
-        binding.taxPercentage.setText(gst+"%");
-        binding.taxAmount.setText("₹ "+gst_amount);
+        if(!TextUtils.isEmpty(subtotal_amount))
+            binding.subtotalAmount.setText("₹ "+subtotal_amount);
+        else{
+            if(!TextUtils.isEmpty(discount_amount))
+                binding.subtotalAmount.setText("₹ "+discount_amount);
+            else
+                binding.subtotalAmount.setText("₹ "+package_value);
+        }
+        if(!TextUtils.isEmpty(gst))
+            binding.taxPercentage.setText(gst+"%");
+        else
+            binding.taxPercentage.setText("0 %");
+        if(!TextUtils.isEmpty(gst_amount))
+            binding.taxAmount.setText("₹ "+gst_amount);
+        else
+            binding.taxAmount.setText("₹ 0");
         binding.totalAmount.setText("₹ "+total_amount);
 
 

@@ -57,6 +57,7 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
     ArrayList<CartList> arrayList;
     String custmob,custemail,razorpayid;
     public static int total;
+    public static double pay_amount;
     SessionManager sessionManager;
     SQLiteDatabase sqLiteDatabase;
     Cursor cursor;
@@ -526,7 +527,7 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
             jSONObject.put("description", "");
             //jSONObject.put("order_id", Constant.RAZOR_PAY_ORDER_ID);
             jSONObject.put("currency", "INR");
-            int i = total;
+            int i = total * 100;
             Log.e("AMOUNTRZP", String.valueOf(i));
             jSONObject.put("amount", i);
             jSONObject.put("send_sms_hash",false);
@@ -566,7 +567,7 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
     @Override
     public void onPaymentError(int i, String response) {
         try {
-            Toast.makeText(this, response, Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, response, Toast.LENGTH_LONG).show();
             Log.e("TAG onPaymentError  ", response);
         } catch (Exception e) {
             Log.e("TAG onPaymentError  ", e.getMessage());
