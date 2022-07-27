@@ -128,6 +128,10 @@ public interface ApiInterface {
     Call<OrdersList> orderlist(@Field("token") String token, @Field("customer_id") String customer_id);
 
     @FormUrlEncoded
+    @POST("order_list_ext.php")
+    Call<OrdersList> orderlistInternal(@Field("token") String token, @Field("customer_id") String customer_id);
+
+    @FormUrlEncoded
     @POST("onetime_wash_checkout.php")
     Call<OneTimeWashCheckout> onetime_wash(@Field("customer_id") String customer_id,
                                            @Field("pack_amount") String pack_amount,

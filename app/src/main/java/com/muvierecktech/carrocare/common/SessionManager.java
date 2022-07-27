@@ -13,6 +13,7 @@ public class SessionManager {
     static SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     Context context;
+    DatabaseHelper databaseHelper;
     int PRIVATE_MODE = 0;
     public static final  String PREF_NAME = "loginPreferenceUser";
     public static final  String IS_USER_LOGIN = "IsUserLoggedInUser";
@@ -127,6 +128,8 @@ public class SessionManager {
         return  users;
     }
     public void logoutUsers(){
+        databaseHelper = new DatabaseHelper(context);
+        databaseHelper.DeleteAllCartData();
         editor.clear();
         editor.commit();
         Intent i = new Intent(context, LoginActivity.class);

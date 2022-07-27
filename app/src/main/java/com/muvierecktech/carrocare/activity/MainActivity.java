@@ -346,7 +346,7 @@ public class MainActivity extends AppCompatActivity {
                 .setDimAmount(0.5f)
                 .show();
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        Call<OrdersList> call = apiInterface.orderlist(token,customerid);
+        Call<OrdersList> call = apiInterface.orderlistInternal(token,customerid);
         call.enqueue(new Callback<OrdersList>() {
             @Override
             public void onResponse(Call<OrdersList> call, Response<OrdersList> response) {
@@ -355,7 +355,7 @@ public class MainActivity extends AppCompatActivity {
                         OrdersList body = response.body();
                         if (body.code.equalsIgnoreCase("200")) {
                             hud.dismiss();
-                            order = body.orders;
+                            /*order = body.orders;
                             orderId.add(0, Constant.ORDERID);
 
                             for (int i = 0; i < order.size(); i++) {
@@ -365,12 +365,21 @@ public class MainActivity extends AppCompatActivity {
                                             order.get(i).status.equalsIgnoreCase("Over Due")){
                                         ser_type_wash.add(order.get(i).service_type);
                                     }
-                                }else {
+                                }
+                                else {
                                     ser_type_addon.add(order.get(i).service_type);
                                 }
                             }
 
                             if (!ser_type_wash.isEmpty()) {
+                                binding.orderRc.setVisibility(View.VISIBLE);
+                                binding.noorders.setVisibility(View.GONE);
+                            }else{
+                                binding.orderRc.setVisibility(View.GONE);
+                                binding.noorders.setVisibility(View.VISIBLE);
+                            }*/
+
+                            if (!body.orders.isEmpty()) {
                                 binding.orderRc.setVisibility(View.VISIBLE);
                                 binding.noorders.setVisibility(View.GONE);
                             }else{
