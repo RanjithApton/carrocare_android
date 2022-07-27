@@ -343,7 +343,7 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
 
         viewPager2.setPageTransformer(transformer);
 
-        Places.initialize(this, getResources().getString(R.string.google_maps_key));
+        /*Places.initialize(this, getResources().getString(R.string.google_maps_key));*/
 
 
         binding.searchPlace.setOnClickListener(new View.OnClickListener() {
