@@ -499,7 +499,7 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
                 @Override
                 public void onClick(DialogInterface dialog, int id) {
                     //Action for "Ok".
-                    workPlaceOrder(razorpayid);
+                    createTempOrder();
                 }
             })
                     .setNegativeButton("Cancel ", new DialogInterface.OnClickListener() {
@@ -525,7 +525,7 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
             JSONObject jSONObject = new JSONObject();
             jSONObject.put("name", "Carro Care");
             jSONObject.put("description", "");
-            //jSONObject.put("order_id", Constant.RAZOR_PAY_ORDER_ID);
+            jSONObject.put("order_id", Constant.RAZOR_PAY_ORDER_ID);
             jSONObject.put("currency", "INR");
             int i = total * 100;
             Log.e("AMOUNTRZP", String.valueOf(i));
