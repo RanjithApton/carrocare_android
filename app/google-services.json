@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "1063808094094-1voqe7v70uarsrrp7t7d5b2br532bltl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.muvierecktech.carrocare",
+            "certificate_hash": "d0f2015c058bde7cf8a2f5d63fb08c1852da021e"
+          }
+        },
+        {
           "client_id": "1063808094094-75qfuvo47uukqnd9d3vq30n0nd9n7tjd.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -28,6 +36,14 @@
           "android_info": {
             "package_name": "com.muvierecktech.carrocare",
             "certificate_hash": "94a8e91ac1b80a4e6fdb7d846aeba126c553ceb8"
+          }
+        },
+        {
+          "client_id": "1063808094094-p3l606348cd5ik8360b3d14hgat9pmqf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.muvierecktech.carrocare",
+            "certificate_hash": "96919b7df8854ce81576c0c7169b91ae2847f9cd"
           }
         },
         {

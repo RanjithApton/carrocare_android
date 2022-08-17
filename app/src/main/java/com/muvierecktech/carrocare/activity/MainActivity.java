@@ -28,8 +28,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import com.denzcoskun.imageslider.models.SlideModel;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 import com.google.gson.Gson;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.muvierecktech.carrocare.R;
@@ -70,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
     List<String> ser_type_addon;
     MyDatabaseHelper databaseHelper;
     CartListAdapter dbAdapter;
+    String firebase_id;
     @SuppressLint("LongLogTag")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +95,15 @@ public class MainActivity extends AppCompatActivity {
         ApiConfig.getLocation(MainActivity.this);
 
         //int totalItemOfCart = databaseHelper.getTotalItemOfCart();
+
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener( this,  new OnSuccessListener<InstanceIdResult>() {
+            @Override
+            public void onSuccess(InstanceIdResult instanceIdResult) {
+                String newToken = instanceIdResult.getToken();
+                Log.e("newToken",newToken);
+                firebase_id = newToken;
+            }
+        });
 
         showCartCount();
 

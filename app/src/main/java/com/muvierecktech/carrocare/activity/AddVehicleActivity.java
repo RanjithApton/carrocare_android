@@ -145,26 +145,6 @@ public class AddVehicleActivity extends AppCompatActivity implements View.OnClic
                         workAdd();
                     }else Toast.makeText(AddVehicleActivity.this,Constant.DETAILS,Toast.LENGTH_SHORT).show();
                 }
-               /* if (vecCategory.equalsIgnoreCase("Bike")){
-                    if (binding.makeEdt.getText().toString().length()>0 && binding.modelEdt.getText().toString().length()>0 && binding.vecNoEdt.getText().toString().length()>0 &&
-                            binding.vecColorEdt.getText().toString().length()>0 && !binding.apartnameEdt.getSelectedItem().toString().equalsIgnoreCase(Constant.APARTMENTNAME)&&
-                            binding.parkingLotEdt.getText().toString().length()>0 &&!binding.parkingAreaEdt.getSelectedItem().toString().equalsIgnoreCase(Constant.PARKAREA) &&
-                            !binding.preferredscheduleEdt.getSelectedItem().toString().equalsIgnoreCase(Constant.PREFERSCH)&& !binding.preferredtimeEdt.getSelectedItem().toString().equalsIgnoreCase(Constant.PREFERTIME)){
-                        makeStr = binding.makeEdt.getText().toString();
-                        modelStr = binding.modelEdt.getText().toString();
-                        workAdd();
-                    }else Toast.makeText(AddVehicleActivity.this,Constant.DETAILS,Toast.LENGTH_SHORT).show();
-                }else {
-                    if (!binding.makeModelEdt.getSelectedItem().toString().equalsIgnoreCase(Constant.MAKEMODEL)  &&!binding.apartnameEdt.getSelectedItem().toString().equalsIgnoreCase(Constant.APARTMENTNAME)
-                            && binding.vecNoEdt.getText().toString().length()>0 && binding.vecColorEdt.getText().toString().length()>0 &&
-                            binding.parkingLotEdt.getText().toString().length()>0 &&!binding.parkingAreaEdt.getSelectedItem().toString().equalsIgnoreCase(Constant.PARKAREA) &&
-                            !binding.preferredscheduleEdt.getSelectedItem().toString().equalsIgnoreCase(Constant.PREFERSCH)&& !binding.preferredtimeEdt.getSelectedItem().toString().equalsIgnoreCase(Constant.PREFERTIME)){
-                        makeStr = make;
-                        modelStr = model;
-                        workAdd();
-                    }else Toast.makeText(AddVehicleActivity.this,Constant.DETAILS,Toast.LENGTH_SHORT).show();
-                }*/
-
             }
 
         });

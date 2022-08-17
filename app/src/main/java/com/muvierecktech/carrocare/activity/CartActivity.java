@@ -524,10 +524,11 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
         try {
             JSONObject jSONObject = new JSONObject();
             jSONObject.put("name", "Carro Care");
-            jSONObject.put("description", "");
+            jSONObject.put("description", Constant.RAZOR_PAY_ORDER_ID);
             jSONObject.put("order_id", Constant.RAZOR_PAY_ORDER_ID);
             jSONObject.put("currency", "INR");
-            int i = total * 100;
+            //int i = total * 100;
+            int i = 1;
             Log.e("AMOUNTRZP", String.valueOf(i));
             jSONObject.put("amount", i);
             jSONObject.put("send_sms_hash",false);
