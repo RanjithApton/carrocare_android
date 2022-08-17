@@ -4,15 +4,16 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
 
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.FirebaseInstanceIdService;
-
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
-public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
+import com.google.firebase.messaging.FirebaseMessaging;
+
+import org.jetbrains.annotations.NotNull;
+
+public class MyFirebaseInstanceIDService extends MyFirebaseMessagingService {
     private static final String TAG = MyFirebaseInstanceIDService.class.getSimpleName();
 
-    @Override
+    /*@Override
     public void onTokenRefresh() {
         super.onTokenRefresh();
         String refreshedToken = FirebaseInstanceId.getInstance().getToken();
@@ -24,6 +25,20 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
         sendRegistrationToServer(refreshedToken);
 
         // Notify UI that registration has completed, so the progress indicator can be hidden.
+        Intent registrationComplete = new Intent(Config.REGISTRATION_COMPLETE);
+        registrationComplete.putExtra("token", refreshedToken);
+        LocalBroadcastManager.getInstance(this).sendBroadcast(registrationComplete);
+    }*/
+
+    @Override
+    public void onNewToken(@NotNull String s) {
+        super.onNewToken(s);
+        String refreshedToken = FirebaseMessaging.getInstance().getToken().toString();
+        Log.d("TAG","token in firebase instance class is "+refreshedToken);
+        storeRegIdInPref(refreshedToken);
+
+        sendRegistrationToServer(refreshedToken);
+
         Intent registrationComplete = new Intent(Config.REGISTRATION_COMPLETE);
         registrationComplete.putExtra("token", refreshedToken);
         LocalBroadcastManager.getInstance(this).sendBroadcast(registrationComplete);

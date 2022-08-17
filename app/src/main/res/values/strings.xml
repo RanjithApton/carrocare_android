@@ -13,7 +13,6 @@
     <string name="develop">App developed by \n
         \n<b> Muviereck Technologies Pvt. Ltd</b></string>
     <string name="exit_msg">Please click BACK again to exit</string>
-    <string name="google_maps_key">AIzaSyC1jSOtFBzvTBIUiT2cvZ3QjdikHN46zSM</string>
     <string name="share_via">Share via</string>
     <string name="location_permission">Location Permission</string>
     <string name="location_permission_message">We need location permission to get location of your work.</string>

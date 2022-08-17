@@ -23,8 +23,7 @@ import androidx.databinding.DataBindingUtil;
 
 import com.google.android.gms.common.api.Api;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.InstanceIdResult;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -63,14 +62,17 @@ public class LoginActivity extends AppCompatActivity {
         ApiConfig.displayLocationSettingsRequest(LoginActivity.this);
         ApiConfig.getLocation(LoginActivity.this);
 
-        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener( this,  new OnSuccessListener<InstanceIdResult>() {
-            @Override
-            public void onSuccess(InstanceIdResult instanceIdResult) {
-                String newToken = instanceIdResult.getToken();
-                Log.e("newToken",newToken);
-                firebase_id = newToken;
-            }
-        });
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(task -> {
+                    if (!task.isSuccessful()) {
+                        Log.e("TAG", "Fetching FCM registration token failed", task.getException());
+                        return;
+                    }
+                    // Get new FCM registration token
+                    String newToken = task.getResult();
+                    Log.e("newToken",newToken);
+                    firebase_id = newToken;
+                });
 
 
         binding.signup.setOnClickListener(new View.OnClickListener() {
