@@ -39,7 +39,13 @@ public class MyNotificationManager {
        // intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        PendingIntent resultPendingIntent = PendingIntent.getActivity(mCtx, 0, intent,0);
+
+        PendingIntent resultPendingIntent = null;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S){
+            resultPendingIntent = PendingIntent.getActivity(mCtx,0,intent, PendingIntent.FLAG_UPDATE_CURRENT |PendingIntent.FLAG_MUTABLE );
+        }else {
+            resultPendingIntent = PendingIntent.getActivity(mCtx,0,intent, PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT );
+        }
 
         NotificationCompat.BigPictureStyle bigPictureStyle = new NotificationCompat.BigPictureStyle();
         bigPictureStyle.setBigContentTitle(Html.fromHtml(title).toString());
@@ -79,8 +85,13 @@ public class MyNotificationManager {
         //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        
-        PendingIntent resultPendingIntent = PendingIntent.getActivity(mCtx, 0, intent,0);
+
+        PendingIntent resultPendingIntent = null;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S){
+            resultPendingIntent = PendingIntent.getActivity(mCtx,0,intent, PendingIntent.FLAG_UPDATE_CURRENT |PendingIntent.FLAG_MUTABLE );
+        }else {
+            resultPendingIntent = PendingIntent.getActivity(mCtx,0,intent, PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT );
+        }
 
 
         //NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(mCtx);

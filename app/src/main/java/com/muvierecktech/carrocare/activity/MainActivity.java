@@ -596,6 +596,7 @@ public class MainActivity extends AppCompatActivity {
                                 Gson gson = new Gson();
                                 String json = gson.toJson(settingsList);
                                 Constant.GST_PERCENTAGE = settingsList.res.gst;
+                                sessionManager.setData(SessionManager.GST_PERCENTAGE, String.valueOf(settingsList.res.gst));
                                 Constant.VERSION_CODE = settingsList.res.current_version;
                                 Constant.REQUIRED_VERSION = settingsList.res.minimum_version;
                                 String versionName = "";

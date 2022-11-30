@@ -37,6 +37,8 @@ public class SessionManager {
 
     public static final  String USER_WANTS = "user_wants";
 
+    public static final  String GST_PERCENTAGE = "gst_percentage";
+
     public SessionManager(Context context){
         this.context = context;
         sharedPreferences = context.getSharedPreferences(PREF_NAME,PRIVATE_MODE);

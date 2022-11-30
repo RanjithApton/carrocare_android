@@ -117,7 +117,7 @@ public class RenewOrderAdapter extends RecyclerView.Adapter {
                     ((RenewActivity)context).binding.packageType.setText(ordersList.get(pos).package_type);
                     ((RenewActivity)context).binding.packageMrp.setText("₹ " +ordersList.get(pos).package_value);
                     ((RenewActivity)context).binding.total.setText("₹ " +ordersList.get(pos).package_value);
-                    int taxAmt = ((Constant.GST_PERCENTAGE * Integer.parseInt(ordersList.get(pos).package_value)) / 100);
+                    int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * Integer.parseInt(ordersList.get(pos).package_value)) / 100);
                     int finalAmt = taxAmt + Integer.parseInt(ordersList.get(pos).package_value);
                     ((RenewActivity)context).binding.taxTotal.setText("₹ " + taxAmt);
                     ((RenewActivity)context).binding.totalAmount.setText("₹ " +finalAmt);
@@ -130,7 +130,7 @@ public class RenewOrderAdapter extends RecyclerView.Adapter {
                     ((RenewActivity)context).binding.packageType.setText(ordersList.get(pos).package_type);
                     ((RenewActivity)context).binding.packageMrp.setText("₹ " +ordersList.get(pos).package_value);
                     ((RenewActivity)context).binding.total.setText("₹ " +ordersList.get(pos).package_value);
-                    int taxAmt = ((Constant.GST_PERCENTAGE * Integer.parseInt(ordersList.get(pos).package_value)) / 100);
+                    int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * Integer.parseInt(ordersList.get(pos).package_value)) / 100);
                     int finalAmt = taxAmt + Integer.parseInt(ordersList.get(pos).package_value);
                     ((RenewActivity)context).binding.taxTotal.setText("₹ " + taxAmt);
                     ((RenewActivity)context).binding.totalAmount.setText("₹ " +finalAmt);

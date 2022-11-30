@@ -129,11 +129,11 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
         binding.addressTxt.setText(apartname);
         binding.datetimeTxt.setText(prefersch+"\n"+prefertime);
 
-        if(Constant.GST_PERCENTAGE != 0){
+        if(Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) != 0){
             binding.taxField.setVisibility(View.VISIBLE);
             binding.taxField1.setVisibility(View.VISIBLE);
-            binding.taxPercentage.setText("Taxes ("+Constant.GST_PERCENTAGE+"%)");
-            binding.taxPercentage1.setText("Taxes ("+Constant.GST_PERCENTAGE+"%)");
+            binding.taxPercentage.setText("Taxes ("+Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE))+"%)");
+            binding.taxPercentage1.setText("Taxes ("+Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE))+"%)");
         }else{
             binding.taxField.setVisibility(View.GONE);
             binding.taxField1.setVisibility(View.GONE);
@@ -202,7 +202,7 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
                 paidMonths = "1";
                 totalAmountStr = Integer.parseInt(onetimecarprice);
                 binding.total1.setText("₹ " + onetimecarprice);
-                int taxAmt = ((Constant.GST_PERCENTAGE * Integer.parseInt(onetimecarprice)) / 100);
+                int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * Integer.parseInt(onetimecarprice)) / 100);
                 int finalAmt = taxAmt + Integer.parseInt(onetimecarprice);
                 binding.taxTotal1.setText("₹ " + taxAmt);
                 binding.totalAmount1.setText("₹ " +finalAmt);
@@ -225,7 +225,7 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
                         totalAmountStr = (int) parseDouble;
                         paidMonths = "1";
                         binding.total1.setText("₹ " + totalAmountStr);
-                        int taxAmt = ((Constant.GST_PERCENTAGE * totalAmountStr) / 100);
+                        int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                         int finalAmt = taxAmt + totalAmountStr;
                         binding.taxTotal1.setText("₹ " + taxAmt);
                         binding.totalAmount1.setText("₹ " + finalAmt);
@@ -235,7 +235,7 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
                         totalAmountStr = (int) parseDouble2;
                         paidMonths = "2";
                         binding.total1.setText("₹ " + totalAmountStr);
-                        int taxAmt = ((Constant.GST_PERCENTAGE * totalAmountStr) / 100);
+                        int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                         int finalAmt = taxAmt + totalAmountStr;
                         binding.taxTotal1.setText("₹ " + taxAmt);
                         binding.totalAmount1.setText("₹ " + finalAmt);
@@ -245,7 +245,7 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
                         totalAmountStr = (int) parseDouble3;
                         paidMonths = "3";
                         binding.total1.setText("₹ " + totalAmountStr);
-                        int taxAmt = ((Constant.GST_PERCENTAGE * totalAmountStr) / 100);
+                        int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                         int finalAmt = taxAmt + totalAmountStr;
                         binding.taxTotal1.setText("₹ " + taxAmt);
                         binding.totalAmount1.setText("₹ " + finalAmt);
@@ -255,7 +255,7 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
                         totalAmountStr = (int) parseDouble4;
                         paidMonths = "4";
                         binding.total1.setText("₹ " + totalAmountStr);
-                        int taxAmt = ((Constant.GST_PERCENTAGE * totalAmountStr) / 100);
+                        int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                         int finalAmt = taxAmt + totalAmountStr;
                         binding.taxTotal1.setText("₹ " + taxAmt);
                         binding.totalAmount1.setText("₹ " + finalAmt);
@@ -265,7 +265,7 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
                         totalAmountStr = (int) parseDouble5;
                         paidMonths = "5";
                         binding.total1.setText("₹ " + totalAmountStr);
-                        int taxAmt = ((Constant.GST_PERCENTAGE * totalAmountStr) / 100);
+                        int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                         int finalAmt = taxAmt + totalAmountStr;
                         binding.taxTotal1.setText("₹ " + taxAmt);
                         binding.totalAmount1.setText("₹ " + finalAmt);
@@ -275,7 +275,7 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
                         totalAmountStr = (int) parseDouble6;
                         paidMonths = "6";
                         binding.total1.setText("₹ " + totalAmountStr);
-                        int taxAmt = ((Constant.GST_PERCENTAGE * totalAmountStr) / 100);
+                        int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                         int finalAmt = taxAmt + totalAmountStr;
                         binding.taxTotal1.setText("₹ " + taxAmt);
                         binding.totalAmount1.setText("₹ " + finalAmt);
@@ -285,7 +285,7 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
                         totalAmountStr = (int) parseDouble7;
                         paidMonths = "7";
                         binding.total1.setText("₹ " + totalAmountStr);
-                        int taxAmt = ((Constant.GST_PERCENTAGE * totalAmountStr) / 100);
+                        int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                         int finalAmt = taxAmt + totalAmountStr;
                         binding.taxTotal1.setText("₹ " + taxAmt);
                         binding.totalAmount1.setText("₹ " + finalAmt);
@@ -295,7 +295,7 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
                         totalAmountStr = (int) parseDouble8;
                         paidMonths = "8";
                         binding.total1.setText("₹ " + totalAmountStr);
-                        int taxAmt = ((Constant.GST_PERCENTAGE * totalAmountStr) / 100);
+                        int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                         int finalAmt = taxAmt + totalAmountStr;
                         binding.taxTotal1.setText("₹ " + taxAmt);
                         binding.totalAmount1.setText("₹ " + finalAmt);
@@ -305,7 +305,7 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
                         totalAmountStr = (int) parseDouble9;
                         paidMonths = "9";
                         binding.total1.setText("₹ " + totalAmountStr);
-                        int taxAmt = ((Constant.GST_PERCENTAGE * totalAmountStr) / 100);
+                        int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                         int finalAmt = taxAmt + totalAmountStr;
                         binding.taxTotal1.setText("₹ " + taxAmt);
                         binding.totalAmount1.setText("₹ " + finalAmt);
@@ -315,7 +315,7 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
                         totalAmountStr = (int) parseDouble10;
                         paidMonths = "10";
                         binding.total1.setText("₹ " + totalAmountStr);
-                        int taxAmt = ((Constant.GST_PERCENTAGE * totalAmountStr) / 100);
+                        int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                         int finalAmt = taxAmt + totalAmountStr;
                         binding.taxTotal1.setText("₹ " + taxAmt);
                         binding.totalAmount1.setText("₹ " + finalAmt);
@@ -324,7 +324,7 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
                         double parseDouble11 = Double.parseDouble(onetimecarprice) * 11;
                         totalAmountStr = (int) parseDouble11;
                         paidMonths = "11";
-                        int taxAmt = ((Constant.GST_PERCENTAGE * totalAmountStr) / 100);
+                        int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                         int finalAmt = taxAmt + totalAmountStr;
                         binding.taxTotal1.setText("₹ " + taxAmt);
                         binding.totalAmount1.setText("₹ " + totalAmountStr);
@@ -334,7 +334,7 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
                         totalAmountStr = (int) parseDouble12;
                         paidMonths = "12";
                         binding.total1.setText("₹ " + totalAmountStr);
-                        int taxAmt = ((Constant.GST_PERCENTAGE * totalAmountStr) / 100);
+                        int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                         int finalAmt = taxAmt + totalAmountStr;
                         binding.taxTotal1.setText("₹ " + taxAmt);
                         binding.totalAmount1.setText("₹ " + finalAmt);
@@ -344,7 +344,7 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
                         totalAmountStr = (int) parseDouble13;
                         paidMonths = "13";
                         binding.total1.setText("₹ " + totalAmountStr);
-                        int taxAmt = ((Constant.GST_PERCENTAGE * totalAmountStr) / 100);
+                        int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                         int finalAmt = taxAmt + totalAmountStr;
                         binding.taxTotal1.setText("₹ " + taxAmt);
                         binding.totalAmount1.setText("₹ " + finalAmt);

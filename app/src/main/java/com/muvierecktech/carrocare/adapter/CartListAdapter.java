@@ -1,5 +1,6 @@
 package com.muvierecktech.carrocare.adapter;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -16,7 +17,9 @@ import android.widget.Toast;
 
 import com.muvierecktech.carrocare.R;
 import com.muvierecktech.carrocare.activity.CartActivity;
+import com.muvierecktech.carrocare.common.Constant;
 import com.muvierecktech.carrocare.common.MyDatabaseHelper;
+import com.muvierecktech.carrocare.common.SessionManager;
 import com.muvierecktech.carrocare.model.CartList;
 import com.squareup.picasso.Picasso;
 
@@ -28,6 +31,7 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.viewHo
     Context context;
     Activity activity;
     ArrayList<CartList> arrayList;
+    SessionManager sessionManager;
     MyDatabaseHelper databaseHelper;
     public static int cart_count;
 
@@ -35,6 +39,7 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.viewHo
         this.activity = activity;
         this.context = context;
         this.arrayList = arrayList;
+        this.sessionManager = new SessionManager(activity);
         cart_count = arrayList.size();
     }
 
@@ -44,8 +49,9 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.viewHo
         return new viewHolder(view);
     }
 
+    @SuppressLint({"SetTextI18n", "NotifyDataSetChanged"})
     @Override
-    public void onBindViewHolder(final viewHolder holder, final int position) {
+    public void onBindViewHolder(final viewHolder holder, @SuppressLint("RecyclerView") final int position) {
         final CartList dbm = arrayList.get(position);
 
         databaseHelper = new MyDatabaseHelper(context);
@@ -86,6 +92,18 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.viewHo
         holder.tax_total_amount.setText("₹ " +dbm.getGstamount());
         holder.total.setText("₹ " +dbm.getTotal());
         holder.schedule_date.setText(dbm.getDate()+" "+dbm.getTime());
+
+        if(Integer.parseInt(dbm.getGst()) != Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE))){
+            databaseHelper.DeleteOrderData(dbm.getType(), dbm.getCarid());
+            arrayList.remove(dbm);
+            ((CartActivity)activity).getData();
+            activity.invalidateOptionsMenu();
+            notifyDataSetChanged();
+            if (getItemCount() == 0) {
+                ((CartActivity)activity).binding.novehicle.setVisibility(View.VISIBLE);
+                ((CartActivity)activity).binding.lyttotal.setVisibility(View.GONE);
+            }
+        }
 
         holder.del_img.setOnClickListener(new View.OnClickListener() {
             @Override

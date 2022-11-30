@@ -902,7 +902,7 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
                 Constant.ONETIME_CAR_ID +"",
                 Constant.ONETIME_SERVICE_TYPE +"",
                 Constant.ONETIME_CAR_SUB_TOTAL +"",
-                Constant.GST_PERCENTAGE +"",
+                sessionManager.getData(SessionManager.GST_PERCENTAGE) +"",
                 Constant.ONETIME_CAR_GST_AMOUNT +"",
                 Constant.ONETIME_CAR_FINAL_PRICE +"",
                 Constant.ONETIME_DATE +"",
@@ -1025,7 +1025,7 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
                     Constant.ONETIME_CAR_ID +"",
                     Constant.ONETIME_SERVICE_TYPE +"",
                     Constant.ONETIME_CAR_FINAL_PRICE +"",
-                    Constant.GST_PERCENTAGE +"",
+                    sessionManager.getData(SessionManager.GST_PERCENTAGE) +"",
                     Constant.ONETIME_CAR_GST_AMOUNT +"",
                     Constant.ONETIME_CAR_SUB_TOTAL +"",
                     Constant.ONETIME_DATE +"",
@@ -1115,7 +1115,7 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
                     Constant.ONETIME_CAR_ID +"",
                     Constant.ONETIME_SERVICE_TYPE +"",
                     Constant.ONETIME_CAR_SUB_TOTAL +"",
-                    Constant.GST_PERCENTAGE +"",
+                    sessionManager.getData(SessionManager.GST_PERCENTAGE) +"",
                     Constant.ONETIME_CAR_GST_AMOUNT +"",
                     Constant.ONETIME_CAR_FINAL_PRICE +"",
                     Constant.ONETIME_DATE +"",
@@ -1552,10 +1552,10 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
 
         Constant.ONETIME_CAR_PRICE = total_amount;
         subTotal.setText("₹ "+Constant.ONETIME_CAR_PRICE);
-        Percentage.setText("Taxes ("+Constant.GST_PERCENTAGE+"%)");
+        Percentage.setText("Taxes ("+sessionManager.getData(SessionManager.GST_PERCENTAGE)+"%)");
         int before_tax = Integer.parseInt(Constant.ONETIME_CAR_PRICE);
 
-        int taxAmt = ((Constant.GST_PERCENTAGE * before_tax) / 100);
+        int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * before_tax) / 100);
         gstamount = String.valueOf(taxAmt);
         int finalAmt = taxAmt + before_tax;
         Tax.setText("₹ "+taxAmt);

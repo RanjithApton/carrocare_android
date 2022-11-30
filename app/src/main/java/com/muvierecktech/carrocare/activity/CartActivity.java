@@ -223,6 +223,7 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
                 .show();
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
         Call<JsonObject> call = apiInterface.createOrderId("create_orderid",total +"");
+        //Call<JsonObject> call = apiInterface.createOrderId("create_orderid","1");
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
@@ -527,8 +528,8 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
             jSONObject.put("description", Constant.RAZOR_PAY_ORDER_ID);
             jSONObject.put("order_id", Constant.RAZOR_PAY_ORDER_ID);
             jSONObject.put("currency", "INR");
-            //int i = total * 100;
-            int i = 1;
+            int i = total * 100;
+            //int i = 1;
             Log.e("AMOUNTRZP", String.valueOf(i));
             jSONObject.put("amount", i);
             jSONObject.put("send_sms_hash",false);

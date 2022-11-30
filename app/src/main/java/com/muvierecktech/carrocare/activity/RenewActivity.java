@@ -65,6 +65,7 @@ public class RenewActivity extends AppCompatActivity {
     String preTime[] = {Constant.ANYTIME, "9.00 AM - 10.00 AM","10.00 AM - 11.00 AM","11.00 AM - 12.00 PM","12.00 PM - 1.00 PM","6.00 PM - 7.00 PM","7.00 PM - 8.00 PM"};
     public static String time;
     DatePickerDialog picker;
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,11 +104,11 @@ public class RenewActivity extends AppCompatActivity {
             }
         });
 
-        if(Constant.GST_PERCENTAGE != 0){
+        if(Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) != 0){
             binding.taxField.setVisibility(View.VISIBLE);
             binding.taxField1.setVisibility(View.VISIBLE);
-            binding.taxPercentage.setText("Taxes ("+Constant.GST_PERCENTAGE+"%)");
-            binding.taxPercentage1.setText("Taxes ("+Constant.GST_PERCENTAGE+"%)");
+            binding.taxPercentage.setText("Taxes ("+Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE))+"%)");
+            binding.taxPercentage1.setText("Taxes ("+Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE))+"%)");
         }else{
             binding.taxField.setVisibility(View.GONE);
             binding.taxField1.setVisibility(View.GONE);
@@ -244,7 +245,7 @@ public class RenewActivity extends AppCompatActivity {
         String tottal_amt = String.valueOf(totalAmountStr);
 
         int before_tax = Integer.parseInt(tottal_amt);
-        int taxAmt = ((Constant.GST_PERCENTAGE * before_tax) / 100);
+        int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * before_tax) / 100);
         int finalAmt = taxAmt + before_tax;
 
         String result = databaseHelper.AddUpdateOrder(action+"",
@@ -256,13 +257,14 @@ public class RenewActivity extends AppCompatActivity {
                 paidMonths+"",
                 fineAmount+"",
                 tottal_amt+"",
-                Constant.GST_PERCENTAGE+"",
+                Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE))+"",
                 taxAmt+"",
                 String.valueOf(finalAmt),
                 binding.preferDate.getText().toString()+"",
                 time+"");
 
         if(result.equalsIgnoreCase("1")){
+            time = "";
             binding.popupCard.setVisibility(View.GONE);
             Toast.makeText(RenewActivity.this, "Added. ", Toast.LENGTH_SHORT).show();
             showCartCount();
@@ -286,7 +288,7 @@ public class RenewActivity extends AppCompatActivity {
         String carid = finalCarid;
 
         int before_tax = Integer.parseInt(carprice);
-        int taxAmt = ((Constant.GST_PERCENTAGE * before_tax) / 100);
+        int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * before_tax) / 100);
         int finalAmt = taxAmt + before_tax;
 
         String result = databaseHelper.AddUpdateOrder(action+"",
@@ -298,13 +300,14 @@ public class RenewActivity extends AppCompatActivity {
                 "1",
                 "0",
                 carprice+"",
-                Constant.GST_PERCENTAGE+"",
+                Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE))+"",
                 taxAmt+"",
                 String.valueOf(finalAmt),
                 binding.preferDate1.getText().toString()+"",
                 time+"");
 
         if(result.equalsIgnoreCase("1")){
+            time = "";
             binding.popupCard1.setVisibility(View.GONE);
             Toast.makeText(RenewActivity.this, "Added. ", Toast.LENGTH_SHORT).show();
             showCartCount();
@@ -338,7 +341,7 @@ public class RenewActivity extends AppCompatActivity {
                                     paidMonths = "1";
                                     totalAmountStr = Integer.parseInt(result.get(i).total_amount);
                                     binding.total1.setText("₹ " + onetimecarprice);
-                                    int taxAmt = ((Constant.GST_PERCENTAGE * Integer.parseInt(onetimecarprice)) / 100);
+                                    int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * Integer.parseInt(onetimecarprice)) / 100);
                                     int finalAmt = taxAmt + Integer.parseInt(onetimecarprice);
                                     binding.taxTotal1.setText("₹ " + taxAmt);
                                     binding.totalAmount1.setText("₹ " +finalAmt);
@@ -361,7 +364,7 @@ public class RenewActivity extends AppCompatActivity {
                                     }else{
                                         onetimecarprice = result.get(i).total_amount;
                                         binding.total1.setText("₹ " +result.get(i).total_amount);
-                                        int taxAmt1 = ((Constant.GST_PERCENTAGE * Integer.parseInt(result.get(i).total_amount)) / 100);
+                                        int taxAmt1 = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * Integer.parseInt(result.get(i).total_amount)) / 100);
                                         int finalAmt1 = taxAmt1 + Integer.parseInt(result.get(i).total_amount);
                                         binding.taxTotal1.setText("₹ " + taxAmt1);
                                         binding.totalAmount1.setText("₹ " +finalAmt1);
@@ -398,7 +401,7 @@ public class RenewActivity extends AppCompatActivity {
                                     }else{
                                         onetimecarprice = result.get(i).total_amount;
                                         binding.total1.setText("₹ " +result.get(i).total_amount);
-                                        int taxAmt2 = ((Constant.GST_PERCENTAGE * Integer.parseInt(result.get(i).total_amount)) / 100);
+                                        int taxAmt2 = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * Integer.parseInt(result.get(i).total_amount)) / 100);
                                         int finalAmt2 = taxAmt2 + Integer.parseInt(result.get(i).total_amount);
                                         binding.taxTotal1.setText("₹ " + taxAmt2);
                                         binding.totalAmount1.setText("₹ " +finalAmt2);
@@ -514,13 +517,14 @@ public class RenewActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
 
+            @SuppressLint("SetTextI18n")
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long j) {
                 if (i == 0) {
                     double parseDouble = Double.parseDouble(onetimecarprice) * 1;
                     totalAmountStr = (int) parseDouble;
                     paidMonths = "1";
                     binding.total1.setText("₹ " + totalAmountStr);
-                    int taxAmt = ((Constant.GST_PERCENTAGE * totalAmountStr) / 100);
+                    int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                     int finalAmt = taxAmt + totalAmountStr;
                     binding.taxTotal1.setText("₹ " + taxAmt);
                     binding.totalAmount1.setText("₹ " +finalAmt);
@@ -531,7 +535,7 @@ public class RenewActivity extends AppCompatActivity {
                     totalAmountStr = (int) parseDouble2;
                     paidMonths = "2";
                     binding.total1.setText("₹ " + totalAmountStr);
-                    int taxAmt = ((Constant.GST_PERCENTAGE * totalAmountStr) / 100);
+                    int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                     int finalAmt = taxAmt + totalAmountStr;
                     binding.taxTotal1.setText("₹ " + taxAmt);
                     binding.totalAmount1.setText("₹ " +finalAmt);
@@ -542,7 +546,7 @@ public class RenewActivity extends AppCompatActivity {
                     totalAmountStr = (int) parseDouble3;
                     paidMonths = "3";
                     binding.total1.setText("₹ " + totalAmountStr);
-                    int taxAmt = ((Constant.GST_PERCENTAGE * totalAmountStr) / 100);
+                    int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                     int finalAmt = taxAmt + totalAmountStr;
                     binding.taxTotal1.setText("₹ " + taxAmt);
                     binding.totalAmount1.setText("₹ " +finalAmt);
@@ -553,7 +557,7 @@ public class RenewActivity extends AppCompatActivity {
                     totalAmountStr = (int) parseDouble4;
                     paidMonths = "4";
                     binding.total1.setText("₹ " + totalAmountStr);
-                    int taxAmt = ((Constant.GST_PERCENTAGE * totalAmountStr) / 100);
+                    int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                     int finalAmt = taxAmt + totalAmountStr;
                     binding.taxTotal1.setText("₹ " + taxAmt);
                     binding.totalAmount1.setText("₹ " +finalAmt);
@@ -564,7 +568,7 @@ public class RenewActivity extends AppCompatActivity {
                     totalAmountStr = (int) parseDouble5;
                     paidMonths = "5";
                     binding.total1.setText("₹ " + totalAmountStr);
-                    int taxAmt = ((Constant.GST_PERCENTAGE * totalAmountStr) / 100);
+                    int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                     int finalAmt = taxAmt + totalAmountStr;
                     binding.taxTotal1.setText("₹ " + taxAmt);
                     binding.totalAmount1.setText("₹ " +finalAmt);
@@ -575,7 +579,7 @@ public class RenewActivity extends AppCompatActivity {
                     totalAmountStr = (int) parseDouble6;
                     paidMonths = "6";
                     binding.total1.setText("₹ " + totalAmountStr);
-                    int taxAmt = ((Constant.GST_PERCENTAGE * totalAmountStr) / 100);
+                    int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                     int finalAmt = taxAmt + totalAmountStr;
                     binding.taxTotal1.setText("₹ " + taxAmt);
                     binding.totalAmount1.setText("₹ " +finalAmt);
@@ -586,7 +590,7 @@ public class RenewActivity extends AppCompatActivity {
                     totalAmountStr = (int) parseDouble7;
                     paidMonths = "7";
                     binding.total1.setText("₹ " + totalAmountStr);
-                    int taxAmt = ((Constant.GST_PERCENTAGE * totalAmountStr) / 100);
+                    int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                     int finalAmt = taxAmt + totalAmountStr;
                     binding.taxTotal1.setText("₹ " + taxAmt);
                     binding.totalAmount1.setText("₹ " +finalAmt);
@@ -597,7 +601,7 @@ public class RenewActivity extends AppCompatActivity {
                     totalAmountStr = (int) parseDouble8;
                     paidMonths = "8";
                     binding.total1.setText("₹ " + totalAmountStr);
-                    int taxAmt = ((Constant.GST_PERCENTAGE * totalAmountStr) / 100);
+                    int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                     int finalAmt = taxAmt + totalAmountStr;
                     binding.taxTotal1.setText("₹ " + taxAmt);
                     binding.totalAmount1.setText("₹ " +finalAmt);
@@ -608,7 +612,7 @@ public class RenewActivity extends AppCompatActivity {
                     totalAmountStr = (int) parseDouble9;
                     paidMonths = "9";
                     binding.total1.setText("₹ " + totalAmountStr);
-                    int taxAmt = ((Constant.GST_PERCENTAGE * totalAmountStr) / 100);
+                    int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                     int finalAmt = taxAmt + totalAmountStr;
                     binding.taxTotal1.setText("₹ " + taxAmt);
                     binding.totalAmount1.setText("₹ " +finalAmt);
@@ -619,7 +623,7 @@ public class RenewActivity extends AppCompatActivity {
                     totalAmountStr = (int) parseDouble10;
                     paidMonths = "10";
                     binding.total1.setText("₹ " + totalAmountStr);
-                    int taxAmt = ((Constant.GST_PERCENTAGE * totalAmountStr) / 100);
+                    int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                     int finalAmt = taxAmt + totalAmountStr;
                     binding.taxTotal1.setText("₹ " + taxAmt);
                     binding.totalAmount1.setText("₹ " +finalAmt);
@@ -630,7 +634,7 @@ public class RenewActivity extends AppCompatActivity {
                     totalAmountStr = (int) parseDouble11;
                     paidMonths = "11";
                     binding.total1.setText("₹ " + totalAmountStr);
-                    int taxAmt = ((Constant.GST_PERCENTAGE * totalAmountStr) / 100);
+                    int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                     int finalAmt = taxAmt + totalAmountStr;
                     binding.taxTotal1.setText("₹ " + taxAmt);
                     binding.totalAmount1.setText("₹ " +finalAmt);
@@ -641,7 +645,7 @@ public class RenewActivity extends AppCompatActivity {
                     totalAmountStr = (int) parseDouble12;
                     paidMonths = "12";
                     binding.total1.setText("₹ " + totalAmountStr);
-                    int taxAmt = ((Constant.GST_PERCENTAGE * totalAmountStr) / 100);
+                    int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                     int finalAmt = taxAmt + totalAmountStr;
                     binding.taxTotal1.setText("₹ " + taxAmt);
                     binding.totalAmount1.setText("₹ " +finalAmt);
@@ -652,7 +656,7 @@ public class RenewActivity extends AppCompatActivity {
                     totalAmountStr = (int) parseDouble13;
                     paidMonths = "13";
                     binding.total1.setText("₹ " + totalAmountStr);
-                    int taxAmt = ((Constant.GST_PERCENTAGE * totalAmountStr) / 100);
+                    int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                     int finalAmt = taxAmt + totalAmountStr;
                     binding.taxTotal1.setText("₹ " + taxAmt);
                     binding.totalAmount1.setText("₹ " +finalAmt);
@@ -663,7 +667,7 @@ public class RenewActivity extends AppCompatActivity {
                     totalAmountStr = (int) parseDouble14;
                     paidMonths = "14";
                     binding.total1.setText("₹ " + totalAmountStr);
-                    int taxAmt = ((Constant.GST_PERCENTAGE * totalAmountStr) / 100);
+                    int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                     int finalAmt = taxAmt + totalAmountStr;
                     binding.taxTotal1.setText("₹ " + taxAmt);
                     binding.totalAmount1.setText("₹ " +finalAmt);
@@ -674,7 +678,7 @@ public class RenewActivity extends AppCompatActivity {
                     totalAmountStr = (int) parseDouble15;
                     paidMonths = "15";
                     binding.total1.setText("₹ " + totalAmountStr);
-                    int taxAmt = ((Constant.GST_PERCENTAGE * totalAmountStr) / 100);
+                    int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                     int finalAmt = taxAmt + totalAmountStr;
                     binding.taxTotal1.setText("₹ " + taxAmt);
                     binding.totalAmount1.setText("₹ " +finalAmt);
@@ -685,7 +689,7 @@ public class RenewActivity extends AppCompatActivity {
                     totalAmountStr = (int) parseDouble16;
                     paidMonths = "16";
                     binding.total1.setText("₹ " + totalAmountStr);
-                    int taxAmt = ((Constant.GST_PERCENTAGE * totalAmountStr) / 100);
+                    int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                     int finalAmt = taxAmt + totalAmountStr;
                     binding.taxTotal1.setText("₹ " + taxAmt);
                     binding.totalAmount1.setText("₹ " +finalAmt);
@@ -696,7 +700,7 @@ public class RenewActivity extends AppCompatActivity {
                     totalAmountStr = (int) parseDouble17;
                     paidMonths = "17";
                     binding.total1.setText("₹ " + totalAmountStr);
-                    int taxAmt = ((Constant.GST_PERCENTAGE * totalAmountStr) / 100);
+                    int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                     int finalAmt = taxAmt + totalAmountStr;
                     binding.taxTotal1.setText("₹ " + taxAmt);
                     binding.totalAmount1.setText("₹ " +finalAmt);
@@ -707,7 +711,7 @@ public class RenewActivity extends AppCompatActivity {
                     totalAmountStr = (int) parseDouble18;
                     paidMonths = "18";
                     binding.total1.setText("₹ " + totalAmountStr);
-                    int taxAmt = ((Constant.GST_PERCENTAGE * totalAmountStr) / 100);
+                    int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                     int finalAmt = taxAmt + totalAmountStr;
                     binding.taxTotal1.setText("₹ " + taxAmt);
                     binding.totalAmount1.setText("₹ " +finalAmt);
@@ -718,7 +722,7 @@ public class RenewActivity extends AppCompatActivity {
                     totalAmountStr = (int) parseDouble19;
                     paidMonths = "19";
                     binding.total1.setText("₹ " + totalAmountStr);
-                    int taxAmt = ((Constant.GST_PERCENTAGE * totalAmountStr) / 100);
+                    int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                     int finalAmt = taxAmt + totalAmountStr;
                     binding.taxTotal1.setText("₹ " + taxAmt);
                     binding.totalAmount1.setText("₹ " +finalAmt);
@@ -729,7 +733,7 @@ public class RenewActivity extends AppCompatActivity {
                     totalAmountStr = (int) parseDouble20;
                     paidMonths = "20";
                     binding.total1.setText("₹ " + totalAmountStr);
-                    int taxAmt = ((Constant.GST_PERCENTAGE * totalAmountStr) / 100);
+                    int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                     int finalAmt = taxAmt + totalAmountStr;
                     binding.taxTotal1.setText("₹ " + taxAmt);
                     binding.totalAmount1.setText("₹ " +finalAmt);
@@ -740,7 +744,7 @@ public class RenewActivity extends AppCompatActivity {
                     totalAmountStr = (int) parseDouble21;
                     paidMonths = "21";
                     binding.total1.setText("₹ " + totalAmountStr);
-                    int taxAmt = ((Constant.GST_PERCENTAGE * totalAmountStr) / 100);
+                    int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                     int finalAmt = taxAmt + totalAmountStr;
                     binding.taxTotal1.setText("₹ " + taxAmt);
                     binding.totalAmount1.setText("₹ " +finalAmt);
@@ -751,7 +755,7 @@ public class RenewActivity extends AppCompatActivity {
                     totalAmountStr = (int) parseDouble22;
                     paidMonths = "22";
                     binding.total1.setText("₹ " + totalAmountStr);
-                    int taxAmt = ((Constant.GST_PERCENTAGE * totalAmountStr) / 100);
+                    int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                     int finalAmt = taxAmt + totalAmountStr;
                     binding.taxTotal1.setText("₹ " + taxAmt);
                     binding.totalAmount1.setText("₹ " +finalAmt);
@@ -762,7 +766,7 @@ public class RenewActivity extends AppCompatActivity {
                     totalAmountStr = (int) parseDouble23;
                     paidMonths = "23";
                     binding.total1.setText("₹ " + totalAmountStr);
-                    int taxAmt = ((Constant.GST_PERCENTAGE * totalAmountStr) / 100);
+                    int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                     int finalAmt = taxAmt + totalAmountStr;
                     binding.taxTotal1.setText("₹ " + taxAmt);
                     binding.totalAmount1.setText("₹ " +finalAmt);
@@ -773,7 +777,7 @@ public class RenewActivity extends AppCompatActivity {
                     totalAmountStr = (int) parseDouble24;
                     paidMonths = "24";
                     binding.total1.setText("₹ " + totalAmountStr);
-                    int taxAmt = ((Constant.GST_PERCENTAGE * totalAmountStr) / 100);
+                    int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                     int finalAmt = taxAmt + totalAmountStr;
                     binding.taxTotal1.setText("₹ " + taxAmt);
                     binding.totalAmount1.setText("₹ " +finalAmt);

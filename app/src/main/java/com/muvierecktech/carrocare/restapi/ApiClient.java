@@ -9,8 +9,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
-    public static final String BASE_URL = "https://www.carrocare.in/Android_API/api-1.2.9/";
-    //public static final String BASE_URL = "https://www.carrocare.in/test/Android_API/api-1.2.9/";
+    //public static final String BASE_URL = "https://www.carrocare.in/Android_API/api-1.2.9/";
+    public static final String BASE_URL = "https://www.carrocare.in/test/Android_API/api-1.2.9/";
     private static Retrofit retrofit = null;
 
     public static Retrofit getClient() {
@@ -18,7 +18,7 @@ public class ApiClient {
             HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
             httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
             OkHttpClient client = new OkHttpClient.Builder()
-                    //.addInterceptor(httpLoggingInterceptor)
+                    .addInterceptor(httpLoggingInterceptor)
                     .connectTimeout(5, TimeUnit.MINUTES)
                     .readTimeout(5,TimeUnit.MINUTES)
                     .addInterceptor(new BasicAuthInterceptor("RegalCarWashAdmin","TechAdmin@Muviereck"))

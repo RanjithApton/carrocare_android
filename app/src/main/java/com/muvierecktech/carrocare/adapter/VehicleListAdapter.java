@@ -1,5 +1,6 @@
 package com.muvierecktech.carrocare.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
@@ -145,6 +146,7 @@ public class VehicleListAdapter extends RecyclerView.Adapter {
 
         viewHolder.add_smart_checkout.setTag(viewHolder);
         viewHolder.add_smart_checkout.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 MyViewHolder viewHolder = (MyViewHolder) buttonView.getTag();
@@ -193,7 +195,7 @@ public class VehicleListAdapter extends RecyclerView.Adapter {
                             ((VehicleListActivity)context).binding.packageType.setText(vecDetails.get(pos).vehicle_category);
                             ((VehicleListActivity)context).binding.packageMrp.setText("₹ " +carprice);
                             ((VehicleListActivity)context).binding.total.setText("₹ " +carprice);
-                            int taxAmt = ((Constant.GST_PERCENTAGE * Integer.parseInt(carprice)) / 100);
+                            int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * Integer.parseInt(carprice)) / 100);
                             int finalAmt = taxAmt + Integer.parseInt(carprice);
                             ((VehicleListActivity)context).binding.taxTotal.setText("₹ " + taxAmt);
                             ((VehicleListActivity)context).binding.totalAmount.setText("₹ " +finalAmt);
@@ -205,7 +207,7 @@ public class VehicleListAdapter extends RecyclerView.Adapter {
                             ((VehicleListActivity)context).binding.packageType.setText(vecDetails.get(pos).vehicle_category);
                             ((VehicleListActivity)context).binding.packageMrp.setText("₹ " +carprice);
                             ((VehicleListActivity)context).binding.total.setText("₹ " +carprice);
-                            int taxAmt = ((Constant.GST_PERCENTAGE * Integer.parseInt(carprice)) / 100);
+                            int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * Integer.parseInt(carprice)) / 100);
                             int finalAmt = taxAmt + Integer.parseInt(carprice);
                             ((VehicleListActivity)context).binding.taxTotal.setText("₹ " + taxAmt);
                             ((VehicleListActivity)context).binding.totalAmount.setText("₹ " +finalAmt);
@@ -294,7 +296,7 @@ public class VehicleListAdapter extends RecyclerView.Adapter {
 //                            String thisDate = currentDate.format(tomorrow);
 //
 //                            int before_tax = Integer.parseInt(tottal_amt);
-//                            int taxAmt = ((Constant.GST_PERCENTAGE * before_tax) / 100);
+//                            int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * before_tax) / 100);
 //                            int finalAmt = taxAmt + before_tax;
 //
 //                            String result = databaseHelper.AddUpdateOrder(action+"",
@@ -306,7 +308,7 @@ public class VehicleListAdapter extends RecyclerView.Adapter {
 //                                    paidMonths+"",
 //                                    fineAmount+"",
 //                                    tottal_amt+"",
-//                                    Constant.GST_PERCENTAGE+"",
+//                                    Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE))+"",
 //                                    taxAmt+"",
 //                                    String.valueOf(finalAmt),
 //                                    thisDate+"",
