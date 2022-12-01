@@ -144,6 +144,10 @@ public class Constant {
     public static String SE_ADDON = "AddOn";
     public static String SE_WASH = "Wash";
 
+    //Keys
+    //set your jwt secret key here...key must same in PHP and Android
+    public static String JWT_KEY = "VYV|ZIR9#ySgXxTGcPE@c9tHfdTMb2iGP51yNxrBGR";
+
     public static String PRIVACYPOLICY = "https://www.carrocare.in/Android_API/privacy-policy.php";
     public static String TERMSANDCONDITIONS = "https://www.carrocare.in/Android_API/terms-and-conditions.php";
     public static String FAQ = "https://www.carrocare.in/Android_API/faq.php";

@@ -1552,7 +1552,7 @@ public class DoorStepServiceActivity extends AppCompatActivity implements OnMapR
 
         Constant.ONETIME_CAR_PRICE = total_amount;
         subTotal.setText("₹ "+Constant.ONETIME_CAR_PRICE);
-        Percentage.setText("Taxes ("+sessionManager.getData(SessionManager.GST_PERCENTAGE)+"%)");
+        Percentage.setText("GST ("+sessionManager.getData(SessionManager.GST_PERCENTAGE)+"%)");
         int before_tax = Integer.parseInt(Constant.ONETIME_CAR_PRICE);
 
         int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * before_tax) / 100);

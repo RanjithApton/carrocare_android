@@ -9,8 +9,8 @@ android {
         applicationId "com.muvierecktech.carrocare"
         minSdkVersion 23
         targetSdkVersion 32
-        versionCode 20
-        versionName "1.3.2"
+        versionCode 21
+        versionName "1.3.3"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -48,10 +48,6 @@ dependencies {
 
     // Import the BoM for the Firebase platform
     implementation platform('com.google.firebase:firebase-bom:28.2.0')
-
-    // Declare the dependency for the Firebase Authentication library
-    // When using the BoM, you don't specify versions in Firebase library dependencies
-
     implementation 'com.google.firebase:firebase-core'
     implementation 'com.google.firebase:firebase-messaging'
     implementation 'com.google.firebase:firebase-auth'
@@ -70,7 +66,10 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.9.0'
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    // Okhttp
     implementation 'com.squareup.okhttp3:logging-interceptor:4.9.0'
+    //jWT Token
+    implementation('io.jsonwebtoken:jjwt:0.9.1')
 
     // Progressbar
     implementation 'com.kaopiz:kprogresshud:1.2.0'
@@ -92,7 +91,4 @@ dependencies {
 
     // Auto Image slider
     implementation 'com.github.denzcoskun:ImageSlideshow:0.0.6'
-
-   
-
 }

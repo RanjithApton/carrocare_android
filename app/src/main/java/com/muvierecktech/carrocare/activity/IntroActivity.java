@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 
 import android.os.Bundle;
+import android.os.StrictMode;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -31,6 +32,16 @@ public class IntroActivity extends AppCompatActivity {
         accesstoken = hashMap.get(SessionManager.KEY_TOKEN);
 
         sessionManager.setData(SessionManager.USER_WANTS,"apartment");
+
+        int SDK_INT = android.os.Build.VERSION.SDK_INT;
+        if (SDK_INT > 8)
+        {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                    .permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+            //your codes here
+
+        }
 
         /*started thread*/
         Runnable threadJob = new MyRunnable();

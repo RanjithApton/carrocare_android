@@ -1,282 +1,293 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
-    <RelativeLayout
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    <RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorPrimary"
         tools:context=".activity.MyOrdersDetailActivity">
+
         <LinearLayout
-            android:gravity="center"
-            android:orientation="horizontal"
             android:id="@+id/header"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize">
+            android:layout_height="?attr/actionBarSize"
+            android:gravity="center"
+            android:orientation="horizontal">
 
             <ImageView
-                android:layout_gravity="left|center_vertical|center_horizontal|center"
                 android:id="@+id/back"
-                android:padding="@dimen/padding"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
+                android:layout_gravity="left|center_vertical|center_horizontal|center"
                 android:layout_margin="10dp"
-                android:src="@drawable/back"/>
+                android:padding="@dimen/padding"
+                android:src="@drawable/back" />
 
             <TextView
-                android:textSize="@dimen/heading"
-                android:textColor="@color/white"
-                android:layout_gravity="left|center_vertical|center_horizontal|center"
                 android:id="@+id/header_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Order Details"
+                android:layout_gravity="left|center_vertical|center_horizontal|center"
                 android:layout_weight="1"
+                android:fontFamily="@font/josefinsans_bold"
+                android:text="Order Details"
                 android:textAllCaps="true"
-                android:fontFamily="@font/josefinsans_bold"/>
+                android:textColor="@color/white"
+                android:textSize="@dimen/heading" />
 
         </LinearLayout>
 
         <androidx.core.widget.NestedScrollView
-            android:layout_below="@id/header"
-            android:background="@drawable/order_detail_bg"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_below="@id/header"
+            android:background="@drawable/order_detail_bg">
 
             <LinearLayout
-                android:layout_marginTop="10dp"
-                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
 
                 <LinearLayout
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:padding="10dp"
-                    android:background="@drawable/order_item_bg"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:gravity="center"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="20dp"
                     android:layout_weight="1"
-                    android:orientation="horizontal">
+                    android:background="@drawable/order_item_bg"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
 
                     <TextView
-                        android:fontFamily="@font/josefinsans_regular"
-                        android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/josefinsans_regular"
                         android:gravity="center"
-                        android:textSize="@dimen/bigtext"
+                        android:text="Created at"
                         android:textColor="@color/white"
-                        android:text="Created at" />
+                        android:textSize="@dimen/bigtext" />
+
                     <View
                         android:layout_width="2dp"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
                         android:background="@color/gray" />
+
                     <TextView
                         android:id="@+id/date"
-                        android:fontFamily="@font/josefinsans_regular"
-                        android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/josefinsans_regular"
                         android:gravity="center"
-                        android:textSize="@dimen/bigtext"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/bigtext" />
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="20dp"
+                    android:orientation="horizontal">
 
                     <LinearLayout
-                        android:padding="10dp"
-                        android:background="@drawable/order_item_bg"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:gravity="center"
                         android:layout_weight="1"
-                        android:orientation="horizontal">
+                        android:background="@drawable/order_item_bg"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:padding="10dp">
 
                         <TextView
-                            android:fontFamily="@font/josefinsans_regular"
-                            android:layout_weight="1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/josefinsans_regular"
                             android:gravity="center"
-                            android:textSize="@dimen/bigtext"
+                            android:text="Order Id"
                             android:textColor="@color/white"
-                            android:text="Order Id" />
+                            android:textSize="@dimen/bigtext" />
+
                         <View
                             android:layout_width="2dp"
                             android:layout_height="match_parent"
                             android:layout_gravity="center"
                             android:background="@color/gray" />
+
                         <TextView
                             android:id="@+id/payment_id"
-                            android:fontFamily="@font/josefinsans_regular"
-                            android:layout_weight="1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/josefinsans_regular"
                             android:gravity="center"
-                            android:textSize="@dimen/bigtext"
-                            android:textColor="@color/white" />
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/bigtext" />
 
                     </LinearLayout>
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="20dp"
+                    android:orientation="horizontal">
 
                     <LinearLayout
-                        android:padding="10dp"
-                        android:background="@drawable/order_item_bg"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:gravity="center"
                         android:layout_weight="1"
-                        android:orientation="horizontal">
+                        android:background="@drawable/order_item_bg"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:padding="10dp">
 
                         <TextView
-                            android:fontFamily="@font/josefinsans_regular"
-                            android:layout_weight="1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/josefinsans_regular"
                             android:gravity="center"
-                            android:textSize="@dimen/bigtext"
+                            android:text="Service type"
                             android:textColor="@color/white"
-                            android:text="Service type" />
+                            android:textSize="@dimen/bigtext" />
+
                         <View
                             android:layout_width="2dp"
                             android:layout_height="match_parent"
                             android:layout_gravity="center"
                             android:background="@color/gray" />
+
                         <TextView
                             android:id="@+id/service_type"
-                            android:fontFamily="@font/josefinsans_regular"
-                            android:layout_weight="1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/josefinsans_regular"
                             android:gravity="center"
-                            android:textSize="@dimen/bigtext"
-                            android:textColor="@color/white" />
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/bigtext" />
 
                     </LinearLayout>
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="20dp"
+                    android:orientation="horizontal">
 
                     <LinearLayout
-                        android:padding="10dp"
-                        android:background="@drawable/order_item_bg"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:gravity="center"
                         android:layout_weight="1"
-                        android:orientation="horizontal">
+                        android:background="@drawable/order_item_bg"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:padding="10dp">
 
                         <TextView
-                            android:fontFamily="@font/josefinsans_regular"
-                            android:layout_weight="1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/josefinsans_regular"
                             android:gravity="center"
-                            android:textSize="@dimen/bigtext"
+                            android:text="Payment type"
                             android:textColor="@color/white"
-                            android:text="Payment type" />
+                            android:textSize="@dimen/bigtext" />
+
                         <View
                             android:layout_width="2dp"
                             android:layout_height="match_parent"
                             android:layout_gravity="center"
                             android:background="@color/gray" />
+
                         <TextView
                             android:id="@+id/payment_type"
-                            android:fontFamily="@font/josefinsans_regular"
-                            android:layout_weight="1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/josefinsans_regular"
                             android:gravity="center"
-                            android:textSize="@dimen/bigtext"
-                            android:textColor="@color/white" />
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/bigtext" />
 
                     </LinearLayout>
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="20dp"
+                    android:orientation="horizontal">
 
                     <LinearLayout
-                        android:padding="10dp"
-                        android:background="@drawable/order_item_bg"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:gravity="center"
                         android:layout_weight="1"
-                        android:orientation="horizontal">
+                        android:background="@drawable/order_item_bg"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:padding="10dp">
 
                         <TextView
-                            android:fontFamily="@font/josefinsans_regular"
-                            android:layout_weight="1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/josefinsans_regular"
                             android:gravity="center"
-                            android:textSize="@dimen/bigtext"
+                            android:text="Package type"
                             android:textColor="@color/white"
-                            android:text="Package type" />
+                            android:textSize="@dimen/bigtext" />
+
                         <View
                             android:layout_width="2dp"
                             android:layout_height="match_parent"
                             android:layout_gravity="center"
                             android:background="@color/gray" />
+
                         <TextView
                             android:id="@+id/package_type"
-                            android:fontFamily="@font/josefinsans_regular"
-                            android:layout_weight="1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/josefinsans_regular"
                             android:gravity="center"
-                            android:textSize="@dimen/bigtext"
-                            android:textColor="@color/white" />
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/bigtext" />
 
                     </LinearLayout>
 
@@ -284,48 +295,50 @@
 
                 <LinearLayout
                     android:id="@+id/vehiclemake_field"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="20dp"
+                    android:orientation="horizontal">
 
                     <LinearLayout
-                        android:padding="10dp"
-                        android:background="@drawable/order_item_bg"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:gravity="center"
                         android:layout_weight="1"
-                        android:orientation="horizontal">
+                        android:background="@drawable/order_item_bg"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:padding="10dp">
 
                         <TextView
-                            android:fontFamily="@font/josefinsans_regular"
-                            android:layout_weight="1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/josefinsans_regular"
                             android:gravity="center"
-                            android:textSize="@dimen/bigtext"
+                            android:text="Vehicle Make"
                             android:textColor="@color/white"
-                            android:text="Vehicle Make" />
+                            android:textSize="@dimen/bigtext" />
+
                         <View
                             android:layout_width="2dp"
                             android:layout_height="match_parent"
                             android:layout_gravity="center"
                             android:background="@color/gray" />
+
                         <TextView
                             android:id="@+id/vec_make"
-                            android:fontFamily="@font/josefinsans_regular"
-                            android:layout_weight="1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/josefinsans_regular"
                             android:gravity="center"
-                            android:textSize="@dimen/bigtext"
-                            android:textColor="@color/white" />
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/bigtext" />
 
                     </LinearLayout>
 
@@ -333,48 +346,50 @@
 
                 <LinearLayout
                     android:id="@+id/vehiclemodel_field"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="20dp"
+                    android:orientation="horizontal">
 
                     <LinearLayout
-                        android:padding="10dp"
-                        android:background="@drawable/order_item_bg"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:gravity="center"
                         android:layout_weight="1"
-                        android:orientation="horizontal">
+                        android:background="@drawable/order_item_bg"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:padding="10dp">
 
                         <TextView
-                            android:fontFamily="@font/josefinsans_regular"
-                            android:layout_weight="1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/josefinsans_regular"
                             android:gravity="center"
-                            android:textSize="@dimen/bigtext"
+                            android:text="Vehicle Model"
                             android:textColor="@color/white"
-                            android:text="Vehicle Model" />
+                            android:textSize="@dimen/bigtext" />
+
                         <View
                             android:layout_width="2dp"
                             android:layout_height="match_parent"
                             android:layout_gravity="center"
                             android:background="@color/gray" />
+
                         <TextView
                             android:id="@+id/vec_model"
-                            android:fontFamily="@font/josefinsans_regular"
-                            android:layout_weight="1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/josefinsans_regular"
                             android:gravity="center"
-                            android:textSize="@dimen/bigtext"
-                            android:textColor="@color/white" />
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/bigtext" />
 
                     </LinearLayout>
 
@@ -382,48 +397,50 @@
 
                 <LinearLayout
                     android:id="@+id/vehicleno_field"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="20dp"
+                    android:orientation="horizontal">
 
                     <LinearLayout
-                        android:padding="10dp"
-                        android:background="@drawable/order_item_bg"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:gravity="center"
                         android:layout_weight="1"
-                        android:orientation="horizontal">
+                        android:background="@drawable/order_item_bg"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:padding="10dp">
 
                         <TextView
-                            android:fontFamily="@font/josefinsans_regular"
-                            android:layout_weight="1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/josefinsans_regular"
                             android:gravity="center"
-                            android:textSize="@dimen/bigtext"
+                            android:text="Vehicle No"
                             android:textColor="@color/white"
-                            android:text="Vehicle No" />
+                            android:textSize="@dimen/bigtext" />
+
                         <View
                             android:layout_width="2dp"
                             android:layout_height="match_parent"
                             android:layout_gravity="center"
                             android:background="@color/gray" />
+
                         <TextView
                             android:id="@+id/vec_no"
-                            android:fontFamily="@font/josefinsans_regular"
-                            android:layout_weight="1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/josefinsans_regular"
                             android:gravity="center"
-                            android:textSize="@dimen/bigtext"
-                            android:textColor="@color/white" />
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/bigtext" />
 
                     </LinearLayout>
 
@@ -431,313 +448,322 @@
 
                 <LinearLayout
                     android:id="@+id/vehicleid_field"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="20dp"
+                    android:orientation="horizontal">
 
                     <LinearLayout
-                        android:padding="10dp"
-                        android:background="@drawable/order_item_bg"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:gravity="center"
                         android:layout_weight="1"
-                        android:orientation="horizontal">
+                        android:background="@drawable/order_item_bg"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:padding="10dp">
 
                         <TextView
-                            android:fontFamily="@font/josefinsans_regular"
-                            android:layout_weight="1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/josefinsans_regular"
                             android:gravity="center"
-                            android:textSize="@dimen/bigtext"
+                            android:text="Vehicle Id"
                             android:textColor="@color/white"
-                            android:text="Vehicle Id" />
+                            android:textSize="@dimen/bigtext" />
+
                         <View
                             android:layout_width="2dp"
                             android:layout_height="match_parent"
                             android:layout_gravity="center"
                             android:background="@color/gray" />
+
                         <TextView
                             android:id="@+id/vec_id"
-                            android:fontFamily="@font/josefinsans_regular"
-                            android:layout_weight="1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/josefinsans_regular"
                             android:gravity="center"
-                            android:textSize="@dimen/bigtext"
-                            android:textColor="@color/white" />
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/bigtext" />
 
                     </LinearLayout>
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:visibility="gone"
                     android:id="@+id/schedule_field"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:padding="10dp"
-                    android:background="@drawable/order_item_bg"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:gravity="center"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="20dp"
                     android:layout_weight="1"
-                    android:orientation="horizontal">
+                    android:background="@drawable/order_item_bg"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="10dp"
+                    android:visibility="gone">
 
                     <TextView
-                        android:fontFamily="@font/josefinsans_regular"
-                        android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/josefinsans_regular"
                         android:gravity="center"
-                        android:textSize="@dimen/bigtext"
+                        android:text="Schedule Date"
                         android:textColor="@color/white"
-                        android:text="Schedule Date" />
+                        android:textSize="@dimen/bigtext" />
+
                     <View
                         android:layout_width="2dp"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
                         android:background="@color/gray" />
+
                     <TextView
                         android:id="@+id/schedule_date"
-                        android:fontFamily="@font/josefinsans_regular"
-                        android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/josefinsans_regular"
                         android:gravity="center"
-                        android:textSize="@dimen/bigtext"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/bigtext" />
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/status_field"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:padding="10dp"
-                    android:background="@drawable/order_item_bg"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:gravity="center"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="20dp"
                     android:layout_weight="1"
-                    android:orientation="horizontal">
+                    android:background="@drawable/order_item_bg"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
 
                     <TextView
-                        android:fontFamily="@font/josefinsans_regular"
-                        android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/josefinsans_regular"
                         android:gravity="center"
-                        android:textSize="@dimen/bigtext"
+                        android:text="Status"
                         android:textColor="@color/white"
-                        android:text="Status" />
+                        android:textSize="@dimen/bigtext" />
+
                     <View
                         android:layout_width="2dp"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
                         android:background="@color/gray" />
+
                     <TextView
                         android:id="@+id/status"
-                        android:fontFamily="@font/josefinsans_regular"
-                        android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/josefinsans_regular"
                         android:gravity="center"
-                        android:textSize="@dimen/bigtext"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/bigtext" />
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:visibility="gone"
                     android:id="@+id/workdone_field"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:padding="10dp"
-                    android:background="@drawable/order_item_bg"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:gravity="center"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="20dp"
                     android:layout_weight="1"
-                    android:orientation="horizontal">
+                    android:background="@drawable/order_item_bg"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="10dp"
+                    android:visibility="gone">
 
                     <TextView
-                        android:fontFamily="@font/josefinsans_regular"
-                        android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/josefinsans_regular"
                         android:gravity="center"
-                        android:textSize="@dimen/bigtext"
+                        android:text="Work Done"
                         android:textColor="@color/white"
-                        android:text="Work Done" />
+                        android:textSize="@dimen/bigtext" />
+
                     <View
                         android:layout_width="2dp"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
                         android:background="@color/gray" />
+
                     <TextView
                         android:id="@+id/work_done"
-                        android:fontFamily="@font/josefinsans_regular"
-                        android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/josefinsans_regular"
                         android:gravity="center"
-                        android:textSize="@dimen/bigtext"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/bigtext" />
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_margin="10dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp">
+
                     <androidx.cardview.widget.CardView
                         android:id="@+id/cardorder"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:cardCornerRadius="9dp"
-                        app:cardBackgroundColor="#b83006"
+                        android:layout_margin="@dimen/margin"
                         android:elevation="7dp"
                         android:fitsSystemWindows="true"
-                        app:cardUseCompatPadding="true"
-                        android:layout_margin="@dimen/margin"
+                        app:cardBackgroundColor="#b83006"
+                        app:cardCornerRadius="9dp"
+                        app:cardElevation="5dp"
                         app:cardPreventCornerOverlap="true"
-                        app:cardElevation="5dp">
+                        app:cardUseCompatPadding="true">
 
                         <LinearLayout
-                            android:padding="10dp"
-                            android:orientation="vertical"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="10dp">
 
                             <LinearLayout
-                                android:layout_gravity="center"
-                                android:orientation="vertical"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="center"
                                 android:layout_marginLeft="@dimen/margin"
-                                android:layout_marginRight="@dimen/margin">
+                                android:layout_marginRight="@dimen/margin"
+                                android:orientation="vertical">
 
                                 <LinearLayout
-                                    android:layout_gravity="center"
-                                    android:orientation="horizontal"
                                     android:id="@+id/paidcount_field"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="0.5">
+                                    android:layout_gravity="center"
+                                    android:layout_weight="0.5"
+                                    android:orientation="horizontal">
 
                                     <TextView
-                                        android:textSize="@dimen/bigtext"
-                                        android:textColor="@color/white"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="left|center_vertical|center_horizontal|center"
+                                        android:layout_weight="1"
+                                        android:fontFamily="@font/josefinsans_regular"
                                         android:gravity="left|center_vertical|center_horizontal|center"
-                                        android:layout_gravity="left|center_vertical|center_horizontal|center"
                                         android:padding="@dimen/padding"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
                                         android:text="Paid Count : "
-                                        android:layout_weight="1"
-                                        android:fontFamily="@font/josefinsans_regular"/>
+                                        android:textColor="@color/white"
+                                        android:textSize="@dimen/bigtext" />
 
                                     <TextView
-                                        android:textSize="@dimen/bigtext"
-                                        android:textColor="@color/white"
-                                        android:gravity="left"
-                                        android:layout_gravity="left|center_vertical|center_horizontal|center"
                                         android:id="@+id/paid_count"
-                                        android:padding="@dimen/padding"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:text=""
+                                        android:layout_gravity="left|center_vertical|center_horizontal|center"
                                         android:layout_weight="1"
-                                        android:fontFamily="@font/josefinsans_regular"/>
+                                        android:fontFamily="@font/josefinsans_regular"
+                                        android:gravity="left"
+                                        android:padding="@dimen/padding"
+                                        android:text=""
+                                        android:textColor="@color/white"
+                                        android:textSize="@dimen/bigtext" />
 
                                 </LinearLayout>
 
                                 <LinearLayout
-                                    android:layout_gravity="center"
-                                    android:orientation="horizontal"
                                     android:id="@+id/valid_field"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="0.5">
+                                    android:layout_gravity="center"
+                                    android:layout_weight="0.5"
+                                    android:orientation="horizontal">
 
                                     <TextView
-                                        android:textSize="@dimen/bigtext"
-                                        android:textColor="@color/white"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="left|center_vertical|center_horizontal|center"
+                                        android:layout_weight="1"
+                                        android:fontFamily="@font/josefinsans_regular"
                                         android:gravity="left|center_vertical|center_horizontal|center"
-                                        android:layout_gravity="left|center_vertical|center_horizontal|center"
                                         android:padding="@dimen/padding"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
                                         android:text="Valid : "
-                                        android:layout_weight="1"
-                                        android:fontFamily="@font/josefinsans_regular"/>
+                                        android:textColor="@color/white"
+                                        android:textSize="@dimen/bigtext" />
 
                                     <TextView
-                                        android:textSize="@dimen/bigtext"
-                                        android:textColor="@color/white"
-                                        android:gravity="left"
-                                        android:layout_gravity="left|center_vertical|center_horizontal|center"
                                         android:id="@+id/valid"
-                                        android:padding="@dimen/padding"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:text=""
+                                        android:layout_gravity="left|center_vertical|center_horizontal|center"
                                         android:layout_weight="1"
-                                        android:fontFamily="@font/josefinsans_regular"/>
+                                        android:fontFamily="@font/josefinsans_regular"
+                                        android:gravity="left"
+                                        android:padding="@dimen/padding"
+                                        android:text=""
+                                        android:textColor="@color/white"
+                                        android:textSize="@dimen/bigtext" />
 
                                 </LinearLayout>
 
                                 <LinearLayout
-                                    android:layout_gravity="center"
-                                    android:orientation="horizontal"
                                     android:id="@+id/paymentmode_field"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="0.5">
+                                    android:layout_gravity="center"
+                                    android:layout_weight="0.5"
+                                    android:orientation="horizontal">
 
                                     <TextView
-                                        android:textSize="@dimen/bigtext"
-                                        android:textColor="@color/white"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="left|center_vertical|center_horizontal|center"
+                                        android:layout_weight="1"
+                                        android:fontFamily="@font/josefinsans_regular"
                                         android:gravity="left|center_vertical|center_horizontal|center"
-                                        android:layout_gravity="left|center_vertical|center_horizontal|center"
                                         android:padding="@dimen/padding"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
                                         android:text="Payment Mode : "
-                                        android:layout_weight="1"
-                                        android:fontFamily="@font/josefinsans_regular"/>
+                                        android:textColor="@color/white"
+                                        android:textSize="@dimen/bigtext" />
 
                                     <TextView
-                                        android:textSize="@dimen/bigtext"
-                                        android:textColor="@color/white"
-                                        android:gravity="left"
-                                        android:layout_gravity="left|center_vertical|center_horizontal|center"
                                         android:id="@+id/payment_mode"
-                                        android:padding="@dimen/padding"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
+                                        android:layout_gravity="left|center_vertical|center_horizontal|center"
                                         android:layout_weight="1"
-                                        android:fontFamily="@font/josefinsans_regular"/>
+                                        android:fontFamily="@font/josefinsans_regular"
+                                        android:gravity="left"
+                                        android:padding="@dimen/padding"
+                                        android:textColor="@color/white"
+                                        android:textSize="@dimen/bigtext" />
 
                                 </LinearLayout>
 
@@ -745,276 +771,392 @@
                             </LinearLayout>
 
                             <LinearLayout
-                                android:layout_gravity="center"
-                                android:orientation="vertical"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="center"
                                 android:layout_marginLeft="@dimen/margin"
-                                android:layout_marginRight="@dimen/margin">
+                                android:layout_marginRight="@dimen/margin"
+                                android:orientation="vertical">
 
                                 <LinearLayout
-                                    android:layout_gravity="center"
-                                    android:orientation="horizontal"
                                     android:id="@+id/packagevalue_field"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="0.5">
+                                    android:layout_gravity="center"
+                                    android:layout_weight="0.5"
+                                    android:orientation="horizontal">
 
                                     <TextView
-                                        android:textSize="@dimen/bigtext"
-                                        android:textColor="@color/white"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="left|center_vertical|center_horizontal|center"
+                                        android:layout_weight="1"
+                                        android:fontFamily="@font/josefinsans_regular"
                                         android:gravity="left|center_vertical|center_horizontal|center"
-                                        android:layout_gravity="left|center_vertical|center_horizontal|center"
                                         android:padding="@dimen/padding"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
                                         android:text="Package Value : "
-                                        android:layout_weight="1"
-                                        android:fontFamily="@font/josefinsans_regular"/>
+                                        android:textColor="@color/white"
+                                        android:textSize="@dimen/bigtext" />
 
                                     <TextView
-                                        android:textSize="@dimen/bigtext"
-                                        android:textColor="@color/white"
-                                        android:gravity="left"
-                                        android:layout_gravity="left|center_vertical|center_horizontal|center"
                                         android:id="@+id/package_value"
-                                        android:padding="@dimen/padding"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:text=""
+                                        android:layout_gravity="left|center_vertical|center_horizontal|center"
                                         android:layout_weight="1"
-                                        android:fontFamily="@font/josefinsans_regular"/>
+                                        android:fontFamily="@font/josefinsans_regular"
+                                        android:gravity="left"
+                                        android:padding="@dimen/padding"
+                                        android:text=""
+                                        android:textColor="@color/white"
+                                        android:textSize="@dimen/bigtext" />
 
                                 </LinearLayout>
 
                                 <LinearLayout
-                                    android:layout_gravity="center"
-                                    android:orientation="horizontal"
                                     android:id="@+id/discount_field"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="0.5">
+                                    android:layout_gravity="center"
+                                    android:layout_weight="0.5"
+                                    android:orientation="horizontal">
 
                                     <TextView
-                                        android:textSize="@dimen/bigtext"
-                                        android:textColor="@color/white"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="left|center_vertical|center_horizontal|center"
+                                        android:layout_weight="1"
+                                        android:fontFamily="@font/josefinsans_regular"
                                         android:gravity="left|center_vertical|center_horizontal|center"
-                                        android:layout_gravity="left|center_vertical|center_horizontal|center"
                                         android:padding="@dimen/padding"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
                                         android:text="Discount Amount : "
-                                        android:layout_weight="1"
-                                        android:fontFamily="@font/josefinsans_regular"/>
+                                        android:textColor="@color/white"
+                                        android:textSize="@dimen/bigtext" />
 
                                     <TextView
-                                        android:textSize="@dimen/bigtext"
-                                        android:textColor="@color/white"
-                                        android:gravity="left"
-                                        android:layout_gravity="left|center_vertical|center_horizontal|center"
                                         android:id="@+id/discount_amount"
-                                        android:padding="@dimen/padding"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:text=""
+                                        android:layout_gravity="left|center_vertical|center_horizontal|center"
                                         android:layout_weight="1"
-                                        android:fontFamily="@font/josefinsans_regular"/>
+                                        android:fontFamily="@font/josefinsans_regular"
+                                        android:gravity="left"
+                                        android:padding="@dimen/padding"
+                                        android:text=""
+                                        android:textColor="@color/white"
+                                        android:textSize="@dimen/bigtext" />
 
                                 </LinearLayout>
 
                                 <LinearLayout
-                                    android:layout_gravity="center"
-                                    android:orientation="horizontal"
                                     android:id="@+id/subtotal_field"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="0.5">
+                                    android:layout_gravity="center"
+                                    android:layout_weight="0.5"
+                                    android:orientation="horizontal">
 
                                     <TextView
-                                        android:textSize="@dimen/bigtext"
-                                        android:textColor="@color/white"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="left|center_vertical|center_horizontal|center"
+                                        android:layout_weight="1"
+                                        android:fontFamily="@font/josefinsans_regular"
                                         android:gravity="left|center_vertical|center_horizontal|center"
-                                        android:layout_gravity="left|center_vertical|center_horizontal|center"
                                         android:padding="@dimen/padding"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
                                         android:text="Sub-Total : "
-                                        android:layout_weight="1"
-                                        android:fontFamily="@font/josefinsans_regular"/>
+                                        android:textColor="@color/white"
+                                        android:textSize="@dimen/bigtext" />
 
                                     <TextView
-                                        android:textSize="@dimen/bigtext"
-                                        android:textColor="@color/white"
-                                        android:gravity="left"
-                                        android:layout_gravity="left|center_vertical|center_horizontal|center"
                                         android:id="@+id/subtotal_amount"
-                                        android:padding="@dimen/padding"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:text=""
+                                        android:layout_gravity="left|center_vertical|center_horizontal|center"
                                         android:layout_weight="1"
-                                        android:fontFamily="@font/josefinsans_regular"/>
+                                        android:fontFamily="@font/josefinsans_regular"
+                                        android:gravity="left"
+                                        android:padding="@dimen/padding"
+                                        android:text=""
+                                        android:textColor="@color/white"
+                                        android:textSize="@dimen/bigtext" />
 
                                 </LinearLayout>
 
                                 <LinearLayout
-                                    android:layout_gravity="center"
-                                    android:orientation="horizontal"
                                     android:id="@+id/tax_field"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="0.5">
+                                    android:layout_gravity="center"
+                                    android:layout_weight="0.5"
+                                    android:orientation="horizontal">
 
                                     <TextView
-                                        android:textSize="@dimen/bigtext"
-                                        android:textColor="@color/white"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="left|center_vertical|center_horizontal|center"
+                                        android:layout_weight="1"
+                                        android:fontFamily="@font/josefinsans_regular"
                                         android:gravity="left|center_vertical|center_horizontal|center"
-                                        android:layout_gravity="left|center_vertical|center_horizontal|center"
                                         android:padding="@dimen/padding"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:text="Tax percentage : "
-                                        android:layout_weight="1"
-                                        android:fontFamily="@font/josefinsans_regular"/>
+                                        android:text="GST percentage : "
+                                        android:textColor="@color/white"
+                                        android:textSize="@dimen/bigtext" />
 
                                     <TextView
-                                        android:textSize="@dimen/bigtext"
-                                        android:textColor="@color/white"
-                                        android:gravity="left"
-                                        android:layout_gravity="left|center_vertical|center_horizontal|center"
                                         android:id="@+id/tax_percentage"
-                                        android:padding="@dimen/padding"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:text=""
+                                        android:layout_gravity="left|center_vertical|center_horizontal|center"
                                         android:layout_weight="1"
-                                        android:fontFamily="@font/josefinsans_regular"/>
+                                        android:fontFamily="@font/josefinsans_regular"
+                                        android:gravity="left"
+                                        android:padding="@dimen/padding"
+                                        android:text=""
+                                        android:textColor="@color/white"
+                                        android:textSize="@dimen/bigtext" />
 
                                 </LinearLayout>
 
                                 <LinearLayout
-                                    android:layout_gravity="center"
-                                    android:orientation="horizontal"
                                     android:id="@+id/tax_amount_field"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="0.5">
+                                    android:layout_gravity="center"
+                                    android:layout_weight="0.5"
+                                    android:orientation="horizontal">
 
                                     <TextView
-                                        android:textSize="@dimen/bigtext"
-                                        android:textColor="@color/white"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="left|center_vertical|center_horizontal|center"
+                                        android:layout_weight="1"
+                                        android:fontFamily="@font/josefinsans_regular"
                                         android:gravity="left|center_vertical|center_horizontal|center"
-                                        android:layout_gravity="left|center_vertical|center_horizontal|center"
                                         android:padding="@dimen/padding"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:text="Tax Amount : "
-                                        android:layout_weight="1"
-                                        android:fontFamily="@font/josefinsans_regular"/>
+                                        android:text="GST Amount : "
+                                        android:textColor="@color/white"
+                                        android:textSize="@dimen/bigtext" />
 
                                     <TextView
-                                        android:textSize="@dimen/bigtext"
-                                        android:textColor="@color/white"
-                                        android:gravity="left"
-                                        android:layout_gravity="left|center_vertical|center_horizontal|center"
                                         android:id="@+id/tax_amount"
-                                        android:padding="@dimen/padding"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:text=""
+                                        android:layout_gravity="left|center_vertical|center_horizontal|center"
                                         android:layout_weight="1"
-                                        android:fontFamily="@font/josefinsans_regular"/>
+                                        android:fontFamily="@font/josefinsans_regular"
+                                        android:gravity="left"
+                                        android:padding="@dimen/padding"
+                                        android:text=""
+                                        android:textColor="@color/white"
+                                        android:textSize="@dimen/bigtext" />
 
                                 </LinearLayout>
 
                                 <LinearLayout
-                                    android:layout_gravity="center"
-                                    android:orientation="horizontal"
                                     android:id="@+id/totalamount_field"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="0.5">
+                                    android:layout_gravity="center"
+                                    android:layout_weight="0.5"
+                                    android:orientation="horizontal">
 
                                     <TextView
-                                        android:textSize="@dimen/bigtext"
-                                        android:textColor="@color/white"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="left|center_vertical|center_horizontal|center"
+                                        android:layout_weight="1"
+                                        android:fontFamily="@font/josefinsans_regular"
                                         android:gravity="left|center_vertical|center_horizontal|center"
-                                        android:layout_gravity="left|center_vertical|center_horizontal|center"
                                         android:padding="@dimen/padding"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
                                         android:text="Total Amount : "
-                                        android:layout_weight="1"
-                                        android:fontFamily="@font/josefinsans_regular"/>
+                                        android:textColor="@color/white"
+                                        android:textSize="@dimen/bigtext" />
 
                                     <TextView
-                                        android:textSize="@dimen/bigtext"
-                                        android:textColor="@color/white"
-                                        android:gravity="left"
-                                        android:layout_gravity="left|center_vertical|center_horizontal|center"
                                         android:id="@+id/total_amount"
-                                        android:padding="@dimen/padding"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:text=""
+                                        android:layout_gravity="left|center_vertical|center_horizontal|center"
                                         android:layout_weight="1"
-                                        android:fontFamily="@font/josefinsans_regular"/>
+                                        android:fontFamily="@font/josefinsans_regular"
+                                        android:gravity="left"
+                                        android:padding="@dimen/padding"
+                                        android:text=""
+                                        android:textColor="@color/white"
+                                        android:textSize="@dimen/bigtext" />
 
                                 </LinearLayout>
 
                             </LinearLayout>
 
-                            <LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content">
-                                <LinearLayout android:layout_gravity="center" android:orientation="horizontal" android:id="@+id/wash_ll" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/margin" android:layout_marginRight="@dimen/margin" android:layout_weight="1">
-                                    <Button android:textSize="@dimen/bigtext" android:textStyle="bold" android:textColor="@color/white" android:gravity="center" android:layout_gravity="center" android:id="@+id/view_washdetails" android:background="@drawable/login_bg" android:layout_width="match_parent" android:layout_height="40dp" android:layout_marginTop="@dimen/marginmed" android:layout_marginBottom="@dimen/marginmed" android:text="Wash Details" android:fontFamily="@font/josefinsans_bold"/>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:id="@+id/wash_ll"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginLeft="@dimen/margin"
+                                    android:layout_marginRight="@dimen/margin"
+                                    android:layout_weight="1"
+                                    android:orientation="horizontal">
+
+                                    <Button
+                                        android:id="@+id/view_washdetails"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="40dp"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="@dimen/marginmed"
+                                        android:layout_marginBottom="@dimen/marginmed"
+                                        android:background="@drawable/login_bg"
+                                        android:fontFamily="@font/josefinsans_bold"
+                                        android:gravity="center"
+                                        android:text="Wash Details"
+                                        android:textColor="@color/white"
+                                        android:textSize="@dimen/bigtext"
+                                        android:textStyle="bold" />
                                 </LinearLayout>
-                                <LinearLayout android:layout_gravity="center" android:orientation="horizontal" android:id="@+id/extra_ll" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/margin" android:layout_marginRight="@dimen/margin" android:layout_weight="1">
-                                    <Button android:textSize="@dimen/bigtext" android:textStyle="bold" android:textColor="@color/white" android:gravity="center" android:layout_gravity="center" android:id="@+id/view_extrainterior" android:background="@drawable/login_bg" android:layout_width="match_parent" android:layout_height="40dp" android:layout_marginTop="@dimen/marginmed" android:layout_marginBottom="@dimen/marginmed" android:text="Extra Interior" android:fontFamily="@font/josefinsans_bold"/>
+
+                                <LinearLayout
+                                    android:id="@+id/extra_ll"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginLeft="@dimen/margin"
+                                    android:layout_marginRight="@dimen/margin"
+                                    android:layout_weight="1"
+                                    android:orientation="horizontal">
+
+                                    <Button
+                                        android:id="@+id/view_extrainterior"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="40dp"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="@dimen/marginmed"
+                                        android:layout_marginBottom="@dimen/marginmed"
+                                        android:background="@drawable/login_bg"
+                                        android:fontFamily="@font/josefinsans_bold"
+                                        android:gravity="center"
+                                        android:text="Extra Interior"
+                                        android:textColor="@color/white"
+                                        android:textSize="@dimen/bigtext"
+                                        android:textStyle="bold" />
                                 </LinearLayout>
                             </LinearLayout>
-                            <LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content">
-                                <Button android:textSize="@dimen/bigtext" android:textStyle="bold" android:textColor="@color/white" android:gravity="center" android:layout_gravity="center" android:id="@+id/cancel" android:background="@drawable/login_bg" android:layout_width="match_parent" android:layout_height="40dp" android:layout_marginLeft="@dimen/margin" android:layout_marginTop="@dimen/margin" android:layout_marginRight="@dimen/margin" android:layout_marginBottom="@dimen/margin" android:text="Cancel Subscription" android:layout_weight="1" android:fontFamily="@font/josefinsans_bold"/>
-                                <Button android:textSize="@dimen/bigtext" android:textStyle="bold" android:textColor="@color/white" android:gravity="center" android:layout_gravity="center" android:id="@+id/viewhistory" android:background="@drawable/rzp_green_button" android:layout_width="match_parent" android:layout_height="40dp" android:layout_marginLeft="@dimen/margin" android:layout_marginTop="@dimen/margin" android:layout_marginRight="@dimen/margin" android:layout_marginBottom="@dimen/margin" android:text="View History" android:layout_weight="1" android:fontFamily="@font/josefinsans_bold"/>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <Button
+                                    android:id="@+id/cancel"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="40dp"
+                                    android:layout_gravity="center"
+                                    android:layout_marginLeft="@dimen/margin"
+                                    android:layout_marginTop="@dimen/margin"
+                                    android:layout_marginRight="@dimen/margin"
+                                    android:layout_marginBottom="@dimen/margin"
+                                    android:layout_weight="1"
+                                    android:background="@drawable/login_bg"
+                                    android:fontFamily="@font/josefinsans_bold"
+                                    android:gravity="center"
+                                    android:text="Cancel Subscription"
+                                    android:textColor="@color/white"
+                                    android:textSize="@dimen/bigtext"
+                                    android:textStyle="bold" />
+
+                                <Button
+                                    android:id="@+id/viewhistory"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="40dp"
+                                    android:layout_gravity="center"
+                                    android:layout_marginLeft="@dimen/margin"
+                                    android:layout_marginTop="@dimen/margin"
+                                    android:layout_marginRight="@dimen/margin"
+                                    android:layout_marginBottom="@dimen/margin"
+                                    android:layout_weight="1"
+                                    android:background="@drawable/rzp_green_button"
+                                    android:fontFamily="@font/josefinsans_bold"
+                                    android:gravity="center"
+                                    android:text="View History"
+                                    android:textColor="@color/white"
+                                    android:textSize="@dimen/bigtext"
+                                    android:textStyle="bold" />
                             </LinearLayout>
+
                             <Button
-                                android:visibility="gone"
-                                android:textSize="@dimen/bigtext"
-                                android:textStyle="bold"
-                                android:textColor="@color/white"
-                                android:gravity="center"
-                                android:layout_gravity="center"
                                 android:id="@+id/cancel_onetime"
-                                android:background="@drawable/btn_round"
                                 android:layout_width="match_parent"
                                 android:layout_height="40dp"
+                                android:layout_gravity="center"
                                 android:layout_marginLeft="@dimen/margin"
                                 android:layout_marginTop="@dimen/margin"
                                 android:layout_marginRight="@dimen/margin"
                                 android:layout_marginBottom="@dimen/margin"
-                                android:text="Cancel Order"
                                 android:layout_weight="1"
-                                android:fontFamily="@font/josefinsans_bold"/>
+                                android:background="@drawable/btn_round"
+                                android:fontFamily="@font/josefinsans_bold"
+                                android:gravity="center"
+                                android:text="Cancel Order"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/bigtext"
+                                android:textStyle="bold"
+                                android:visibility="gone" />
 
                             <LinearLayout
+                                android:id="@+id/image_field"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:layout_marginLeft="@dimen/margin"
                                 android:layout_marginRight="@dimen/margin"
-                                android:visibility="gone"
-                                android:id="@+id/image_field"
                                 android:orientation="vertical"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
+                                android:visibility="gone">
 
-                                <LinearLayout android:layout_gravity="center" android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_weight="0.5">
-                                    <TextView android:textSize="@dimen/bigtext" android:textColor="@color/white" android:gravity="left|center_vertical|center_horizontal|center" android:layout_gravity="left|center_vertical|center_horizontal|center" android:padding="@dimen/padding" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Image Date : " android:layout_weight="1" android:fontFamily="@font/josefinsans_regular"/>
-                                    <TextView android:textSize="@dimen/bigtext" android:textColor="@color/white" android:gravity="left" android:layout_gravity="left|center_vertical|center_horizontal|center" android:id="@+id/image_date" android:padding="@dimen/padding" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="" android:layout_weight="1" android:fontFamily="@font/josefinsans_regular"/>
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_weight="0.5"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="left|center_vertical|center_horizontal|center"
+                                        android:layout_weight="1"
+                                        android:fontFamily="@font/josefinsans_regular"
+                                        android:gravity="left|center_vertical|center_horizontal|center"
+                                        android:padding="@dimen/padding"
+                                        android:text="Image Date : "
+                                        android:textColor="@color/white"
+                                        android:textSize="@dimen/bigtext" />
+
+                                    <TextView
+                                        android:id="@+id/image_date"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="left|center_vertical|center_horizontal|center"
+                                        android:layout_weight="1"
+                                        android:fontFamily="@font/josefinsans_regular"
+                                        android:gravity="left"
+                                        android:padding="@dimen/padding"
+                                        android:text=""
+                                        android:textColor="@color/white"
+                                        android:textSize="@dimen/bigtext" />
                                 </LinearLayout>
 
                                 <ImageView
                                     android:id="@+id/vec_image"
-                                    android:padding="50dp"
                                     android:layout_width="match_parent"
-                                    android:layout_height="250dp"/>
+                                    android:layout_height="250dp"
+                                    android:padding="50dp" />
 
 
                             </LinearLayout>
@@ -1029,10 +1171,10 @@
 
         <RelativeLayout
             android:id="@+id/paymrnt_detail_rl"
-            android:background="@color/lightgray"
-            android:visibility="gone"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/lightgray"
+            android:visibility="gone">
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
@@ -1046,107 +1188,107 @@
                 app:cardUseCompatPadding="true">
 
                 <LinearLayout
-                    android:layout_gravity="center"
-                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
 
                     <TextView
-                        android:textSize="@dimen/bigtext"
-                        android:textColor="@color/white"
-                        android:gravity="center"
-                        android:layout_gravity="center"
-                        android:background="@color/colorPrimaryDark"
-                        android:padding="@dimen/marginmed"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@color/colorPrimaryDark"
+                        android:fontFamily="@font/josefinsans_bold"
+                        android:gravity="center"
+                        android:padding="@dimen/marginmed"
                         android:text="View Payment Details"
-                        android:fontFamily="@font/josefinsans_bold"/>
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/bigtext" />
 
                     <LinearLayout
-                        android:orientation="horizontal"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
 
                         <TextView
-                            android:textSize="@dimen/bigtext"
-                            android:textColor="@color/black"
-                            android:gravity="center"
-                            android:layout_gravity="left|center_vertical|center_horizontal|center"
-                            android:padding="@dimen/padding"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="left|center_vertical|center_horizontal|center"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/josefinsans_regular"
+                            android:gravity="center"
+                            android:padding="@dimen/padding"
                             android:text="Date"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/josefinsans_regular"/>
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/bigtext" />
 
                         <View
-                            android:background="@color/gray"
                             android:layout_width="1dp"
-                            android:layout_height="match_parent"/>
+                            android:layout_height="match_parent"
+                            android:background="@color/gray" />
 
                         <TextView
-                            android:textSize="@dimen/bigtext"
-                            android:textColor="@color/black"
-                            android:gravity="center"
-                            android:layout_gravity="left|center_vertical|center_horizontal|center"
-                            android:padding="@dimen/padding"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="left|center_vertical|center_horizontal|center"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/josefinsans_regular"
+                            android:gravity="center"
+                            android:padding="@dimen/padding"
                             android:text="Payment ID"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/josefinsans_regular"/>
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/bigtext" />
 
                         <View
-                            android:background="@color/gray"
                             android:layout_width="1dp"
-                            android:layout_height="match_parent"/>
+                            android:layout_height="match_parent"
+                            android:background="@color/gray" />
 
                         <TextView
-                            android:textSize="@dimen/bigtext"
-                            android:textColor="@color/black"
-                            android:gravity="center"
-                            android:layout_gravity="left|center_vertical|center_horizontal|center"
-                            android:padding="@dimen/padding"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="left|center_vertical|center_horizontal|center"
+                            android:layout_weight="1.1"
+                            android:fontFamily="@font/josefinsans_regular"
+                            android:gravity="center"
+                            android:padding="@dimen/padding"
                             android:text="Amount"
-                            android:layout_weight="1.1"
-                            android:fontFamily="@font/josefinsans_regular"/>
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/bigtext" />
 
                         <View
-                            android:background="@color/gray"
                             android:layout_width="1dp"
-                            android:layout_height="match_parent"/>
+                            android:layout_height="match_parent"
+                            android:background="@color/gray" />
 
                         <TextView
-                            android:textSize="@dimen/bigtext"
-                            android:textColor="@color/black"
-                            android:gravity="center"
-                            android:layout_gravity="left|center_vertical|center_horizontal|center"
-                            android:padding="@dimen/padding"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Status"
+                            android:layout_gravity="left|center_vertical|center_horizontal|center"
                             android:layout_weight="1.1"
-                            android:fontFamily="@font/josefinsans_regular"/>
+                            android:fontFamily="@font/josefinsans_regular"
+                            android:gravity="center"
+                            android:padding="@dimen/padding"
+                            android:text="Status"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/bigtext" />
 
                         <View
-                            android:background="@color/gray"
                             android:layout_width="1dp"
-                            android:layout_height="match_parent"/>
+                            android:layout_height="match_parent"
+                            android:background="@color/gray" />
 
                     </LinearLayout>
 
                     <View
-                        android:background="@color/gray"
                         android:layout_width="match_parent"
-                        android:layout_height="1dp"/>
+                        android:layout_height="1dp"
+                        android:background="@color/gray" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/payment_details_rc"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content" />
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>

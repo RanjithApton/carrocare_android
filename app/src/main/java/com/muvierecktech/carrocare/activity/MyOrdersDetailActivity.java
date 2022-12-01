@@ -56,6 +56,7 @@ public class MyOrdersDetailActivity extends AppCompatActivity {
     List<OrdersList.PaymentDetails> paymentDetails;
     SessionManager sessionManager;
     String token,customerid;
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

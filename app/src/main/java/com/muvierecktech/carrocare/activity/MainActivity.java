@@ -568,13 +568,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         if (doubleBackToExitPressedOnce) {
-            super.onBackPressed();
+            finishAffinity();
             return;
         }
         this.doubleBackToExitPressedOnce = true;
         Toast.makeText(this, getString(R.string.exit_msg), Toast.LENGTH_SHORT).show();
         new Handler().postDelayed(new Runnable() {
-
             @Override
             public void run() {
                 doubleBackToExitPressedOnce = false;

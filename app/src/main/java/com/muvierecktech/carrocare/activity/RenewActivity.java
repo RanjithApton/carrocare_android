@@ -107,8 +107,8 @@ public class RenewActivity extends AppCompatActivity {
         if(Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) != 0){
             binding.taxField.setVisibility(View.VISIBLE);
             binding.taxField1.setVisibility(View.VISIBLE);
-            binding.taxPercentage.setText("Taxes ("+Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE))+"%)");
-            binding.taxPercentage1.setText("Taxes ("+Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE))+"%)");
+            binding.taxPercentage.setText("GST ("+Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE))+"%)");
+            binding.taxPercentage1.setText("GST ("+Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE))+"%)");
         }else{
             binding.taxField.setVisibility(View.GONE);
             binding.taxField1.setVisibility(View.GONE);

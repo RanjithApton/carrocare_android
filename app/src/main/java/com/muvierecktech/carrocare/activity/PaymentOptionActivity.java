@@ -77,7 +77,7 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
     List<OneTimeWashCheckout.getResult> result;
     ArrayList<String> spinner_item;
 
-    @SuppressLint("LongLogTag")
+    @SuppressLint({"LongLogTag", "SetTextI18n"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -132,8 +132,8 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
         if(Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) != 0){
             binding.taxField.setVisibility(View.VISIBLE);
             binding.taxField1.setVisibility(View.VISIBLE);
-            binding.taxPercentage.setText("Taxes ("+Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE))+"%)");
-            binding.taxPercentage1.setText("Taxes ("+Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE))+"%)");
+            binding.taxPercentage.setText("GST ("+Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE))+"%)");
+            binding.taxPercentage1.setText("GST ("+Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE))+"%)");
         }else{
             binding.taxField.setVisibility(View.GONE);
             binding.taxField1.setVisibility(View.GONE);

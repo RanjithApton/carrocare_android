@@ -289,7 +289,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center|left"
-                            android:text="Tax amount:"
+                            android:text="GST :"
                             android:textColor="@color/dark_gray"
                             android:fontFamily="@font/josefinsans_regular"
                             android:textSize="@dimen/bigtext"/>
