@@ -30,16 +30,17 @@ import java.util.HashMap;
 
 public class CheckoutActivity extends AppCompatActivity implements PaymentResultWithDataListener {
     ActivityCheckoutBinding binding;
-    String pacakagetype,vehicletype,subscriptiontype,servicetype,vehicleid,customerid,razorpay_customer_id,orderid,payment_type,carprice;
-    String custmob,custemail;
+    String pacakagetype, vehicletype, subscriptiontype, servicetype, vehicleid, customerid, razorpay_customer_id, orderid, payment_type, carprice;
+    String custmob, custemail;
     SessionManager sessionManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.activity_checkout);
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_checkout);
-        sessionManager= new SessionManager(this);
-        HashMap<String,String> hashMap = sessionManager.getUserDetails();
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_checkout);
+        sessionManager = new SessionManager(this);
+        HashMap<String, String> hashMap = sessionManager.getUserDetails();
         custemail = hashMap.get(SessionManager.KEY_USEREMAIL);
         custmob = hashMap.get(SessionManager.KEY_USERMOBILE);
 
@@ -57,6 +58,7 @@ public class CheckoutActivity extends AppCompatActivity implements PaymentResult
         payment_type = intent.getStringExtra("payment_type");
         startPaymentMonth();
     }
+
     private void startPaymentMonth() {
         Checkout checkout = new Checkout();
         checkout.setKeyID(Constant.RAZOR_PAY_KEY_VALUE);
@@ -66,7 +68,7 @@ public class CheckoutActivity extends AppCompatActivity implements PaymentResult
 
         try {
             JSONObject options = new JSONObject();
-            options.put("name", R.string.app_name+"");
+            options.put("name", R.string.app_name + "");
             options.put("description", servicetype);
             options.put("currency", "INR");
             options.put("customer_id", razorpay_customer_id);
@@ -76,17 +78,17 @@ public class CheckoutActivity extends AppCompatActivity implements PaymentResult
 //            if (s.equalsIgnoreCase("0")){
 //                options.put("subscription_id", subscriptionId);
 //            }
-            double amount  = Double.parseDouble(carprice);
+            double amount = Double.parseDouble(carprice);
             amount = amount * 100;
             Log.e("AMOUNTRZP", String.valueOf(amount));
             options.put("amount", amount);
 
             JSONObject preFill = new JSONObject();
-            preFill.put("email",custemail);
-            preFill.put("contact",custmob);
+            preFill.put("email", custemail);
+            preFill.put("contact", custmob);
             options.put("prefill", preFill);
             checkout.open(CheckoutActivity.this, options);
-            Log.e("OPTIONS",options.toString());
+            Log.e("OPTIONS", options.toString());
         } catch (Exception e) {
             Log.d("PaymentOptionActivity", "Error in starting Razorpay Checkout", e);
         }
@@ -94,12 +96,12 @@ public class CheckoutActivity extends AppCompatActivity implements PaymentResult
 
     @Override
     public void onPaymentSuccess(String razorpayPaymentId, PaymentData paymentData) {
-        loadWeb(paymentData.getOrderId(),paymentData.getPaymentId());
+        loadWeb(paymentData.getOrderId(), paymentData.getPaymentId());
     }
 
     @Override
     public void onPaymentError(int i, String s, PaymentData paymentData) {
-        Log.d("PaymentError", "Error in Razorpay Checkout"+s);
+        Log.d("PaymentError", "Error in Razorpay Checkout" + s);
     }
 
     @SuppressLint("SetJavaScriptEnabled")
@@ -116,11 +118,11 @@ public class CheckoutActivity extends AppCompatActivity implements PaymentResult
         binding.webview.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
         binding.webview.getSettings().setSupportMultipleWindows(true);
         binding.webview.getSettings().setAllowUniversalAccessFromFileURLs(true);
-        binding.webview.getSettings().setMixedContentMode( WebSettings.MIXED_CONTENT_ALWAYS_ALLOW );
-        binding.webview.addJavascriptInterface(new PaymentInterface(),"PaymentInterface");
+        binding.webview.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+        binding.webview.addJavascriptInterface(new PaymentInterface(), "PaymentInterface");
         binding.webview.setWebViewClient(new MyBrowser());
 
-        binding.webview.loadUrl("https://www.carrocare.in/Android_API/webview_checkout.php?p_type="+pacakagetype+"&v_type="+vehicletype+"&su_type="+subscriptiontype+"&se_type="+servicetype+"&v_id="+vehicleid+"&customer_id="+customerid+"&razorpay_customer_id="+razorpay_customer_id+"&razorpay_payment_id="+paymentId+"&razorpay_order_id="+orderId+"&payment_type="+payment_type+"");
+        binding.webview.loadUrl("https://www.carrocare.in/Android_API/webview_checkout.php?p_type=" + pacakagetype + "&v_type=" + vehicletype + "&su_type=" + subscriptiontype + "&se_type=" + servicetype + "&v_id=" + vehicleid + "&customer_id=" + customerid + "&razorpay_customer_id=" + razorpay_customer_id + "&razorpay_payment_id=" + paymentId + "&razorpay_order_id=" + orderId + "&payment_type=" + payment_type + "");
 //        binding.webview.setWebChromeClient(new WebChromeClient() {
 //            @Override
 //            public boolean onCreateWindow(WebView view, boolean dialog, boolean userGesture, Message resultMsg)
@@ -178,10 +180,10 @@ public class CheckoutActivity extends AppCompatActivity implements PaymentResult
         @Override
         public void onPageFinished(WebView view, String url) {
 //            progressdialog.dismiss();
-            Log.e("URLfinis",url);
-            if(url.contains("https://www.carrocare.in/Android_API/failure_page.php")) {
+            Log.e("URLfinis", url);
+            if (url.contains("https://www.carrocare.in/Android_API/failure_page.php")) {
                 finish();
-            }else if(url.contains("https://www.carrocare.in/Android_API/success_page.php")) {
+            } else if (url.contains("https://www.carrocare.in/Android_API/success_page.php")) {
                 Intent i = new Intent(CheckoutActivity.this, MyOrdersActivity.class);
                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -194,19 +196,19 @@ public class CheckoutActivity extends AppCompatActivity implements PaymentResult
         @Override
         public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
             super.onReceivedError(view, request, error);
-            Log.e("ERROR",error.getDescription().toString());
+            Log.e("ERROR", error.getDescription().toString());
         }
     }
 
     private class PaymentInterface {
         @JavascriptInterface
-        public void success(String data){
-            Log.e("Success",data);
+        public void success(String data) {
+            Log.e("Success", data);
         }
 
         @JavascriptInterface
-        public void error(String data){
-            Log.e("Error",data);
+        public void error(String data) {
+            Log.e("Error", data);
         }
     }
 }

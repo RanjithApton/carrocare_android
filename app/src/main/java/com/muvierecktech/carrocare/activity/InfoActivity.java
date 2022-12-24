@@ -14,11 +14,12 @@ import com.muvierecktech.carrocare.databinding.ActivityInfoBinding;
 
 public class InfoActivity extends AppCompatActivity {
     ActivityInfoBinding binding;
-    String headername,description;
+    String headername, description;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_info);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_info);
 
         Intent intent = getIntent();
         headername = intent.getStringExtra("headername");
@@ -30,6 +31,6 @@ public class InfoActivity extends AppCompatActivity {
                 finish();
             }
         });
-        binding.description.setText(HtmlCompat.fromHtml(description+"",0));
+        binding.description.setText(HtmlCompat.fromHtml(description + "", 0));
     }
 }

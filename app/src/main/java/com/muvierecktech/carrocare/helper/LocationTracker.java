@@ -15,23 +15,16 @@ import android.util.Log;
 import static android.content.Context.LOCATION_SERVICE;
 
 public class LocationTracker implements LocationListener {
+    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10;
+    private static final long MIN_TIME_BW_UPDATES = 1000 * 60 * 1;
     private final Context mContext;
-
+    protected LocationManager locationManager;
     boolean isGPSEnabled = false;
-
     boolean isNetworkEnabled = false;
-
     boolean canGetLocation = false;
-
     Location location;
     double latitude;
     double longitude;
-
-    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10;
-
-    private static final long MIN_TIME_BW_UPDATES = 1000 * 60 * 1;
-
-    protected LocationManager locationManager;
 
     public LocationTracker(Context context) {
         this.mContext = context;
@@ -98,22 +91,22 @@ public class LocationTracker implements LocationListener {
         return location;
     }
 
-    public void stopUsingGPS(){
-        if(locationManager != null){
+    public void stopUsingGPS() {
+        if (locationManager != null) {
             locationManager.removeUpdates((LocationListener) com.muvierecktech.carrocare.helper.LocationTracker.this);
         }
     }
 
-    public double getLatitude(){
-        if(location != null){
+    public double getLatitude() {
+        if (location != null) {
             latitude = location.getLatitude();
         }
 
         return latitude;
     }
 
-    public double getLongitude(){
-        if(location != null){
+    public double getLongitude() {
+        if (location != null) {
             longitude = location.getLongitude();
         }
 
@@ -125,7 +118,7 @@ public class LocationTracker implements LocationListener {
     }
 
 
-    public void showSettingsAlert(){
+    public void showSettingsAlert() {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
 
         alertDialog.setTitle("GPS is settings");

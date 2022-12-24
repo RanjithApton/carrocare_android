@@ -36,11 +36,11 @@ import java.util.Locale;
 
 public class ApiConfig {
 
+    protected static final int REQUEST_CHECK_SETTINGS = 0x1;
     public static String user_location = "";
     public static double latitude1 = 0, longitude1 = 0;
     public static GPSTracker gps;
-    protected static final int REQUEST_CHECK_SETTINGS = 0x1;
-    public static String sname,sdate;
+    public static String sname, sdate;
 
     public static String getAddress(double lat, double lng, Activity activity) {
         Geocoder geocoder = new Geocoder(activity, Locale.getDefault());
@@ -101,7 +101,7 @@ public class ApiConfig {
         String str = null;
         try {
             date = inputFormat.parse(time);
-            str =  outputFormat.format(date);
+            str = outputFormat.format(date);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -197,31 +197,31 @@ public class ApiConfig {
     }
 
 
-    public static void responseToast(Activity activity, int code){
+    public static void responseToast(Activity activity, int code) {
         String message = "";
-        if(code == 200){
+        if (code == 200) {
             message = "Success";
-        } else if(code == 201){
+        } else if (code == 201) {
             message = "Created";
-        } else if(code == 204){
+        } else if (code == 204) {
             message = "No Content";
-        } else if(code == 400){
+        } else if (code == 400) {
             message = "Bad Request";
-        } else if(code == 401){
+        } else if (code == 401) {
             message = "Unauthorised";
-        } else if(code == 403){
+        } else if (code == 403) {
             message = "Forbidden";
-        } else if(code == 404){
+        } else if (code == 404) {
             message = "Not Found";
-        } else if(code == 405){
+        } else if (code == 405) {
             message = "Method Not Allowed";
-        } else if(code == 500){
+        } else if (code == 500) {
             message = "Internal Server Error";
-        } else if(code == 503){
+        } else if (code == 503) {
             message = "Service Unavailable";
-        } else if(code == 429 ){
+        } else if (code == 429) {
             message = "The HTTP 429 Too Many Requests response status code";
-        } else{
+        } else {
             message = "Unexpected error occurred";
         }
         Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();

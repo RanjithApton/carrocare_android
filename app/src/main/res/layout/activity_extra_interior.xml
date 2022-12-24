@@ -1,146 +1,150 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
-<RelativeLayout
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
-    tools:context=".activity.ExtraInteriorActivity">
 
-    <LinearLayout
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:id="@+id/header"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize">
-
-        <ImageView
-            android:layout_gravity="left|center_vertical|center_horizontal|center"
-            android:id="@+id/back"
-            android:padding="@dimen/padding"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_margin="10dp"
-            android:src="@drawable/back"/>
-
-        <TextView
-            android:textSize="@dimen/heading"
-            android:textColor="#fff"
-            android:layout_gravity="left|center_vertical|center_horizontal|center"
-            android:id="@+id/header_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textAllCaps="true"
-            android:fontFamily="@font/josefinsans_bold"/>
-    </LinearLayout>
-
-    <ScrollView
-        android:background="@drawable/bg"
-        android:paddingBottom="100dp"
-        android:clipToPadding="false"
+    <RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/header">
+        android:background="@color/colorPrimary"
+        tools:context=".activity.ExtraInteriorActivity">
 
         <LinearLayout
-            android:orientation="vertical"
+            android:id="@+id/header"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <androidx.cardview.widget.CardView
-                android:id="@+id/card"
-                android:fitsSystemWindows="true"
-                android:layout_width="match_parent"
-                android:layout_height="220dp"
-                android:layout_margin="@dimen/margin"
-                android:elevation="7dp"
-                app:cardBackgroundColor="@color/white"
-                app:cardCornerRadius="13dp"
-                app:cardElevation="7dp"
-                app:cardPreventCornerOverlap="true"
-                app:cardUseCompatPadding="true">
+            android:layout_height="?attr/actionBarSize"
+            android:gravity="center"
+            android:orientation="horizontal">
 
-                <ImageView
-                    android:id="@+id/car_img"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="centerCrop"/>
+            <ImageView
+                android:id="@+id/back"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_gravity="left|center_vertical|center_horizontal|center"
+                android:layout_margin="10dp"
+                android:padding="@dimen/padding"
+                android:src="@drawable/back" />
 
-            </androidx.cardview.widget.CardView>
-
-            <LinearLayout
-                android:layout_gravity="center"
-                android:orientation="vertical"
+            <TextView
+                android:id="@+id/header_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/marginmed">
-
-                <TextView
-                    android:textSize="@dimen/heading"
-                    android:textColor="#000"
-                    android:layout_gravity="left|center_vertical|center_horizontal|center"
-                    android:id="@+id/car_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/margin"
-                    android:layout_marginTop="@dimen/marginmed"
-                    android:layout_marginBottom="@dimen/marginmed"
-                    android:layout_weight="1"
-                    android:textAllCaps="true"
-                    android:fontFamily="@font/josefinsans_bold"/>
-                <TextView
-                    android:textSize="@dimen/bigtext"
-                    android:textColor="#000"
-                    android:layout_gravity="left|center_vertical|center_horizontal|center"
-                    android:id="@+id/car_desc"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/josefinsans_light"/>
-            </LinearLayout>
+                android:layout_gravity="left|center_vertical|center_horizontal|center"
+                android:layout_weight="1"
+                android:fontFamily="@font/josefinsans_bold"
+                android:textAllCaps="true"
+                android:textColor="#fff"
+                android:textSize="@dimen/heading" />
         </LinearLayout>
-    </ScrollView>
-    <LinearLayout
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:background="@drawable/bg_card_shadow"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_alignParentBottom="true">
-        <TextView
-            android:textSize="@dimen/bigtext"
-            android:textColor="@color/black"
-            android:gravity="center"
-            android:layout_gravity="left|center_vertical|center_horizontal|center"
-            android:id="@+id/car_price"
-            android:paddingLeft="@dimen/marginhigh"
-            android:paddingTop="@dimen/marginlow"
-            android:paddingRight="@dimen/marginhigh"
-            android:paddingBottom="@dimen/marginlow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin"
-            android:text="Total Amount"
-            android:fontFamily="@font/josefinsans_bold"/>
 
-        <Button
-            android:textSize="@dimen/bigtext"
-            android:textStyle="bold"
-            android:textColor="@color/white"
-            android:gravity="center"
-            android:layout_gravity="center"
-            android:id="@+id/booknow"
-            android:background="@drawable/login_bg"
-            android:paddingLeft="@dimen/marginhigh"
-            android:paddingRight="@dimen/marginhigh"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:text="Book now"
-            android:fontFamily="@font/josefinsans_bold"/>
-    </LinearLayout>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/header"
+            android:background="@drawable/bg"
+            android:clipToPadding="false"
+            android:paddingBottom="100dp">
 
-</RelativeLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card"
+                    android:layout_width="match_parent"
+                    android:layout_height="220dp"
+                    android:layout_margin="@dimen/margin"
+                    android:elevation="7dp"
+                    android:fitsSystemWindows="true"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="13dp"
+                    app:cardElevation="7dp"
+                    app:cardPreventCornerOverlap="true"
+                    app:cardUseCompatPadding="true">
+
+                    <ImageView
+                        android:id="@+id/car_img"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop" />
+
+                </androidx.cardview.widget.CardView>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/marginmed"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/car_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left|center_vertical|center_horizontal|center"
+                        android:layout_marginLeft="@dimen/margin"
+                        android:layout_marginTop="@dimen/marginmed"
+                        android:layout_marginBottom="@dimen/marginmed"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/josefinsans_bold"
+                        android:textAllCaps="true"
+                        android:textColor="#000"
+                        android:textSize="@dimen/heading" />
+
+                    <TextView
+                        android:id="@+id/car_desc"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left|center_vertical|center_horizontal|center"
+                        android:layout_margin="@dimen/margin"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/josefinsans_light"
+                        android:textColor="#000"
+                        android:textSize="@dimen/bigtext" />
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/bg_card_shadow"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/car_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|center_vertical|center_horizontal|center"
+                android:layout_margin="@dimen/margin"
+                android:fontFamily="@font/josefinsans_bold"
+                android:gravity="center"
+                android:paddingLeft="@dimen/marginhigh"
+                android:paddingTop="@dimen/marginlow"
+                android:paddingRight="@dimen/marginhigh"
+                android:paddingBottom="@dimen/marginlow"
+                android:text="Total Amount"
+                android:textColor="@color/black"
+                android:textSize="@dimen/bigtext" />
+
+            <Button
+                android:id="@+id/booknow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="20dp"
+                android:background="@drawable/login_bg"
+                android:fontFamily="@font/josefinsans_bold"
+                android:gravity="center"
+                android:paddingLeft="@dimen/marginhigh"
+                android:paddingRight="@dimen/marginhigh"
+                android:text="Book now"
+                android:textColor="@color/white"
+                android:textSize="@dimen/bigtext"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+    </RelativeLayout>
 </layout>

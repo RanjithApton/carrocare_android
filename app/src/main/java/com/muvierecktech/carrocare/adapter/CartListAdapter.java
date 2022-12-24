@@ -28,12 +28,12 @@ import java.util.ArrayList;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.viewHolder> {
+    public static int cart_count;
     Context context;
     Activity activity;
     ArrayList<CartList> arrayList;
     SessionManager sessionManager;
     MyDatabaseHelper databaseHelper;
-    public static int cart_count;
 
     public CartListAdapter(Context context, Activity activity, ArrayList<CartList> arrayList) {
         this.activity = activity;
@@ -65,43 +65,43 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.viewHo
         holder.car_name.setText(dbm.getModel());
         holder.car_no.setText(dbm.getNumber());
         holder.action.setText(dbm.getType());
-        if(holder.action.getText().equals("onetime_wash_payment")){
+        if (holder.action.getText().equals("onetime_wash_payment")) {
             holder.type.setText("Wash");
             holder.month.setVisibility(View.VISIBLE);
-        }else if(holder.action.getText().equals("onetime_wax_payment")){
+        } else if (holder.action.getText().equals("onetime_wax_payment")) {
             holder.type.setText("Wax polish");
             holder.schedule_ll.setVisibility(View.VISIBLE);
-        } else if(holder.action.getText().equals("onetime_payment")){
+        } else if (holder.action.getText().equals("onetime_payment")) {
             holder.type.setText("Extra Interior");
             holder.schedule_ll.setVisibility(View.VISIBLE);
-        } else if(holder.action.getText().equals("onetime_disinsfection_payment")){
+        } else if (holder.action.getText().equals("onetime_disinsfection_payment")) {
             holder.type.setText("Disinsfection");
             holder.schedule_ll.setVisibility(View.VISIBLE);
         }
         holder.month.setText(dbm.getPaidmonth());
-        if(holder.month.getText().equals("1")){
-            holder.month.setText(dbm.getPaidmonth()+ " Month");
-        }else if(holder.month.getText().equals("0")){
+        if (holder.month.getText().equals("1")) {
+            holder.month.setText(dbm.getPaidmonth() + " Month");
+        } else if (holder.month.getText().equals("0")) {
             holder.month.setText("1 Month");
-        }else{
-            holder.month.setText(dbm.getPaidmonth()+ " Months");
+        } else {
+            holder.month.setText(dbm.getPaidmonth() + " Months");
         }
-        holder.pack_amount.setText("₹ " +dbm.getCarprice());
-        holder.before_total_amount.setText("₹ " +dbm.getSub_total());
-        holder.tax_percentage.setText("GST ("+dbm.getGst()+"%) :");
-        holder.tax_total_amount.setText("₹ " +dbm.getGstamount());
-        holder.total.setText("₹ " +dbm.getTotal());
-        holder.schedule_date.setText(dbm.getDate()+" "+dbm.getTime());
+        holder.pack_amount.setText("₹ " + dbm.getCarprice());
+        holder.before_total_amount.setText("₹ " + dbm.getSub_total());
+        holder.tax_percentage.setText("GST (" + dbm.getGst() + "%) :");
+        holder.tax_total_amount.setText("₹ " + dbm.getGstamount());
+        holder.total.setText("₹ " + dbm.getTotal());
+        holder.schedule_date.setText(dbm.getDate() + " " + dbm.getTime());
 
-        if(Integer.parseInt(dbm.getGst()) != Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE))){
+        if (Integer.parseInt(dbm.getGst()) != Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE))) {
             databaseHelper.DeleteOrderData(dbm.getType(), dbm.getCarid());
             arrayList.remove(dbm);
-            ((CartActivity)activity).getData();
+            ((CartActivity) activity).getData();
             activity.invalidateOptionsMenu();
             notifyDataSetChanged();
             if (getItemCount() == 0) {
-                ((CartActivity)activity).binding.novehicle.setVisibility(View.VISIBLE);
-                ((CartActivity)activity).binding.lyttotal.setVisibility(View.GONE);
+                ((CartActivity) activity).binding.novehicle.setVisibility(View.VISIBLE);
+                ((CartActivity) activity).binding.lyttotal.setVisibility(View.GONE);
             }
         }
 
@@ -110,23 +110,24 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.viewHo
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(activity);
                 builder.setTitle("Remove");
-                builder.setMessage("Are you remove to ( " + arrayList.get(position).getModel() + " )?");;
+                builder.setMessage("Are you remove to ( " + arrayList.get(position).getModel() + " )?");
+                ;
                 builder.setCancelable(false);
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         databaseHelper.DeleteOrderData(dbm.getType(), dbm.getCarid());
                         Toast.makeText(context, "Removed", Toast.LENGTH_SHORT).show();
                         arrayList.remove(dbm);
-                        ((CartActivity)activity).getData();
+                        ((CartActivity) activity).getData();
                         activity.invalidateOptionsMenu();
                         notifyDataSetChanged();
                         if (getItemCount() == 0) {
-                            ((CartActivity)activity).binding.novehicle.setVisibility(View.VISIBLE);
-                            ((CartActivity)activity).binding.lyttotal.setVisibility(View.GONE);
+                            ((CartActivity) activity).binding.novehicle.setVisibility(View.VISIBLE);
+                            ((CartActivity) activity).binding.lyttotal.setVisibility(View.GONE);
                         }
                     }
                 });
-                builder.setNegativeButton("No",null);
+                builder.setNegativeButton("No", null);
                 builder.show();
             }
         });
@@ -140,12 +141,12 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.viewHo
     }
 
 
-
     public class viewHolder extends RecyclerView.ViewHolder {
         ImageView car_img;
         ImageView del_img;
-        TextView car_name,car_no,action,type,month,pack_amount, before_total_amount, tax_percentage, tax_total_amount, total, schedule_date;
+        TextView car_name, car_no, action, type, month, pack_amount, before_total_amount, tax_percentage, tax_total_amount, total, schedule_date;
         LinearLayout schedule_ll;
+
         public viewHolder(View itemView) {
             super(itemView);
             car_img = (ImageView) itemView.findViewById(R.id.cart_car_img);

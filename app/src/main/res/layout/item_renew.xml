@@ -1,44 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/rn_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="7dp"
-        app:cardBackgroundColor="@color/white"
         android:elevation="5dp"
         android:fitsSystemWindows="true"
-        app:cardUseCompatPadding="true"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="7dp"
+        app:cardElevation="3dp"
         app:cardPreventCornerOverlap="true"
-        app:cardElevation="3dp">
+        app:cardUseCompatPadding="true">
+
         <LinearLayout
-            android:padding="@dimen/margin"
-            android:layout_margin="@dimen/marginlow"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
+            android:layout_margin="@dimen/marginlow"
             android:gravity="left|center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="@dimen/margin">
 
             <CheckBox
-                android:textSize="12sp"
                 android:id="@+id/rn_check_smart"
+                style="@style/CustomCheckbox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
-                android:text="Add to smart checkout"
                 android:fontFamily="@font/josefinsans_bold"
-                style="@style/CustomCheckbox"/>
+                android:text="Add to smart checkout"
+                android:textSize="12sp" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
-                android:background="@color/bg_color"
-                android:layout_margin="2dp"/>
+                android:layout_margin="2dp"
+                android:background="@color/bg_color" />
 
             <LinearLayout
                 android:id="@+id/ll_top"
@@ -46,19 +47,21 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="horizontal">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
                     android:orientation="vertical">
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center|left"
                         android:layout_weight="1"
-                        android:text="Status :"
                         android:fontFamily="@font/josefinsans_regular"
-                        android:textSize="@dimen/lighttext"/>
+                        android:text="Status :"
+                        android:textSize="@dimen/lighttext" />
 
                     <TextView
                         android:id="@+id/rn_status"
@@ -66,32 +69,35 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center|left"
                         android:layout_weight="1"
-                        android:textColor="@color/colorPrimary"
                         android:fontFamily="@font/josefinsans_bold"
+                        android:textColor="@color/colorPrimary"
                         android:textSize="@dimen/medtext" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
                     android:orientation="vertical">
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center|left"
                         android:layout_weight="1"
-                        android:text="Valid :"
                         android:fontFamily="@font/josefinsans_regular"
-                        android:textSize="@dimen/lighttext"/>
+                        android:text="Valid :"
+                        android:textSize="@dimen/lighttext" />
+
                     <TextView
                         android:id="@+id/rn_valid"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center|left"
                         android:layout_weight="1"
-                        android:textColor="#000"
                         android:fontFamily="@font/josefinsans_regular"
-                        android:textSize="@dimen/medtext"/>
+                        android:textColor="#000"
+                        android:textSize="@dimen/medtext" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -99,27 +105,29 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
-                android:background="@color/bg_color"
-                android:layout_margin="2dp"/>
+                android:layout_margin="2dp"
+                android:background="@color/bg_color" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="horizontal">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
                     android:orientation="vertical">
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center|left"
                         android:layout_weight="1"
-                        android:text="Vehicle Model :"
                         android:fontFamily="@font/josefinsans_regular"
-                        android:textSize="@dimen/lighttext"/>
+                        android:text="Vehicle Model :"
+                        android:textSize="@dimen/lighttext" />
 
                     <TextView
                         android:id="@+id/rn_vec_model"
@@ -131,55 +139,60 @@
                         android:textColor="#000"
                         android:textSize="@dimen/medtext" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
                     android:orientation="vertical">
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center|left"
                         android:layout_weight="1"
-                        android:text="Package Type :"
                         android:fontFamily="@font/josefinsans_regular"
-                        android:textSize="@dimen/lighttext"/>
+                        android:text="Package Type :"
+                        android:textSize="@dimen/lighttext" />
+
                     <TextView
                         android:id="@+id/rn_pack_type"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center|left"
                         android:layout_weight="1"
-                        android:textColor="#000"
                         android:fontFamily="@font/josefinsans_regular"
-                        android:textSize="@dimen/medtext"/>
+                        android:textColor="#000"
+                        android:textSize="@dimen/medtext" />
                 </LinearLayout>
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
-                android:background="@color/bg_color"
-                android:layout_margin="2dp"/>
+                android:layout_margin="2dp"
+                android:background="@color/bg_color" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="horizontal">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
                     android:orientation="vertical">
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center|left"
                         android:layout_weight="1"
-                        android:text="Vehicle No. :"
                         android:fontFamily="@font/josefinsans_regular"
-                        android:textSize="@dimen/lighttext"/>
+                        android:text="Vehicle No. :"
+                        android:textSize="@dimen/lighttext" />
 
                     <TextView
                         android:id="@+id/rn_vec_no"
@@ -191,55 +204,60 @@
                         android:textColor="#000"
                         android:textSize="@dimen/medtext" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
                     android:orientation="vertical">
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center|left"
                         android:layout_weight="1"
-                        android:text="Serive Type :"
                         android:fontFamily="@font/josefinsans_regular"
-                        android:textSize="@dimen/lighttext"/>
+                        android:text="Serive Type :"
+                        android:textSize="@dimen/lighttext" />
+
                     <TextView
                         android:id="@+id/rn_service_type"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center|left"
                         android:layout_weight="1"
-                        android:textColor="#000"
                         android:fontFamily="@font/josefinsans_regular"
-                        android:textSize="@dimen/medtext"/>
+                        android:textColor="#000"
+                        android:textSize="@dimen/medtext" />
                 </LinearLayout>
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
-                android:background="@color/bg_color"
-                android:layout_margin="2dp"/>
+                android:layout_margin="2dp"
+                android:background="@color/bg_color" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="horizontal">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
                     android:orientation="vertical">
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center|left"
                         android:layout_weight="1"
-                        android:text="Last Payment :"
                         android:fontFamily="@font/josefinsans_regular"
-                        android:textSize="@dimen/lighttext"/>
+                        android:text="Last Payment :"
+                        android:textSize="@dimen/lighttext" />
 
                     <TextView
                         android:id="@+id/rn_pay_date"
@@ -251,34 +269,36 @@
                         android:textColor="#000"
                         android:textSize="@dimen/medtext" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
                     android:orientation="vertical">
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center|left"
                         android:layout_weight="1"
-                        android:text="Pack Amount :"
                         android:fontFamily="@font/josefinsans_regular"
-                        android:textSize="@dimen/lighttext"/>
+                        android:text="Pack Amount :"
+                        android:textSize="@dimen/lighttext" />
+
                     <TextView
                         android:id="@+id/rn_pack_amount"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center|left"
                         android:layout_weight="1"
-                        android:textColor="#000"
                         android:fontFamily="@font/josefinsans_regular"
-                        android:textSize="@dimen/medtext"/>
+                        android:textColor="#000"
+                        android:textSize="@dimen/medtext" />
                 </LinearLayout>
             </LinearLayout>
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>
-
 
 
 </RelativeLayout>

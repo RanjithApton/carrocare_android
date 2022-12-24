@@ -37,10 +37,11 @@ import retrofit2.Response;
 public class ForgetActivity extends AppCompatActivity {
     ActivityForgetBinding binding;
     String otp;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_forget);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_forget);
         binding.backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -56,35 +57,35 @@ public class ForgetActivity extends AppCompatActivity {
         binding.sendOtp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (binding.sendOtp.getText().toString().equalsIgnoreCase("Resend OTP")){
-                    if (binding.mobileEdt.getText().toString().length()>0){
-                        if (binding.mobileEdt.getText().toString().length()==10){
+                if (binding.sendOtp.getText().toString().equalsIgnoreCase("Resend OTP")) {
+                    if (binding.mobileEdt.getText().toString().length() > 0) {
+                        if (binding.mobileEdt.getText().toString().length() == 10) {
                             worksendotp();
                             binding.otpEdt.setText(null);
-                        }else
-                            Toast.makeText(ForgetActivity.this, Constant.VALIDMOBILE,Toast.LENGTH_SHORT).show();
-                    }else
-                        Toast.makeText(ForgetActivity.this, Constant.DETAILS,Toast.LENGTH_SHORT).show();
-                }else if (binding.mobileEdt.getText().toString().length()>0){
-                    if (binding.mobileEdt.getText().toString().length()==10){
+                        } else
+                            Toast.makeText(ForgetActivity.this, Constant.VALIDMOBILE, Toast.LENGTH_SHORT).show();
+                    } else
+                        Toast.makeText(ForgetActivity.this, Constant.DETAILS, Toast.LENGTH_SHORT).show();
+                } else if (binding.mobileEdt.getText().toString().length() > 0) {
+                    if (binding.mobileEdt.getText().toString().length() == 10) {
                         worksendotp();
-                    }else
-                        Toast.makeText(ForgetActivity.this, Constant.VALIDMOBILE,Toast.LENGTH_SHORT).show();
-                }else
-                    Toast.makeText(ForgetActivity.this, Constant.DETAILS,Toast.LENGTH_SHORT).show();
+                    } else
+                        Toast.makeText(ForgetActivity.this, Constant.VALIDMOBILE, Toast.LENGTH_SHORT).show();
+                } else
+                    Toast.makeText(ForgetActivity.this, Constant.DETAILS, Toast.LENGTH_SHORT).show();
             }
         });
 
     }
 
     private void worksendotp() {
-        if (isNetworkAvailable()){
+        if (isNetworkAvailable()) {
             SendOTP();
-        }else {
+        } else {
             AlertDialog.Builder dialog = new AlertDialog.Builder(ForgetActivity.this);
             dialog.setCancelable(false);
             dialog.setTitle("Alert!");
-            dialog.setMessage("No internet.Please check your connection." );
+            dialog.setMessage("No internet.Please check your connection.");
             dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int id) {
@@ -119,7 +120,7 @@ public class ForgetActivity extends AppCompatActivity {
                 hud.dismiss();
                 binding.sendOtp.setText("Resend OTP");
                 try {
-                    if(response.isSuccessful()){
+                    if (response.isSuccessful()) {
                         JsonElement jsonElement = response.body();
                         JSONObject jsonObject = new JSONObject(jsonElement.toString());
                         if (jsonObject.optString("code").equalsIgnoreCase("200")) {
@@ -141,7 +142,7 @@ public class ForgetActivity extends AppCompatActivity {
                                                 Toast.makeText(ForgetActivity.this, Constant.VALIDOTP, Toast.LENGTH_SHORT).show();
                                         } else
                                             Toast.makeText(ForgetActivity.this, Constant.DETAILS, Toast.LENGTH_SHORT).show();
-                                    }else {
+                                    } else {
                                         if (binding.passEdt.getText().toString().length() > 0 && binding.conpassEdt.getText().toString().length() > 0) {
                                             if (binding.passEdt.getText().toString().equalsIgnoreCase(binding.conpassEdt.getText().toString())) {
                                                 workForgot();
@@ -152,32 +153,33 @@ public class ForgetActivity extends AppCompatActivity {
                                     }
                                 }
                             });
-                        }else if (jsonObject.optString("code").equalsIgnoreCase("201")) {
-                            Toast.makeText(ForgetActivity.this,jsonObject.optString("message"), Toast.LENGTH_SHORT).show();
+                        } else if (jsonObject.optString("code").equalsIgnoreCase("201")) {
+                            Toast.makeText(ForgetActivity.this, jsonObject.optString("message"), Toast.LENGTH_SHORT).show();
                         }
-                    } else{
+                    } else {
                         ApiConfig.responseToast(ForgetActivity.this, response.code());
                     }
-                }catch (JSONException e) {
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
+
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
                 hud.dismiss();
-                Toast.makeText(ForgetActivity.this,"Timeout.Try after sometime",Toast.LENGTH_SHORT).show();
+                Toast.makeText(ForgetActivity.this, "Timeout.Try after sometime", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void workForgot() {
-        if (isNetworkAvailable()){
+        if (isNetworkAvailable()) {
             Forgot();
-        }else {
+        } else {
             AlertDialog.Builder dialog = new AlertDialog.Builder(ForgetActivity.this);
             dialog.setCancelable(false);
             dialog.setTitle("Alert!");
-            dialog.setMessage("No internet.Please check your connection." );
+            dialog.setMessage("No internet.Please check your connection.");
             dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int id) {
@@ -205,33 +207,34 @@ public class ForgetActivity extends AppCompatActivity {
                 .setDimAmount(0.5f)
                 .show();
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        Call<JsonObject> call = apiInterface.forgotupdate(binding.mobileEdt.getText().toString(),binding.passEdt.getText().toString());
+        Call<JsonObject> call = apiInterface.forgotupdate(binding.mobileEdt.getText().toString(), binding.passEdt.getText().toString());
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                 hud.dismiss();
                 try {
-                    if(response.isSuccessful()){
+                    if (response.isSuccessful()) {
                         JsonElement jsonElement = response.body();
                         JSONObject jsonObject = new JSONObject(jsonElement.toString());
                         if (jsonObject.optString("code").equalsIgnoreCase("200")) {
                             Gson gson = new Gson();
-                            Toast.makeText(ForgetActivity.this,jsonObject.optString("result"),Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(ForgetActivity.this,LoginActivity.class));
+                            Toast.makeText(ForgetActivity.this, jsonObject.optString("result"), Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(ForgetActivity.this, LoginActivity.class));
                             finish();
                         }
-                    } else{
+                    } else {
                         ApiConfig.responseToast(ForgetActivity.this, response.code());
                     }
-                }catch (JSONException e) {
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
             }
+
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
                 hud.dismiss();
-                Toast.makeText(ForgetActivity.this,"Timeout.Try after sometime",Toast.LENGTH_SHORT).show();
+                Toast.makeText(ForgetActivity.this, "Timeout.Try after sometime", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -242,6 +245,7 @@ public class ForgetActivity extends AppCompatActivity {
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
+
     private void Back() {
         finish();
     }

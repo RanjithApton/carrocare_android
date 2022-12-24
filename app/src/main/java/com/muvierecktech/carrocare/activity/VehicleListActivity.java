@@ -49,25 +49,24 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class VehicleListActivity extends AppCompatActivity {
+    public static String time;
     public ActivityVehicleListBinding binding;
-    String carname,carprice,cardesc,carimage,carid,header,token,customerid,servicetype;
+    String carname, carprice, cardesc, carimage, carid, header, token, customerid, servicetype;
     SessionManager sessionManager;
     MyDatabaseHelper databaseHelper;
-
-    String action,onetimeService,paidMonths,fineAmount,discountAmount,onetimecarprice;
+    String action, onetimeService, paidMonths, fineAmount, discountAmount, onetimecarprice;
     List<OneTimeWashCheckout.getResult> result;
     int totalAmountStr;
     String[] subsMonths = {"1 Month", "2 Months", "3 Months", "4 Months", "5 Months", "6 Months", "7 Months", "8 Months", "9 Months", "10 Months", "11 Months", "12 Months", "13 Months", "14 Months", "15 Months", "16 Months", "17 Months", "18 Months", "19 Months", "20 Months", "21 Months", "22 Months", "23 Months", "24 Months"};
-    String preTime[] = {Constant.ANYTIME, "9.00 AM - 10.00 AM","10.00 AM - 11.00 AM","11.00 AM - 12.00 PM","12.00 PM - 1.00 PM","6.00 PM - 7.00 PM","7.00 PM - 8.00 PM"};
-    public static String time;
+    String preTime[] = {Constant.ANYTIME, "9.00 AM - 10.00 AM", "10.00 AM - 11.00 AM", "11.00 AM - 12.00 PM", "12.00 PM - 1.00 PM", "6.00 PM - 7.00 PM", "7.00 PM - 8.00 PM"};
     DatePickerDialog picker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_vehicle_list);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_vehicle_list);
         sessionManager = new SessionManager(this);
-        HashMap<String,String> hashMap = sessionManager.getUserDetails();
+        HashMap<String, String> hashMap = sessionManager.getUserDetails();
         token = hashMap.get(SessionManager.KEY_TOKEN);
         customerid = hashMap.get(SessionManager.KEY_USERID);
 
@@ -78,7 +77,7 @@ public class VehicleListActivity extends AppCompatActivity {
         binding.checkCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(VehicleListActivity.this,CartActivity.class));
+                startActivity(new Intent(VehicleListActivity.this, CartActivity.class));
             }
         });
 
@@ -89,18 +88,18 @@ public class VehicleListActivity extends AppCompatActivity {
         carimage = intent.getStringExtra("carimage");
         carid = intent.getStringExtra("carid");
         header = intent.getStringExtra("header");
-        binding.carDetailsHeading.setText(header+" Details");
+        binding.carDetailsHeading.setText(header + " Details");
         binding.headerName.setText(carname);
-        if (carname.startsWith("extra")||carname.startsWith("Extra") || carname.startsWith("EXTRA")){
+        if (carname.startsWith("extra") || carname.startsWith("Extra") || carname.startsWith("EXTRA")) {
             carname = "";
             binding.bottomLl.setVisibility(View.GONE);
         }
 
 //        binding.carDetailsHeading.setPaintFlags(binding.carDetailsHeading.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-        binding.carDetails.setText(HtmlCompat.fromHtml(cardesc,0)+"");
+        binding.carDetails.setText(HtmlCompat.fromHtml(cardesc, 0) + "");
         binding.subPriceHeading.setText("Subscription Price");
 //        binding.subPriceHeading.setPaintFlags(binding.subPriceHeading.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-        binding.subPrice.setText("₹ "+carprice);
+        binding.subPrice.setText("₹ " + carprice);
         binding.selectVehicle.setText("Select Vehicle");
 //        binding.selectVehicle.setPaintFlags(binding.selectVehicle.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 
@@ -109,8 +108,8 @@ public class VehicleListActivity extends AppCompatActivity {
         binding.addvehicle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(VehicleListActivity.this,AddVehicleActivity.class);
-                intent.putExtra("carname",carname);
+                Intent intent = new Intent(VehicleListActivity.this, AddVehicleActivity.class);
+                intent.putExtra("carname", carname);
                 startActivity(intent);
 //                finish();
             }
@@ -125,17 +124,17 @@ public class VehicleListActivity extends AppCompatActivity {
         binding.makepayment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(VehicleListActivity.this,CartActivity.class));
+                startActivity(new Intent(VehicleListActivity.this, CartActivity.class));
             }
         });
 
 
-        if(Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) != 0){
+        if (Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) != 0) {
             binding.taxField.setVisibility(View.VISIBLE);
             binding.taxField1.setVisibility(View.VISIBLE);
-            binding.taxPercentage.setText("GST ("+Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE))+"%)");
-            binding.taxPercentage1.setText("GST ("+Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE))+"%)");
-        }else{
+            binding.taxPercentage.setText("GST (" + Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) + "%)");
+            binding.taxPercentage1.setText("GST (" + Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) + "%)");
+        } else {
             binding.taxField.setVisibility(View.GONE);
             binding.taxField1.setVisibility(View.GONE);
         }
@@ -161,9 +160,9 @@ public class VehicleListActivity extends AppCompatActivity {
         binding.preferredtimeEdt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (TextUtils.isEmpty(binding.preferDate.getText().toString())){
-                    Toast.makeText(VehicleListActivity.this,"Choose Preferred Schedule",Toast.LENGTH_SHORT).show();
-                }else {
+                if (TextUtils.isEmpty(binding.preferDate.getText().toString())) {
+                    Toast.makeText(VehicleListActivity.this, "Choose Preferred Schedule", Toast.LENGTH_SHORT).show();
+                } else {
                     binding.timeLl.setVisibility(View.VISIBLE);
                     PreferredAdapter preferredAdapter = new PreferredAdapter(VehicleListActivity.this, preTime, "smart_wax");
                     LinearLayoutManager linearLayoutManage = new LinearLayoutManager(VehicleListActivity.this, LinearLayoutManager.VERTICAL, false);
@@ -195,7 +194,7 @@ public class VehicleListActivity extends AppCompatActivity {
                             }
                         }, year, month, day);
                 //picker.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
-                picker.getDatePicker().setMinDate(System.currentTimeMillis()+24*60*60*1000);
+                picker.getDatePicker().setMinDate(System.currentTimeMillis() + 24 * 60 * 60 * 1000);
                 picker.show();
             }
         });
@@ -203,9 +202,9 @@ public class VehicleListActivity extends AppCompatActivity {
         binding.preferredtimeEdt1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (TextUtils.isEmpty(binding.preferDate1.getText().toString())){
-                    Toast.makeText(VehicleListActivity.this,"Choose Preferred Schedule",Toast.LENGTH_SHORT).show();
-                }else {
+                if (TextUtils.isEmpty(binding.preferDate1.getText().toString())) {
+                    Toast.makeText(VehicleListActivity.this, "Choose Preferred Schedule", Toast.LENGTH_SHORT).show();
+                } else {
                     binding.timeLl.setVisibility(View.VISIBLE);
                     PreferredAdapter preferredAdapter = new PreferredAdapter(VehicleListActivity.this, preTime, "smart_ext");
                     LinearLayoutManager linearLayoutManage = new LinearLayoutManager(VehicleListActivity.this, LinearLayoutManager.VERTICAL, false);
@@ -237,7 +236,7 @@ public class VehicleListActivity extends AppCompatActivity {
                             }
                         }, year, month, day);
                 //picker.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
-                picker.getDatePicker().setMinDate(System.currentTimeMillis()+24*60*60*1000);
+                picker.getDatePicker().setMinDate(System.currentTimeMillis() + 24 * 60 * 60 * 1000);
                 picker.show();
             }
         });
@@ -246,20 +245,20 @@ public class VehicleListActivity extends AppCompatActivity {
     }
 
     private void work() {
-        if (isNetworkAvailable()){
+        if (isNetworkAvailable()) {
             VehicleDeatils();
-        }else {
+        } else {
             AlertDialog.Builder dialog = new AlertDialog.Builder(VehicleListActivity.this);
             dialog.setCancelable(false);
             dialog.setTitle("Alert!");
-            dialog.setMessage("No internet.Please check your connection." );
+            dialog.setMessage("No internet.Please check your connection.");
             dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int id) {
-                    //Action for "Ok".
-                    work();
-                }
-            })
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            //Action for "Ok".
+                            work();
+                        }
+                    })
                     .setNegativeButton("Cancel ", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -281,14 +280,14 @@ public class VehicleListActivity extends AppCompatActivity {
                 .setDimAmount(0.5f)
                 .show();
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        Call<VehicleDetails> call = apiInterface.vehicledetails(customerid,token,carname);
+        Call<VehicleDetails> call = apiInterface.vehicledetails(customerid, token, carname);
 
         call.enqueue(new Callback<VehicleDetails>() {
             @Override
             public void onResponse(Call<VehicleDetails> call, Response<VehicleDetails> response) {
                 hud.dismiss();
-                try{
-                    if(response.isSuccessful()){
+                try {
+                    if (response.isSuccessful()) {
                         final VehicleDetails vehicleDetails = response.body();
                         if (vehicleDetails.code.equalsIgnoreCase("200")) {
                             Gson gson = new Gson();
@@ -296,27 +295,28 @@ public class VehicleListActivity extends AppCompatActivity {
                             binding.novehicle.setVisibility(View.GONE);
                             binding.carslistRc.setVisibility(View.VISIBLE);
 
-                            VehicleListAdapter mainAdapter = new VehicleListAdapter(VehicleListActivity.this,vehicleDetails.details,carprice,carname,header);
-                            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(VehicleListActivity.this,LinearLayoutManager.VERTICAL,false);
+                            VehicleListAdapter mainAdapter = new VehicleListAdapter(VehicleListActivity.this, vehicleDetails.details, carprice, carname, header);
+                            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(VehicleListActivity.this, LinearLayoutManager.VERTICAL, false);
                             binding.carslistRc.setLayoutManager(linearLayoutManager);
                             binding.carslistRc.setAdapter(mainAdapter);
-                        }else if (vehicleDetails.code.equalsIgnoreCase("201")) {
+                        } else if (vehicleDetails.code.equalsIgnoreCase("201")) {
                             binding.novehicle.setVisibility(View.VISIBLE);
                             binding.carslistRc.setVisibility(View.GONE);
-                        }else if (vehicleDetails.code.equalsIgnoreCase("203")) {
+                        } else if (vehicleDetails.code.equalsIgnoreCase("203")) {
                             sessionManager.logoutUsers();
                         }
-                    } else{
+                    } else {
                         ApiConfig.responseToast(VehicleListActivity.this, response.code());
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
+
             @Override
             public void onFailure(Call<VehicleDetails> call, Throwable t) {
                 hud.dismiss();
-                Toast.makeText(VehicleListActivity.this,"Timeout.Try after sometime",Toast.LENGTH_SHORT).show();
+                Toast.makeText(VehicleListActivity.this, "Timeout.Try after sometime", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -335,7 +335,7 @@ public class VehicleListActivity extends AppCompatActivity {
     }
 
     @SuppressLint("LongLogTag")
-    public void showCartCount(){
+    public void showCartCount() {
         //int totalItemOfCart = dbAdapter.cart_count;
         int totalItemOfCart = databaseHelper.getTotalItemOfCart();
 
@@ -345,7 +345,7 @@ public class VehicleListActivity extends AppCompatActivity {
 //        }else{
 //           binding.cartCount.setText(String.valueOf(totalItemOfCart));
 //        }
-        Log.e("Total item of cart--->   ",""+totalItemOfCart);
+        Log.e("Total item of cart--->   ", "" + totalItemOfCart);
     }
 
     public void addCartWithTime(String action, String carimage, String carmakemodel, String carno, String onetimecarprice, String carid, String paidMonths, String fineAmount, String tottal_amt) {
@@ -361,9 +361,9 @@ public class VehicleListActivity extends AppCompatActivity {
         binding.preferredtimeEdt1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (TextUtils.isEmpty(binding.preferDate1.getText().toString())){
-                    Toast.makeText(VehicleListActivity.this,"Choose Preferred Schedule",Toast.LENGTH_SHORT).show();
-                }else {
+                if (TextUtils.isEmpty(binding.preferDate1.getText().toString())) {
+                    Toast.makeText(VehicleListActivity.this, "Choose Preferred Schedule", Toast.LENGTH_SHORT).show();
+                } else {
                     binding.timeLl.setVisibility(View.VISIBLE);
                     PreferredAdapter preferredAdapter = new PreferredAdapter(VehicleListActivity.this, preTime, "smart_check");
                     LinearLayoutManager linearLayoutManage = new LinearLayoutManager(VehicleListActivity.this, LinearLayoutManager.VERTICAL, false);
@@ -395,7 +395,7 @@ public class VehicleListActivity extends AppCompatActivity {
                             }
                         }, year, month, day);
                 //picker.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
-                picker.getDatePicker().setMinDate(System.currentTimeMillis()+24*60*60*1000);
+                picker.getDatePicker().setMinDate(System.currentTimeMillis() + 24 * 60 * 60 * 1000);
                 picker.show();
             }
         });
@@ -403,42 +403,42 @@ public class VehicleListActivity extends AppCompatActivity {
         binding.addToCart1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (binding.preferDate1.getText().length()>0 && !TextUtils.isEmpty(time)){
-                    databaseHelper.CheckOrderExists(action,carid);
+                if (binding.preferDate1.getText().length() > 0 && !TextUtils.isEmpty(time)) {
+                    databaseHelper.CheckOrderExists(action, carid);
 
                     int before_tax = Integer.parseInt(tottal_amt);
                     int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * before_tax) / 100);
                     int finalAmt = taxAmt + before_tax;
 
-                    String result = databaseHelper.AddUpdateOrder(action+"",
-                            carimage+"",
-                            carmakemodel+"",
-                            carno+"",
-                            onetimecarprice+"",
-                            carid+"",
-                            paidMonths+"",
-                            fineAmount+"",
-                            tottal_amt+"",
-                            Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE))+"",
-                            taxAmt+"",
+                    String result = databaseHelper.AddUpdateOrder(action + "",
+                            carimage + "",
+                            carmakemodel + "",
+                            carno + "",
+                            onetimecarprice + "",
+                            carid + "",
+                            paidMonths + "",
+                            fineAmount + "",
+                            tottal_amt + "",
+                            Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) + "",
+                            taxAmt + "",
                             String.valueOf(finalAmt),
-                            binding.preferDate1.getText().toString()+"",
-                            time+"");
+                            binding.preferDate1.getText().toString() + "",
+                            time + "");
 
-                    if(result.equalsIgnoreCase("1")){
+                    if (result.equalsIgnoreCase("1")) {
                         time = "";
                         Toast.makeText(VehicleListActivity.this, "Added to Smart Checkout ", Toast.LENGTH_SHORT).show();
                         showCartCount();
                         binding.popupCard1.setVisibility(View.GONE);
-                        startActivity(new Intent(VehicleListActivity.this,CartActivity.class));
+                        startActivity(new Intent(VehicleListActivity.this, CartActivity.class));
                         finish();
-                    }else{
+                    } else {
                         Toast.makeText(VehicleListActivity.this, "Failed. ", Toast.LENGTH_SHORT).show();
                         binding.popupCard1.setVisibility(View.GONE);
                     }
 
-                }else {
-                    Toast.makeText(VehicleListActivity.this,Constant.CHOOSEDATETIME,Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(VehicleListActivity.this, Constant.CHOOSEDATETIME, Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -447,13 +447,13 @@ public class VehicleListActivity extends AppCompatActivity {
 
     public void checkOnetime(String carprice, String carid, String onetimeService) {
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        Call<OneTimeWashCheckout> call = apiInterface.onetime_wash(customerid,carprice,carid,onetimeService);
+        Call<OneTimeWashCheckout> call = apiInterface.onetime_wash(customerid, carprice, carid, onetimeService);
         call.enqueue(new Callback<OneTimeWashCheckout>() {
             @SuppressLint("LongLogTag")
             @Override
             public void onResponse(Call<OneTimeWashCheckout> call, Response<OneTimeWashCheckout> response) {
-                try{
-                    if(response.isSuccessful()){
+                try {
+                    if (response.isSuccessful()) {
                         OneTimeWashCheckout body = response.body();
                         if (body.code.equalsIgnoreCase("200")) {
                             showDropdown();
@@ -468,7 +468,7 @@ public class VehicleListActivity extends AppCompatActivity {
                                     int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * Integer.parseInt(onetimecarprice)) / 100);
                                     int finalAmt = taxAmt + Integer.parseInt(onetimecarprice);
                                     binding.taxTotal1.setText("₹ " + taxAmt);
-                                    binding.totalAmount1.setText("₹ " +finalAmt);
+                                    binding.totalAmount1.setText("₹ " + finalAmt);
                                     //binding.totalAmount1.setText("₹ " + onetimecarprice);
 
                                     //showing Discount filed
@@ -485,13 +485,13 @@ public class VehicleListActivity extends AppCompatActivity {
                                     if (result.get(i).total_amount.equalsIgnoreCase("0")) {
                                         //onetimecarprice.equals(carprice);
                                         //Log.e("is 0","Price"+onetimecarprice);
-                                    }else{
+                                    } else {
                                         onetimecarprice = result.get(i).total_amount;
-                                        binding.total1.setText("₹ " +result.get(i).total_amount);
+                                        binding.total1.setText("₹ " + result.get(i).total_amount);
                                         int taxAmt1 = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * Integer.parseInt(result.get(i).total_amount)) / 100);
                                         int finalAmt1 = taxAmt1 + Integer.parseInt(result.get(i).total_amount);
                                         binding.taxTotal1.setText("₹ " + taxAmt1);
-                                        binding.totalAmount1.setText("₹ " +finalAmt1);
+                                        binding.totalAmount1.setText("₹ " + finalAmt1);
                                         //binding.totalAmount1.setText("₹ " +result.get(i).total_amount);
                                         //Log.e("not 0","Price"+onetimecarprice);
                                     }
@@ -512,23 +512,23 @@ public class VehicleListActivity extends AppCompatActivity {
                                     if (result.get(i).discount_amount.equalsIgnoreCase("0")) {
                                         discountAmount = result.get(i).discount_amount;
                                         binding.discountField.setVisibility(View.GONE);
-                                        binding.discountAmount1.setText("₹ "+result.get(i).discount_amount);
+                                        binding.discountAmount1.setText("₹ " + result.get(i).discount_amount);
                                     } else {
                                         binding.discountField.setVisibility(View.VISIBLE);
                                         discountAmount = result.get(i).discount_amount;
-                                        binding.discountAmount1.setText("₹ "+result.get(i).discount_amount);
+                                        binding.discountAmount1.setText("₹ " + result.get(i).discount_amount);
                                     }
 
                                     if (result.get(i).total_amount.equalsIgnoreCase("0")) {
                                         //onetimecarprice.equals(carprice);
                                         //Log.e("is 0","Price"+onetimecarprice);
-                                    }else{
+                                    } else {
                                         onetimecarprice = result.get(i).total_amount;
-                                        binding.total1.setText("₹ " +result.get(i).total_amount);
+                                        binding.total1.setText("₹ " + result.get(i).total_amount);
                                         int taxAmt2 = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * Integer.parseInt(result.get(i).total_amount)) / 100);
                                         int finalAmt2 = taxAmt2 + Integer.parseInt(result.get(i).total_amount);
                                         binding.taxTotal1.setText("₹ " + taxAmt2);
-                                        binding.totalAmount1.setText("₹ " +finalAmt2);
+                                        binding.totalAmount1.setText("₹ " + finalAmt2);
                                         //binding.totalAmount1.setText("₹ " +result.get(i).total_amount);
                                         //Log.e("not 0","Price"+onetimecarprice);
                                     }
@@ -537,9 +537,9 @@ public class VehicleListActivity extends AppCompatActivity {
 
                             }
                         } else if (body.code.equalsIgnoreCase("201")) {
-                            Toast.makeText(VehicleListActivity.this,body.staus,Toast.LENGTH_SHORT).show();
+                            Toast.makeText(VehicleListActivity.this, body.staus, Toast.LENGTH_SHORT).show();
                         }
-                    } else{
+                    } else {
                         ApiConfig.responseToast(VehicleListActivity.this, response.code());
                     }
                 } catch (Exception e) {
@@ -549,12 +549,12 @@ public class VehicleListActivity extends AppCompatActivity {
 
             @SuppressLint("LongLogTag")
             public void onFailure(Call<OneTimeWashCheckout> call, Throwable th) {
-                Toast.makeText(VehicleListActivity.this,"Timeout.Try after sometime",Toast.LENGTH_SHORT).show();
+                Toast.makeText(VehicleListActivity.this, "Timeout.Try after sometime", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    private void showDropdown(){
+    private void showDropdown() {
         ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, subsMonths);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         this.binding.subscriptionType1.setAdapter(arrayAdapter);
@@ -571,7 +571,7 @@ public class VehicleListActivity extends AppCompatActivity {
                     int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                     int finalAmt = taxAmt + totalAmountStr;
                     binding.taxTotal1.setText("₹ " + taxAmt);
-                    binding.totalAmount1.setText("₹ " +finalAmt);
+                    binding.totalAmount1.setText("₹ " + finalAmt);
                     //binding.totalAmount1.setText("₹ " + totalAmountStr);
                     Log.e("AMOUNTRZP", String.valueOf(parseDouble));
                 } else if (i == 1) {
@@ -582,7 +582,7 @@ public class VehicleListActivity extends AppCompatActivity {
                     int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                     int finalAmt = taxAmt + totalAmountStr;
                     binding.taxTotal1.setText("₹ " + taxAmt);
-                    binding.totalAmount1.setText("₹ " +finalAmt);
+                    binding.totalAmount1.setText("₹ " + finalAmt);
                     //binding.totalAmount1.setText("₹ " + totalAmountStr);
                     Log.e("AMOUNTRZP", String.valueOf(parseDouble2));
                 } else if (i == 2) {
@@ -593,7 +593,7 @@ public class VehicleListActivity extends AppCompatActivity {
                     int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                     int finalAmt = taxAmt + totalAmountStr;
                     binding.taxTotal1.setText("₹ " + taxAmt);
-                    binding.totalAmount1.setText("₹ " +finalAmt);
+                    binding.totalAmount1.setText("₹ " + finalAmt);
                     //binding.totalAmount1.setText("₹ " + totalAmountStr);
                     Log.e("AMOUNTRZP", String.valueOf(parseDouble3));
                 } else if (i == 3) {
@@ -604,7 +604,7 @@ public class VehicleListActivity extends AppCompatActivity {
                     int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                     int finalAmt = taxAmt + totalAmountStr;
                     binding.taxTotal1.setText("₹ " + taxAmt);
-                    binding.totalAmount1.setText("₹ " +finalAmt);
+                    binding.totalAmount1.setText("₹ " + finalAmt);
                     //binding.totalAmount1.setText("₹ " + totalAmountStr);
                     Log.e("AMOUNTRZP", String.valueOf(parseDouble4));
                 } else if (i == 4) {
@@ -615,7 +615,7 @@ public class VehicleListActivity extends AppCompatActivity {
                     int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                     int finalAmt = taxAmt + totalAmountStr;
                     binding.taxTotal1.setText("₹ " + taxAmt);
-                    binding.totalAmount1.setText("₹ " +finalAmt);
+                    binding.totalAmount1.setText("₹ " + finalAmt);
                     //binding.totalAmount1.setText("₹ " + totalAmountStr);
                     Log.e("AMOUNTRZP", String.valueOf(parseDouble5));
                 } else if (i == 5) {
@@ -626,7 +626,7 @@ public class VehicleListActivity extends AppCompatActivity {
                     int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                     int finalAmt = taxAmt + totalAmountStr;
                     binding.taxTotal1.setText("₹ " + taxAmt);
-                    binding.totalAmount1.setText("₹ " +finalAmt);
+                    binding.totalAmount1.setText("₹ " + finalAmt);
                     //binding.totalAmount1.setText("₹ " + totalAmountStr);
                     Log.e("AMOUNTRZP", String.valueOf(parseDouble6));
                 } else if (i == 6) {
@@ -637,7 +637,7 @@ public class VehicleListActivity extends AppCompatActivity {
                     int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                     int finalAmt = taxAmt + totalAmountStr;
                     binding.taxTotal1.setText("₹ " + taxAmt);
-                    binding.totalAmount1.setText("₹ " +finalAmt);
+                    binding.totalAmount1.setText("₹ " + finalAmt);
                     //binding.totalAmount1.setText("₹ " + totalAmountStr);
                     Log.e("AMOUNTRZP", String.valueOf(parseDouble7));
                 } else if (i == 7) {
@@ -648,7 +648,7 @@ public class VehicleListActivity extends AppCompatActivity {
                     int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                     int finalAmt = taxAmt + totalAmountStr;
                     binding.taxTotal1.setText("₹ " + taxAmt);
-                    binding.totalAmount1.setText("₹ " +finalAmt);
+                    binding.totalAmount1.setText("₹ " + finalAmt);
                     //binding.totalAmount1.setText("₹ " + totalAmountStr);
                     Log.e("AMOUNTRZP", String.valueOf(parseDouble8));
                 } else if (i == 8) {
@@ -659,7 +659,7 @@ public class VehicleListActivity extends AppCompatActivity {
                     int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                     int finalAmt = taxAmt + totalAmountStr;
                     binding.taxTotal1.setText("₹ " + taxAmt);
-                    binding.totalAmount1.setText("₹ " +finalAmt);
+                    binding.totalAmount1.setText("₹ " + finalAmt);
                     //binding.totalAmount1.setText("₹ " + totalAmountStr);
                     Log.e("AMOUNTRZP", String.valueOf(parseDouble9));
                 } else if (i == 9) {
@@ -670,7 +670,7 @@ public class VehicleListActivity extends AppCompatActivity {
                     int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                     int finalAmt = taxAmt + totalAmountStr;
                     binding.taxTotal1.setText("₹ " + taxAmt);
-                    binding.totalAmount1.setText("₹ " +finalAmt);
+                    binding.totalAmount1.setText("₹ " + finalAmt);
                     //binding.totalAmount1.setText("₹ " + totalAmountStr);
                     Log.e("AMOUNTRZP", String.valueOf(parseDouble10));
                 } else if (i == 10) {
@@ -681,7 +681,7 @@ public class VehicleListActivity extends AppCompatActivity {
                     int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                     int finalAmt = taxAmt + totalAmountStr;
                     binding.taxTotal1.setText("₹ " + taxAmt);
-                    binding.totalAmount1.setText("₹ " +finalAmt);
+                    binding.totalAmount1.setText("₹ " + finalAmt);
                     //binding.totalAmount1.setText("₹ " + totalAmountStr);
                     Log.e("AMOUNTRZP", String.valueOf(parseDouble11));
                 } else if (i == 11) {
@@ -692,7 +692,7 @@ public class VehicleListActivity extends AppCompatActivity {
                     int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                     int finalAmt = taxAmt + totalAmountStr;
                     binding.taxTotal1.setText("₹ " + taxAmt);
-                    binding.totalAmount1.setText("₹ " +finalAmt);
+                    binding.totalAmount1.setText("₹ " + finalAmt);
                     //binding.totalAmount1.setText("₹ " + totalAmountStr);
                     Log.e("AMOUNTRZP", String.valueOf(parseDouble12));
                 } else if (i == 12) {
@@ -703,7 +703,7 @@ public class VehicleListActivity extends AppCompatActivity {
                     int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                     int finalAmt = taxAmt + totalAmountStr;
                     binding.taxTotal1.setText("₹ " + taxAmt);
-                    binding.totalAmount1.setText("₹ " +finalAmt);
+                    binding.totalAmount1.setText("₹ " + finalAmt);
                     //binding.totalAmount1.setText("₹ " + totalAmountStr);
                     Log.e("AMOUNTRZP", String.valueOf(parseDouble13));
                 } else if (i == 13) {
@@ -714,7 +714,7 @@ public class VehicleListActivity extends AppCompatActivity {
                     int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                     int finalAmt = taxAmt + totalAmountStr;
                     binding.taxTotal1.setText("₹ " + taxAmt);
-                    binding.totalAmount1.setText("₹ " +finalAmt);
+                    binding.totalAmount1.setText("₹ " + finalAmt);
                     //binding.totalAmount1.setText("₹ " + totalAmountStr);
                     Log.e("AMOUNTRZP", String.valueOf(parseDouble14));
                 } else if (i == 14) {
@@ -725,7 +725,7 @@ public class VehicleListActivity extends AppCompatActivity {
                     int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                     int finalAmt = taxAmt + totalAmountStr;
                     binding.taxTotal1.setText("₹ " + taxAmt);
-                    binding.totalAmount1.setText("₹ " +finalAmt);
+                    binding.totalAmount1.setText("₹ " + finalAmt);
                     //binding.totalAmount1.setText("₹ " + totalAmountStr);
                     Log.e("AMOUNTRZP", String.valueOf(parseDouble15));
                 } else if (i == 15) {
@@ -736,7 +736,7 @@ public class VehicleListActivity extends AppCompatActivity {
                     int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                     int finalAmt = taxAmt + totalAmountStr;
                     binding.taxTotal1.setText("₹ " + taxAmt);
-                    binding.totalAmount1.setText("₹ " +finalAmt);
+                    binding.totalAmount1.setText("₹ " + finalAmt);
                     //binding.totalAmount1.setText("₹ " + totalAmountStr);
                     Log.e("AMOUNTRZP", String.valueOf(parseDouble16));
                 } else if (i == 16) {
@@ -747,7 +747,7 @@ public class VehicleListActivity extends AppCompatActivity {
                     int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                     int finalAmt = taxAmt + totalAmountStr;
                     binding.taxTotal1.setText("₹ " + taxAmt);
-                    binding.totalAmount1.setText("₹ " +finalAmt);
+                    binding.totalAmount1.setText("₹ " + finalAmt);
                     //binding.totalAmount1.setText("₹ " + totalAmountStr);
                     Log.e("AMOUNTRZP", String.valueOf(parseDouble17));
                 } else if (i == 17) {
@@ -758,7 +758,7 @@ public class VehicleListActivity extends AppCompatActivity {
                     int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                     int finalAmt = taxAmt + totalAmountStr;
                     binding.taxTotal1.setText("₹ " + taxAmt);
-                    binding.totalAmount1.setText("₹ " +finalAmt);
+                    binding.totalAmount1.setText("₹ " + finalAmt);
                     //binding.totalAmount1.setText("₹ " + totalAmountStr);
                     Log.e("AMOUNTRZP", String.valueOf(parseDouble18));
                 } else if (i == 18) {
@@ -769,7 +769,7 @@ public class VehicleListActivity extends AppCompatActivity {
                     int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                     int finalAmt = taxAmt + totalAmountStr;
                     binding.taxTotal1.setText("₹ " + taxAmt);
-                    binding.totalAmount1.setText("₹ " +finalAmt);
+                    binding.totalAmount1.setText("₹ " + finalAmt);
                     //binding.totalAmount1.setText("₹ " + totalAmountStr);
                     Log.e("AMOUNTRZP", String.valueOf(parseDouble19));
                 } else if (i == 19) {
@@ -780,7 +780,7 @@ public class VehicleListActivity extends AppCompatActivity {
                     int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                     int finalAmt = taxAmt + totalAmountStr;
                     binding.taxTotal1.setText("₹ " + taxAmt);
-                    binding.totalAmount1.setText("₹ " +finalAmt);
+                    binding.totalAmount1.setText("₹ " + finalAmt);
                     //binding.totalAmount1.setText("₹ " + totalAmountStr);
                     Log.e("AMOUNTRZP", String.valueOf(parseDouble20));
                 } else if (i == 20) {
@@ -791,7 +791,7 @@ public class VehicleListActivity extends AppCompatActivity {
                     int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                     int finalAmt = taxAmt + totalAmountStr;
                     binding.taxTotal1.setText("₹ " + taxAmt);
-                    binding.totalAmount1.setText("₹ " +finalAmt);
+                    binding.totalAmount1.setText("₹ " + finalAmt);
                     //binding.totalAmount1.setText("₹ " + totalAmountStr);
                     Log.e("AMOUNTRZP", String.valueOf(parseDouble21));
                 } else if (i == 21) {
@@ -802,7 +802,7 @@ public class VehicleListActivity extends AppCompatActivity {
                     int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                     int finalAmt = taxAmt + totalAmountStr;
                     binding.taxTotal1.setText("₹ " + taxAmt);
-                    binding.totalAmount1.setText("₹ " +finalAmt);
+                    binding.totalAmount1.setText("₹ " + finalAmt);
                     //binding.totalAmount1.setText("₹ " + totalAmountStr);
                     Log.e("AMOUNTRZP", String.valueOf(parseDouble22));
                 } else if (i == 22) {
@@ -813,7 +813,7 @@ public class VehicleListActivity extends AppCompatActivity {
                     int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                     int finalAmt = taxAmt + totalAmountStr;
                     binding.taxTotal1.setText("₹ " + taxAmt);
-                    binding.totalAmount1.setText("₹ " +finalAmt);
+                    binding.totalAmount1.setText("₹ " + finalAmt);
                     //binding.totalAmount1.setText("₹ " + totalAmountStr);
                     Log.e("AMOUNTRZP", String.valueOf(parseDouble23));
                 } else if (i == 23) {
@@ -824,7 +824,7 @@ public class VehicleListActivity extends AppCompatActivity {
                     int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                     int finalAmt = taxAmt + totalAmountStr;
                     binding.taxTotal1.setText("₹ " + taxAmt);
-                    binding.totalAmount1.setText("₹ " +finalAmt);
+                    binding.totalAmount1.setText("₹ " + finalAmt);
                     //binding.totalAmount1.setText("₹ " + totalAmountStr);
                     Log.e("AMOUNTRZP", String.valueOf(parseDouble24));
                 }
@@ -833,17 +833,17 @@ public class VehicleListActivity extends AppCompatActivity {
     }
 
 
-    public void checkIfExists(String servicetype,String  finalCarid,String carmakemodel,String carno){
+    public void checkIfExists(String servicetype, String finalCarid, String carmakemodel, String carno) {
 
-        if (servicetype.equalsIgnoreCase("AddOn")){
+        if (servicetype.equalsIgnoreCase("AddOn")) {
             action = Constant.ACTIONEXTRAONE;
-        }else if (servicetype.equalsIgnoreCase("Wash")){
+        } else if (servicetype.equalsIgnoreCase("Wash")) {
             action = Constant.ACTIONWASHONE;
         }
 
         String carid = finalCarid;
 
-        databaseHelper.CheckOrderExists(action,carid);
+        databaseHelper.CheckOrderExists(action, carid);
 
         String tottal_amt = String.valueOf(totalAmountStr);
 
@@ -851,39 +851,39 @@ public class VehicleListActivity extends AppCompatActivity {
         int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * before_tax) / 100);
         int finalAmt = taxAmt + before_tax;
 
-        String result = databaseHelper.AddUpdateOrder(action+"",
+        String result = databaseHelper.AddUpdateOrder(action + "",
                 "1",
-                carmakemodel+"",
-                carno+"",
-                onetimecarprice+"",
-                carid+"",
-                paidMonths+"",
-                fineAmount+"",
-                tottal_amt+"",
-                Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE))+"",
-                taxAmt+"",
+                carmakemodel + "",
+                carno + "",
+                onetimecarprice + "",
+                carid + "",
+                paidMonths + "",
+                fineAmount + "",
+                tottal_amt + "",
+                Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) + "",
+                taxAmt + "",
                 String.valueOf(finalAmt),
-                binding.preferDate.getText().toString()+"",
-                time+"");
+                binding.preferDate.getText().toString() + "",
+                time + "");
 
-        if(result.equalsIgnoreCase("1")){
+        if (result.equalsIgnoreCase("1")) {
             time = "";
             binding.popupCard.setVisibility(View.GONE);
             Toast.makeText(VehicleListActivity.this, "Added. ", Toast.LENGTH_SHORT).show();
             showCartCount();
             work();
             binding.preferDate.setText("");
-        }else{
+        } else {
             time = "";
             Toast.makeText(VehicleListActivity.this, "Added Failed. ", Toast.LENGTH_SHORT).show();
         }
     }
 
-    public void checkIfExists1(String servicetype, String finalCarid, String carmakemodel, String carno, String carprice){
-        Log.e("123466",""+servicetype);
-        if(servicetype.equals("AddOn")){
+    public void checkIfExists1(String servicetype, String finalCarid, String carmakemodel, String carno, String carprice) {
+        Log.e("123466", "" + servicetype);
+        if (servicetype.equals("AddOn")) {
             action = Constant.ACTIONONE;
-        }else if(servicetype.equals("Disinsfection")){
+        } else if (servicetype.equals("Disinsfection")) {
             action = Constant.ACTIONDISONE;
         }
 
@@ -893,29 +893,29 @@ public class VehicleListActivity extends AppCompatActivity {
         int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * before_tax) / 100);
         int finalAmt = taxAmt + before_tax;
 
-        String result = databaseHelper.AddUpdateOrder(action+"",
+        String result = databaseHelper.AddUpdateOrder(action + "",
                 "1",
-                carmakemodel+"",
-                carno+"",
-                carprice+"",
-                carid+"",
+                carmakemodel + "",
+                carno + "",
+                carprice + "",
+                carid + "",
                 "1",
                 "0",
-                carprice+"",
-                Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE))+"",
-                taxAmt+"",
+                carprice + "",
+                Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) + "",
+                taxAmt + "",
                 String.valueOf(finalAmt),
-                binding.preferDate1.getText().toString()+"",
-                time+"");
+                binding.preferDate1.getText().toString() + "",
+                time + "");
 
-        if(result.equalsIgnoreCase("1")){
+        if (result.equalsIgnoreCase("1")) {
             time = "";
             binding.popupCard1.setVisibility(View.GONE);
             Toast.makeText(VehicleListActivity.this, "Added. ", Toast.LENGTH_SHORT).show();
             showCartCount();
             work();
             binding.preferDate1.setText("");
-        }else{
+        } else {
             Toast.makeText(VehicleListActivity.this, "Added Failed. ", Toast.LENGTH_SHORT).show();
         }
 

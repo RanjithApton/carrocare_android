@@ -53,6 +53,7 @@ public class LoginActivity extends AppCompatActivity {
     ActivityLoginBinding binding;
     SessionManager sessionManager;
     String firebase_id;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,7 +71,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
                     // Get new FCM registration token
                     String newToken = task.getResult();
-                    Log.e("newToken",newToken);
+                    Log.e("newToken", newToken);
                     firebase_id = newToken;
                 });
 
@@ -78,7 +79,7 @@ public class LoginActivity extends AppCompatActivity {
         binding.signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this,SignUpActivity.class);
+                Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -92,39 +93,39 @@ public class LoginActivity extends AppCompatActivity {
         binding.loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (binding.emailEdt.getText().toString().length()>0 && binding.passEdt.getText().toString().length()>0){
-                    if (emailValidator(binding.emailEdt.getText().toString())){
+                if (binding.emailEdt.getText().toString().length() > 0 && binding.passEdt.getText().toString().length() > 0) {
+                    if (emailValidator(binding.emailEdt.getText().toString())) {
                         work();
-                    }else
-                        Toast.makeText(LoginActivity.this, Constant.VALIDEMAIL,Toast.LENGTH_SHORT).show();
-                }else
-                    Toast.makeText(LoginActivity.this,Constant.DETAILS,Toast.LENGTH_SHORT).show();
+                    } else
+                        Toast.makeText(LoginActivity.this, Constant.VALIDEMAIL, Toast.LENGTH_SHORT).show();
+                } else
+                    Toast.makeText(LoginActivity.this, Constant.DETAILS, Toast.LENGTH_SHORT).show();
             }
         });
         binding.forgotpass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent  = new Intent(LoginActivity.this,ForgetActivity.class);
+                Intent intent = new Intent(LoginActivity.this, ForgetActivity.class);
                 startActivity(intent);
             }
         });
     }
 
     private void work() {
-        if (isNetworkAvailable()){
+        if (isNetworkAvailable()) {
             Login();
-        }else {
+        } else {
             AlertDialog.Builder dialog = new AlertDialog.Builder(LoginActivity.this);
             dialog.setCancelable(false);
             dialog.setTitle("Alert!");
-            dialog.setMessage("No internet.Please check your connection." );
+            dialog.setMessage("No internet.Please check your connection.");
             dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int id) {
-                    //Action for "Ok".
-                    work();
-                }
-            })
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            //Action for "Ok".
+                            work();
+                        }
+                    })
                     .setNegativeButton("Cancel ", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -146,13 +147,13 @@ public class LoginActivity extends AppCompatActivity {
                 .setDimAmount(0.5f)
                 .show();
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        Call<LoginDetails> call = apiInterface.login(binding.emailEdt.getText().toString(),binding.passEdt.getText().toString());
+        Call<LoginDetails> call = apiInterface.login(binding.emailEdt.getText().toString(), binding.passEdt.getText().toString());
         call.enqueue(new Callback<LoginDetails>() {
             @Override
             public void onResponse(Call<LoginDetails> call, Response<LoginDetails> response) {
                 hud.dismiss();
-                try{
-                    if(response.isSuccessful()){
+                try {
+                    if (response.isSuccessful()) {
                         LoginDetails loginDetails = response.body();
 
                         if (loginDetails.code.equalsIgnoreCase("200")) {
@@ -172,19 +173,20 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(intent);
                     finish();*/
                             workmode();
-                        } else  if (loginDetails.code.equalsIgnoreCase("201")) {
+                        } else if (loginDetails.code.equalsIgnoreCase("201")) {
                             Toast.makeText(LoginActivity.this, loginDetails.message, Toast.LENGTH_LONG).show();
                         }
-                    } else{
+                    } else {
                         ApiConfig.responseToast(LoginActivity.this, response.code());
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
+
             @Override
             public void onFailure(Call<LoginDetails> loginDetails, Throwable t) {
-                Toast.makeText(LoginActivity.this,"Timeout.Try after sometime",Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "Timeout.Try after sometime", Toast.LENGTH_SHORT).show();
                 hud.dismiss();
             }
         });
@@ -192,20 +194,20 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void workmode() {
-        if (isNetworkAvailable()){
+        if (isNetworkAvailable()) {
             loginverify();
-        }else {
+        } else {
             AlertDialog.Builder dialog = new AlertDialog.Builder(LoginActivity.this);
             dialog.setCancelable(false);
             dialog.setTitle("Alert!");
-            dialog.setMessage("No internet.Please check your connection." );
+            dialog.setMessage("No internet.Please check your connection.");
             dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int id) {
-                    //Action for "Ok".
-                    workmode();
-                }
-            })
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            //Action for "Ok".
+                            workmode();
+                        }
+                    })
                     .setNegativeButton("Cancel ", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -227,13 +229,13 @@ public class LoginActivity extends AppCompatActivity {
         String deice_name = Build.BRAND;
         Log.e("Device Name", deice_name);
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        Call<JsonObject> call = apiInterface.loginverify(firebase_id,deice_name,device_model,os_version,binding.emailEdt.getText().toString());
+        Call<JsonObject> call = apiInterface.loginverify(firebase_id, deice_name, device_model, os_version, binding.emailEdt.getText().toString());
 
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                 try {
-                    if(response.isSuccessful()){
+                    if (response.isSuccessful()) {
                         JsonElement jsonElement = response.body();
                         JSONObject jsonObject = new JSONObject(jsonElement.toString());
                         if (jsonObject.optString("code").equalsIgnoreCase("200")) {
@@ -241,23 +243,23 @@ public class LoginActivity extends AppCompatActivity {
                             sessionManager.UserToken(jsonObject.optString(SessionManager.KEY_TOKEN));
                             startActivity(new Intent(LoginActivity.this, MainActivity.class));
                             finish();
-                        }else if (jsonObject.optString("code").equalsIgnoreCase("201")) {
+                        } else if (jsonObject.optString("code").equalsIgnoreCase("201")) {
                             Toast.makeText(LoginActivity.this, jsonObject.optString("message"), Toast.LENGTH_SHORT).show();
                         }
-                    } else{
+                    } else {
                         ApiConfig.responseToast(LoginActivity.this, response.code());
                     }
-                }catch (JSONException e) {
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
             }
+
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
-                Toast.makeText(LoginActivity.this,"Timeout.Try after sometime",Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "Timeout.Try after sometime", Toast.LENGTH_SHORT).show();
             }
         });
-
 
 
     }
@@ -271,12 +273,14 @@ public class LoginActivity extends AppCompatActivity {
         matcher = pattern.matcher(s);
         return matcher.matches();
     }
+
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
+
     public void ShowHidePass(View view) {
         if (view.getId() != R.id.passhide) {
             return;

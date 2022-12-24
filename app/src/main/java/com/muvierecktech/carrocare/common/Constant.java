@@ -140,6 +140,7 @@ public class Constant {
     public static String DE_WORK_DONE = "work_done";
     public static String DE_IMAGE = "work_image";
     public static String DE_IMAGE_DATE = "work_image_date";
+    public static String DE_INVOICE = "work_invoice";
 
     public static String SE_ADDON = "AddOn";
     public static String SE_WASH = "Wash";

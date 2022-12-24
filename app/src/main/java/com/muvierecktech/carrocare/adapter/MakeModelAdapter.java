@@ -23,7 +23,8 @@ public class MakeModelAdapter extends RecyclerView.Adapter {
     List<MakeModelList.Vehicle> makemodel;
     String type;
     private int lastSelectedPosition = -1;
-    public MakeModelAdapter(Context context, List<MakeModelList.Vehicle> apartment,String s) {
+
+    public MakeModelAdapter(Context context, List<MakeModelList.Vehicle> apartment, String s) {
         this.context = context;
         this.makemodel = apartment;
         this.type = s;
@@ -38,10 +39,10 @@ public class MakeModelAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
-         final MyViewHolder viewHolder = (MyViewHolder) holder;
-        viewHolder.makemodel.setText(makemodel.get(position).vehicle_make+"-"+makemodel.get(position).vehicle_model);
+        final MyViewHolder viewHolder = (MyViewHolder) holder;
+        viewHolder.makemodel.setText(makemodel.get(position).vehicle_make + "-" + makemodel.get(position).vehicle_model);
         viewHolder.makemodel.setTag(viewHolder);
-        viewHolder.makemodel.setChecked(lastSelectedPosition==position);
+        viewHolder.makemodel.setChecked(lastSelectedPosition == position);
         viewHolder.makemodel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -56,13 +57,13 @@ public class MakeModelAdapter extends RecyclerView.Adapter {
                     ((AddVehicleActivity) context).modelStr = makemodel.get(pos).vehicle_model;
 
 
-                }else if (type.equalsIgnoreCase("2")) {
+                } else if (type.equalsIgnoreCase("2")) {
                     MyViewHolder viewHolder1 = (MyViewHolder) view.getTag();
                     int pos = viewHolder1.getAdapterPosition();
                     lastSelectedPosition = pos;
                     notifyDataSetChanged();
                     ((MyVechiclesAddActivity) context).binding.makeModelEdt.setText(makemodel.get(pos).vehicle_make + "-" + makemodel.get(pos).vehicle_model);
-                }else if (type.equalsIgnoreCase("3")) {
+                } else if (type.equalsIgnoreCase("3")) {
                     MyViewHolder viewHolder1 = (MyViewHolder) view.getTag();
                     int pos = viewHolder1.getAdapterPosition();
                     lastSelectedPosition = pos;
@@ -84,8 +85,10 @@ public class MakeModelAdapter extends RecyclerView.Adapter {
     public int getItemCount() {
         return makemodel.size();
     }
+
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         RadioButton makemodel;
+
         public MyViewHolder(View itemLayoutView) {
             super(itemLayoutView);
             makemodel = (RadioButton) itemLayoutView.findViewById(R.id.apart_name);

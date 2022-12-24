@@ -16,12 +16,13 @@ import com.muvierecktech.carrocare.databinding.ActivityNotificationBinding;
 
 public class NotificationActivity extends AppCompatActivity {
     ActivityNotificationBinding binding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.activity_notification);
 
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_notification);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_notification);
 //        work();
     }
 

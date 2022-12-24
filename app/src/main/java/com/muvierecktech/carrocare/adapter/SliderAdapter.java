@@ -17,11 +17,11 @@ import java.util.List;
 
 public class SliderAdapter extends PagerAdapter {
 
+    //    private List<Slider> image;
+    List<SliderList.Slider> sliders;
     private Context context;
     //    private List<SliderModel.Slider> newsList;
     private LayoutInflater layoutInflater;
-//    private List<Slider> image;
-    List<SliderList.Slider> sliders;
 
     public SliderAdapter(Context context, List<SliderList.Slider> car) {
         this.context = context;
@@ -44,7 +44,7 @@ public class SliderAdapter extends PagerAdapter {
         View itemView = layoutInflater.inflate(R.layout.item_slider, container, false);
 
         ImageView carImg = (ImageView) itemView.findViewById(R.id.car_img);
-       // ImageView progress = (ImageView) itemView.findViewById(R.id.progress_loader);
+        // ImageView progress = (ImageView) itemView.findViewById(R.id.progress_loader);
 //        TextView newsText = (TextView) itemView.findViewById(R.id.news_txt);
 //        progress.setVisibility(View.VISIBLE);
         Picasso.get()
@@ -76,7 +76,7 @@ public class SliderAdapter extends PagerAdapter {
 //
 //                    }
 //                });
-        container.addView(itemView,0);
+        container.addView(itemView, 0);
 
         return itemView;
     }

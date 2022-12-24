@@ -26,9 +26,8 @@ import java.net.URL;
 public class MyNotificationManager {
     public static final int ID_BIG_NOTIFICATION = 234;
     public static final int ID_SMALL_NOTIFICATION = 235;
-
-    private Context mCtx;
     public static final String FCM_CHANNEL_ID = "default";
+    private Context mCtx;
 
     public MyNotificationManager(Context mCtx) {
         this.mCtx = mCtx;
@@ -36,15 +35,15 @@ public class MyNotificationManager {
 
     public void showBigNotification(String title, String message, String url, Intent intent) {
         //PendingIntent resultPendingIntent = PendingIntent.getActivity(mCtx, ID_BIG_NOTIFICATION, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-       // intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        // intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
         PendingIntent resultPendingIntent = null;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S){
-            resultPendingIntent = PendingIntent.getActivity(mCtx,0,intent, PendingIntent.FLAG_UPDATE_CURRENT |PendingIntent.FLAG_MUTABLE );
-        }else {
-            resultPendingIntent = PendingIntent.getActivity(mCtx,0,intent, PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT );
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            resultPendingIntent = PendingIntent.getActivity(mCtx, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_MUTABLE);
+        } else {
+            resultPendingIntent = PendingIntent.getActivity(mCtx, 0, intent, PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT);
         }
 
         NotificationCompat.BigPictureStyle bigPictureStyle = new NotificationCompat.BigPictureStyle();
@@ -87,10 +86,10 @@ public class MyNotificationManager {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
         PendingIntent resultPendingIntent = null;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S){
-            resultPendingIntent = PendingIntent.getActivity(mCtx,0,intent, PendingIntent.FLAG_UPDATE_CURRENT |PendingIntent.FLAG_MUTABLE );
-        }else {
-            resultPendingIntent = PendingIntent.getActivity(mCtx,0,intent, PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT );
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            resultPendingIntent = PendingIntent.getActivity(mCtx, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_MUTABLE);
+        } else {
+            resultPendingIntent = PendingIntent.getActivity(mCtx, 0, intent, PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT);
         }
 
 
@@ -151,7 +150,7 @@ public class MyNotificationManager {
                 .build();
         mChannel.setDescription(description);
         mChannel.enableLights(true);
-        mChannel.enableVibration( true ) ;
+        mChannel.enableVibration(true);
         mChannel.setLightColor(Color.BLUE);
         notificationManager.createNotificationChannel(mChannel);
     }

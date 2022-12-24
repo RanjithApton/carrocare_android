@@ -48,29 +48,33 @@ public class ContactUsActivity extends AppCompatActivity
 {
     ActivityContactUsBinding binding;
     SessionManager sessionManager;
-    String token,customerid;
-//    GoogleMap googleMap;
+    String token, customerid;
+
+    //    GoogleMap googleMap;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_contact_us);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_contact_us);
         sessionManager = new SessionManager(this);
-        HashMap<String,String> hashMap = sessionManager.getUserDetails();
+        HashMap<String, String> hashMap = sessionManager.getUserDetails();
         token = hashMap.get(SessionManager.KEY_TOKEN);
         customerid = hashMap.get(SessionManager.KEY_USERID);
 
         binding.submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (binding.nameEdt.getText().toString().length()>0 && binding.emailEdt.getText().toString().length()>0 &&
-                binding.mobnoEdt.getText().toString().length()>0 && binding.subjectEdt.getText().toString().length() >0 &&
-                        binding.subjectEdt.getText().toString().length()>0){
-                    if (binding.mobnoEdt.getText().toString().length()==10){
-                        if (emailValidator(binding.emailEdt.getText().toString())){
+                if (binding.nameEdt.getText().toString().length() > 0 && binding.emailEdt.getText().toString().length() > 0 &&
+                        binding.mobnoEdt.getText().toString().length() > 0 && binding.subjectEdt.getText().toString().length() > 0 &&
+                        binding.subjectEdt.getText().toString().length() > 0) {
+                    if (binding.mobnoEdt.getText().toString().length() == 10) {
+                        if (emailValidator(binding.emailEdt.getText().toString())) {
                             work();
-                        }else   Toast.makeText(ContactUsActivity.this,Constant.VALIDEMAIL,Toast.LENGTH_SHORT).show();
-                    }else   Toast.makeText(ContactUsActivity.this,Constant.VALIDMOBILE,Toast.LENGTH_SHORT).show();
-                } else   Toast.makeText(ContactUsActivity.this, Constant.DETAILS,Toast.LENGTH_SHORT).show();
+                        } else
+                            Toast.makeText(ContactUsActivity.this, Constant.VALIDEMAIL, Toast.LENGTH_SHORT).show();
+                    } else
+                        Toast.makeText(ContactUsActivity.this, Constant.VALIDMOBILE, Toast.LENGTH_SHORT).show();
+                } else
+                    Toast.makeText(ContactUsActivity.this, Constant.DETAILS, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -96,19 +100,18 @@ public class ContactUsActivity extends AppCompatActivity
             public void onClick(View view) {
 
 
-
-                try{
+                try {
 
                     String whatsapp_number = "+917904015630";
                     String message = "Hi Carrocare team ";
                     PackageManager packageManager = getApplicationContext().getPackageManager();
                     Intent i = new Intent(Intent.ACTION_VIEW);
-                    String url = "https://api.whatsapp.com/send?phone="+ whatsapp_number +"&text=" + URLEncoder.encode(message, "UTF-8");
+                    String url = "https://api.whatsapp.com/send?phone=" + whatsapp_number + "&text=" + URLEncoder.encode(message, "UTF-8");
                     i.setPackage(isAppInstalled());
                     i.setData(Uri.parse(url));
                     if (i.resolveActivity(packageManager) != null) {
                         startActivity(i);
-                    }else {
+                    } else {
                         Toast.makeText(ContactUsActivity.this, "Whatsapp not installed.", Toast.LENGTH_SHORT).show();
                     }
                 } catch (Exception e) {
@@ -145,10 +148,10 @@ public class ContactUsActivity extends AppCompatActivity
         String app_installed = null;
         PackageManager packageManager = getApplicationContext().getPackageManager();
         for (PackageInfo packageInfo : packageManager.getInstalledPackages(0)) {
-            if(packageInfo.packageName.equals("com.whatsapp.w4b")){
-                app_installed ="com.whatsapp.w4b";
+            if (packageInfo.packageName.equals("com.whatsapp.w4b")) {
+                app_installed = "com.whatsapp.w4b";
             } else if (packageInfo.packageName.equals("com.whatsapp")) {
-                app_installed ="com.whatsapp";
+                app_installed = "com.whatsapp";
             }
             return app_installed;
         }
@@ -168,20 +171,20 @@ public class ContactUsActivity extends AppCompatActivity
     }
 
     private void work() {
-        if (isNetworkAvailable()){
+        if (isNetworkAvailable()) {
             SubmitForm();
-        }else {
+        } else {
             AlertDialog.Builder dialog = new AlertDialog.Builder(ContactUsActivity.this);
             dialog.setCancelable(false);
             dialog.setTitle("Alert!");
-            dialog.setMessage("No internet.Please check your connection." );
+            dialog.setMessage("No internet.Please check your connection.");
             dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int id) {
-                    //Action for "Ok".
-                    work();
-                }
-            })
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            //Action for "Ok".
+                            work();
+                        }
+                    })
                     .setNegativeButton("Cancel ", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -203,34 +206,35 @@ public class ContactUsActivity extends AppCompatActivity
                 .setDimAmount(0.5f)
                 .show();
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        Call<JsonObject> call = apiInterface.conatctFrom(binding.subjectEdt.getText().toString()+"",""+binding.messageEdt.getText().toString(),
-                binding.nameEdt.getText().toString()+"",binding.emailEdt.getText().toString()+"",binding.mobnoEdt.getText().toString()+"");
+        Call<JsonObject> call = apiInterface.conatctFrom(binding.subjectEdt.getText().toString() + "", "" + binding.messageEdt.getText().toString(),
+                binding.nameEdt.getText().toString() + "", binding.emailEdt.getText().toString() + "", binding.mobnoEdt.getText().toString() + "");
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                 hud.dismiss();
                 try {
-                    if(response.isSuccessful()){
+                    if (response.isSuccessful()) {
                         JsonElement jsonElement = response.body();
                         JSONObject jsonObject = new JSONObject(jsonElement.toString());
                         if (jsonObject.optString("code").equalsIgnoreCase("200")) {
                             Gson gson = new Gson();
-                            Toast.makeText(ContactUsActivity.this,jsonObject.optString("result"),Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ContactUsActivity.this, jsonObject.optString("result"), Toast.LENGTH_SHORT).show();
                             finish();
-                        }else {
-                            Toast.makeText(ContactUsActivity.this,jsonObject.optString("message"),Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(ContactUsActivity.this, jsonObject.optString("message"), Toast.LENGTH_SHORT).show();
                         }
-                    } else{
+                    } else {
                         ApiConfig.responseToast(ContactUsActivity.this, response.code());
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
+
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
                 hud.dismiss();
-                Toast.makeText(ContactUsActivity.this,"Timeout.Try after sometime",Toast.LENGTH_SHORT).show();
+                Toast.makeText(ContactUsActivity.this, "Timeout.Try after sometime", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -244,6 +248,7 @@ public class ContactUsActivity extends AppCompatActivity
         matcher = pattern.matcher(s);
         return matcher.matches();
     }
+
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);

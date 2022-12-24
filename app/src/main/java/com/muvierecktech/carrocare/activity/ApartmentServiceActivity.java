@@ -18,7 +18,7 @@ import java.util.HashMap;
 public class ApartmentServiceActivity extends AppCompatActivity {
     ActivityApartmentServiceBinding binding;
     SessionManager sessionManager;
-    String username,apartname,token,customerid;
+    String username, apartname, token, customerid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +27,7 @@ public class ApartmentServiceActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_apartment_service);
         sessionManager = new SessionManager(this);
         binding.headerName.setText("Apartment Service");
-        HashMap<String,String> hashMap = sessionManager.getUserDetails();
+        HashMap<String, String> hashMap = sessionManager.getUserDetails();
         username = hashMap.get(SessionManager.KEY_USERNAME);
         apartname = hashMap.get(SessionManager.KEY_APARTNAME);
         token = hashMap.get(SessionManager.KEY_TOKEN);
@@ -45,7 +45,7 @@ public class ApartmentServiceActivity extends AppCompatActivity {
         binding.myVechicle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ApartmentServiceActivity.this,MyVehiclesActivity.class);
+                Intent intent = new Intent(ApartmentServiceActivity.this, MyVehiclesActivity.class);
                 startActivity(intent);
             }
         });
@@ -62,13 +62,13 @@ public class ApartmentServiceActivity extends AppCompatActivity {
         binding.carWash.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (TextUtils.isEmpty(apartname) || apartname == null || apartname.equalsIgnoreCase("null")){
+                if (TextUtils.isEmpty(apartname) || apartname == null || apartname.equalsIgnoreCase("null")) {
                     Constant.LOAD_FROM = "main";
-                    Intent intent = new Intent(ApartmentServiceActivity.this,ProfileActivity.class);
+                    Intent intent = new Intent(ApartmentServiceActivity.this, ProfileActivity.class);
                     startActivity(intent);
                     finish();
-                }else {
-                    Intent intent = new Intent(ApartmentServiceActivity.this,CarWashActivity.class);
+                } else {
+                    Intent intent = new Intent(ApartmentServiceActivity.this, CarWashActivity.class);
                     //intent.putExtra("headername", Constant.WASH);
                     startActivity(intent);
                 }
@@ -77,13 +77,13 @@ public class ApartmentServiceActivity extends AppCompatActivity {
         binding.carDisinfection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (TextUtils.isEmpty(apartname) || apartname == null || apartname.equalsIgnoreCase("null")){
+                if (TextUtils.isEmpty(apartname) || apartname == null || apartname.equalsIgnoreCase("null")) {
                     Constant.LOAD_FROM = "main";
-                    Intent intent = new Intent(ApartmentServiceActivity.this,ProfileActivity.class);
+                    Intent intent = new Intent(ApartmentServiceActivity.this, ProfileActivity.class);
                     startActivity(intent);
                     finish();
-                }else {
-                    Intent intent = new Intent(ApartmentServiceActivity.this,DisinfectionActivity.class);
+                } else {
+                    Intent intent = new Intent(ApartmentServiceActivity.this, DisinfectionActivity.class);
                     //intent.putExtra("headername", Constant.WASH);
                     startActivity(intent);
                 }
@@ -93,11 +93,11 @@ public class ApartmentServiceActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (TextUtils.isEmpty(apartname) || apartname == null || apartname.equalsIgnoreCase("null")) {
                     Constant.LOAD_FROM = "main";
-                    Intent intent = new Intent(ApartmentServiceActivity.this,ProfileActivity.class);
+                    Intent intent = new Intent(ApartmentServiceActivity.this, ProfileActivity.class);
                     startActivity(intent);
                     finish();
-                }else {
-                    Intent intent = new Intent(ApartmentServiceActivity.this,BikeWashActivity.class);
+                } else {
+                    Intent intent = new Intent(ApartmentServiceActivity.this, BikeWashActivity.class);
                     //intent.putExtra("headername", Constant.BWASH);
                     startActivity(intent);
                 }
@@ -121,13 +121,13 @@ public class ApartmentServiceActivity extends AppCompatActivity {
         binding.carService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (TextUtils.isEmpty(apartname) || apartname == null || apartname.equalsIgnoreCase("null")){
+                if (TextUtils.isEmpty(apartname) || apartname == null || apartname.equalsIgnoreCase("null")) {
                     Constant.LOAD_FROM = "main";
-                    Intent intent = new Intent(ApartmentServiceActivity.this,ProfileActivity.class);
+                    Intent intent = new Intent(ApartmentServiceActivity.this, ProfileActivity.class);
                     startActivity(intent);
                     finish();
-                }else {
-                    Intent intent = new Intent(ApartmentServiceActivity.this,AddOnActivity.class);
+                } else {
+                    Intent intent = new Intent(ApartmentServiceActivity.this, AddOnActivity.class);
                     //intent.putExtra("headername",Constant.ADDON);
                     startActivity(intent);
                 }
@@ -135,12 +135,12 @@ public class ApartmentServiceActivity extends AppCompatActivity {
         });
         binding.extraInterior.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                if (TextUtils.isEmpty(apartname) || apartname == null || apartname.equalsIgnoreCase("null")){
+                if (TextUtils.isEmpty(apartname) || apartname == null || apartname.equalsIgnoreCase("null")) {
                     Constant.LOAD_FROM = "main";
-                    Intent intent = new Intent(ApartmentServiceActivity.this,ProfileActivity.class);
+                    Intent intent = new Intent(ApartmentServiceActivity.this, ProfileActivity.class);
                     startActivity(intent);
                     finish();
-                }else {
+                } else {
                     Intent intent = new Intent(ApartmentServiceActivity.this, ExtraInteriorActivity.class);
                     //intent.putExtra("headername",Constant.EXTRAINT);
                     startActivity(intent);
@@ -168,7 +168,7 @@ public class ApartmentServiceActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = new Intent(ApartmentServiceActivity.this,MainActivity.class);
+        Intent intent = new Intent(ApartmentServiceActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
     }

@@ -3,8 +3,8 @@
     android:id="@+id/counterPanel"
     android:layout_width="32dp"
     android:layout_height="32dp"
-    android:layoutDirection="ltr"
-    android:background="@drawable/ic_cart">
+    android:background="@drawable/ic_cart"
+    android:layoutDirection="ltr">
 
     <RelativeLayout
         android:id="@+id/counterValuePanel"

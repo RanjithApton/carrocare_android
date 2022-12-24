@@ -14,11 +14,12 @@ import com.muvierecktech.carrocare.activity.MyRemainderActivity;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class ReminderAdapter  extends RecyclerView.Adapter {
+public class ReminderAdapter extends RecyclerView.Adapter {
     public Context context;
     String[] prefer;
     String type;
     private int lastSelectedPosition = -1;
+
     public ReminderAdapter(Context context, String[] predferred, String s) {
         this.context = context;
         this.prefer = predferred;
@@ -38,62 +39,62 @@ public class ReminderAdapter  extends RecyclerView.Adapter {
         final MyViewHolder viewHolder = (MyViewHolder) holder;
         viewHolder._name.setText(prefer[position]);
         viewHolder._name.setTag(viewHolder);
-        viewHolder._name.setChecked(lastSelectedPosition==position);
+        viewHolder._name.setChecked(lastSelectedPosition == position);
         viewHolder._name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (type.equalsIgnoreCase("remainderType")){
+                if (type.equalsIgnoreCase("remainderType")) {
                     MyViewHolder viewHolder1 = (MyViewHolder) view.getTag();
                     int pos = viewHolder1.getAdapterPosition();
                     lastSelectedPosition = pos;
                     notifyDataSetChanged();
-                    ((MyRemainderActivity)context).binding.reminderEdt.setText(prefer[pos]);
-                    ((MyRemainderActivity)context).binding.reminTypeRc.setVisibility(View.GONE);
-                    ((MyRemainderActivity)context).binding.apartRl.setVisibility(View.GONE);
+                    ((MyRemainderActivity) context).binding.reminderEdt.setText(prefer[pos]);
+                    ((MyRemainderActivity) context).binding.reminTypeRc.setVisibility(View.GONE);
+                    ((MyRemainderActivity) context).binding.apartRl.setVisibility(View.GONE);
 
-                    if(prefer[pos].equalsIgnoreCase("Services Remainder")){
-                        ((MyRemainderActivity)context).binding.reminderService.setVisibility(View.VISIBLE);
-                        ((MyRemainderActivity)context).binding.reminderInsurance.setVisibility(View.GONE);
-                    }else if(prefer[pos].equalsIgnoreCase("Bike/Car Insurance Remainder")){
-                        ((MyRemainderActivity)context).binding.reminderInsurance.setVisibility(View.VISIBLE);
-                        ((MyRemainderActivity)context).binding.reminderService.setVisibility(View.GONE);
+                    if (prefer[pos].equalsIgnoreCase("Services Remainder")) {
+                        ((MyRemainderActivity) context).binding.reminderService.setVisibility(View.VISIBLE);
+                        ((MyRemainderActivity) context).binding.reminderInsurance.setVisibility(View.GONE);
+                    } else if (prefer[pos].equalsIgnoreCase("Bike/Car Insurance Remainder")) {
+                        ((MyRemainderActivity) context).binding.reminderInsurance.setVisibility(View.VISIBLE);
+                        ((MyRemainderActivity) context).binding.reminderService.setVisibility(View.GONE);
                     }
 
-                }else if (type.equalsIgnoreCase("serviceCount")){
+                } else if (type.equalsIgnoreCase("serviceCount")) {
                     MyViewHolder viewHolder1 = (MyViewHolder) view.getTag();
                     int pos = viewHolder1.getAdapterPosition();
                     lastSelectedPosition = pos;
                     notifyDataSetChanged();
-                    ((MyRemainderActivity)context).binding.serviceCountEdt.setText(prefer[pos]);
-                    ((MyRemainderActivity)context).binding.serCountRc.setVisibility(View.GONE);
-                    ((MyRemainderActivity)context).binding.apartRl.setVisibility(View.GONE);
+                    ((MyRemainderActivity) context).binding.serviceCountEdt.setText(prefer[pos]);
+                    ((MyRemainderActivity) context).binding.serCountRc.setVisibility(View.GONE);
+                    ((MyRemainderActivity) context).binding.apartRl.setVisibility(View.GONE);
 
-                }else if (type.equalsIgnoreCase("setRemainder")){
+                } else if (type.equalsIgnoreCase("setRemainder")) {
                     MyViewHolder viewHolder1 = (MyViewHolder) view.getTag();
                     int pos = viewHolder1.getAdapterPosition();
                     lastSelectedPosition = pos;
                     notifyDataSetChanged();
-                    ((MyRemainderActivity)context).binding.setSerReminder.setText(prefer[pos]);
-                    ((MyRemainderActivity)context).binding.setRemainderRc.setVisibility(View.GONE);
-                    ((MyRemainderActivity)context).binding.apartRl.setVisibility(View.GONE);
+                    ((MyRemainderActivity) context).binding.setSerReminder.setText(prefer[pos]);
+                    ((MyRemainderActivity) context).binding.setRemainderRc.setVisibility(View.GONE);
+                    ((MyRemainderActivity) context).binding.apartRl.setVisibility(View.GONE);
 
-                }else if (type.equalsIgnoreCase("insuranceBrand")){
+                } else if (type.equalsIgnoreCase("insuranceBrand")) {
                     MyViewHolder viewHolder1 = (MyViewHolder) view.getTag();
                     int pos = viewHolder1.getAdapterPosition();
                     lastSelectedPosition = pos;
                     notifyDataSetChanged();
-                    ((MyRemainderActivity)context).binding.insBrndEdt.setText(prefer[pos]);
-                    ((MyRemainderActivity)context).binding.insBrndRc.setVisibility(View.GONE);
-                    ((MyRemainderActivity)context).binding.apartRl.setVisibility(View.GONE);
+                    ((MyRemainderActivity) context).binding.insBrndEdt.setText(prefer[pos]);
+                    ((MyRemainderActivity) context).binding.insBrndRc.setVisibility(View.GONE);
+                    ((MyRemainderActivity) context).binding.apartRl.setVisibility(View.GONE);
 
-                }else if (type.equalsIgnoreCase("setRemainderInsurance")){
+                } else if (type.equalsIgnoreCase("setRemainderInsurance")) {
                     MyViewHolder viewHolder1 = (MyViewHolder) view.getTag();
                     int pos = viewHolder1.getAdapterPosition();
                     lastSelectedPosition = pos;
                     notifyDataSetChanged();
-                    ((MyRemainderActivity)context).binding.setInsReminder.setText(prefer[pos]);
-                    ((MyRemainderActivity)context).binding.setRemainderRc.setVisibility(View.GONE);
-                    ((MyRemainderActivity)context).binding.apartRl.setVisibility(View.GONE);
+                    ((MyRemainderActivity) context).binding.setInsReminder.setText(prefer[pos]);
+                    ((MyRemainderActivity) context).binding.setRemainderRc.setVisibility(View.GONE);
+                    ((MyRemainderActivity) context).binding.apartRl.setVisibility(View.GONE);
 
                 }
             }
@@ -105,11 +106,13 @@ public class ReminderAdapter  extends RecyclerView.Adapter {
     public int getItemCount() {
         return prefer.length;
     }
+
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         RadioButton _name;
+
         public MyViewHolder(View itemLayoutView) {
             super(itemLayoutView);
-            _name = (RadioButton)itemLayoutView.findViewById(R.id.apart_name);
+            _name = (RadioButton) itemLayoutView.findViewById(R.id.apart_name);
         }
     }
 }

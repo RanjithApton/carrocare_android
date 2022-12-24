@@ -12,10 +12,11 @@ import com.muvierecktech.carrocare.databinding.ActivityCongratsBinding;
 
 public class CongratsActivity extends AppCompatActivity {
     ActivityCongratsBinding binding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_congrats);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_congrats);
 
         binding.continueBtn.setOnClickListener(new View.OnClickListener() {
             @Override

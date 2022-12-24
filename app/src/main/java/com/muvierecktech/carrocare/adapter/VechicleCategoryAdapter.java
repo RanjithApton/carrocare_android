@@ -39,49 +39,49 @@ public class VechicleCategoryAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-            final MyViewHolder viewHolder = (MyViewHolder) holder;
-            viewHolder._name.setText(prefer[position]);
-            viewHolder._name.setTag(viewHolder);
-            viewHolder._name.setChecked(lastSelectedPosition==position);
-            viewHolder._name.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                     if (type.equalsIgnoreCase("2")){
-                        MyViewHolder viewHolder1 = (MyViewHolder) view.getTag();
-                        int pos = viewHolder1.getAdapterPosition();
-                        lastSelectedPosition = pos;
-                        notifyDataSetChanged();
-                        ((MyVechiclesAddActivity)context).binding.vecCategoryEdt.setText(prefer[pos]);
+        final MyViewHolder viewHolder = (MyViewHolder) holder;
+        viewHolder._name.setText(prefer[position]);
+        viewHolder._name.setTag(viewHolder);
+        viewHolder._name.setChecked(lastSelectedPosition == position);
+        viewHolder._name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (type.equalsIgnoreCase("2")) {
+                    MyViewHolder viewHolder1 = (MyViewHolder) view.getTag();
+                    int pos = viewHolder1.getAdapterPosition();
+                    lastSelectedPosition = pos;
+                    notifyDataSetChanged();
+                    ((MyVechiclesAddActivity) context).binding.vecCategoryEdt.setText(prefer[pos]);
 //                        ((MyVechiclesAddActivity)context).binding.vecCategoryRc.setVisibility(View.GONE);
 //                        ((MyVechiclesAddActivity)context).binding.apartRl.setVisibility(View.GONE);
 
-                         String vecCat = prefer[pos];
-                         ((MyVechiclesAddActivity)context).additionalwork(vecCat);
+                    String vecCat = prefer[pos];
+                    ((MyVechiclesAddActivity) context).additionalwork(vecCat);
 
-                        if (prefer[pos].equalsIgnoreCase("bike")){
-                            ((MyVechiclesAddActivity)context).binding.makeModelEdt.setText("");
-                            ((MyVechiclesAddActivity)context).binding.makemodelRl.setVisibility(View.GONE);
-                            ((MyVechiclesAddActivity)context).binding.makeEdt.setVisibility(View.VISIBLE);
-                            ((MyVechiclesAddActivity)context).binding.modelEdt.setVisibility(View.VISIBLE);
-                        }else{
-                            ((MyVechiclesAddActivity)context).binding.makeModelEdt.setText("");
-                            ((MyVechiclesAddActivity)context).binding.makemodelRl.setVisibility(View.VISIBLE);
-                            ((MyVechiclesAddActivity)context).binding.makeEdt.setVisibility(View.GONE);
-                            ((MyVechiclesAddActivity)context).binding.modelEdt.setVisibility(View.GONE);
+                    if (prefer[pos].equalsIgnoreCase("bike")) {
+                        ((MyVechiclesAddActivity) context).binding.makeModelEdt.setText("");
+                        ((MyVechiclesAddActivity) context).binding.makemodelRl.setVisibility(View.GONE);
+                        ((MyVechiclesAddActivity) context).binding.makeEdt.setVisibility(View.VISIBLE);
+                        ((MyVechiclesAddActivity) context).binding.modelEdt.setVisibility(View.VISIBLE);
+                    } else {
+                        ((MyVechiclesAddActivity) context).binding.makeModelEdt.setText("");
+                        ((MyVechiclesAddActivity) context).binding.makemodelRl.setVisibility(View.VISIBLE);
+                        ((MyVechiclesAddActivity) context).binding.makeEdt.setVisibility(View.GONE);
+                        ((MyVechiclesAddActivity) context).binding.modelEdt.setVisibility(View.GONE);
 
-                        }
+                    }
 
-                    } else if (type.equalsIgnoreCase("3")){
-                         MyViewHolder viewHolder1 = (MyViewHolder) view.getTag();
-                         int pos = viewHolder1.getAdapterPosition();
-                         lastSelectedPosition = pos;
-                         notifyDataSetChanged();
-                         ((MapAddVechileActivity)context).binding.vecCategoryEdt.setText(prefer[pos]);
+                } else if (type.equalsIgnoreCase("3")) {
+                    MyViewHolder viewHolder1 = (MyViewHolder) view.getTag();
+                    int pos = viewHolder1.getAdapterPosition();
+                    lastSelectedPosition = pos;
+                    notifyDataSetChanged();
+                    ((MapAddVechileActivity) context).binding.vecCategoryEdt.setText(prefer[pos]);
 //                         ((MapAddVechileActivity)context).binding.vecCategoryRc.setVisibility(View.GONE);
 //                         ((MapAddVechileActivity)context).binding.apartRl.setVisibility(View.GONE);
 
-                         String vecCat = prefer[pos];
-                         ((MapAddVechileActivity)context).additionalwork(vecCat);
+                    String vecCat = prefer[pos];
+                    ((MapAddVechileActivity) context).additionalwork(vecCat);
 
 //                         if (prefer[pos].equalsIgnoreCase("bike")){
 //                             ((MapAddVechileActivity)context).binding.makeModelEdt.setText("");
@@ -96,11 +96,11 @@ public class VechicleCategoryAdapter extends RecyclerView.Adapter {
 //
 //                         }
 
-                     }
-
-
                 }
-            });
+
+
+            }
+        });
 
     }
 
@@ -108,11 +108,13 @@ public class VechicleCategoryAdapter extends RecyclerView.Adapter {
     public int getItemCount() {
         return prefer.length;
     }
+
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         RadioButton _name;
+
         public MyViewHolder(View itemLayoutView) {
             super(itemLayoutView);
-            _name = (RadioButton)itemLayoutView.findViewById(R.id.apart_name);
+            _name = (RadioButton) itemLayoutView.findViewById(R.id.apart_name);
         }
     }
 }

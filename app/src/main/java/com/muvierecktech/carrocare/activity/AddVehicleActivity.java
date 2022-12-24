@@ -54,29 +54,29 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class AddVehicleActivity extends AppCompatActivity implements View.OnClickListener {
+    public static String makeStr, modelStr;
     public ActivityAddVehicleBinding binding;
     SessionManager sessionManager;
-    String customerid,token,vecType,vecCategory;
+    String customerid, token, vecType, vecCategory;
     String preSchedule[] = {
 //            Constant.PREFERSCH,
-            Constant.MORNING,Constant.EVENING};
+            Constant.MORNING, Constant.EVENING};
     String preMorTime[] = {
 //            Constant.PREFERTIME,
-            "5.00 AM - 6.00 AM","6.00 AM - 7.00 AM","7.00 AM - 8.00 AM","8.00 AM - 9.00 AM","9.00 AM - 10.00 AM"};
+            "5.00 AM - 6.00 AM", "6.00 AM - 7.00 AM", "7.00 AM - 8.00 AM", "8.00 AM - 9.00 AM", "9.00 AM - 10.00 AM"};
     String preEveTime[] = {
 //            Constant.PREFERTIME,
-            "5.00 PM - 6.00 PM","6.00 PM - 7.00 PM","7.00 PM - 8.00 PM","8.00 PM - 9.00 PM"};
+            "5.00 PM - 6.00 PM", "6.00 PM - 7.00 PM", "7.00 PM - 8.00 PM", "8.00 PM - 9.00 PM"};
     String parkingArea[] = {
 //            Constant.PARKAREA,
-            "Basement 1","Basement 2","Open Area","Visitor Parking"};
+            "Basement 1", "Basement 2", "Open Area", "Visitor Parking"};
     List<ParkingareaList.data> parkingarea;
     ArrayList<String> parkingareaname;
-    public static String makeStr,modelStr;
-    List<MakeModelList.Vehicle> vehicleList ;
+    List<MakeModelList.Vehicle> vehicleList;
     List<ApartmentList.Apartment> apartments;
-    ArrayList<String> makemodel ;
+    ArrayList<String> makemodel;
     ArrayList<String> apartmentname;
-    String make,model,apartname,preferdScd,preferTime,parkArea;
+    String make, model, apartname, preferdScd, preferTime, parkArea;
     ArrayList<String> spinner_schedule;
     ArrayList<String> spinner_time;
 
@@ -84,9 +84,9 @@ public class AddVehicleActivity extends AppCompatActivity implements View.OnClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_add_vehicle);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_add_vehicle);
         sessionManager = new SessionManager(this);
-        HashMap<String,String> hashMap = sessionManager.getUserDetails();
+        HashMap<String, String> hashMap = sessionManager.getUserDetails();
         customerid = hashMap.get(SessionManager.KEY_USERID);
         token = hashMap.get(SessionManager.KEY_TOKEN);
 
@@ -98,12 +98,12 @@ public class AddVehicleActivity extends AppCompatActivity implements View.OnClic
 
         Collections.addAll(spinner_schedule, preSchedule);
 
-        if (vecCategory.equalsIgnoreCase("Bike")){
+        if (vecCategory.equalsIgnoreCase("Bike")) {
             vecType = Constant.BIKE;
             binding.makemodelRl.setVisibility(View.GONE);
             binding.makeEdt.setVisibility(View.VISIBLE);
             binding.modelEdt.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             vecType = Constant.CAR;
             binding.makemodelRl.setVisibility(View.VISIBLE);
             binding.makeEdt.setVisibility(View.GONE);
@@ -119,11 +119,11 @@ public class AddVehicleActivity extends AppCompatActivity implements View.OnClic
         binding.submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (vecCategory.equalsIgnoreCase("Bike")){
-                    if (binding.makeEdt.getText().toString().length()>0 && binding.modelEdt.getText().toString().length()>0 && binding.vecNoEdt.getText().toString().length()>0 &&
-                            binding.vecColorEdt.getText().toString().length()>0 && binding.apartmentEdt.toString().length()>0&&
-                            binding.parkingLotEdt.getText().toString().length()>0 &&binding.parkingAreaEdt.getText().toString().length()>0&&
-                            binding.preferredscheduleEdt.getText().toString().length()>0&& binding.preferredtimeEdt.getText().toString().length()>0){
+                if (vecCategory.equalsIgnoreCase("Bike")) {
+                    if (binding.makeEdt.getText().toString().length() > 0 && binding.modelEdt.getText().toString().length() > 0 && binding.vecNoEdt.getText().toString().length() > 0 &&
+                            binding.vecColorEdt.getText().toString().length() > 0 && binding.apartmentEdt.toString().length() > 0 &&
+                            binding.parkingLotEdt.getText().toString().length() > 0 && binding.parkingAreaEdt.getText().toString().length() > 0 &&
+                            binding.preferredscheduleEdt.getText().toString().length() > 0 && binding.preferredtimeEdt.getText().toString().length() > 0) {
                         makeStr = binding.makeEdt.getText().toString();
                         modelStr = binding.modelEdt.getText().toString();
                         apartname = binding.apartmentEdt.getText().toString();
@@ -131,19 +131,21 @@ public class AddVehicleActivity extends AppCompatActivity implements View.OnClic
                         preferTime = binding.preferredtimeEdt.getText().toString();
                         parkArea = binding.parkingAreaEdt.getText().toString();
                         workAdd();
-                    }else Toast.makeText(AddVehicleActivity.this,Constant.DETAILS,Toast.LENGTH_SHORT).show();
-                }else {
-                    if (binding.makeModelEdt.getText().toString().length()>0&&binding.apartmentEdt.getText().toString().length()>0
-                            && binding.vecNoEdt.getText().toString().length()>0 && binding.vecColorEdt.getText().toString().length()>0 &&
-                            binding.parkingLotEdt.getText().toString().length()>0 &&binding.parkingAreaEdt.getText().toString().length()>0 &&
-                            binding.preferredscheduleEdt.getText().toString().length()>0&&binding.preferredtimeEdt.getText().toString().length()>0){
+                    } else
+                        Toast.makeText(AddVehicleActivity.this, Constant.DETAILS, Toast.LENGTH_SHORT).show();
+                } else {
+                    if (binding.makeModelEdt.getText().toString().length() > 0 && binding.apartmentEdt.getText().toString().length() > 0
+                            && binding.vecNoEdt.getText().toString().length() > 0 && binding.vecColorEdt.getText().toString().length() > 0 &&
+                            binding.parkingLotEdt.getText().toString().length() > 0 && binding.parkingAreaEdt.getText().toString().length() > 0 &&
+                            binding.preferredscheduleEdt.getText().toString().length() > 0 && binding.preferredtimeEdt.getText().toString().length() > 0) {
 
                         apartname = binding.apartmentEdt.getText().toString();
                         preferdScd = binding.preferredscheduleEdt.getText().toString();
                         preferTime = binding.preferredtimeEdt.getText().toString();
                         parkArea = binding.parkingAreaEdt.getText().toString();
                         workAdd();
-                    }else Toast.makeText(AddVehicleActivity.this,Constant.DETAILS,Toast.LENGTH_SHORT).show();
+                    } else
+                        Toast.makeText(AddVehicleActivity.this, Constant.DETAILS, Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -159,16 +161,16 @@ public class AddVehicleActivity extends AppCompatActivity implements View.OnClic
                 .setDimAmount(0.5f)
                 .show();
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        Call<JsonObject> call = apiInterface.vechileAdd(vecType,vecCategory,makeStr,
-                modelStr,binding.vecNoEdt.getText().toString(),binding.vecColorEdt.getText().toString(),
-                apartname,binding.parkingLotEdt.getText().toString(),parkArea,
-                preferdScd,preferTime,customerid,token);
+        Call<JsonObject> call = apiInterface.vechileAdd(vecType, vecCategory, makeStr,
+                modelStr, binding.vecNoEdt.getText().toString(), binding.vecColorEdt.getText().toString(),
+                apartname, binding.parkingLotEdt.getText().toString(), parkArea,
+                preferdScd, preferTime, customerid, token);
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                 hud.dismiss();
                 try {
-                    if(response.isSuccessful()){
+                    if (response.isSuccessful()) {
                         JsonElement jsonElement = response.body();
                         JSONObject jsonObject = new JSONObject(jsonElement.toString());
                         if (jsonObject.optString("code").equalsIgnoreCase("200")) {
@@ -178,36 +180,37 @@ public class AddVehicleActivity extends AppCompatActivity implements View.OnClic
                         } else {
                             Toast.makeText(AddVehicleActivity.this, jsonObject.optString("message"), Toast.LENGTH_SHORT).show();
                         }
-                    } else{
+                    } else {
                         ApiConfig.responseToast(AddVehicleActivity.this, response.code());
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
+
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
                 hud.dismiss();
-                Toast.makeText(AddVehicleActivity.this,"Timeout.Try after sometime",Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddVehicleActivity.this, "Timeout.Try after sometime", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void workAdd() {
-        if (isNetworkAvailable()){
+        if (isNetworkAvailable()) {
             AddVechile();
-        }else {
+        } else {
             AlertDialog.Builder dialog = new AlertDialog.Builder(AddVehicleActivity.this);
             dialog.setCancelable(false);
             dialog.setTitle("Alert!");
-            dialog.setMessage("No internet.Please check your connection." );
+            dialog.setMessage("No internet.Please check your connection.");
             dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int id) {
-                    //Action for "Ok".
-                    workAdd();
-                }
-            })
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            //Action for "Ok".
+                            workAdd();
+                        }
+                    })
                     .setNegativeButton("Cancel ", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -220,26 +223,27 @@ public class AddVehicleActivity extends AppCompatActivity implements View.OnClic
             alert.show();
         }
     }
+
     private void work() {
-        if (isNetworkAvailable()){
-            if (vecCategory.equalsIgnoreCase("Bike")){
-            }else {
+        if (isNetworkAvailable()) {
+            if (vecCategory.equalsIgnoreCase("Bike")) {
+            } else {
                 makeModelList();
             }
             apartmentList();
             parkingList();
-        }else {
+        } else {
             AlertDialog.Builder dialog = new AlertDialog.Builder(AddVehicleActivity.this);
             dialog.setCancelable(false);
             dialog.setTitle("Alert!");
-            dialog.setMessage("No internet.Please check your connection." );
+            dialog.setMessage("No internet.Please check your connection.");
             dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int id) {
-                    //Action for "Ok".
-                    work();
-                }
-            })
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            //Action for "Ok".
+                            work();
+                        }
+                    })
                     .setNegativeButton("Cancel ", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -268,28 +272,29 @@ public class AddVehicleActivity extends AppCompatActivity implements View.OnClic
             @Override
             public void onResponse(Call<ApartmentList> call, Response<ApartmentList> response) {
                 hud.dismiss();
-                try{
-                    if(response.isSuccessful()){
+                try {
+                    if (response.isSuccessful()) {
                         ApartmentList apartmentList = response.body();
-                        if (apartmentList.code.equalsIgnoreCase("200")){
+                        if (apartmentList.code.equalsIgnoreCase("200")) {
                             apartments = apartmentList.Apartment;
                             int pos = 0;
-                            for(int i = 0; i < apartments.size(); i++){
+                            for (int i = 0; i < apartments.size(); i++) {
                                 String items = apartments.get(i).name;
                                 apartmentname.add(items);
                             }
                         }
-                    } else{
+                    } else {
                         ApiConfig.responseToast(AddVehicleActivity.this, response.code());
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
+
             @Override
             public void onFailure(Call<ApartmentList> call, Throwable t) {
                 hud.dismiss();
-                Toast.makeText(AddVehicleActivity.this,"Timeout.Try after sometime",Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddVehicleActivity.this, "Timeout.Try after sometime", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -312,8 +317,8 @@ public class AddVehicleActivity extends AppCompatActivity implements View.OnClic
             @Override
             public void onResponse(Call<ParkingareaList> call, Response<ParkingareaList> response) {
                 hud.dismiss();
-                try{
-                    if(response.isSuccessful()){
+                try {
+                    if (response.isSuccessful()) {
                         ParkingareaList body = response.body();
                         if (body.code.equalsIgnoreCase("200")) {
                             parkingarea = body.data;
@@ -321,7 +326,7 @@ public class AddVehicleActivity extends AppCompatActivity implements View.OnClic
                                 parkingareaname.add(parkingarea.get(i).name);
                             }
                         }
-                    } else{
+                    } else {
                         ApiConfig.responseToast(AddVehicleActivity.this, response.code());
                     }
                 } catch (Exception e) {
@@ -337,9 +342,8 @@ public class AddVehicleActivity extends AppCompatActivity implements View.OnClic
     }
 
 
-
     private void makeModelList() {
-        Log.e("VecCat",vecCategory);
+        Log.e("VecCat", vecCategory);
 //        vehicleList.clear();
         makemodel = new ArrayList<>();
         vehicleList = new ArrayList<>();
@@ -355,8 +359,8 @@ public class AddVehicleActivity extends AppCompatActivity implements View.OnClic
             @Override
             public void onResponse(Call<MakeModelList> call, Response<MakeModelList> response) {
                 hud.dismiss();
-                try{
-                    if(response.isSuccessful()){
+                try {
+                    if (response.isSuccessful()) {
                         final MakeModelList makeModelList = response.body();
                         if (makeModelList.code.equalsIgnoreCase("200")) {
                             Gson gson = new Gson();
@@ -366,24 +370,26 @@ public class AddVehicleActivity extends AppCompatActivity implements View.OnClic
                                 makemodel.addAll(Collections.singleton(vehicleList.get(i).vehicle_make + "-" + vehicleList.get(i).vehicle_model));
                             }
 
-                        }else if (makeModelList.code.equalsIgnoreCase("201")){
-                            Toast.makeText(AddVehicleActivity.this,makeModelList.message,Toast.LENGTH_SHORT).show();
+                        } else if (makeModelList.code.equalsIgnoreCase("201")) {
+                            Toast.makeText(AddVehicleActivity.this, makeModelList.message, Toast.LENGTH_SHORT).show();
                         }
-                    } else{
+                    } else {
                         ApiConfig.responseToast(AddVehicleActivity.this, response.code());
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
+
             @Override
             public void onFailure(Call<MakeModelList> call, Throwable t) {
                 hud.dismiss();
-                Toast.makeText(AddVehicleActivity.this,"Timeout.Try after sometime",Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddVehicleActivity.this, "Timeout.Try after sometime", Toast.LENGTH_SHORT).show();
             }
         });
 
     }
+
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -394,11 +400,11 @@ public class AddVehicleActivity extends AppCompatActivity implements View.OnClic
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.make_model_edt:
                 //spinner_item.clear();
                 //spinner_item.addAll(makemodel);
-                binding.spinner.setAdapter(new ArrayAdapter<String>(AddVehicleActivity.this, android.R.layout.simple_list_item_1,makemodel));
+                binding.spinner.setAdapter(new ArrayAdapter<String>(AddVehicleActivity.this, android.R.layout.simple_list_item_1, makemodel));
 
                 binding.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
@@ -409,6 +415,7 @@ public class AddVehicleActivity extends AppCompatActivity implements View.OnClic
                         makeStr = separated[0];
                         modelStr = separated[1];
                     }
+
                     @Override
                     public void onNothingSelected(AdapterView<?> adapterView) {
                     }
@@ -420,13 +427,14 @@ public class AddVehicleActivity extends AppCompatActivity implements View.OnClic
 //                spinner_item.clear();
 //                spinner_item.addAll();
 
-                binding.apartmentSpinner.setAdapter(new ArrayAdapter<String>(AddVehicleActivity.this, android.R.layout.simple_list_item_1,apartmentname));
+                binding.apartmentSpinner.setAdapter(new ArrayAdapter<String>(AddVehicleActivity.this, android.R.layout.simple_list_item_1, apartmentname));
 
                 binding.apartmentSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                         binding.apartmentEdt.setText(apartmentname.get(i));
                     }
+
                     @Override
                     public void onNothingSelected(AdapterView<?> adapterView) {
                     }
@@ -438,13 +446,14 @@ public class AddVehicleActivity extends AppCompatActivity implements View.OnClic
 //                spinner_item.clear();
 //                spinner_item.addAll(parkingareaname);
 
-                binding.parkingSpinner.setAdapter(new ArrayAdapter<String>(AddVehicleActivity.this, android.R.layout.simple_list_item_1,parkingareaname));
+                binding.parkingSpinner.setAdapter(new ArrayAdapter<String>(AddVehicleActivity.this, android.R.layout.simple_list_item_1, parkingareaname));
 
                 binding.parkingSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                         binding.parkingAreaEdt.setText(parkingareaname.get(i));
                     }
+
                     @Override
                     public void onNothingSelected(AdapterView<?> adapterView) {
                     }
@@ -456,7 +465,7 @@ public class AddVehicleActivity extends AppCompatActivity implements View.OnClic
                 //spinner_item.clear();
 
                 //spinner_item.add(String.valueOf(preSchedule));
-                binding.scheduleSpinner.setAdapter(new ArrayAdapter<String>(AddVehicleActivity.this, android.R.layout.simple_list_item_1,spinner_schedule));
+                binding.scheduleSpinner.setAdapter(new ArrayAdapter<String>(AddVehicleActivity.this, android.R.layout.simple_list_item_1, spinner_schedule));
 
                 binding.scheduleSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
@@ -464,15 +473,16 @@ public class AddVehicleActivity extends AppCompatActivity implements View.OnClic
                         binding.preferredscheduleEdt.setText(spinner_schedule.get(i));
                         binding.preferredtimeEdt.setText(null);
 
-                        if(spinner_schedule.get(i).equalsIgnoreCase(Constant.MORNING)){
+                        if (spinner_schedule.get(i).equalsIgnoreCase(Constant.MORNING)) {
                             spinner_time.clear();
                             Collections.addAll(spinner_time, preMorTime);
-                        }else if (spinner_schedule.get(i).equalsIgnoreCase(Constant.EVENING)) {
+                        } else if (spinner_schedule.get(i).equalsIgnoreCase(Constant.EVENING)) {
                             spinner_time.clear();
                             Collections.addAll(spinner_time, preEveTime);
                         }
 
                     }
+
                     @Override
                     public void onNothingSelected(AdapterView<?> adapterView) {
                     }
@@ -482,21 +492,22 @@ public class AddVehicleActivity extends AppCompatActivity implements View.OnClic
 
                 break;
             case R.id.preferredtime_edt:
-                if (TextUtils.isEmpty(binding.preferredscheduleEdt.getText().toString())){
-                    Toast.makeText(AddVehicleActivity.this,"Choose Preferred Schedule",Toast.LENGTH_SHORT).show();
-                }else {
+                if (TextUtils.isEmpty(binding.preferredscheduleEdt.getText().toString())) {
+                    Toast.makeText(AddVehicleActivity.this, "Choose Preferred Schedule", Toast.LENGTH_SHORT).show();
+                } else {
                     // spinner_item.clear();
 
                     if (binding.preferredscheduleEdt.getText().toString().equalsIgnoreCase(Constant.MORNING)) {
                         Log.e("PreTIme", Constant.MORNING);
                         //
-                        binding.timeSpinner.setAdapter(new ArrayAdapter<String>(AddVehicleActivity.this, android.R.layout.simple_list_item_1,spinner_time));
+                        binding.timeSpinner.setAdapter(new ArrayAdapter<String>(AddVehicleActivity.this, android.R.layout.simple_list_item_1, spinner_time));
 
                         binding.timeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                             @Override
                             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                                 binding.preferredtimeEdt.setText(spinner_time.get(i));
                             }
+
                             @Override
                             public void onNothingSelected(AdapterView<?> adapterView) {
                             }
@@ -507,13 +518,14 @@ public class AddVehicleActivity extends AppCompatActivity implements View.OnClic
                         Log.e("PreTIme", Constant.EVENING);
                         //Collections.addAll(spinner_item, preEveTime);
                         //Collections.addAll(spinner_item, preEveTime);
-                        binding.timeSpinner.setAdapter(new ArrayAdapter<String>(AddVehicleActivity.this, android.R.layout.simple_list_item_1,spinner_time));
+                        binding.timeSpinner.setAdapter(new ArrayAdapter<String>(AddVehicleActivity.this, android.R.layout.simple_list_item_1, spinner_time));
 
                         binding.timeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                             @Override
                             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                                 binding.preferredtimeEdt.setText(spinner_time.get(i));
                             }
+
                             @Override
                             public void onNothingSelected(AdapterView<?> adapterView) {
                             }

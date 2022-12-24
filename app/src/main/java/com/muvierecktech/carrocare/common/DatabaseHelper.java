@@ -63,32 +63,32 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public long addCart(String cus_id, String token,String action, String image,String model,String number,String car_price, String car_id, String paid_month, String fine_amount, String total_amount, String date, String time ){
+    public long addCart(String cus_id, String token, String action, String image, String model, String number, String car_price, String car_id, String paid_month, String fine_amount, String total_amount, String date, String time) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(CUS_ID,cus_id);
-        contentValues.put(TOKEN,token);
-        contentValues.put(ACTION,action);
-        contentValues.put(IMG,image);
-        contentValues.put(MODEL,model);
-        contentValues.put(NUMBER,number);
-        contentValues.put(CAR_PRICE,car_price);
-        contentValues.put(CAR_ID,car_id);
-        contentValues.put(P_MONTHS,paid_month);
-        contentValues.put(FINE,fine_amount);
-        contentValues.put(TOTAL,total_amount);
-        contentValues.put(SCH_DATE,date);
-        contentValues.put(SCH_TIME,time);
-        return db.insert(TABLE_NAME,null,contentValues);
+        contentValues.put(CUS_ID, cus_id);
+        contentValues.put(TOKEN, token);
+        contentValues.put(ACTION, action);
+        contentValues.put(IMG, image);
+        contentValues.put(MODEL, model);
+        contentValues.put(NUMBER, number);
+        contentValues.put(CAR_PRICE, car_price);
+        contentValues.put(CAR_ID, car_id);
+        contentValues.put(P_MONTHS, paid_month);
+        contentValues.put(FINE, fine_amount);
+        contentValues.put(TOTAL, total_amount);
+        contentValues.put(SCH_DATE, date);
+        contentValues.put(SCH_TIME, time);
+        return db.insert(TABLE_NAME, null, contentValues);
     }
 
     public ArrayList<CartList> getItems() {
         ArrayList<CartList> arrayList = new ArrayList<>();
 
         // select all query
-        String select_query= "SELECT *FROM " + TABLE_NAME;
+        String select_query = "SELECT *FROM " + TABLE_NAME;
 
-        SQLiteDatabase db = this .getWritableDatabase();
+        SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(select_query, null);
 
         // looping through all rows and adding to list
@@ -108,7 +108,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 dbModel.setFine(cursor.getString(10));
                 dbModel.setTotal(cursor.getString(11));
                 arrayList.add(dbModel);
-            }while (cursor.moveToNext());
+            } while (cursor.moveToNext());
         }
         return arrayList;
     }
@@ -116,7 +116,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public int deleteItem(int sno) {
         SQLiteDatabase db = this.getWritableDatabase();
         //deleting row
-        return db.delete(TABLE_NAME , "sno=?",new String[]{String.valueOf(sno)});
+        return db.delete(TABLE_NAME, "sno=?", new String[]{String.valueOf(sno)});
     }
 
     public int getTotalItemOfCart() {

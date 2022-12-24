@@ -15,6 +15,7 @@ public class LoginDetails {
     public String flat_no;
     public String code;
     public String address;
+    public String gst;
     public String latitude;
     public String longitude;
 

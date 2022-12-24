@@ -26,6 +26,7 @@ public class ApartmentsAdapter extends RecyclerView.Adapter {
     boolean isVisibility;
     String check;
     private int lastSelectedPosition = -1;
+
     public ApartmentsAdapter(Context context, List<ApartmentList.Apartment> apartmentsl, String s) {
         this.context = context;
         this.apartments = apartmentsl;
@@ -41,7 +42,7 @@ public class ApartmentsAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
-         final MyViewHolder viewHolder = (MyViewHolder) holder;
+        final MyViewHolder viewHolder = (MyViewHolder) holder;
         final ApartmentList.Apartment apartment = apartments.get(position);
         viewHolder.apart_name.setText(apartment.name);
         viewHolder.apart_name.setTag(viewHolder);
@@ -51,19 +52,19 @@ public class ApartmentsAdapter extends RecyclerView.Adapter {
             public void onClick(View view) {
                 MyViewHolder viewHolder1 = (MyViewHolder) view.getTag();
                 int pos = viewHolder1.getAdapterPosition();
-                if (check.equalsIgnoreCase("2")){
+                if (check.equalsIgnoreCase("2")) {
                     lastSelectedPosition = pos;
                     notifyDataSetChanged();
-                ((AddVehicleActivity)context).binding.apartmentEdt.setText(apartments.get(pos).name);
-                }else if (check.equalsIgnoreCase("1")){
+                    ((AddVehicleActivity) context).binding.apartmentEdt.setText(apartments.get(pos).name);
+                } else if (check.equalsIgnoreCase("1")) {
                     lastSelectedPosition = pos;
                     notifyDataSetChanged();
-                ((ProfileActivity)context).binding.apartnameEdt.setText(apartments.get(pos).name);
+                    ((ProfileActivity) context).binding.apartnameEdt.setText(apartments.get(pos).name);
 
-                }else if (check.equalsIgnoreCase("3")){
+                } else if (check.equalsIgnoreCase("3")) {
                     lastSelectedPosition = pos;
                     notifyDataSetChanged();
-                    ((MyVechiclesAddActivity)context).binding.apartmentEdt.setText(apartments.get(pos).name);
+                    ((MyVechiclesAddActivity) context).binding.apartmentEdt.setText(apartments.get(pos).name);
 
                 }
 
@@ -82,6 +83,7 @@ public class ApartmentsAdapter extends RecyclerView.Adapter {
     public int getItemCount() {
         return apartments.size();
     }
+
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         RadioButton apart_name;
 

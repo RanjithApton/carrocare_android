@@ -21,7 +21,7 @@ import java.util.Calendar;
 public class MyRemainderActivity extends AppCompatActivity implements View.OnClickListener {
     public ActivityMyRemainderBinding binding;
 
-    String remainderType[] = {"Services Remainder" ,"Bike/Car Insurance Remainder"};
+    String remainderType[] = {"Services Remainder", "Bike/Car Insurance Remainder"};
     String serviceCount[] = {"1", "2", "3", "4", "5"};
 
     String insuranceBrand[] = {"Bajaj Allianz Car insurance",
@@ -46,7 +46,7 @@ public class MyRemainderActivity extends AppCompatActivity implements View.OnCli
             "United India Car Insurance",
             "Raheja QBE Car Insurance"};
 
-    String setRemainder[] = {"1 Month","2 Weeks","1 Week","3 Days","1 Day"};
+    String setRemainder[] = {"1 Month", "2 Weeks", "1 Week", "3 Days", "1 Day"};
 
     DatePickerDialog picker;
 
@@ -54,7 +54,7 @@ public class MyRemainderActivity extends AppCompatActivity implements View.OnCli
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_my_remainder);
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_my_remainder);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_my_remainder);
 
         binding.reminderEdt.setOnClickListener(this);
         binding.serviceCountEdt.setOnClickListener(this);
@@ -72,15 +72,15 @@ public class MyRemainderActivity extends AppCompatActivity implements View.OnCli
         binding.serSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(binding.serviceCountEdt.getText().toString().length() > 0 &&
-                    binding.lastSerDateEdt.getText().toString().length() > 0 &&
-                    binding.lastDriKmsEdt.getText().toString().length() > 0 &&
-                    binding.nextSerDateEdt.getText().toString().length() > 0 &&
-                    binding.nextDriKmsEdt.getText().toString().length() > 0 &&
-                    binding.setSerReminder.getText().toString().length() >0 ){
+                if (binding.serviceCountEdt.getText().toString().length() > 0 &&
+                        binding.lastSerDateEdt.getText().toString().length() > 0 &&
+                        binding.lastDriKmsEdt.getText().toString().length() > 0 &&
+                        binding.nextSerDateEdt.getText().toString().length() > 0 &&
+                        binding.nextDriKmsEdt.getText().toString().length() > 0 &&
+                        binding.setSerReminder.getText().toString().length() > 0) {
                     Toast.makeText(MyRemainderActivity.this, "Success", Toast.LENGTH_SHORT).show();
                     finish();
-                }else{
+                } else {
                     Toast.makeText(MyRemainderActivity.this, Constant.DETAILS, Toast.LENGTH_SHORT).show();
                 }
             }
@@ -89,17 +89,17 @@ public class MyRemainderActivity extends AppCompatActivity implements View.OnCli
         binding.insSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(binding.insBrndEdt.getText().toString().length() > 0 &&
+                if (binding.insBrndEdt.getText().toString().length() > 0 &&
                         binding.policyNoEdt.getText().toString().length() > 0 &&
                         binding.engineeNoEdt.getText().toString().length() > 0 &&
                         binding.paidDateEdt.getText().toString().length() > 0 &&
                         binding.paidAmountEdt.getText().toString().length() > 0 &&
-                        binding.vecRegEdt.getText().toString().length() >0 &&
+                        binding.vecRegEdt.getText().toString().length() > 0 &&
                         binding.renewalDateEdt.getText().toString().length() > 0 &&
-                        binding.setInsReminder.getText().toString().length() >0 ){
+                        binding.setInsReminder.getText().toString().length() > 0) {
                     Toast.makeText(MyRemainderActivity.this, "Success", Toast.LENGTH_SHORT).show();
                     finish();
-                }else{
+                } else {
                     Toast.makeText(MyRemainderActivity.this, Constant.DETAILS, Toast.LENGTH_SHORT).show();
                 }
             }
@@ -111,7 +111,7 @@ public class MyRemainderActivity extends AppCompatActivity implements View.OnCli
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.last_ser_date_edt:
                 final Calendar cldr = Calendar.getInstance();
                 int day = cldr.get(Calendar.DAY_OF_MONTH);
@@ -122,7 +122,7 @@ public class MyRemainderActivity extends AppCompatActivity implements View.OnCli
                         new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                                binding.lastSerDateEdt.setText(year + "-" +(monthOfYear + 1) + "-" +dayOfMonth);
+                                binding.lastSerDateEdt.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
                             }
                         }, year, month, day);
                 picker.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
@@ -138,7 +138,7 @@ public class MyRemainderActivity extends AppCompatActivity implements View.OnCli
                         new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                                binding.nextSerDateEdt.setText(year + "-" +(monthOfYear + 1) + "-" +dayOfMonth);
+                                binding.nextSerDateEdt.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
                             }
                         }, year1, month1, day1);
                 picker.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
@@ -186,7 +186,7 @@ public class MyRemainderActivity extends AppCompatActivity implements View.OnCli
                         new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                                binding.paidDateEdt.setText(year + "-" +(monthOfYear + 1) + "-" +dayOfMonth);
+                                binding.paidDateEdt.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
                             }
                         }, year2, month2, day2);
                 picker.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
@@ -202,7 +202,7 @@ public class MyRemainderActivity extends AppCompatActivity implements View.OnCli
                         new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                                binding.renewalDateEdt.setText(year + "-" +(monthOfYear + 1) + "-" +dayOfMonth);
+                                binding.renewalDateEdt.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
                             }
                         }, year3, month3, day3);
                 picker.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);

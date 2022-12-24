@@ -39,10 +39,11 @@ public class CarPolishActivity extends AppCompatActivity {
     String headername;
     SessionManager sessionManager;
     String description;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_car_polish);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_car_polish);
         Intent intent = getIntent();
 
         headername = Constant.CARMACHINE;
@@ -68,21 +69,22 @@ public class CarPolishActivity extends AppCompatActivity {
             }
         });
     }
+
     private void work() {
-        if (isNetworkAvailable()){
+        if (isNetworkAvailable()) {
             ServicePrice();
-        }else {
+        } else {
             AlertDialog.Builder dialog = new AlertDialog.Builder(CarPolishActivity.this);
             dialog.setCancelable(false);
             dialog.setTitle("Alert!");
-            dialog.setMessage("No internet.Please check your connection." );
+            dialog.setMessage("No internet.Please check your connection.");
             dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int id) {
-                    //Action for "Ok".
-                    work();
-                }
-            })
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            //Action for "Ok".
+                            work();
+                        }
+                    })
                     .setNegativeButton("Cancel ", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -109,41 +111,42 @@ public class CarPolishActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ServicePriceList> call, Response<ServicePriceList> response) {
                 hud.dismiss();
-                try{
-                    if(response.isSuccessful()){
+                try {
+                    if (response.isSuccessful()) {
                         final ServicePriceList servicePriceList = response.body();
                         if (servicePriceList.code.equalsIgnoreCase("200")) {
                             Gson gson = new Gson();
                             String json = gson.toJson(servicePriceList);
 
-                            binding.description.setText(HtmlCompat.fromHtml(servicePriceList.description+"",0));
+                            binding.description.setText(HtmlCompat.fromHtml(servicePriceList.description + "", 0));
                             description = servicePriceList.description;
 
-                            MainAdapter mainAdapter = new MainAdapter(CarPolishActivity.this,servicePriceList.services,headername);
-                            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(CarPolishActivity.this,LinearLayoutManager.VERTICAL,false);
+                            MainAdapter mainAdapter = new MainAdapter(CarPolishActivity.this, servicePriceList.services, headername);
+                            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(CarPolishActivity.this, LinearLayoutManager.VERTICAL, false);
                             binding.carslistRc.setLayoutManager(linearLayoutManager);
                             binding.carslistRc.setAdapter(mainAdapter);
                             binding.info.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    Intent intent = new Intent(CarPolishActivity.this,InfoActivity.class);
-                                    intent.putExtra("headername",Constant.MACHINEPOLISH);
-                                    intent.putExtra("description",description);
+                                    Intent intent = new Intent(CarPolishActivity.this, InfoActivity.class);
+                                    intent.putExtra("headername", Constant.MACHINEPOLISH);
+                                    intent.putExtra("description", description);
                                     startActivity(intent);
                                 }
                             });
                         }
-                    } else{
+                    } else {
                         ApiConfig.responseToast(CarPolishActivity.this, response.code());
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
+
             @Override
             public void onFailure(Call<ServicePriceList> call, Throwable t) {
                 hud.dismiss();
-                Toast.makeText(CarPolishActivity.this,"Timeout.Try after sometime",Toast.LENGTH_SHORT).show();
+                Toast.makeText(CarPolishActivity.this, "Timeout.Try after sometime", Toast.LENGTH_SHORT).show();
             }
         });
     }

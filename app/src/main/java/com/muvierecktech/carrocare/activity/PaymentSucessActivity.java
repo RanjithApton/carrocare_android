@@ -19,23 +19,23 @@ public class PaymentSucessActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_payment_sucess);
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_payment_sucess);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_payment_sucess);
 
         status = getIntent().getStringExtra("status");
         amount = getIntent().getStringExtra("amount");
         type = getIntent().getStringExtra("type");
 
-        binding.sucessAmount.setText("Total : ₹ "+amount);
-        binding.failureAmount.setText("Total : ₹ "+amount);
+        binding.sucessAmount.setText("Total : ₹ " + amount);
+        binding.failureAmount.setText("Total : ₹ " + amount);
 
-        if(status.equalsIgnoreCase("success")){
+        if (status.equalsIgnoreCase("success")) {
             binding.sucessScreen.setVisibility(View.VISIBLE);
-            if(type.equalsIgnoreCase("cod")){
+            if (type.equalsIgnoreCase("cod")) {
                 binding.codText.setVisibility(View.VISIBLE);
-            }else{
+            } else {
                 binding.codText.setVisibility(View.GONE);
             }
-        }else if(status.equalsIgnoreCase("failure")){
+        } else if (status.equalsIgnoreCase("failure")) {
             binding.failureScreen.setVisibility(View.VISIBLE);
         }
 

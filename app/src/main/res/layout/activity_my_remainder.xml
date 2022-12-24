@@ -1,640 +1,671 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
-<RelativeLayout
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".activity.MyRemainderActivity">
 
-    <LinearLayout
-        android:gravity="center"
-        android:orientation="vertical"
-        android:id="@+id/header"
+    <RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:background="@color/colorPrimary"
-        android:layout_height="?attr/actionBarSize">
+        android:layout_height="match_parent"
+        tools:context=".activity.MyRemainderActivity">
 
         <LinearLayout
-            android:orientation="horizontal"
+            android:id="@+id/header"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:layout_gravity="left|center_vertical|center_horizontal|center"
-                android:id="@+id/back"
-                android:padding="5dp"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_margin="10dp"
-                android:src="@drawable/back"/>
-            <TextView
-                android:textSize="@dimen/heading"
-                android:textColor="@color/white"
-                android:layout_gravity="left|center_vertical|center_horizontal|center"
-                android:id="@+id/header_name"
-                android:layout_width="wrap_content"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="My Remainder"
-                android:layout_weight="1"
-                android:textAllCaps="true"
-                android:fontFamily="@font/josefinsans_bold"/>
+                android:orientation="horizontal">
 
+                <ImageView
+                    android:id="@+id/back"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="left|center_vertical|center_horizontal|center"
+                    android:layout_margin="10dp"
+                    android:padding="5dp"
+                    android:src="@drawable/back" />
+
+                <TextView
+                    android:id="@+id/header_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left|center_vertical|center_horizontal|center"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/josefinsans_bold"
+                    android:text="My Remainder"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/heading" />
+
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/select_reminder"
-        android:layout_below="@+id/header"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <RelativeLayout
+        <LinearLayout
+            android:id="@+id/select_reminder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/edit_bg"
-            android:layout_margin="@dimen/marginhalf">
-            <TextView
-                android:id="@+id/reminder_edt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:textSize="@dimen/bigtext"
-                android:padding="@dimen/paddinghigh"
-                android:inputType="text"
-                android:singleLine="true"
-                android:textColor="@color/black"
-                android:background="@color/white"
-                android:fontFamily="@font/josefinsans_light"
-                android:layout_marginRight="35dp"
-                android:layout_marginLeft="3dp"
-                android:layout_marginTop="3dp"
-                android:layout_marginBottom="3dp"
-                android:hint="Select Reminder"/>
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/down_arrow"
-                android:layout_centerVertical="true"
-                android:padding="@dimen/paddinglow"
-                android:layout_alignParentRight="true"/>
-
-        </RelativeLayout>
-
-        <View
-            android:layout_marginTop="@dimen/margin"
-            android:layout_marginBottom="@dimen/margin"
-            android:layout_marginLeft="@dimen/margin"
-            android:layout_marginRight="@dimen/margin"
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="@color/black" />
-
-    </LinearLayout>
-
-    <ScrollView
-        android:visibility="gone"
-        android:id="@+id/reminder_service"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/select_reminder"
-        android:background="@drawable/bg">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="@dimen/marginlow"
+            android:layout_below="@+id/header"
             android:orientation="vertical">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/edit_bg"
-                android:layout_margin="@dimen/marginhalf">
-                <TextView
-                    android:id="@+id/service_count_edt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:textSize="@dimen/bigtext"
-                    android:padding="@dimen/paddinghigh"
-                    android:inputType="text"
-                    android:singleLine="true"
-                    android:textColor="@color/black"
-                    android:background="@color/white"
-                    android:fontFamily="@font/josefinsans_light"
-                    android:layout_marginRight="35dp"
-                    android:layout_marginLeft="3dp"
-                    android:layout_marginTop="3dp"
-                    android:layout_marginBottom="3dp"
-                    android:hint="Services"/>
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/down_arrow"
-                    android:layout_centerVertical="true"
-                    android:padding="@dimen/paddinglow"
-                    android:layout_alignParentRight="true"/>
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/edit_bg"
-                android:layout_margin="@dimen/marginhalf">
-                <TextView
-                    android:id="@+id/last_ser_date_edt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:textSize="@dimen/bigtext"
-                    android:padding="@dimen/paddinghigh"
-                    android:inputType="text"
-                    android:singleLine="true"
-                    android:textColor="@color/black"
-                    android:background="@color/white"
-                    android:fontFamily="@font/josefinsans_light"
-                    android:layout_marginRight="35dp"
-                    android:layout_marginLeft="3dp"
-                    android:layout_marginTop="3dp"
-                    android:layout_marginBottom="3dp"
-                    android:hint="Last Serviced Date"/>
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/ic_calendar_24"
-                    android:layout_centerVertical="true"
-                    android:padding="@dimen/paddinglow"
-                    android:layout_alignParentRight="true"/>
-
-            </RelativeLayout>
-
-            <EditText
-                android:id="@+id/last_dri_kms_edt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:textSize="@dimen/bigtext"
-                android:padding="@dimen/paddinghigh"
-                android:background="@drawable/edit_bg"
-                android:inputType="number"
-                android:singleLine="true"
                 android:layout_margin="@dimen/marginhalf"
-                android:textColor="@color/black"
-                android:imeOptions="actionNext"
-                android:fontFamily="@font/josefinsans_light"
-                android:hint="Last Driven Kms"/>
+                android:background="@drawable/edit_bg">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/edit_bg"
-                android:layout_margin="@dimen/marginhalf">
                 <TextView
-                    android:id="@+id/next_ser_date_edt"
+                    android:id="@+id/reminder_edt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:textSize="@dimen/bigtext"
-                    android:padding="@dimen/paddinghigh"
-                    android:inputType="text"
-                    android:singleLine="true"
-                    android:textColor="@color/black"
-                    android:background="@color/white"
-                    android:fontFamily="@font/josefinsans_light"
-                    android:layout_marginRight="35dp"
                     android:layout_marginLeft="3dp"
                     android:layout_marginTop="3dp"
+                    android:layout_marginRight="35dp"
                     android:layout_marginBottom="3dp"
-                    android:hint="Next Serviced Date"/>
+                    android:background="@color/white"
+                    android:fontFamily="@font/josefinsans_light"
+                    android:hint="Select Reminder"
+                    android:inputType="text"
+                    android:padding="@dimen/paddinghigh"
+                    android:singleLine="true"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/bigtext" />
+
                 <ImageView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:src="@drawable/ic_calendar_24"
+                    android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:padding="@dimen/paddinglow"
-                    android:layout_alignParentRight="true"/>
+                    android:src="@drawable/down_arrow" />
 
             </RelativeLayout>
 
-            <EditText
-                android:id="@+id/next_dri_kms_edt"
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:textSize="@dimen/bigtext"
-                android:padding="@dimen/paddinghigh"
-                android:background="@drawable/edit_bg"
-                android:inputType="number"
-                android:singleLine="true"
-                android:layout_margin="@dimen/marginhalf"
-                android:textColor="@color/black"
-                android:imeOptions="actionNext"
-                android:fontFamily="@font/josefinsans_light"
-                android:hint="Next Driven Kms"/>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/edit_bg"
-                android:layout_margin="@dimen/marginhalf">
-                <TextView
-                    android:id="@+id/set_ser_reminder"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:textSize="@dimen/bigtext"
-                    android:padding="@dimen/paddinghigh"
-                    android:inputType="text"
-                    android:singleLine="true"
-                    android:textColor="@color/black"
-                    android:background="@color/white"
-                    android:fontFamily="@font/josefinsans_light"
-                    android:layout_marginRight="35dp"
-                    android:layout_marginLeft="3dp"
-                    android:layout_marginTop="3dp"
-                    android:layout_marginBottom="3dp"
-                    android:hint="Set Remainder"/>
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/down_arrow"
-                    android:layout_centerVertical="true"
-                    android:padding="@dimen/paddinglow"
-                    android:layout_alignParentRight="true"/>
-
-            </RelativeLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="95dp"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:layout_alignParentBottom="true"
-                android:background="@drawable/bg"
-                android:layout_margin="@dimen/marginmed">
-                <Button
-                    android:id="@+id/ser_cancel"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Cancel"
-                    android:fontFamily="@font/josefinsans_bold"
-                    android:textColor="@color/white"
-                    android:layout_gravity="center"
-                    android:textSize="@dimen/bigtext"
-                    android:layout_weight="1"
-                    android:background="@drawable/login_bg"
-                    android:textAllCaps="true"
-                    android:layout_margin="@dimen/margin" />
-                <Button
-                    android:id="@+id/ser_submit"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Submit"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/josefinsans_bold"
-                    android:textColor="@color/white"
-                    android:layout_gravity="center"
-                    android:textSize="@dimen/bigtext"
-                    android:background="@drawable/login_bg"
-                    android:textAllCaps="true"
-                    android:layout_margin="@dimen/margin" />
-            </LinearLayout>
+                android:layout_height="0.5dp"
+                android:layout_marginLeft="@dimen/margin"
+                android:layout_marginTop="@dimen/margin"
+                android:layout_marginRight="@dimen/margin"
+                android:layout_marginBottom="@dimen/margin"
+                android:background="@color/black" />
 
         </LinearLayout>
 
-    </ScrollView>
-
-    <ScrollView
-        android:visibility="gone"
-        android:id="@+id/reminder_insurance"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/select_reminder"
-        android:background="@drawable/bg">
-
-        <LinearLayout
+        <ScrollView
+            android:id="@+id/reminder_service"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="@dimen/marginlow"
-            android:orientation="vertical">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:visibility="visible"
-                android:layout_height="wrap_content">
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/edit_bg"
-                    android:layout_margin="@dimen/marginhalf">
-                    <TextView
-                        android:id="@+id/ins_brnd_edt"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:textSize="@dimen/bigtext"
-                        android:padding="@dimen/paddinghigh"
-                        android:inputType="text"
-                        android:singleLine="true"
-                        android:textColor="@color/black"
-                        android:background="@color/white"
-                        android:fontFamily="@font/josefinsans_light"
-                        android:layout_marginRight="35dp"
-                        android:layout_marginLeft="3dp"
-                        android:layout_marginTop="3dp"
-                        android:layout_marginBottom="3dp"
-                        android:hint="Insurance Brand"/>
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:src="@drawable/down_arrow"
-                        android:layout_centerVertical="true"
-                        android:padding="@dimen/paddinglow"
-                        android:layout_alignParentRight="true"/>
-                </RelativeLayout>
-            </RelativeLayout>
-
-            <EditText
-                android:id="@+id/policy_no_edt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:textSize="@dimen/bigtext"
-                android:padding="@dimen/paddinghigh"
-                android:background="@drawable/edit_bg"
-                android:inputType="text"
-                android:singleLine="true"
-                android:layout_margin="@dimen/marginhalf"
-                android:textColor="@color/black"
-                android:imeOptions="actionNext"
-                android:fontFamily="@font/josefinsans_light"
-                android:hint="Policy Number"/>
-
-            <EditText
-                android:id="@+id/enginee_no_edt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:textSize="@dimen/bigtext"
-                android:padding="@dimen/paddinghigh"
-                android:background="@drawable/edit_bg"
-                android:inputType="text"
-                android:singleLine="true"
-                android:layout_margin="@dimen/marginhalf"
-                android:textColor="@color/black"
-                android:imeOptions="actionNext"
-                android:fontFamily="@font/josefinsans_light"
-                android:hint="Chasis No/Engine No"/>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:visibility="visible"
-                android:layout_height="wrap_content">
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/edit_bg"
-                    android:layout_margin="@dimen/marginhalf">
-                    <TextView
-                        android:id="@+id/paid_date_edt"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:textSize="@dimen/bigtext"
-                        android:padding="@dimen/paddinghigh"
-                        android:inputType="text"
-                        android:singleLine="true"
-                        android:textColor="@color/black"
-                        android:background="@color/white"
-                        android:fontFamily="@font/josefinsans_light"
-                        android:layout_marginRight="35dp"
-                        android:layout_marginLeft="3dp"
-                        android:layout_marginTop="3dp"
-                        android:layout_marginBottom="3dp"
-                        android:hint="Paid on"/>
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:src="@drawable/ic_calendar_24"
-                        android:layout_centerVertical="true"
-                        android:padding="@dimen/paddinglow"
-                        android:layout_alignParentRight="true"/>
-                </RelativeLayout>
-            </RelativeLayout>
-
-            <EditText
-                android:id="@+id/paid_amount_edt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:textSize="@dimen/bigtext"
-                android:padding="@dimen/paddinghigh"
-                android:background="@drawable/edit_bg"
-                android:inputType="number"
-                android:singleLine="true"
-                android:layout_margin="@dimen/marginhalf"
-                android:textColor="@color/black"
-                android:imeOptions="actionNext"
-                android:fontFamily="@font/josefinsans_light"
-                android:hint="Paid Amount"/>
-
-            <EditText
-                android:id="@+id/vec_reg_edt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:textSize="@dimen/bigtext"
-                android:padding="@dimen/paddinghigh"
-                android:background="@drawable/edit_bg"
-                android:inputType="number"
-                android:singleLine="true"
-                android:layout_margin="@dimen/marginhalf"
-                android:textColor="@color/black"
-                android:imeOptions="actionNext"
-                android:fontFamily="@font/josefinsans_light"
-                android:hint="Vehicle Registration Number"/>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:visibility="visible"
-                android:layout_height="wrap_content">
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/edit_bg"
-                    android:layout_margin="@dimen/marginhalf">
-                    <TextView
-                        android:id="@+id/renewal_date_edt"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:textSize="@dimen/bigtext"
-                        android:padding="@dimen/paddinghigh"
-                        android:inputType="text"
-                        android:singleLine="true"
-                        android:textColor="@color/black"
-                        android:background="@color/white"
-                        android:fontFamily="@font/josefinsans_light"
-                        android:layout_marginRight="35dp"
-                        android:layout_marginLeft="3dp"
-                        android:layout_marginTop="3dp"
-                        android:layout_marginBottom="3dp"
-                        android:hint="Next Renewal"/>
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:src="@drawable/ic_calendar_24"
-                        android:layout_centerVertical="true"
-                        android:padding="@dimen/paddinglow"
-                        android:layout_alignParentRight="true"/>
-                </RelativeLayout>
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/edit_bg"
-                android:layout_margin="@dimen/marginhalf">
-                <TextView
-                    android:id="@+id/set_ins_reminder"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:textSize="@dimen/bigtext"
-                    android:padding="@dimen/paddinghigh"
-                    android:inputType="text"
-                    android:singleLine="true"
-                    android:textColor="@color/black"
-                    android:background="@color/white"
-                    android:fontFamily="@font/josefinsans_light"
-                    android:layout_marginRight="35dp"
-                    android:layout_marginLeft="3dp"
-                    android:layout_marginTop="3dp"
-                    android:layout_marginBottom="3dp"
-                    android:hint="Set Remainder"/>
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/down_arrow"
-                    android:layout_centerVertical="true"
-                    android:padding="@dimen/paddinglow"
-                    android:layout_alignParentRight="true"/>
-
-            </RelativeLayout>
-
+            android:layout_below="@id/select_reminder"
+            android:background="@drawable/bg"
+            android:visibility="gone">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="95dp"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:layout_alignParentBottom="true"
-                android:background="@drawable/bg"
-                android:layout_margin="@dimen/marginmed">
-                <Button
-                    android:id="@+id/ins_cancel"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/marginlow"
+                android:orientation="vertical">
+
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Cancel"
-                    android:fontFamily="@font/josefinsans_bold"
-                    android:textColor="@color/white"
-                    android:layout_gravity="center"
-                    android:textSize="@dimen/bigtext"
-                    android:layout_weight="1"
-                    android:background="@drawable/login_bg"
-                    android:textAllCaps="true"
-                    android:layout_margin="@dimen/margin" />
-                <Button
-                    android:id="@+id/ins_submit"
+                    android:layout_margin="@dimen/marginhalf"
+                    android:background="@drawable/edit_bg">
+
+                    <TextView
+                        android:id="@+id/service_count_edt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="3dp"
+                        android:layout_marginTop="3dp"
+                        android:layout_marginRight="35dp"
+                        android:layout_marginBottom="3dp"
+                        android:background="@color/white"
+                        android:fontFamily="@font/josefinsans_light"
+                        android:hint="Services"
+                        android:inputType="text"
+                        android:padding="@dimen/paddinghigh"
+                        android:singleLine="true"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/bigtext" />
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:padding="@dimen/paddinglow"
+                        android:src="@drawable/down_arrow" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Submit"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/josefinsans_bold"
-                    android:textColor="@color/white"
-                    android:layout_gravity="center"
-                    android:textSize="@dimen/bigtext"
-                    android:background="@drawable/login_bg"
-                    android:textAllCaps="true"
-                    android:layout_margin="@dimen/margin" />
-            </LinearLayout>
+                    android:layout_margin="@dimen/marginhalf"
+                    android:background="@drawable/edit_bg">
 
-        </LinearLayout>
+                    <TextView
+                        android:id="@+id/last_ser_date_edt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="3dp"
+                        android:layout_marginTop="3dp"
+                        android:layout_marginRight="35dp"
+                        android:layout_marginBottom="3dp"
+                        android:background="@color/white"
+                        android:fontFamily="@font/josefinsans_light"
+                        android:hint="Last Serviced Date"
+                        android:inputType="text"
+                        android:padding="@dimen/paddinghigh"
+                        android:singleLine="true"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/bigtext" />
 
-    </ScrollView>
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:padding="@dimen/paddinglow"
+                        android:src="@drawable/ic_calendar_24" />
+
+                </RelativeLayout>
+
+                <EditText
+                    android:id="@+id/last_dri_kms_edt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="@dimen/marginhalf"
+                    android:background="@drawable/edit_bg"
+                    android:fontFamily="@font/josefinsans_light"
+                    android:hint="Last Driven Kms"
+                    android:imeOptions="actionNext"
+                    android:inputType="number"
+                    android:padding="@dimen/paddinghigh"
+                    android:singleLine="true"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/bigtext" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/marginhalf"
+                    android:background="@drawable/edit_bg">
+
+                    <TextView
+                        android:id="@+id/next_ser_date_edt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="3dp"
+                        android:layout_marginTop="3dp"
+                        android:layout_marginRight="35dp"
+                        android:layout_marginBottom="3dp"
+                        android:background="@color/white"
+                        android:fontFamily="@font/josefinsans_light"
+                        android:hint="Next Serviced Date"
+                        android:inputType="text"
+                        android:padding="@dimen/paddinghigh"
+                        android:singleLine="true"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/bigtext" />
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:padding="@dimen/paddinglow"
+                        android:src="@drawable/ic_calendar_24" />
+
+                </RelativeLayout>
+
+                <EditText
+                    android:id="@+id/next_dri_kms_edt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="@dimen/marginhalf"
+                    android:background="@drawable/edit_bg"
+                    android:fontFamily="@font/josefinsans_light"
+                    android:hint="Next Driven Kms"
+                    android:imeOptions="actionNext"
+                    android:inputType="number"
+                    android:padding="@dimen/paddinghigh"
+                    android:singleLine="true"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/bigtext" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/marginhalf"
+                    android:background="@drawable/edit_bg">
+
+                    <TextView
+                        android:id="@+id/set_ser_reminder"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="3dp"
+                        android:layout_marginTop="3dp"
+                        android:layout_marginRight="35dp"
+                        android:layout_marginBottom="3dp"
+                        android:background="@color/white"
+                        android:fontFamily="@font/josefinsans_light"
+                        android:hint="Set Remainder"
+                        android:inputType="text"
+                        android:padding="@dimen/paddinghigh"
+                        android:singleLine="true"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/bigtext" />
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:padding="@dimen/paddinglow"
+                        android:src="@drawable/down_arrow" />
+
+                </RelativeLayout>
 
 
-
-
-    <RelativeLayout
-        android:id="@+id/apart_rl"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/trans"
-            android:gravity="center">
-            <androidx.cardview.widget.CardView
-                android:id="@+id/card"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="11dp"
-                app:cardBackgroundColor="@color/white"
-                android:elevation="7dp"
-                android:fitsSystemWindows="true"
-                app:cardUseCompatPadding="true"
-                android:layout_margin="@dimen/margin"
-                app:cardPreventCornerOverlap="true"
-                app:cardElevation="5dp">
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/remin_type_rc"
+                    android:layout_height="95dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/marginmed"
+                    android:background="@drawable/bg"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/ser_cancel"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:visibility="gone"
-                        android:layout_margin="@dimen/marginmed">
+                        android:layout_gravity="center"
+                        android:layout_margin="@dimen/margin"
+                        android:layout_weight="1"
+                        android:background="@drawable/login_bg"
+                        android:fontFamily="@font/josefinsans_bold"
+                        android:text="Cancel"
+                        android:textAllCaps="true"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/bigtext" />
 
-                    </androidx.recyclerview.widget.RecyclerView>
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/ser_count_rc"
+                    <Button
+                        android:id="@+id/ser_submit"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:visibility="gone"
-                        android:layout_margin="@dimen/marginmed">
-
-                    </androidx.recyclerview.widget.RecyclerView>
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/set_remainder_rc"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:visibility="gone"
-                        android:layout_margin="@dimen/marginmed">
-
-                    </androidx.recyclerview.widget.RecyclerView>
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/ins_brnd_rc"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:visibility="gone"
-                        android:layout_margin="@dimen/marginmed">
-
-                    </androidx.recyclerview.widget.RecyclerView>
-
+                        android:layout_gravity="center"
+                        android:layout_margin="@dimen/margin"
+                        android:layout_weight="1"
+                        android:background="@drawable/login_bg"
+                        android:fontFamily="@font/josefinsans_bold"
+                        android:text="Submit"
+                        android:textAllCaps="true"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/bigtext" />
                 </LinearLayout>
-            </androidx.cardview.widget.CardView>
-        </LinearLayout>
-    </RelativeLayout>
 
-</RelativeLayout>
+            </LinearLayout>
+
+        </ScrollView>
+
+        <ScrollView
+            android:id="@+id/reminder_insurance"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/select_reminder"
+            android:background="@drawable/bg"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/marginlow"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="visible">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/marginhalf"
+                        android:background="@drawable/edit_bg">
+
+                        <TextView
+                            android:id="@+id/ins_brnd_edt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="3dp"
+                            android:layout_marginTop="3dp"
+                            android:layout_marginRight="35dp"
+                            android:layout_marginBottom="3dp"
+                            android:background="@color/white"
+                            android:fontFamily="@font/josefinsans_light"
+                            android:hint="Insurance Brand"
+                            android:inputType="text"
+                            android:padding="@dimen/paddinghigh"
+                            android:singleLine="true"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/bigtext" />
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:padding="@dimen/paddinglow"
+                            android:src="@drawable/down_arrow" />
+                    </RelativeLayout>
+                </RelativeLayout>
+
+                <EditText
+                    android:id="@+id/policy_no_edt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="@dimen/marginhalf"
+                    android:background="@drawable/edit_bg"
+                    android:fontFamily="@font/josefinsans_light"
+                    android:hint="Policy Number"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"
+                    android:padding="@dimen/paddinghigh"
+                    android:singleLine="true"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/bigtext" />
+
+                <EditText
+                    android:id="@+id/enginee_no_edt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="@dimen/marginhalf"
+                    android:background="@drawable/edit_bg"
+                    android:fontFamily="@font/josefinsans_light"
+                    android:hint="Chasis No/Engine No"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"
+                    android:padding="@dimen/paddinghigh"
+                    android:singleLine="true"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/bigtext" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="visible">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/marginhalf"
+                        android:background="@drawable/edit_bg">
+
+                        <TextView
+                            android:id="@+id/paid_date_edt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="3dp"
+                            android:layout_marginTop="3dp"
+                            android:layout_marginRight="35dp"
+                            android:layout_marginBottom="3dp"
+                            android:background="@color/white"
+                            android:fontFamily="@font/josefinsans_light"
+                            android:hint="Paid on"
+                            android:inputType="text"
+                            android:padding="@dimen/paddinghigh"
+                            android:singleLine="true"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/bigtext" />
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:padding="@dimen/paddinglow"
+                            android:src="@drawable/ic_calendar_24" />
+                    </RelativeLayout>
+                </RelativeLayout>
+
+                <EditText
+                    android:id="@+id/paid_amount_edt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="@dimen/marginhalf"
+                    android:background="@drawable/edit_bg"
+                    android:fontFamily="@font/josefinsans_light"
+                    android:hint="Paid Amount"
+                    android:imeOptions="actionNext"
+                    android:inputType="number"
+                    android:padding="@dimen/paddinghigh"
+                    android:singleLine="true"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/bigtext" />
+
+                <EditText
+                    android:id="@+id/vec_reg_edt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="@dimen/marginhalf"
+                    android:background="@drawable/edit_bg"
+                    android:fontFamily="@font/josefinsans_light"
+                    android:hint="Vehicle Registration Number"
+                    android:imeOptions="actionNext"
+                    android:inputType="number"
+                    android:padding="@dimen/paddinghigh"
+                    android:singleLine="true"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/bigtext" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="visible">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/marginhalf"
+                        android:background="@drawable/edit_bg">
+
+                        <TextView
+                            android:id="@+id/renewal_date_edt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="3dp"
+                            android:layout_marginTop="3dp"
+                            android:layout_marginRight="35dp"
+                            android:layout_marginBottom="3dp"
+                            android:background="@color/white"
+                            android:fontFamily="@font/josefinsans_light"
+                            android:hint="Next Renewal"
+                            android:inputType="text"
+                            android:padding="@dimen/paddinghigh"
+                            android:singleLine="true"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/bigtext" />
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:padding="@dimen/paddinglow"
+                            android:src="@drawable/ic_calendar_24" />
+                    </RelativeLayout>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/marginhalf"
+                    android:background="@drawable/edit_bg">
+
+                    <TextView
+                        android:id="@+id/set_ins_reminder"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="3dp"
+                        android:layout_marginTop="3dp"
+                        android:layout_marginRight="35dp"
+                        android:layout_marginBottom="3dp"
+                        android:background="@color/white"
+                        android:fontFamily="@font/josefinsans_light"
+                        android:hint="Set Remainder"
+                        android:inputType="text"
+                        android:padding="@dimen/paddinghigh"
+                        android:singleLine="true"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/bigtext" />
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:padding="@dimen/paddinglow"
+                        android:src="@drawable/down_arrow" />
+
+                </RelativeLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="95dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/marginmed"
+                    android:background="@drawable/bg"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/ins_cancel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="@dimen/margin"
+                        android:layout_weight="1"
+                        android:background="@drawable/login_bg"
+                        android:fontFamily="@font/josefinsans_bold"
+                        android:text="Cancel"
+                        android:textAllCaps="true"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/bigtext" />
+
+                    <Button
+                        android:id="@+id/ins_submit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="@dimen/margin"
+                        android:layout_weight="1"
+                        android:background="@drawable/login_bg"
+                        android:fontFamily="@font/josefinsans_bold"
+                        android:text="Submit"
+                        android:textAllCaps="true"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/bigtext" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+
+        <RelativeLayout
+            android:id="@+id/apart_rl"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/trans"
+                android:gravity="center">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin"
+                    android:elevation="7dp"
+                    android:fitsSystemWindows="true"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="11dp"
+                    app:cardElevation="5dp"
+                    app:cardPreventCornerOverlap="true"
+                    app:cardUseCompatPadding="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/remin_type_rc"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/marginmed"
+                            android:visibility="gone">
+
+                        </androidx.recyclerview.widget.RecyclerView>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/ser_count_rc"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/marginmed"
+                            android:visibility="gone">
+
+                        </androidx.recyclerview.widget.RecyclerView>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/set_remainder_rc"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/marginmed"
+                            android:visibility="gone">
+
+                        </androidx.recyclerview.widget.RecyclerView>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/ins_brnd_rc"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/marginmed"
+                            android:visibility="gone">
+
+                        </androidx.recyclerview.widget.RecyclerView>
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+        </RelativeLayout>
+
+    </RelativeLayout>
 </layout>

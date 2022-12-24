@@ -1,279 +1,304 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="wrap_content">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <androidx.cardview.widget.CardView
             android:id="@+id/cardorder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="5dp"
-            app:cardBackgroundColor="@color/white"
+            android:layout_margin="@dimen/margin"
             android:elevation="7dp"
             android:fitsSystemWindows="true"
-            app:cardUseCompatPadding="true"
-            android:layout_margin="@dimen/margin"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="5dp"
             app:cardPreventCornerOverlap="true"
-            app:cardElevation="5dp">
+            app:cardUseCompatPadding="true">
+
             <LinearLayout
-                android:layout_margin="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_gravity="center">
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:orientation="vertical">
 
                 <LinearLayout
-                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center|left"
-                        android:textColor="@color/dark_gray"
-                        android:text="Order Id : "
+                        android:fontFamily="@font/josefinsans_regular"
                         android:gravity="left"
                         android:padding="@dimen/paddinglow"
-                        android:fontFamily="@font/josefinsans_regular"
-                        android:textSize="@dimen/medtext"/>
+                        android:text="Order Id : "
+                        android:textColor="@color/dark_gray"
+                        android:textSize="@dimen/medtext" />
+
                     <TextView
                         android:id="@+id/payment_id"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center|left"
-                        android:textColor="@color/black"
                         android:layout_weight="1"
-                        android:padding="@dimen/paddinglow"
                         android:fontFamily="@font/josefinsans_bold"
-                        android:textSize="@dimen/bigtext"/>
+                        android:padding="@dimen/paddinglow"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/bigtext" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center|left"
-                        android:textColor="@color/dark_gray"
-                        android:text="Payment type : "
+                        android:fontFamily="@font/josefinsans_regular"
                         android:gravity="left"
                         android:padding="@dimen/paddinglow"
-                        android:fontFamily="@font/josefinsans_regular"
-                        android:textSize="@dimen/medtext"/>
+                        android:text="Payment type : "
+                        android:textColor="@color/dark_gray"
+                        android:textSize="@dimen/medtext" />
+
                     <TextView
                         android:id="@+id/payment_type"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center|left"
-                        android:textColor="@color/black"
                         android:layout_weight="1"
-                        android:padding="@dimen/paddinglow"
                         android:fontFamily="@font/josefinsans_bold"
-                        android:textSize="@dimen/bigtext"/>
+                        android:padding="@dimen/paddinglow"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/bigtext" />
                 </LinearLayout>
 
                 <View
-                    android:background="@color/trans"
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"/>
+                    android:layout_height="1dp"
+                    android:background="@color/trans" />
 
                 <LinearLayout
-                    android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/margin"
+                    android:layout_marginTop="10dp"
                     android:orientation="horizontal">
+
                     <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_weight="1"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
                         <TextView
                             android:id="@+id/txt1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/dark_gray"
-                            android:text="Date : "
                             android:fontFamily="@font/josefinsans_regular"
+                            android:text="Date : "
+                            android:textColor="@color/dark_gray"
                             android:textSize="@dimen/medtext"
                             tools:ignore="MissingConstraints" />
+
                         <TextView
-                            app:layout_constraintTop_toBottomOf="@+id/txt1"
                             android:id="@+id/date"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center|left"
-                            android:textColor="@color/black"
-                            android:gravity="center|left"
                             android:layout_weight="1"
                             android:fontFamily="@font/josefinsans_bold"
+                            android:gravity="center|left"
+                            android:textColor="@color/black"
                             android:textSize="@dimen/bigtext"
-                            tools:ignore="MissingConstraints" />
-                        <TextView
-                            android:visibility="gone"
                             app:layout_constraintTop_toBottomOf="@+id/txt1"
+                            tools:ignore="MissingConstraints" />
 
+                        <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+
                             android:layout_gravity="center|left"
-                            android:textColor="@color/black"
+                            android:fontFamily="@font/josefinsans_bold"
                             android:gravity="left"
                             android:padding="@dimen/paddinglow"
-                            android:fontFamily="@font/josefinsans_bold"
+                            android:textColor="@color/black"
                             android:textSize="@dimen/bigtext"
+                            android:visibility="gone"
+                            app:layout_constraintTop_toBottomOf="@+id/txt1"
                             tools:ignore="MissingConstraints" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
+
                     <TextView
-                        android:visibility="gone"
                         android:id="@+id/package_type"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center|left"
-                        android:textColor="@color/black"
-                        android:gravity="left"
                         android:layout_weight="1"
-                        android:padding="@dimen/paddinglow"
                         android:fontFamily="@font/josefinsans_bold"
-                        android:textSize="@dimen/bigtext"/>
+                        android:gravity="left"
+                        android:padding="@dimen/paddinglow"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/bigtext"
+                        android:visibility="gone" />
+
                     <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_weight="1"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
                         <TextView
                             android:id="@+id/txt2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/dark_gray"
-                            android:text="Service type : "
-                            android:gravity="right"
                             android:fontFamily="@font/josefinsans_regular"
+                            android:gravity="right"
+                            android:text="Service type : "
+                            android:textColor="@color/dark_gray"
                             android:textSize="@dimen/medtext"
                             tools:ignore="MissingConstraints" />
+
                         <TextView
-                            app:layout_constraintTop_toBottomOf="@+id/txt2"
                             android:id="@+id/service_type"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center|left"
-                            android:textColor="@color/black"
                             android:layout_weight="1"
-                            android:gravity="center|right"
                             android:fontFamily="@font/josefinsans_bold"
+                            android:gravity="center|right"
+                            android:textColor="@color/black"
                             android:textSize="@dimen/bigtext"
+                            app:layout_constraintTop_toBottomOf="@+id/txt2"
                             tools:ignore="MissingConstraints" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </LinearLayout>
+
                 <LinearLayout
-                    android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="@dimen/margin"
+                    android:layout_marginTop="10dp"
                     android:layout_marginRight="@dimen/margin"
                     android:orientation="horizontal">
+
                     <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_weight="1"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
                         <TextView
                             android:id="@+id/txt3"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/dark_gray"
-                            android:text="Plate Number : "
                             android:fontFamily="@font/josefinsans_regular"
+                            android:text="Plate Number : "
+                            android:textColor="@color/dark_gray"
                             android:textSize="@dimen/medtext"
                             tools:ignore="MissingConstraints" />
+
                         <TextView
-                            app:layout_constraintTop_toBottomOf="@+id/txt3"
                             android:id="@+id/vec_no"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center|left"
-                            android:textColor="@color/black"
-                            android:gravity="center|left"
                             android:layout_weight="1"
                             android:fontFamily="@font/josefinsans_bold"
+                            android:gravity="center|left"
+                            android:textColor="@color/black"
                             android:textSize="@dimen/bigtext"
+                            app:layout_constraintTop_toBottomOf="@+id/txt3"
                             tools:ignore="MissingConstraints" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
+
                     <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_weight="1"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
                         <TextView
                             android:id="@+id/txt4"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/dark_gray"
-                            android:text="Status : "
                             android:fontFamily="@font/josefinsans_regular"
-                            android:textSize="@dimen/medtext"
                             android:gravity="right"
+                            android:text="Status : "
+                            android:textColor="@color/dark_gray"
+                            android:textSize="@dimen/medtext"
                             tools:ignore="MissingConstraints" />
+
                         <TextView
-                            app:layout_constraintTop_toBottomOf="@+id/txt4"
                             android:id="@+id/status"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center|right"
-                            android:textColor="@color/black"
-                            android:gravity="center|right"
                             android:layout_weight="1"
                             android:fontFamily="@font/josefinsans_bold"
-                            android:textSize="@dimen/bigtext"
+                            android:gravity="center|right"
                             android:textAllCaps="true"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/bigtext"
+                            app:layout_constraintTop_toBottomOf="@+id/txt4"
                             tools:ignore="MissingConstraints" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </LinearLayout>
+
                 <LinearLayout
-                    android:visibility="gone"
                     android:id="@+id/reason_ll"
-                    android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="@dimen/margin"
+                    android:layout_marginTop="10dp"
                     android:layout_marginRight="@dimen/margin"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
                     <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_weight="1"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
                         <TextView
                             android:id="@+id/txt6"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/dark_gray"
-                            android:text="Reason for Cancel : "
                             android:fontFamily="@font/josefinsans_regular"
+                            android:text="Reason for Cancel : "
+                            android:textColor="@color/dark_gray"
                             android:textSize="@dimen/medtext"
                             tools:ignore="MissingConstraints" />
+
                         <TextView
-                            app:layout_constraintTop_toBottomOf="@+id/txt6"
                             android:id="@+id/reason_txt"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center|left"
-                            android:textColor="@color/black"
-                            android:gravity="center|left"
                             android:layout_weight="1"
                             android:fontFamily="@font/josefinsans_bold"
+                            android:gravity="center|left"
+                            android:textColor="@color/black"
                             android:textSize="@dimen/bigtext"
+                            app:layout_constraintTop_toBottomOf="@+id/txt6"
                             tools:ignore="MissingConstraints" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </LinearLayout>
 
                 <Button
-                    android:visibility="gone"
                     android:id="@+id/view_more"
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
@@ -288,8 +313,8 @@
                     android:text="View More"
                     android:textColor="@color/white"
                     android:textSize="@dimen/bigtext"
-                    android:textStyle="bold" />
-
+                    android:textStyle="bold"
+                    android:visibility="gone" />
 
 
             </LinearLayout>

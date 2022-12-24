@@ -1,45 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
-    <RelativeLayout
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    <RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorPrimary"
         tools:context=".activity.InternalwashActivity">
+
         <LinearLayout
             android:id="@+id/header"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:orientation="horizontal"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="horizontal">
+
             <ImageView
                 android:id="@+id/back"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
+                android:layout_gravity="center|left"
                 android:layout_margin="10dp"
-                android:src="@drawable/back"
                 android:padding="@dimen/padding"
-                android:layout_gravity="center|left" />
+                android:src="@drawable/back" />
+
             <TextView
                 android:id="@+id/header_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|left"
                 android:layout_weight="1"
-                android:textColor="#FFF"
-                android:textAllCaps="true"
-                android:text="Internal Clean"
                 android:fontFamily="@font/josefinsans_bold"
-                android:textSize="@dimen/heading"/>
+                android:text="Internal Clean"
+                android:textAllCaps="true"
+                android:textColor="#FFF"
+                android:textSize="@dimen/heading" />
         </LinearLayout>
 
 
-
         <ScrollView
-            android:layout_below="@+id/header"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_below="@+id/header"
             android:background="@drawable/bg">
 
             <LinearLayout
@@ -53,50 +55,51 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:textSize="@dimen/heading"
-                    android:padding="@dimen/paddinghigh"
-                    android:textColor="@color/black"
-                    android:visibility="gone"
                     android:layout_margin="@dimen/marginhalf"
                     android:fontFamily="@font/josefinsans_semibold"
-                    android:hint="Date1"/>
+                    android:hint="Date1"
+                    android:padding="@dimen/paddinghigh"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/heading"
+                    android:visibility="gone" />
+
                 <TextView
                     android:id="@+id/date2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:textSize="@dimen/heading"
+                    android:layout_margin="@dimen/marginhalf"
+                    android:fontFamily="@font/josefinsans_semibold"
+                    android:hint="Date2"
                     android:padding="@dimen/paddinghigh"
                     android:textColor="@color/black"
-                    android:layout_margin="@dimen/marginhalf"
-                    android:visibility="gone"
-                    android:fontFamily="@font/josefinsans_semibold"
-                    android:hint="Date2"/>
+                    android:textSize="@dimen/heading"
+                    android:visibility="gone" />
 
                 <LinearLayout
                     android:id="@+id/note"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
                     <com.airbnb.lottie.LottieAnimationView
                         android:layout_width="match_parent"
                         android:layout_height="250dp"
                         app:lottie_autoPlay="true"
-                        app:lottie_rawRes="@raw/internal_washing"
                         app:lottie_loop="true"
+                        app:lottie_rawRes="@raw/internal_washing"
                         app:lottie_scale="0.5" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:textSize="@dimen/heading"
-                        android:textColor="@color/colorPrimary"
-                        android:text="To this month Internal clean is over. Please try Next Month"
                         android:layout_margin="@dimen/marginhalf"
-                        android:fontFamily="@font/josefinsans_semibold"/>
+                        android:fontFamily="@font/josefinsans_semibold"
+                        android:text="To this month Internal clean is over. Please try Next Month"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/heading" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -110,60 +113,62 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:textSize="@dimen/bigtext"
-                        android:padding="@dimen/paddinghigh"
-                        android:lines="3"
-                        android:background="@drawable/edit_bg"
-                        android:textColor="@color/black"
                         android:layout_margin="@dimen/marginhalf"
+                        android:background="@drawable/edit_bg"
                         android:fontFamily="@font/josefinsans_regular"
-                        android:hint="Order Id"/>
+                        android:hint="Order Id"
+                        android:lines="3"
+                        android:padding="@dimen/paddinghigh"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/bigtext" />
 
                     <TextView
                         android:id="@+id/vehicle_make"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:textSize="@dimen/bigtext"
-                        android:padding="@dimen/paddinghigh"
-                        android:lines="3"
-                        android:background="@drawable/edit_bg"
-                        android:textColor="@color/black"
                         android:layout_margin="@dimen/marginhalf"
+                        android:background="@drawable/edit_bg"
                         android:fontFamily="@font/josefinsans_regular"
-                        android:hint="Vehicle id"/>
+                        android:hint="Vehicle id"
+                        android:lines="3"
+                        android:padding="@dimen/paddinghigh"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/bigtext" />
 
                     <TextView
-                        android:textSize="@dimen/bigtext"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/marginhalf"
                         android:fontFamily="@font/josefinsans_bold"
                         android:text="Internal Wash 1"
                         android:textColor="@color/black"
-                        android:layout_margin="@dimen/marginhalf"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:textSize="@dimen/bigtext" />
 
                     <TextView
                         android:id="@+id/prefer_date"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:textSize="@dimen/bigtext"
-                        android:padding="@dimen/paddinghigh"
-                        android:background="@drawable/edit_bg"
-                        android:textColor="@color/black"
                         android:layout_margin="@dimen/marginhalf"
+                        android:background="@drawable/edit_bg"
                         android:drawableRight="@drawable/ic_calendar_24"
                         android:fontFamily="@font/josefinsans_regular"
-                        android:hint="Preferred Date"/>
+                        android:hint="Preferred Date"
+                        android:padding="@dimen/paddinghigh"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/bigtext" />
+
                     <RelativeLayout
                         android:id="@+id/time_rl"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/edit_bg"
-                            android:layout_margin="@dimen/marginhalf">
+                            android:layout_margin="@dimen/marginhalf"
+                            android:background="@drawable/edit_bg">
 
                             <TextView
                                 android:id="@+id/preferredtime_edt"
@@ -182,168 +187,176 @@
                                 android:singleLine="true"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/bigtext" />
+
                             <ImageView
                                 android:id="@+id/prefertime_img"
                                 android:layout_width="30dp"
                                 android:layout_height="30dp"
-                                android:src="@drawable/ic_baseline_arrow_forward_ios_24"
+                                android:layout_alignParentRight="true"
                                 android:layout_centerVertical="true"
-                                android:rotation="90"
                                 android:padding="@dimen/paddinglow"
-                                android:layout_alignParentRight="true"/>
+                                android:rotation="90"
+                                android:src="@drawable/ic_baseline_arrow_forward_ios_24" />
                         </RelativeLayout>
                     </RelativeLayout>
 
                     <EditText
-                        android:layout_below="@+id/time_rl"
                         android:id="@+id/comment_txt"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_below="@+id/time_rl"
                         android:layout_gravity="center|left"
-                        android:textColor="#000"
+                        android:layout_margin="@dimen/marginhalf"
                         android:layout_marginTop="5dp"
-                        android:minLines="3"
-                        android:lines="5"
+                        android:background="@drawable/edit_bg"
+                        android:fontFamily="@font/josefinsans_regular"
                         android:gravity="left"
                         android:hint="Type Message here"
+                        android:lines="5"
+                        android:minLines="3"
                         android:padding="@dimen/paddinghigh"
-                        android:background="@drawable/edit_bg"
-                        android:layout_margin="@dimen/marginhalf"
-                        android:fontFamily="@font/josefinsans_regular"
-                        android:textSize="@dimen/bigtext"/>
+                        android:textColor="#000"
+                        android:textSize="@dimen/bigtext" />
 
 
                     <TextView
-                        android:textSize="@dimen/bigtext"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/marginhalf"
                         android:fontFamily="@font/josefinsans_bold"
                         android:text="Internal Wash 2"
                         android:textColor="@color/black"
-                        android:layout_margin="@dimen/marginhalf"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:textSize="@dimen/bigtext" />
 
                     <TextView
                         android:id="@+id/prefer_date2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:textSize="@dimen/bigtext"
-                        android:padding="@dimen/paddinghigh"
-                        android:background="@drawable/edit_bg"
-                        android:textColor="@color/black"
                         android:layout_margin="@dimen/marginhalf"
+                        android:background="@drawable/edit_bg"
                         android:drawableRight="@drawable/ic_calendar_24"
                         android:fontFamily="@font/josefinsans_regular"
-                        android:hint="Preferred Date"/>
+                        android:hint="Preferred Date"
+                        android:padding="@dimen/paddinghigh"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/bigtext" />
+
                     <RelativeLayout
                         android:id="@+id/time_rl2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/edit_bg"
-                            android:layout_margin="@dimen/marginhalf">
+                            android:layout_margin="@dimen/marginhalf"
+                            android:background="@drawable/edit_bg">
+
                             <TextView
                                 android:id="@+id/preferredtime_edt2"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
-                                android:textSize="@dimen/bigtext"
-                                android:padding="@dimen/paddinghigh"
-                                android:inputType="text"
-                                android:singleLine="true"
-                                android:textColor="@color/black"
-                                android:background="@color/white"
-                                android:fontFamily="@font/josefinsans_regular"
-                                android:layout_marginRight="35dp"
                                 android:layout_marginLeft="3dp"
                                 android:layout_marginTop="3dp"
+                                android:layout_marginRight="35dp"
                                 android:layout_marginBottom="3dp"
-                                android:hint="Preferred Time"/>
+                                android:background="@color/white"
+                                android:fontFamily="@font/josefinsans_regular"
+                                android:hint="Preferred Time"
+                                android:inputType="text"
+                                android:padding="@dimen/paddinghigh"
+                                android:singleLine="true"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/bigtext" />
+
                             <ImageView
                                 android:id="@+id/prefertime_img2"
                                 android:layout_width="30dp"
                                 android:layout_height="30dp"
-                                android:src="@drawable/ic_baseline_arrow_forward_ios_24"
+                                android:layout_alignParentRight="true"
                                 android:layout_centerVertical="true"
-                                android:rotation="90"
                                 android:padding="@dimen/paddinglow"
-                                android:layout_alignParentRight="true"/>
+                                android:rotation="90"
+                                android:src="@drawable/ic_baseline_arrow_forward_ios_24" />
                         </RelativeLayout>
                     </RelativeLayout>
 
                     <EditText
-                        android:layout_below="@+id/time_rl"
                         android:id="@+id/comment_txt2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_below="@+id/time_rl"
                         android:layout_gravity="center|left"
-                        android:textColor="#000"
+                        android:layout_margin="@dimen/marginhalf"
                         android:layout_marginTop="5dp"
-                        android:minLines="3"
-                        android:lines="5"
+                        android:background="@drawable/edit_bg"
+                        android:fontFamily="@font/josefinsans_regular"
                         android:gravity="left"
                         android:hint="Type Message here"
+                        android:lines="5"
+                        android:minLines="3"
                         android:padding="@dimen/paddinghigh"
-                        android:background="@drawable/edit_bg"
-                        android:layout_margin="@dimen/marginhalf"
-                        android:fontFamily="@font/josefinsans_regular"
-                        android:textSize="@dimen/bigtext"/>
+                        android:textColor="#000"
+                        android:textSize="@dimen/bigtext" />
 
                     <Button
                         android:id="@+id/submit"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/login_bg"
-                        android:text="Submit"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/bigtext"
                         android:layout_gravity="center"
-                        android:gravity="center"
-                        android:textStyle="bold"
-                        android:textAllCaps="true"
-                        android:fontFamily="@font/josefinsans_bold"
                         android:layout_marginLeft="50dp"
                         android:layout_marginTop="10dp"
+                        android:layout_marginRight="50dp"
                         android:layout_marginBottom="10dp"
-                        android:layout_marginRight="50dp"/>
+                        android:background="@drawable/login_bg"
+                        android:fontFamily="@font/josefinsans_bold"
+                        android:gravity="center"
+                        android:text="Submit"
+                        android:textAllCaps="true"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/bigtext"
+                        android:textStyle="bold" />
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>
 
         <RelativeLayout
             android:id="@+id/timerl"
-            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/trans">
+            android:background="@color/trans"
+            android:visibility="gone">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:orientation="vertical">
+
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:cardCornerRadius="11dp"
-                    app:cardBackgroundColor="@color/white"
                     android:elevation="7dp"
                     android:fitsSystemWindows="true"
-                    app:cardUseCompatPadding="true"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="11dp"
+                    app:cardElevation="7dp"
                     app:cardPreventCornerOverlap="true"
-                    app:cardElevation="7dp">
+                    app:cardUseCompatPadding="true">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
+
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/time_rc"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_margin="@dimen/marginmed">
-                        </androidx.recyclerview.widget.RecyclerView>
+                            android:layout_margin="@dimen/marginmed"></androidx.recyclerview.widget.RecyclerView>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
             </LinearLayout>

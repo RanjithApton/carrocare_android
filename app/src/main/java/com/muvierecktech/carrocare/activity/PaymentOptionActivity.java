@@ -63,15 +63,15 @@ import static com.google.firebase.messaging.Constants.MessagePayloadKeys.FROM;
 import static com.muvierecktech.carrocare.common.DatabaseHelper.TABLE_NAME;
 
 public class PaymentOptionActivity extends AppCompatActivity implements PaymentResultListener {
+    public static String time;
     public ActivityPaymentOptionBinding binding;
-    String cartype,carid,carimage,carcolor,parkingarea,parkinglotno,carno,carmakemodel,apartname,prefersch,prefertime,carprice, onetimecarprice, carcat,servicetype,carname;
-    String planId,subscriptionId,razorpayid,custname,custmob,custemail,customerid,token,action,onetimeService,paidMonths,discountAmount;
+    String cartype, carid, carimage, carcolor, parkingarea, parkinglotno, carno, carmakemodel, apartname, prefersch, prefertime, carprice, onetimecarprice, carcat, servicetype, carname;
+    String planId, subscriptionId, razorpayid, custname, custmob, custemail, customerid, token, action, onetimeService, paidMonths, discountAmount;
     String fineAmount = "0";
     SessionManager sessionManager;
     MyDatabaseHelper databaseHelper;
     String[] subsMonths = {"1 Month", "2 Months", "3 Months", "4 Months", "5 Months", "6 Months", "7 Months", "8 Months", "9 Months", "10 Months", "11 Months", "12 Months", "13 Months", "14 Months", "15 Months", "16 Months", "17 Months", "18 Months", "19 Months", "20 Months", "21 Months", "22 Months", "23 Months", "24 Months"};
-    String preTime[] = {Constant.ANYTIME, "9.00 AM - 10.00 AM","10.00 AM - 11.00 AM","11.00 AM - 12.00 PM","12.00 PM - 1.00 PM","6.00 PM - 7.00 PM","7.00 PM - 8.00 PM"};
-    public static String time;
+    String preTime[] = {Constant.ANYTIME, "9.00 AM - 10.00 AM", "10.00 AM - 11.00 AM", "11.00 AM - 12.00 PM", "12.00 PM - 1.00 PM", "6.00 PM - 7.00 PM", "7.00 PM - 8.00 PM"};
     int totalAmountStr;
     DatePickerDialog picker;
     List<OneTimeWashCheckout.getResult> result;
@@ -82,10 +82,10 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.activity_payment_option);
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_payment_option);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_payment_option);
 
         sessionManager = new SessionManager(this);
-        HashMap<String,String> hashMap = sessionManager.getUserDetails();
+        HashMap<String, String> hashMap = sessionManager.getUserDetails();
         customerid = hashMap.get(SessionManager.KEY_USERID);
         token = hashMap.get(SessionManager.KEY_TOKEN);
 
@@ -97,7 +97,7 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
         binding.checkCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(PaymentOptionActivity.this,CartActivity.class));
+                startActivity(new Intent(PaymentOptionActivity.this, CartActivity.class));
             }
         });
 
@@ -127,19 +127,19 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
         binding.parkingArea.setText(parkingarea);
         binding.parkingLot.setText(parkinglotno);
         binding.addressTxt.setText(apartname);
-        binding.datetimeTxt.setText(prefersch+"\n"+prefertime);
+        binding.datetimeTxt.setText(prefersch + "\n" + prefertime);
 
-        if(Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) != 0){
+        if (Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) != 0) {
             binding.taxField.setVisibility(View.VISIBLE);
             binding.taxField1.setVisibility(View.VISIBLE);
-            binding.taxPercentage.setText("GST ("+Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE))+"%)");
-            binding.taxPercentage1.setText("GST ("+Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE))+"%)");
-        }else{
+            binding.taxPercentage.setText("GST (" + Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) + "%)");
+            binding.taxPercentage1.setText("GST (" + Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) + "%)");
+        } else {
             binding.taxField.setVisibility(View.GONE);
             binding.taxField1.setVisibility(View.GONE);
         }
 
-        if (servicetype.equalsIgnoreCase(Constant.WASH)){
+        if (servicetype.equalsIgnoreCase(Constant.WASH)) {
             this.binding.subsCard.setVisibility(View.GONE);
             binding.serviceType.setText("Wash");
             binding.serviceType1.setText("Wash");
@@ -147,7 +147,7 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
             workPayment();
             Log.e("-----------------CAR ID---------->", onetimeService);
             Log.e("PlaceOrderOneTimeWash", token);
-        }else if (this.servicetype.equalsIgnoreCase(Constant.BWASH)) {
+        } else if (this.servicetype.equalsIgnoreCase(Constant.BWASH)) {
             this.binding.subsCard.setVisibility(View.GONE);
             binding.serviceType.setText("Wash");
             binding.serviceType1.setText("Wash");
@@ -155,7 +155,7 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
             workPayment();
             Log.e("-----------------CAR ID---------->", onetimeService);
             Log.e("PlaceOrderOneTimeWash", token);
-        } else if (servicetype.equalsIgnoreCase(Constant.ADDON)){
+        } else if (servicetype.equalsIgnoreCase(Constant.ADDON)) {
             binding.serviceType.setText("Add On");
             binding.serviceType1.setText("Add On");
             this.onetimeService = "AddOn";
@@ -165,36 +165,34 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
         } else if (servicetype.equalsIgnoreCase(Constant.EXTRAINT)) {
             this.binding.serviceType.setText("Add On");
             this.binding.subsCard1.setVisibility(View.GONE);
-        } else if (servicetype.equalsIgnoreCase(Constant.DISINSFECTION)){
+        } else if (servicetype.equalsIgnoreCase(Constant.DISINSFECTION)) {
             this.binding.serviceType.setText("Disinsfection");
             this.binding.subsCard1.setVisibility(View.GONE);
         }
-        if (carname.startsWith("extra")|| carname.startsWith("Extra") || carname.startsWith("EXTRA")){
+        if (carname.startsWith("extra") || carname.startsWith("Extra") || carname.startsWith("EXTRA")) {
             binding.subscriptionType.setText(Constant.ONETIME);
             binding.subsHead.setText("One Time Subscription");
-            action= Constant.ACTIONONE;
+            action = Constant.ACTIONONE;
             binding.extraLl.setVisibility(View.VISIBLE);
-        }
-        else if (servicetype.equalsIgnoreCase(Constant.DISINSFECTION)){
+        } else if (servicetype.equalsIgnoreCase(Constant.DISINSFECTION)) {
             binding.subscriptionType.setText(Constant.ONETIME);
             binding.subsHead.setText("One Time Subscription");
-            action= Constant.ACTIONONE;
+            action = Constant.ACTIONONE;
             binding.extraLl.setVisibility(View.VISIBLE);
-        }
-        else if (this.servicetype.equalsIgnoreCase(Constant.WASH) || this.servicetype.equalsIgnoreCase(Constant.BWASH) || servicetype.equalsIgnoreCase(Constant.ADDON) ) {
+        } else if (this.servicetype.equalsIgnoreCase(Constant.WASH) || this.servicetype.equalsIgnoreCase(Constant.BWASH) || servicetype.equalsIgnoreCase(Constant.ADDON)) {
 
-            if( servicetype.equalsIgnoreCase(Constant.ADDON)){
+            if (servicetype.equalsIgnoreCase(Constant.ADDON)) {
                 this.binding.extraLl.setVisibility(View.VISIBLE);
-            }else{
+            } else {
                 this.binding.extraLl.setVisibility(View.GONE);
             }
 
             this.binding.subsCard1.setVisibility(View.VISIBLE);
 
             binding.packageType1.setText(carcat);
-            binding.packageMrp1.setText("₹ "+carprice);
+            binding.packageMrp1.setText("₹ " + carprice);
 
-            if(servicetype.equalsIgnoreCase(Constant.ADDON)){
+            if (servicetype.equalsIgnoreCase(Constant.ADDON)) {
                 this.binding.subsHead1.setText("One Time Subscription");
                 binding.subscriptionType1.setVisibility(View.GONE);
                 binding.subscriptionType01.setVisibility(View.VISIBLE);
@@ -205,9 +203,9 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
                 int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * Integer.parseInt(onetimecarprice)) / 100);
                 int finalAmt = taxAmt + Integer.parseInt(onetimecarprice);
                 binding.taxTotal1.setText("₹ " + taxAmt);
-                binding.totalAmount1.setText("₹ " +finalAmt);
+                binding.totalAmount1.setText("₹ " + finalAmt);
                 //binding.totalAmount1.setText("₹ " + onetimecarprice);
-            }else{
+            } else {
                 this.binding.subsHead1.setText("One Time Wash Subscription");
             }
 
@@ -464,20 +462,19 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
             });
             this.binding.subscriptionType.setText(Constant.MONTHLY);
             this.binding.subsHead.setText("Monthly Subscription");
-        }
-        else {
+        } else {
             binding.subsCard1.setVisibility(View.GONE);
             binding.subscriptionType.setText(Constant.MONTHLY);
             binding.subsHead.setText("Monthly Subscription");
-            action= Constant.ACTIONMONTH;
+            action = Constant.ACTIONMONTH;
             binding.extraLl.setVisibility(View.GONE);
         }
         binding.preferredtimeEdt.setText(Constant.ANYTIME);
-        time= Constant.ANYTIME;
+        time = Constant.ANYTIME;
 
         binding.packageType.setText(carcat);
-        binding.packageMrp.setText("₹ "+carprice);
-        binding.total.setText("₹ "+carprice);
+        binding.packageMrp.setText("₹ " + carprice);
+        binding.total.setText("₹ " + carprice);
         int taxAmt = ((Constant.GST_PERCENTAGE * Integer.parseInt(carprice)) / 100);
         int finalAmt = taxAmt + Integer.parseInt(carprice);
         binding.taxTotal.setText("₹ " + taxAmt);
@@ -490,7 +487,7 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
                 .into(binding.carImg);
         Collections.addAll(spinner_item, preTime);
 
-        binding.spinner.setAdapter(new ArrayAdapter<String>(PaymentOptionActivity.this, android.R.layout.simple_list_item_1,spinner_item));
+        binding.spinner.setAdapter(new ArrayAdapter<String>(PaymentOptionActivity.this, android.R.layout.simple_list_item_1, spinner_item));
 
         binding.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -498,6 +495,7 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
                 binding.preferredtimeEdt.setText(spinner_item.get(i));
                 time = spinner_item.get(i);
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
@@ -506,9 +504,9 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
         binding.preferredtimeEdt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (TextUtils.isEmpty(binding.preferDate.getText().toString())){
-                    Toast.makeText(PaymentOptionActivity.this,"Choose Preferred Schedule",Toast.LENGTH_SHORT).show();
-                }else {
+                if (TextUtils.isEmpty(binding.preferDate.getText().toString())) {
+                    Toast.makeText(PaymentOptionActivity.this, "Choose Preferred Schedule", Toast.LENGTH_SHORT).show();
+                } else {
                     binding.spinner.performClick();
                 }
             }
@@ -536,7 +534,7 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
                             }
                         }, year, month, day);
                 //picker.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
-                picker.getDatePicker().setMinDate(System.currentTimeMillis()+24*60*60*1000);
+                picker.getDatePicker().setMinDate(System.currentTimeMillis() + 24 * 60 * 60 * 1000);
                 picker.show();
             }
         });
@@ -546,7 +544,7 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
             @Override
             public void onClick(View view) {
                 if (carname.startsWith("extra") || carname.startsWith("Extra") || carname.startsWith("EXTRA")) {
-                   action = Constant.ACTIONONE;
+                    action = Constant.ACTIONONE;
                 } else {
                     action = Constant.ACTIONMONTH;
                 }
@@ -555,9 +553,9 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
         });
         binding.paynow1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                if (servicetype.equalsIgnoreCase(Constant.ADDON)){
+                if (servicetype.equalsIgnoreCase(Constant.ADDON)) {
                     action = Constant.ACTIONEXTRAONE;
-                }else{
+                } else {
                     action = Constant.ACTIONWASHONE;
                 }
 
@@ -569,13 +567,13 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
             @Override
             public void onClick(View v) {
 
-                if (servicetype.equalsIgnoreCase(Constant.ADDON)){
-                    if (binding.preferDate.getText().length()>0 && !TextUtils.isEmpty(time)){
+                if (servicetype.equalsIgnoreCase(Constant.ADDON)) {
+                    if (binding.preferDate.getText().length() > 0 && !TextUtils.isEmpty(time)) {
                         checkIfExists();
-                    }else {
-                        Toast.makeText(PaymentOptionActivity.this,Constant.CHOOSEDATETIME,Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(PaymentOptionActivity.this, Constant.CHOOSEDATETIME, Toast.LENGTH_SHORT).show();
                     }
-                }else{
+                } else {
                     checkIfExists();
                 }
             }
@@ -585,12 +583,12 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
             @Override
             public void onClick(View v) {
                 if (action.equalsIgnoreCase(Constant.ACTIONONE)) {
-                    if (binding.preferDate.getText().length()>0 && !TextUtils.isEmpty(time)){
+                    if (binding.preferDate.getText().length() > 0 && !TextUtils.isEmpty(time)) {
                         checkIfExists1();
-                    }else {
-                        Toast.makeText(PaymentOptionActivity.this,Constant.CHOOSEDATETIME,Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(PaymentOptionActivity.this, Constant.CHOOSEDATETIME, Toast.LENGTH_SHORT).show();
                     }
-                }else{
+                } else {
                     checkIfExists1();
                 }
             }
@@ -598,11 +596,11 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
 
     }
 
-    public void checkIfExists(){
+    public void checkIfExists() {
 
-        if (servicetype.equalsIgnoreCase(Constant.ADDON)){
+        if (servicetype.equalsIgnoreCase(Constant.ADDON)) {
             action = Constant.ACTIONEXTRAONE;
-        }else{
+        } else {
             action = Constant.ACTIONWASHONE;
         }
 
@@ -613,40 +611,39 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
         int finalAmt = taxAmt + before_tax;
 
 
-
-        String result = databaseHelper.AddUpdateOrder(action+"",
-                carimage+"",
-                carmakemodel+"",
-                carno+"",
-                onetimecarprice+"",
-                carid+"",
-                paidMonths+"",
-                fineAmount+"",
-                tottal_amt+"",
-                Constant.GST_PERCENTAGE+"",
-                taxAmt+"",
+        String result = databaseHelper.AddUpdateOrder(action + "",
+                carimage + "",
+                carmakemodel + "",
+                carno + "",
+                onetimecarprice + "",
+                carid + "",
+                paidMonths + "",
+                fineAmount + "",
+                tottal_amt + "",
+                Constant.GST_PERCENTAGE + "",
+                taxAmt + "",
                 String.valueOf(finalAmt),
-                binding.preferDate.getText().toString()+"",
-                time+"");
+                binding.preferDate.getText().toString() + "",
+                time + "");
 
-        Log.e("123456",""+result);
+        Log.e("123456", "" + result);
 
-        if(result.equalsIgnoreCase("1")){
+        if (result.equalsIgnoreCase("1")) {
             Toast.makeText(PaymentOptionActivity.this, "Added. ", Toast.LENGTH_SHORT).show();
             showCartCount();
-            startActivity(new Intent(PaymentOptionActivity.this,CartActivity.class));
+            startActivity(new Intent(PaymentOptionActivity.this, CartActivity.class));
             finish();
-        }else{
+        } else {
             Toast.makeText(PaymentOptionActivity.this, "Added Failed. ", Toast.LENGTH_SHORT).show();
         }
 
     }
 
-    public void checkIfExists1(){
+    public void checkIfExists1() {
 
-        if (servicetype.equalsIgnoreCase(Constant.EXTRAINT)){
+        if (servicetype.equalsIgnoreCase(Constant.EXTRAINT)) {
             action = Constant.ACTIONONE;
-        }else{
+        } else {
             action = Constant.ACTIONDISONE;
         }
 
@@ -654,27 +651,27 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
         int taxAmt = ((Constant.GST_PERCENTAGE * before_tax) / 100);
         int finalAmt = taxAmt + before_tax;
 
-        String result = databaseHelper.AddUpdateOrder(action+"",
-                carimage+"",
-                carmakemodel+"",
-                carno+"",
-                carprice+"",
-                carid+"",
+        String result = databaseHelper.AddUpdateOrder(action + "",
+                carimage + "",
+                carmakemodel + "",
+                carno + "",
+                carprice + "",
+                carid + "",
                 "0",
                 "0",
-                carprice+"",
-                Constant.GST_PERCENTAGE+"",
-                taxAmt+"",
+                carprice + "",
+                Constant.GST_PERCENTAGE + "",
+                taxAmt + "",
                 String.valueOf(finalAmt),
-                binding.preferDate.getText().toString()+"",
-                time+"");
+                binding.preferDate.getText().toString() + "",
+                time + "");
 
-        if(result.equalsIgnoreCase("1")){
+        if (result.equalsIgnoreCase("1")) {
             Toast.makeText(PaymentOptionActivity.this, "Added. ", Toast.LENGTH_SHORT).show();
             showCartCount();
-            startActivity(new Intent(PaymentOptionActivity.this,CartActivity.class));
+            startActivity(new Intent(PaymentOptionActivity.this, CartActivity.class));
             finish();
-        }else{
+        } else {
             Toast.makeText(PaymentOptionActivity.this, "Added Failed. ", Toast.LENGTH_SHORT).show();
         }
 
@@ -704,13 +701,13 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
 
     private void checkOnetime() {
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        Call<OneTimeWashCheckout> call = apiInterface.onetime_wash(customerid,carprice,carid,onetimeService);
+        Call<OneTimeWashCheckout> call = apiInterface.onetime_wash(customerid, carprice, carid, onetimeService);
         call.enqueue(new Callback<OneTimeWashCheckout>() {
             @SuppressLint("LongLogTag")
             @Override
             public void onResponse(Call<OneTimeWashCheckout> call, Response<OneTimeWashCheckout> response) {
-                try{
-                    if(response.isSuccessful()){
+                try {
+                    if (response.isSuccessful()) {
                         OneTimeWashCheckout body = response.body();
                         if (body.code.equalsIgnoreCase("200")) {
                             Log.e("Reponse---------------------", body.code);
@@ -746,23 +743,23 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
                                     if (result.get(i).discount_amount.equalsIgnoreCase("0")) {
                                         discountAmount = result.get(i).discount_amount;
                                         binding.discountField.setVisibility(View.GONE);
-                                        binding.discountAmount1.setText("₹ "+result.get(i).discount_amount);
+                                        binding.discountAmount1.setText("₹ " + result.get(i).discount_amount);
                                     } else {
                                         binding.discountField.setVisibility(View.VISIBLE);
                                         discountAmount = result.get(i).discount_amount;
-                                        binding.discountAmount1.setText("₹ "+result.get(i).discount_amount);
+                                        binding.discountAmount1.setText("₹ " + result.get(i).discount_amount);
                                     }
 
                                     if (result.get(i).total_amount.equalsIgnoreCase("0")) {
                                         onetimecarprice.equals(carprice);
                                         //Log.e("is 0","Price"+onetimecarprice);
-                                    }else{
+                                    } else {
                                         onetimecarprice = result.get(i).total_amount;
-                                        binding.total1.setText("₹ " +result.get(i).total_amount);
+                                        binding.total1.setText("₹ " + result.get(i).total_amount);
                                         int taxAmt = ((Constant.GST_PERCENTAGE * Integer.parseInt(result.get(i).total_amount)) / 100);
                                         int finalAmt = taxAmt + Integer.parseInt(result.get(i).total_amount);
                                         binding.taxTotal1.setText("₹ " + taxAmt);
-                                        binding.totalAmount1.setText("₹ " +finalAmt);
+                                        binding.totalAmount1.setText("₹ " + finalAmt);
                                         //Log.e("not 0","Price"+onetimecarprice);
                                     }
 
@@ -770,9 +767,9 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
 
                             }
                         } else if (body.code.equalsIgnoreCase("201")) {
-                            Toast.makeText(PaymentOptionActivity.this,body.staus,Toast.LENGTH_SHORT).show();
+                            Toast.makeText(PaymentOptionActivity.this, body.staus, Toast.LENGTH_SHORT).show();
                         }
-                    } else{
+                    } else {
                         ApiConfig.responseToast(PaymentOptionActivity.this, response.code());
                     }
                 } catch (Exception e) {
@@ -782,7 +779,7 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
 
             @SuppressLint("LongLogTag")
             public void onFailure(Call<OneTimeWashCheckout> call, Throwable th) {
-                Toast.makeText(PaymentOptionActivity.this,"Timeout.Try after sometime",Toast.LENGTH_SHORT).show();
+                Toast.makeText(PaymentOptionActivity.this, "Timeout.Try after sometime", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -811,13 +808,13 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
 
     private void checkOnetimeAddOn() {
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        Call<OneTimeWashCheckout> call = apiInterface.onetime_wash(customerid,carprice,carid,onetimeService);
+        Call<OneTimeWashCheckout> call = apiInterface.onetime_wash(customerid, carprice, carid, onetimeService);
         call.enqueue(new Callback<OneTimeWashCheckout>() {
             @SuppressLint("LongLogTag")
             @Override
             public void onResponse(Call<OneTimeWashCheckout> call, Response<OneTimeWashCheckout> response) {
-                try{
-                    if(response.isSuccessful()){
+                try {
+                    if (response.isSuccessful()) {
                         OneTimeWashCheckout body = response.body();
                         if (body.code.equalsIgnoreCase("200")) {
                             Log.e("Reponse---------------------", body.code);
@@ -829,13 +826,13 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
                                     if (result.get(i).total_amount.equalsIgnoreCase("0")) {
                                         onetimecarprice.equals(carprice);
                                         //Log.e("is 0","Price"+onetimecarprice);
-                                    }else{
+                                    } else {
                                         onetimecarprice = result.get(i).total_amount;
-                                        binding.total1.setText("₹ " +result.get(i).total_amount);
+                                        binding.total1.setText("₹ " + result.get(i).total_amount);
                                         int taxAmt = ((Constant.GST_PERCENTAGE * Integer.parseInt(result.get(i).total_amount)) / 100);
                                         int finalAmt = taxAmt + Integer.parseInt(result.get(i).total_amount);
                                         binding.taxTotal1.setText("₹ " + taxAmt);
-                                        binding.totalAmount1.setText("₹ " +finalAmt);
+                                        binding.totalAmount1.setText("₹ " + finalAmt);
                                         //binding.totalAmount1.setText("₹ " +result.get(i).total_amount);
                                         //Log.e("not 0","Price"+onetimecarprice);
                                     }
@@ -866,31 +863,30 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
                                     if (result.get(i).discount_amount.equalsIgnoreCase("0")) {
                                         discountAmount = result.get(i).discount_amount;
                                         binding.discountField.setVisibility(View.GONE);
-                                        binding.discountAmount1.setText("₹ "+result.get(i).discount_amount);
+                                        binding.discountAmount1.setText("₹ " + result.get(i).discount_amount);
                                     } else {
                                         binding.discountField.setVisibility(View.VISIBLE);
                                         discountAmount = result.get(i).discount_amount;
-                                        binding.discountAmount1.setText("₹ "+result.get(i).discount_amount);
+                                        binding.discountAmount1.setText("₹ " + result.get(i).discount_amount);
                                     }
 
                                     if (result.get(i).total_amount.equalsIgnoreCase("0")) {
                                         onetimecarprice.equals(carprice);
-                                    }else{
+                                    } else {
                                         onetimecarprice = result.get(i).total_amount;
-                                        binding.total1.setText("₹ " +result.get(i).total_amount);
+                                        binding.total1.setText("₹ " + result.get(i).total_amount);
                                         int taxAmt = ((Constant.GST_PERCENTAGE * Integer.parseInt(result.get(i).total_amount)) / 100);
                                         int finalAmt = taxAmt + Integer.parseInt(result.get(i).total_amount);
                                         binding.taxTotal1.setText("₹ " + taxAmt);
-                                        binding.totalAmount1.setText("₹ " +finalAmt);
+                                        binding.totalAmount1.setText("₹ " + finalAmt);
                                     }
 
                                 }
                             }
+                        } else if (body.code.equalsIgnoreCase("201")) {
+                            Toast.makeText(PaymentOptionActivity.this, body.staus, Toast.LENGTH_SHORT).show();
                         }
-                        else if (body.code.equalsIgnoreCase("201")) {
-                            Toast.makeText(PaymentOptionActivity.this,body.staus,Toast.LENGTH_SHORT).show();
-                        }
-                    } else{
+                    } else {
                         ApiConfig.responseToast(PaymentOptionActivity.this, response.code());
                     }
                 } catch (Exception e) {
@@ -900,26 +896,26 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
 
             @SuppressLint("LongLogTag")
             public void onFailure(Call<OneTimeWashCheckout> call, Throwable th) {
-                Toast.makeText(PaymentOptionActivity.this,"Timeout.Try after sometime",Toast.LENGTH_SHORT).show();
+                Toast.makeText(PaymentOptionActivity.this, "Timeout.Try after sometime", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void workmode() {
-        if (isNetworkAvailable()){
+        if (isNetworkAvailable()) {
             getPayMode();
-        }else {
+        } else {
             AlertDialog.Builder dialog = new AlertDialog.Builder(PaymentOptionActivity.this);
             dialog.setCancelable(false);
             dialog.setTitle("Alert!");
-            dialog.setMessage("No internet.Please check your connection." );
+            dialog.setMessage("No internet.Please check your connection.");
             dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int id) {
-                    //Action for "Ok".
-                    getPayMode();
-                }
-            })
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            //Action for "Ok".
+                            getPayMode();
+                        }
+                    })
                     .setNegativeButton("Cancel ", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -947,7 +943,7 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                 hud.dismiss();
                 try {
-                    if(response.isSuccessful()){
+                    if (response.isSuccessful()) {
                         JsonElement jsonElement = response.body();
                         JSONObject jsonObject = new JSONObject(jsonElement.toString());
                         if (jsonObject.optString("code").equalsIgnoreCase("200")) {
@@ -956,58 +952,58 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
                             Constant.RAZOR_PAY_KEY_SECRET = jsonObject.optString("secretkey");
                             Constant.RAZOR_PAY_KEY_VALUE = jsonObject.optString("keyid");
 
-                            if (action.equalsIgnoreCase(Constant.ACTIONMONTH)){
+                            if (action.equalsIgnoreCase(Constant.ACTIONMONTH)) {
                                 work();
 //                    startPaymentMonth();
-                            }else if (action.equalsIgnoreCase(Constant.ACTIONONE)) {
-                                if (binding.preferDate.getText().length()>0 && !TextUtils.isEmpty(time)){
+                            } else if (action.equalsIgnoreCase(Constant.ACTIONONE)) {
+                                if (binding.preferDate.getText().length() > 0 && !TextUtils.isEmpty(time)) {
                                     startPayment();
-                                }else {
-                                    Toast.makeText(PaymentOptionActivity.this,Constant.CHOOSEDATETIME,Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(PaymentOptionActivity.this, Constant.CHOOSEDATETIME, Toast.LENGTH_SHORT).show();
                                 }
                             } else if (action.equalsIgnoreCase(Constant.ACTIONWASHONE)) {
                                 startwashonetimepayment();
-                            }
-                            else if (action.equalsIgnoreCase(Constant.ACTIONEXTRAONE)) {
-                                if (binding.preferDate.getText().length()>0 && !TextUtils.isEmpty(time)){
+                            } else if (action.equalsIgnoreCase(Constant.ACTIONEXTRAONE)) {
+                                if (binding.preferDate.getText().length() > 0 && !TextUtils.isEmpty(time)) {
                                     startwashonetimepayment();
-                                }else {
-                                    Toast.makeText(PaymentOptionActivity.this,Constant.CHOOSEDATETIME,Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(PaymentOptionActivity.this, Constant.CHOOSEDATETIME, Toast.LENGTH_SHORT).show();
                                 }
                             }
 
                         }
-                    } else{
+                    } else {
                         ApiConfig.responseToast(PaymentOptionActivity.this, response.code());
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
+
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
                 hud.dismiss();
-                Toast.makeText(PaymentOptionActivity.this,"Timeout.Try after sometime",Toast.LENGTH_SHORT).show();
+                Toast.makeText(PaymentOptionActivity.this, "Timeout.Try after sometime", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
 
     private void work() {
-        if (isNetworkAvailable()){
+        if (isNetworkAvailable()) {
             getOrdercheck();
-        }else {
+        } else {
             AlertDialog.Builder dialog = new AlertDialog.Builder(PaymentOptionActivity.this);
             dialog.setCancelable(false);
             dialog.setTitle("Alert!");
-            dialog.setMessage("No internet.Please check your connection." );
+            dialog.setMessage("No internet.Please check your connection.");
             dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int id) {
-                    //Action for "Ok".
-                    work();
-                }
-            })
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            //Action for "Ok".
+                            work();
+                        }
+                    })
                     .setNegativeButton("Cancel ", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -1021,6 +1017,7 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
         }
 
     }
+
     private void getOrdercheck() {
         final KProgressHUD hud = KProgressHUD.create(PaymentOptionActivity.this)
                 .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
@@ -1029,41 +1026,42 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
                 .setDimAmount(0.5f)
                 .show();
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        Call<JsonObject> call = apiInterface.checkValidation(customerid+"",carid+"",servicetype+"");
+        Call<JsonObject> call = apiInterface.checkValidation(customerid + "", carid + "", servicetype + "");
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                 hud.dismiss();
                 try {
-                    if(response.isSuccessful()){
+                    if (response.isSuccessful()) {
                         JsonElement jsonElement = response.body();
                         JSONObject jsonObject = new JSONObject(jsonElement.toString());
                         if (jsonObject.optString("code").equalsIgnoreCase("200")) {
                             Gson gson = new Gson();
-                            Intent intent = new Intent(PaymentOptionActivity.this,PaymentWebActivity.class);
-                            intent.putExtra("package_type",carcat);
-                            intent.putExtra("vehicle_type",cartype);
-                            intent.putExtra("subscription_type","Monthly");
-                            intent.putExtra("service_type",binding.serviceType.getText().toString());
-                            intent.putExtra("vehicle_id",carid);
-                            intent.putExtra("customer_id",customerid);
-                            intent.putExtra("amount",carprice);
+                            Intent intent = new Intent(PaymentOptionActivity.this, PaymentWebActivity.class);
+                            intent.putExtra("package_type", carcat);
+                            intent.putExtra("vehicle_type", cartype);
+                            intent.putExtra("subscription_type", "Monthly");
+                            intent.putExtra("service_type", binding.serviceType.getText().toString());
+                            intent.putExtra("vehicle_id", carid);
+                            intent.putExtra("customer_id", customerid);
+                            intent.putExtra("amount", carprice);
                             startActivity(intent);
                             finish();
-                        }else if (jsonObject.optString("code").equalsIgnoreCase("201")) {
-                            Toast.makeText(PaymentOptionActivity.this,jsonObject.optString("message"),Toast.LENGTH_SHORT).show();
+                        } else if (jsonObject.optString("code").equalsIgnoreCase("201")) {
+                            Toast.makeText(PaymentOptionActivity.this, jsonObject.optString("message"), Toast.LENGTH_SHORT).show();
                         }
-                    } else{
+                    } else {
                         ApiConfig.responseToast(PaymentOptionActivity.this, response.code());
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
+
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
                 hud.dismiss();
-                Toast.makeText(PaymentOptionActivity.this,"Timeout.Try after sometime",Toast.LENGTH_SHORT).show();
+                Toast.makeText(PaymentOptionActivity.this, "Timeout.Try after sometime", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -1207,17 +1205,17 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
 //            if (s.equalsIgnoreCase("0")){
 //                options.put("subscription_id", subscriptionId);
 //            }
-            double amount  = Double.parseDouble(carprice);
+            double amount = Double.parseDouble(carprice);
             amount = amount * 100;
             Log.e("AMOUNTRZP", String.valueOf(amount));
             options.put("amount", amount);
 
             JSONObject preFill = new JSONObject();
-            preFill.put("email",custemail);
-            preFill.put("contact",custmob);
+            preFill.put("email", custemail);
+            preFill.put("contact", custmob);
             options.put("prefill", preFill);
             checkout.open(PaymentOptionActivity.this, options);
-            Log.e("OPTIONS",options.toString());
+            Log.e("OPTIONS", options.toString());
         } catch (Exception e) {
             Log.d("PaymentOptionActivity", "Error in starting Razorpay Checkout", e);
         }
@@ -1275,31 +1273,29 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
     }
 
     private void workPlaceOrder(final String razorpayid) {
-        if (isNetworkAvailable()){
-            if (action.equalsIgnoreCase(Constant.ACTIONONE)){
+        if (isNetworkAvailable()) {
+            if (action.equalsIgnoreCase(Constant.ACTIONONE)) {
                 PlaceOrderOneTime(razorpayid);
-            }else if (action.equalsIgnoreCase(Constant.ACTIONMONTH)){
+            } else if (action.equalsIgnoreCase(Constant.ACTIONMONTH)) {
                 PlaceOrder(razorpayid);
-            }
-            else if (action.equalsIgnoreCase(Constant.ACTIONWASHONE)) {
+            } else if (action.equalsIgnoreCase(Constant.ACTIONWASHONE)) {
                 PlaceOrderOneTimeWash(razorpayid);
-            }
-            else if(action.equalsIgnoreCase(Constant.ACTIONEXTRAONE)){
+            } else if (action.equalsIgnoreCase(Constant.ACTIONEXTRAONE)) {
                 PlaceOrderOneTimeAddOn(razorpayid);
             }
 
-        }else {
+        } else {
             AlertDialog.Builder dialog = new AlertDialog.Builder(PaymentOptionActivity.this);
             dialog.setCancelable(false);
             dialog.setTitle("Alert!");
-            dialog.setMessage("No internet.Please check your connection." );
+            dialog.setMessage("No internet.Please check your connection.");
             dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int id) {
-                    //Action for "Ok".
-                    workPlaceOrder(razorpayid);
-                }
-            })
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            //Action for "Ok".
+                            workPlaceOrder(razorpayid);
+                        }
+                    })
                     .setNegativeButton("Cancel ", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -1321,49 +1317,50 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
                 .setDimAmount(0.5f)
                 .show();
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        Call<JsonObject> call = apiInterface.saveOrderOneTime(action+"",
-                razorpayid+"",
+        Call<JsonObject> call = apiInterface.saveOrderOneTime(action + "",
+                razorpayid + "",
                 "",
-                customerid+"",
-                token+"",
+                customerid + "",
+                token + "",
                 "ExtraInterior",
-                carprice+"",
-                carid+"",
+                carprice + "",
+                carid + "",
                 "AddOn",
-                carprice+"",
-                Constant.GST_PERCENTAGE+"",
+                carprice + "",
+                Constant.GST_PERCENTAGE + "",
                 "0",
-                carprice+"",
-                binding.preferDate.getText().toString(),time);
+                carprice + "",
+                binding.preferDate.getText().toString(), time);
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
 
                 hud.dismiss();
                 try {
-                    if(response.isSuccessful()){
+                    if (response.isSuccessful()) {
                         JsonElement jsonElement = response.body();
                         JSONObject jsonObject = new JSONObject(jsonElement.toString());
                         if (jsonObject.optString("code").equalsIgnoreCase("200")) {
                             Gson gson = new Gson();
-                            Toast.makeText(PaymentOptionActivity.this,jsonObject.optString("result"),Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(PaymentOptionActivity.this,CongratsActivity.class);
+                            Toast.makeText(PaymentOptionActivity.this, jsonObject.optString("result"), Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(PaymentOptionActivity.this, CongratsActivity.class);
                             startActivity(intent);
                             finish();
-                        }else if (jsonObject.optString("code").equalsIgnoreCase("201")) {
-                            Toast.makeText(PaymentOptionActivity.this,jsonObject.optString("result"),Toast.LENGTH_SHORT).show();
+                        } else if (jsonObject.optString("code").equalsIgnoreCase("201")) {
+                            Toast.makeText(PaymentOptionActivity.this, jsonObject.optString("result"), Toast.LENGTH_SHORT).show();
                         }
-                    } else{
+                    } else {
                         ApiConfig.responseToast(PaymentOptionActivity.this, response.code());
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
+
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
                 hud.dismiss();
-                Toast.makeText(PaymentOptionActivity.this,"Timeout.Try after sometime",Toast.LENGTH_SHORT).show();
+                Toast.makeText(PaymentOptionActivity.this, "Timeout.Try after sometime", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -1378,16 +1375,16 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
                 .show();
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
         Call<JsonObject> call = apiInterface.saveWashOrderOneTime("onetime_wash_payment",
-                razorpayid+"",
+                razorpayid + "",
                 "",
-                customerid+"",
-                token+"",
-                carprice+"",
-                carid+"",
+                customerid + "",
+                token + "",
+                carprice + "",
+                carid + "",
                 paidMonths + "",
                 fineAmount + "",
-                carprice+"",
-                Constant.GST_PERCENTAGE+"",
+                carprice + "",
+                Constant.GST_PERCENTAGE + "",
                 "0",
                 totalAmountStr + "",
                 "Wash");
@@ -1397,7 +1394,7 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
 
                 hud.dismiss();
                 try {
-                    if(response.isSuccessful()){
+                    if (response.isSuccessful()) {
                         JsonElement body = response.body();
                         JSONObject jSONObject = new JSONObject(body.toString());
                         if (jSONObject.optString("code").equalsIgnoreCase("200")) {
@@ -1407,13 +1404,12 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
                             finish();
                         } else if (jSONObject.optString("code").equalsIgnoreCase("201")) {
                             Toast.makeText(PaymentOptionActivity.this, jSONObject.optString("result"), Toast.LENGTH_SHORT).show();
-                        }
-                        else if (jSONObject.optString("message").equalsIgnoreCase("success")){
+                        } else if (jSONObject.optString("message").equalsIgnoreCase("success")) {
                             Toast.makeText(PaymentOptionActivity.this, jSONObject.optString("result"), Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(PaymentOptionActivity.this, CongratsActivity.class));
                             finish();
                         }
-                    } else{
+                    } else {
                         ApiConfig.responseToast(PaymentOptionActivity.this, response.code());
                     }
                 } catch (JSONException e) {
@@ -1437,16 +1433,16 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
                 .show();
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
         Call<JsonObject> call = apiInterface.saveAddOnOrderOneTime("onetime_wash_payment",
-                razorpayid+"",
+                razorpayid + "",
                 "",
-                customerid+"",
-                token+"",
-                carprice+"",
-                carid+"",
+                customerid + "",
+                token + "",
+                carprice + "",
+                carid + "",
                 paidMonths + "",
                 fineAmount + "",
-                carprice+"",
-                Constant.GST_PERCENTAGE+"",
+                carprice + "",
+                Constant.GST_PERCENTAGE + "",
                 "0",
                 totalAmountStr + "",
                 "AddOn",
@@ -1458,7 +1454,7 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
 
                 hud.dismiss();
                 try {
-                    if(response.isSuccessful()){
+                    if (response.isSuccessful()) {
                         JsonElement body = response.body();
                         JSONObject jSONObject = new JSONObject(body.toString());
                         if (jSONObject.optString("code").equalsIgnoreCase("200")) {
@@ -1468,12 +1464,12 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
                             finish();
                         } else if (jSONObject.optString("code").equalsIgnoreCase("201")) {
                             Toast.makeText(PaymentOptionActivity.this, jSONObject.optString("result"), Toast.LENGTH_SHORT).show();
-                        } else if (jSONObject.optString("message").equalsIgnoreCase("success")){
+                        } else if (jSONObject.optString("message").equalsIgnoreCase("success")) {
                             Toast.makeText(PaymentOptionActivity.this, jSONObject.optString("result"), Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(PaymentOptionActivity.this, CongratsActivity.class));
                             finish();
                         }
-                    } else{
+                    } else {
                         ApiConfig.responseToast(PaymentOptionActivity.this, response.code());
                     }
                 } catch (JSONException e) {
@@ -1496,43 +1492,44 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
                 .setDimAmount(0.5f)
                 .show();
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        Call<JsonObject> call = apiInterface.saveOrder(action+"",razorpayid+"",customerid+"",token+"",carid+"",binding.serviceType.getText().toString()+"",
-                carprice+"",planId+"",subscriptionId+"");
+        Call<JsonObject> call = apiInterface.saveOrder(action + "", razorpayid + "", customerid + "", token + "", carid + "", binding.serviceType.getText().toString() + "",
+                carprice + "", planId + "", subscriptionId + "");
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                 hud.dismiss();
                 try {
-                    if(response.isSuccessful()){
+                    if (response.isSuccessful()) {
                         JsonElement jsonElement = response.body();
                         JSONObject jsonObject = new JSONObject(jsonElement.toString());
                         if (jsonObject.optString("code").equalsIgnoreCase("200")) {
                             Gson gson = new Gson();
-                            Toast.makeText(PaymentOptionActivity.this,jsonObject.optString("result"),Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(PaymentOptionActivity.this,CongratsActivity.class);
+                            Toast.makeText(PaymentOptionActivity.this, jsonObject.optString("result"), Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(PaymentOptionActivity.this, CongratsActivity.class);
                             startActivity(intent);
                             finish();
-                        }else if (jsonObject.optString("code").equalsIgnoreCase("201")) {
-                            Toast.makeText(PaymentOptionActivity.this,jsonObject.optString("result"),Toast.LENGTH_SHORT).show();
+                        } else if (jsonObject.optString("code").equalsIgnoreCase("201")) {
+                            Toast.makeText(PaymentOptionActivity.this, jsonObject.optString("result"), Toast.LENGTH_SHORT).show();
                         }
-                    } else{
+                    } else {
                         ApiConfig.responseToast(PaymentOptionActivity.this, response.code());
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
+
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
                 hud.dismiss();
-                Toast.makeText(PaymentOptionActivity.this,"Timeout.Try after sometime",Toast.LENGTH_SHORT).show();
+                Toast.makeText(PaymentOptionActivity.this, "Timeout.Try after sometime", Toast.LENGTH_SHORT).show();
             }
         });
 
     }
 
     @SuppressLint("LongLogTag")
-    public void showCartCount(){
+    public void showCartCount() {
         //int totalItemOfCart = dbAdapter.cart_count;
         int totalItemOfCart = databaseHelper.getTotalItemOfCart();
 
@@ -1544,7 +1541,7 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
 //           binding.cartCount.setText(String.valueOf(totalItemOfCart));
 //        }
 
-        Log.e("Total item of cart--->   ",""+totalItemOfCart);
+        Log.e("Total item of cart--->   ", "" + totalItemOfCart);
     }
 
 

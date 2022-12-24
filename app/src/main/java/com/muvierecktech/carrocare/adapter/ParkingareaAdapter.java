@@ -5,7 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
+
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.muvierecktech.carrocare.R;
 import com.muvierecktech.carrocare.activity.AddVehicleActivity;
 import com.muvierecktech.carrocare.activity.MapAddVechileActivity;
@@ -18,13 +20,13 @@ import java.util.List;
 
 public class ParkingareaAdapter extends RecyclerView.Adapter {
     public Context context;
+    public int lastSelectedPosition = -1;
     boolean isVisibility;
     /* access modifiers changed from: private */
     String check;
-    public int lastSelectedPosition = -1;
     List<ParkingareaList.data> parkingarea;
 
-    public ParkingareaAdapter(Context context2, List<ParkingareaList.data> list,String s) {
+    public ParkingareaAdapter(Context context2, List<ParkingareaList.data> list, String s) {
         this.context = context2;
         this.parkingarea = list;
         this.check = s;
@@ -47,13 +49,13 @@ public class ParkingareaAdapter extends RecyclerView.Adapter {
                     notifyDataSetChanged();
                     ((AddVehicleActivity) context).binding.parkingAreaEdt.setText(parkingarea.get(pos).name);
                     //((AddVehicleActivity) context).binding.apartRl.setVisibility(View.GONE);
-                }else if (check.equalsIgnoreCase("2")) {
+                } else if (check.equalsIgnoreCase("2")) {
                     MyViewHolder viewHolder1 = (MyViewHolder) view.getTag();
                     int pos = viewHolder1.getAdapterPosition();
                     notifyDataSetChanged();
                     ((MyVechiclesAddActivity) context).binding.parkingAreaEdt.setText(parkingarea.get(pos).name);
                     //((MyVechiclesAddActivity) context).binding.apartRl.setVisibility(View.GONE);
-                }else if (check.equalsIgnoreCase("3")) {
+                } else if (check.equalsIgnoreCase("3")) {
                     MyViewHolder viewHolder1 = (MyViewHolder) view.getTag();
                     int pos = viewHolder1.getAdapterPosition();
                     notifyDataSetChanged();

@@ -56,10 +56,10 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class CalenderActivity extends AppCompatActivity {
-    public ActivityCalenderBinding binding;
     public static final String RESULT = "result";
     public static final String EVENT = "event";
     private static final int ADD_NOTE = 44;
+    public ActivityCalenderBinding binding;
     List<EventDay> mEventDays = new ArrayList<>();
     List<EventDay> mEventDayslist = new ArrayList<>();
     List<VehicleWashList.WashDetails> washDetails;
@@ -67,15 +67,16 @@ public class CalenderActivity extends AppCompatActivity {
     List<VehicleExtraList.ExtraInterior> extraInteriors;
     SessionManager sessionManager;
     DatePickerDialog picker;
-    String preTime[] = {Constant.ANYTIME, "9.00 AM - 10.00 AM","10.00 AM - 11.00 AM","11.00 AM - 12.00 PM","12.00 PM - 1.00 PM","6.00 PM - 7.00 PM","7.00 PM - 8.00 PM"};
-    String token,customerid,vehicleid,orderid,type;
+    String preTime[] = {Constant.ANYTIME, "9.00 AM - 10.00 AM", "10.00 AM - 11.00 AM", "11.00 AM - 12.00 PM", "12.00 PM - 1.00 PM", "6.00 PM - 7.00 PM", "7.00 PM - 8.00 PM"};
+    String token, customerid, vehicleid, orderid, type;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.activity_calender);
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_calender);
-        sessionManager= new SessionManager(this);
-        HashMap<String,String> hashMap = sessionManager.getUserDetails();
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_calender);
+        sessionManager = new SessionManager(this);
+        HashMap<String, String> hashMap = sessionManager.getUserDetails();
         token = hashMap.get(SessionManager.KEY_TOKEN);
         customerid = hashMap.get(SessionManager.KEY_USERID);
 //        Calendar calendar = Calendar.getInstance();
@@ -133,10 +134,10 @@ public class CalenderActivity extends AppCompatActivity {
 
 //        workExtra();
 
-        if (type.equalsIgnoreCase("extra")){
+        if (type.equalsIgnoreCase("extra")) {
             binding.addinternal.setVisibility(View.GONE);
             workextra();
-        }else {
+        } else {
             work();
         }
 
@@ -166,20 +167,20 @@ public class CalenderActivity extends AppCompatActivity {
                         new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                                binding.preferDate.setText(year + "-" +(monthOfYear + 1) + "-" +dayOfMonth);
+                                binding.preferDate.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
                             }
                         }, year, month, day);
                 //picker.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
-                picker.getDatePicker().setMinDate(System.currentTimeMillis()+24*60*60*1000);
+                picker.getDatePicker().setMinDate(System.currentTimeMillis() + 24 * 60 * 60 * 1000);
                 picker.show();
             }
         });
         binding.preferredtimeEdt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (TextUtils.isEmpty(binding.preferDate.getText().toString())){
-                    Toast.makeText(CalenderActivity.this,"Choose Preferred Schedule",Toast.LENGTH_SHORT).show();
-                }else {
+                if (TextUtils.isEmpty(binding.preferDate.getText().toString())) {
+                    Toast.makeText(CalenderActivity.this, "Choose Preferred Schedule", Toast.LENGTH_SHORT).show();
+                } else {
                     binding.timerl.setVisibility(View.VISIBLE);
                     PreferredTimeAdapter preferredAdapter = new PreferredTimeAdapter(CalenderActivity.this, preTime);
                     LinearLayoutManager linearLayoutManage = new LinearLayoutManager(CalenderActivity.this, LinearLayoutManager.VERTICAL, false);
@@ -205,20 +206,20 @@ public class CalenderActivity extends AppCompatActivity {
     }
 
     private void workextra() {
-        if (isNetworkAvailable()){
-           ExtraInterior();
-        }else {
+        if (isNetworkAvailable()) {
+            ExtraInterior();
+        } else {
             AlertDialog.Builder dialog = new AlertDialog.Builder(CalenderActivity.this);
             dialog.setCancelable(false);
             dialog.setTitle("Alert!");
-            dialog.setMessage("No internet.Please check your connection." );
+            dialog.setMessage("No internet.Please check your connection.");
             dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int id) {
-                    //Action for "Ok".
-                    workextra();
-                }
-            })
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            //Action for "Ok".
+                            workextra();
+                        }
+                    })
                     .setNegativeButton("Cancel ", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -241,13 +242,13 @@ public class CalenderActivity extends AppCompatActivity {
                 .setDimAmount(0.5f)
                 .show();
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        Call<VehicleExtraList> call = apiInterface.extraDetails(""+customerid,""+token,vehicleid+"");
+        Call<VehicleExtraList> call = apiInterface.extraDetails("" + customerid, "" + token, vehicleid + "");
         call.enqueue(new Callback<VehicleExtraList>() {
             @Override
             public void onResponse(Call<VehicleExtraList> call, Response<VehicleExtraList> response) {
                 hud.dismiss();
-                try{
-                    if(response.isSuccessful()){
+                try {
+                    if (response.isSuccessful()) {
                         final VehicleExtraList vehicleExtraList = response.body();
                         if (vehicleExtraList.code.equalsIgnoreCase("200")) {
                             Gson gson = new Gson();
@@ -256,7 +257,7 @@ public class CalenderActivity extends AppCompatActivity {
 //                    binding..setVisibility(View.VISIBLE);
                             extraInteriors = vehicleExtraList.extra_interior;
                             try {
-                                for (int i = 0 ; i < extraInteriors.size(); i++) {
+                                for (int i = 0; i < extraInteriors.size(); i++) {
                                     @SuppressLint("SimpleDateFormat") DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
                                     Calendar calendar = Calendar.getInstance();
                                     Date datestart;
@@ -289,7 +290,7 @@ public class CalenderActivity extends AppCompatActivity {
                                                     } else {
                                                         CalenderActivity calenderActivity = CalenderActivity.this;
                                                         String str = extraInteriors.get(i).vehicle_image;
-                                                        previewPopup(str, "Internal Clean", "Wash Date : " + extraInteriors.get(i).schedule_date,"");
+                                                        previewPopup(str, "Internal Clean", "Wash Date : " + extraInteriors.get(i).schedule_date, "");
                                                     }
                                                 }
                                         /*if (eventDay.getCalendar().equals(calendar)) {
@@ -309,42 +310,43 @@ public class CalenderActivity extends AppCompatActivity {
 //                    binding.ordersRc.setLayoutManager(linearLayoutManager);
 //                    binding.ordersRc.setAdapter(mainAdapter);
 
-                        }else  if (vehicleExtraList.code.equalsIgnoreCase("203")) {
+                        } else if (vehicleExtraList.code.equalsIgnoreCase("203")) {
                             sessionManager.logoutUsers();
-                        }else  if (vehicleExtraList.code.equalsIgnoreCase("201")){
+                        } else if (vehicleExtraList.code.equalsIgnoreCase("201")) {
 
-                            Toast.makeText(CalenderActivity.this,vehicleExtraList.message,Toast.LENGTH_SHORT).show();
+                            Toast.makeText(CalenderActivity.this, vehicleExtraList.message, Toast.LENGTH_SHORT).show();
                         }
-                    } else{
+                    } else {
                         ApiConfig.responseToast(CalenderActivity.this, response.code());
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
+
             @Override
             public void onFailure(Call<VehicleExtraList> call, Throwable t) {
                 hud.dismiss();
-                Toast.makeText(CalenderActivity.this,"Timeout.Try after sometime",Toast.LENGTH_SHORT).show();
+                Toast.makeText(CalenderActivity.this, "Timeout.Try after sometime", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void workinternal(final String type, final String veid) {
-        if (isNetworkAvailable()){
-            IntenalSchedule(type,veid);
-        }else {
+        if (isNetworkAvailable()) {
+            IntenalSchedule(type, veid);
+        } else {
             AlertDialog.Builder dialog = new AlertDialog.Builder(CalenderActivity.this);
             dialog.setCancelable(false);
             dialog.setTitle("Alert!");
-            dialog.setMessage("No internet.Please check your connection." );
+            dialog.setMessage("No internet.Please check your connection.");
             dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int id) {
-                    //Action for "Ok".
-                    workinternal(type,veid);
-                }
-            })
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            //Action for "Ok".
+                            workinternal(type, veid);
+                        }
+                    })
                     .setNegativeButton("Cancel ", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -357,21 +359,22 @@ public class CalenderActivity extends AppCompatActivity {
             alert.show();
         }
     }
+
     private void work() {
-        if (isNetworkAvailable()){
+        if (isNetworkAvailable()) {
             Wash();
-        }else {
+        } else {
             AlertDialog.Builder dialog = new AlertDialog.Builder(CalenderActivity.this);
             dialog.setCancelable(false);
             dialog.setTitle("Alert!");
-            dialog.setMessage("No internet.Please check your connection." );
+            dialog.setMessage("No internet.Please check your connection.");
             dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int id) {
-                    //Action for "Ok".
-                    work();
-                }
-            })
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            //Action for "Ok".
+                            work();
+                        }
+                    })
                     .setNegativeButton("Cancel ", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -393,36 +396,37 @@ public class CalenderActivity extends AppCompatActivity {
                 .setDimAmount(0.5f)
                 .show();
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        Call<JsonObject> call = apiInterface.interSchedule(customerid+"",token+"",vehicleid+"",""+orderid,""+binding.preferDate.getText().toString()
-                ,""+binding.preferredtimeEdt.getText().toString(),""+binding.commentTxt.getText().toString(),""+type,veid+"");
+        Call<JsonObject> call = apiInterface.interSchedule(customerid + "", token + "", vehicleid + "", "" + orderid, "" + binding.preferDate.getText().toString()
+                , "" + binding.preferredtimeEdt.getText().toString(), "" + binding.commentTxt.getText().toString(), "" + type, veid + "");
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                 hud.dismiss();
                 try {
-                    if(response.isSuccessful()){
+                    if (response.isSuccessful()) {
                         JsonElement jsonElement = response.body();
                         JSONObject jsonObject = new JSONObject(jsonElement.toString());
                         if (jsonObject.optString("code").equalsIgnoreCase("200")) {
                             Gson gson = new Gson();
-                            Toast.makeText(CalenderActivity.this,jsonObject.optString("message"),Toast.LENGTH_LONG).show();
+                            Toast.makeText(CalenderActivity.this, jsonObject.optString("message"), Toast.LENGTH_LONG).show();
                             finish();
-                        }else  if (jsonObject.optString("code").equalsIgnoreCase("203")) {
+                        } else if (jsonObject.optString("code").equalsIgnoreCase("203")) {
                             sessionManager.logoutUsers();
-                        }else  if (jsonObject.optString("code").equalsIgnoreCase("201")){
-                            Toast.makeText(CalenderActivity.this,jsonObject.optString("message"),Toast.LENGTH_SHORT).show();
+                        } else if (jsonObject.optString("code").equalsIgnoreCase("201")) {
+                            Toast.makeText(CalenderActivity.this, jsonObject.optString("message"), Toast.LENGTH_SHORT).show();
                         }
-                    } else{
+                    } else {
                         ApiConfig.responseToast(CalenderActivity.this, response.code());
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
+
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
                 hud.dismiss();
-                Toast.makeText(CalenderActivity.this,"Timeout.Try after sometime",Toast.LENGTH_SHORT).show();
+                Toast.makeText(CalenderActivity.this, "Timeout.Try after sometime", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -539,20 +543,20 @@ public class CalenderActivity extends AppCompatActivity {
                 .setDimAmount(0.5f)
                 .show();
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        Call<VehicleWashList> call = apiInterface.washDetails(""+customerid,""+token,vehicleid+"",""+orderid);
+        Call<VehicleWashList> call = apiInterface.washDetails("" + customerid, "" + token, vehicleid + "", "" + orderid);
         call.enqueue(new Callback<VehicleWashList>() {
             @Override
             public void onResponse(Call<VehicleWashList> call, Response<VehicleWashList> response) {
                 hud.dismiss();
-                try{
-                    if(response.isSuccessful()){
+                try {
+                    if (response.isSuccessful()) {
                         final VehicleWashList vehicleWashList = response.body();
                         if (vehicleWashList.code.equalsIgnoreCase("200")) {
                             Gson gson = new Gson();
                             String json = gson.toJson(vehicleWashList);
                             washDetails = vehicleWashList.wash_details;
                             try {
-                                for (int i = 0 ; i < washDetails.size(); i++) {
+                                for (int i = 0; i < washDetails.size(); i++) {
                                     @SuppressLint("SimpleDateFormat") DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
                                     Calendar calendar = Calendar.getInstance();
                                     Date datestart;
@@ -568,39 +572,39 @@ public class CalenderActivity extends AppCompatActivity {
                             }
                             extraDetails = vehicleWashList.internal_details;
                             try {
-                                for (int i = 0 ; i < extraDetails.size(); i++) {
+                                for (int i = 0; i < extraDetails.size(); i++) {
                                     @SuppressLint("SimpleDateFormat") DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
                                     Calendar calendar = Calendar.getInstance();
                                     Calendar calendar1 = Calendar.getInstance();
-                                    Date datestart,dateend;
-                                    if (!TextUtils.isEmpty(extraDetails.get(i).schedule_date1)){
+                                    Date datestart, dateend;
+                                    if (!TextUtils.isEmpty(extraDetails.get(i).schedule_date1)) {
                                         datestart = formatter.parse(extraDetails.get(i).schedule_date1);
                                         calendar.setTime(datestart);
                                         binding.calendarView.setDate(calendar);
                                         mEventDays.add(new EventDay(calendar, R.drawable.car_extra));
                                     }
-                                    if (!TextUtils.isEmpty(extraDetails.get(i).schedule_date2)){
+                                    if (!TextUtils.isEmpty(extraDetails.get(i).schedule_date2)) {
                                         dateend = formatter.parse(extraDetails.get(i).schedule_date2);
                                         calendar1.setTime(dateend);
                                         binding.calendarView.setDate(calendar1);
                                         mEventDays.add(new EventDay(calendar1, R.drawable.car_extra));
                                     }
-                                    if (!TextUtils.isEmpty(extraDetails.get(i).schedule_date1) && !TextUtils.isEmpty(extraDetails.get(i).schedule_date2)){
+                                    if (!TextUtils.isEmpty(extraDetails.get(i).schedule_date1) && !TextUtils.isEmpty(extraDetails.get(i).schedule_date2)) {
                                         binding.addinternal.setVisibility(View.GONE);
-                                    }else {
+                                    } else {
                                         binding.addinternal.setVisibility(View.VISIBLE);
                                         final int finalI = i;
                                         binding.submit.setOnClickListener(new View.OnClickListener() {
                                             @Override
                                             public void onClick(View view) {
-                                                if (binding.preferDate.getText().toString().length()>0 && binding.preferredtimeEdt.getText().toString().length()>0){
-                                                    if(TextUtils.isEmpty(extraDetails.get(finalI).schedule_date1) && TextUtils.isEmpty(extraDetails.get(finalI).schedule_date2)){
-                                                        workinternal("1",extraDetails.get(finalI).id);
-                                                    }else if(!TextUtils.isEmpty(extraDetails.get(finalI).schedule_date1) && TextUtils.isEmpty(extraDetails.get(finalI).schedule_date2)){
-                                                        workinternal("2",extraDetails.get(finalI).id);
+                                                if (binding.preferDate.getText().toString().length() > 0 && binding.preferredtimeEdt.getText().toString().length() > 0) {
+                                                    if (TextUtils.isEmpty(extraDetails.get(finalI).schedule_date1) && TextUtils.isEmpty(extraDetails.get(finalI).schedule_date2)) {
+                                                        workinternal("1", extraDetails.get(finalI).id);
+                                                    } else if (!TextUtils.isEmpty(extraDetails.get(finalI).schedule_date1) && TextUtils.isEmpty(extraDetails.get(finalI).schedule_date2)) {
+                                                        workinternal("2", extraDetails.get(finalI).id);
                                                     }
-                                                }else {
-                                                    Toast.makeText(CalenderActivity.this,Constant.CHOOSEDATETIME,Toast.LENGTH_SHORT).show();
+                                                } else {
+                                                    Toast.makeText(CalenderActivity.this, Constant.CHOOSEDATETIME, Toast.LENGTH_SHORT).show();
                                                 }
                                             }
                                         });
@@ -627,10 +631,10 @@ public class CalenderActivity extends AppCompatActivity {
                                                 calendar.setTime(datestart);
                                                 Log.e("CALENDARWASH", calendar.toString() + "****" + eventDay);
                                                 if (eventDay.getCalendar().equals(calendar)) {
-                                                    previewPopup(washDetails.get(i).vehicle_image, "External Wash", washDetails.get(i).date,"");
+                                                    previewPopup(washDetails.get(i).vehicle_image, "External Wash", washDetails.get(i).date, "");
                                                 }
                                             }
-                                        }else if (eventDay.getImageResource() == R.drawable.car_extra) {
+                                        } else if (eventDay.getImageResource() == R.drawable.car_extra) {
                                             for (int i = 0; i < extraDetails.size(); i++) {
                                                 @SuppressLint("SimpleDateFormat") DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
                                                 Calendar calendar = Calendar.getInstance();
@@ -651,7 +655,7 @@ public class CalenderActivity extends AppCompatActivity {
                                                         previewPopup1("Inrernal Wash", "No Data Found");
                                                     } else {
                                                         String str = extraDetails.get(i).vehicle_image1;
-                                                        previewPopup(str, "Internal Wash", "Wash Date : " + extraDetails.get(i).schedule_date1,"Washed Status: Cleaned");
+                                                        previewPopup(str, "Internal Wash", "Wash Date : " + extraDetails.get(i).schedule_date1, "Washed Status: Cleaned");
                                                     }
                                                     //previewPopup(extraDetails.get(i).vehicle_image1, "Internal Wash");
                                                 } else if (eventDay.getCalendar().equals(calendar1)) {
@@ -659,7 +663,7 @@ public class CalenderActivity extends AppCompatActivity {
                                                         previewPopup1("Inrernal Wash", "No Data Found");
                                                     } else {
                                                         String str2 = extraDetails.get(i).vehicle_image1;
-                                                        previewPopup(str2, "Internal Wash", "Wash Date : " + extraDetails.get(i).schedule_date2,"Washed Status: Cleaned");
+                                                        previewPopup(str2, "Internal Wash", "Wash Date : " + extraDetails.get(i).schedule_date2, "Washed Status: Cleaned");
                                                     }
                                                     //previewPopup(extraDetails.get(i).vehicle_image2, "Internal Wash");
                                                 }
@@ -673,22 +677,23 @@ public class CalenderActivity extends AppCompatActivity {
                             });
 
 
-                        }else  if (vehicleWashList.code.equalsIgnoreCase("203")) {
+                        } else if (vehicleWashList.code.equalsIgnoreCase("203")) {
                             sessionManager.logoutUsers();
-                        }else  if (vehicleWashList.code.equalsIgnoreCase("201")){
-                            Toast.makeText(CalenderActivity.this,vehicleWashList.message,Toast.LENGTH_SHORT).show();
+                        } else if (vehicleWashList.code.equalsIgnoreCase("201")) {
+                            Toast.makeText(CalenderActivity.this, vehicleWashList.message, Toast.LENGTH_SHORT).show();
                         }
-                    } else{
+                    } else {
                         ApiConfig.responseToast(CalenderActivity.this, response.code());
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
+
             @Override
             public void onFailure(Call<VehicleWashList> call, Throwable t) {
                 hud.dismiss();
-                Toast.makeText(CalenderActivity.this,"Timeout.Try after sometime",Toast.LENGTH_SHORT).show();
+                Toast.makeText(CalenderActivity.this, "Timeout.Try after sometime", Toast.LENGTH_SHORT).show();
             }
         });
     }

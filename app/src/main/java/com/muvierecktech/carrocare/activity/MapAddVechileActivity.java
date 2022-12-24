@@ -48,18 +48,18 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MapAddVechileActivity extends AppCompatActivity implements View.OnClickListener{
+public class MapAddVechileActivity extends AppCompatActivity implements View.OnClickListener {
+    public static String makeStr, modelStr;
     public ActivityMapAddVechileBinding binding;
     SessionManager sessionManager;
-    String customerid,token,vecType,vecCategory;
+    String customerid, token, vecType, vecCategory;
     MakeModelList makeModelList;
-    String vechicleCategory[] = {"hatchback","sedan","suv"};
-    public static String makeStr,modelStr;
-    List<MakeModelList.Vehicle> vehicleList ;
-    ArrayList<String> makemodel ;
+    String vechicleCategory[] = {"hatchback", "sedan", "suv"};
+    List<MakeModelList.Vehicle> vehicleList;
+    ArrayList<String> makemodel;
     List<ParkingareaList.data> parkingarea;
     ArrayList<String> parkingareaname;
-    String make,model,apartname,preferdScd,preferTime,parkArea;
+    String make, model, apartname, preferdScd, preferTime, parkArea;
     String address, latitude, longitude;
     ArrayList<String> spinner_item;
 
@@ -67,9 +67,9 @@ public class MapAddVechileActivity extends AppCompatActivity implements View.OnC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_map_add_vechile);
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_map_add_vechile);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_map_add_vechile);
         sessionManager = new SessionManager(this);
-        HashMap<String,String> hashMap = sessionManager.getUserDetails();
+        HashMap<String, String> hashMap = sessionManager.getUserDetails();
         customerid = hashMap.get(SessionManager.KEY_USERID);
         token = hashMap.get(SessionManager.KEY_TOKEN);
 
@@ -101,7 +101,7 @@ public class MapAddVechileActivity extends AppCompatActivity implements View.OnC
             public void onClick(View view) {
 
                 if (binding.makeModelEdt.getText().toString().length() > 0 && binding.addressEdt.getText().toString().length() > 0
-                        && binding.vecNoEdt.getText().toString().length() > 0 && binding.vecColorEdt.getText().toString().length() > 0 ) {
+                        && binding.vecNoEdt.getText().toString().length() > 0 && binding.vecColorEdt.getText().toString().length() > 0) {
                     workAdd();
                 } else
                     Toast.makeText(MapAddVechileActivity.this, Constant.DETAILS, Toast.LENGTH_SHORT).show();
@@ -112,20 +112,20 @@ public class MapAddVechileActivity extends AppCompatActivity implements View.OnC
 
 
     private void workAdd() {
-        if (isNetworkAvailable()){
+        if (isNetworkAvailable()) {
             AddVechile();
-        }else {
+        } else {
             AlertDialog.Builder dialog = new AlertDialog.Builder(MapAddVechileActivity.this);
             dialog.setCancelable(false);
             dialog.setTitle("Alert!");
-            dialog.setMessage("No internet.Please check your connection." );
+            dialog.setMessage("No internet.Please check your connection.");
             dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int id) {
-                    //Action for "Ok".
-                    workAdd();
-                }
-            })
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            //Action for "Ok".
+                            workAdd();
+                        }
+                    })
                     .setNegativeButton("Cancel ", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -147,44 +147,45 @@ public class MapAddVechileActivity extends AppCompatActivity implements View.OnC
                 .setDimAmount(0.5f)
                 .show();
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        Call<JsonObject> call = apiInterface.vechileAddDoorstep(vecType +"",
-                vecCategory +"",
-                makeStr +"",
-                modelStr +"",
-                binding.vecNoEdt.getText().toString() +"",
-                binding.vecColorEdt.getText().toString() +"",
+        Call<JsonObject> call = apiInterface.vechileAddDoorstep(vecType + "",
+                vecCategory + "",
+                makeStr + "",
+                modelStr + "",
+                binding.vecNoEdt.getText().toString() + "",
+                binding.vecColorEdt.getText().toString() + "",
 //                binding.addressEdt.getText().toString() +"",
 //                latitude +"",
 //                longitude +"",
-                customerid +"",
-                token +"");
+                customerid + "",
+                token + "");
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                 hud.dismiss();
                 try {
-                    if(response.isSuccessful()){
+                    if (response.isSuccessful()) {
                         JsonElement jsonElement = response.body();
                         JSONObject jsonObject = new JSONObject(jsonElement.toString());
                         if (jsonObject.optString("code").equalsIgnoreCase("200")) {
                             Gson gson = new Gson();
                             Toast.makeText(MapAddVechileActivity.this, jsonObject.optString("message"), Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(MapAddVechileActivity.this,DoorStepServiceActivity.class));
+                            startActivity(new Intent(MapAddVechileActivity.this, DoorStepServiceActivity.class));
                             finish();
                         } else {
                             Toast.makeText(MapAddVechileActivity.this, jsonObject.optString("message"), Toast.LENGTH_SHORT).show();
                         }
-                    } else{
+                    } else {
                         ApiConfig.responseToast(MapAddVechileActivity.this, response.code());
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
+
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
                 hud.dismiss();
-                Toast.makeText(MapAddVechileActivity.this,"Timeout.Try after sometime",Toast.LENGTH_SHORT).show();
+                Toast.makeText(MapAddVechileActivity.this, "Timeout.Try after sometime", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -198,21 +199,21 @@ public class MapAddVechileActivity extends AppCompatActivity implements View.OnC
 //        }
         vecType = Constant.CAR;
 
-        if (isNetworkAvailable()){
+        if (isNetworkAvailable()) {
             makeModelList();
-        }else {
+        } else {
             AlertDialog.Builder dialog = new AlertDialog.Builder(MapAddVechileActivity.this);
             dialog.setCancelable(false);
             dialog.setTitle("Alert!");
-            dialog.setMessage("No internet.Please check your connection." );
+            dialog.setMessage("No internet.Please check your connection.");
             dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int id) {
-                    additionalwork(vecCat);
-                    //Action for "Ok".
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            additionalwork(vecCat);
+                            //Action for "Ok".
 
-                }
-            })
+                        }
+                    })
                     .setNegativeButton("Cancel ", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -241,8 +242,8 @@ public class MapAddVechileActivity extends AppCompatActivity implements View.OnC
             @Override
             public void onResponse(Call<MakeModelList> call, Response<MakeModelList> response) {
                 hud.dismiss();
-                try{
-                    if(response.isSuccessful()){
+                try {
+                    if (response.isSuccessful()) {
                         makeModelList = response.body();
                         if (makeModelList.code.equalsIgnoreCase("200")) {
                             Gson gson = new Gson();
@@ -252,20 +253,21 @@ public class MapAddVechileActivity extends AppCompatActivity implements View.OnC
                                 makemodel.addAll(Collections.singleton(vehicleList.get(i).vehicle_make + "-" + vehicleList.get(i).vehicle_model));
                             }
 
-                        }else if (makeModelList.code.equalsIgnoreCase("201")){
-                            Toast.makeText(MapAddVechileActivity.this,makeModelList.message,Toast.LENGTH_SHORT).show();
+                        } else if (makeModelList.code.equalsIgnoreCase("201")) {
+                            Toast.makeText(MapAddVechileActivity.this, makeModelList.message, Toast.LENGTH_SHORT).show();
                         }
-                    } else{
+                    } else {
                         ApiConfig.responseToast(MapAddVechileActivity.this, response.code());
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
+
             @Override
             public void onFailure(Call<MakeModelList> call, Throwable t) {
                 hud.dismiss();
-                Toast.makeText(MapAddVechileActivity.this,"Timeout.Try after sometime",Toast.LENGTH_SHORT).show();
+                Toast.makeText(MapAddVechileActivity.this, "Timeout.Try after sometime", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -299,10 +301,10 @@ public class MapAddVechileActivity extends AppCompatActivity implements View.OnC
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.vec_category_edt:
 
-                binding.spinner.setAdapter(new ArrayAdapter<String>(MapAddVechileActivity.this, android.R.layout.simple_list_item_1,spinner_item));
+                binding.spinner.setAdapter(new ArrayAdapter<String>(MapAddVechileActivity.this, android.R.layout.simple_list_item_1, spinner_item));
 
                 binding.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
@@ -311,6 +313,7 @@ public class MapAddVechileActivity extends AppCompatActivity implements View.OnC
                         additionalwork(spinner_item.get(i));
                         binding.makeModelEdt.setText("");
                     }
+
                     @Override
                     public void onNothingSelected(AdapterView<?> adapterView) {
                     }
@@ -319,11 +322,11 @@ public class MapAddVechileActivity extends AppCompatActivity implements View.OnC
                 binding.spinner.performClick();
                 break;
             case R.id.make_model_edt:
-                if (TextUtils.isEmpty(binding.vecCategoryEdt.getText().toString())){
-                    Toast.makeText(MapAddVechileActivity.this,"Choose Vechicle Category",Toast.LENGTH_SHORT).show();
+                if (TextUtils.isEmpty(binding.vecCategoryEdt.getText().toString())) {
+                    Toast.makeText(MapAddVechileActivity.this, "Choose Vechicle Category", Toast.LENGTH_SHORT).show();
                 } else {
 
-                    binding.spinner.setAdapter(new ArrayAdapter<String>(MapAddVechileActivity.this, android.R.layout.simple_list_item_1,makemodel));
+                    binding.spinner.setAdapter(new ArrayAdapter<String>(MapAddVechileActivity.this, android.R.layout.simple_list_item_1, makemodel));
 
                     binding.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
@@ -334,6 +337,7 @@ public class MapAddVechileActivity extends AppCompatActivity implements View.OnC
                             makeStr = separated[0];
                             modelStr = separated[1];
                         }
+
                         @Override
                         public void onNothingSelected(AdapterView<?> adapterView) {
                         }

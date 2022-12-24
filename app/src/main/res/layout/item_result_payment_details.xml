@@ -1,16 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-    <LinearLayout android:orientation="horizontal" android:id="@+id/ll" android:layout_width="match_parent" android:layout_height="wrap_content">
-        <TextView android:textSize="@dimen/medtext" android:textColor="@color/black" android:gravity="center" android:layout_gravity="left|center_vertical|center_horizontal|center" android:id="@+id/date" android:padding="@dimen/padding" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_weight="1" android:fontFamily="@font/josefinsans_regular"/>
-        <View android:background="@color/gray" android:layout_width="1dp" android:layout_height="match_parent"/>
-        <TextView android:textSize="@dimen/medtext" android:textColor="@color/black" android:gravity="center" android:layout_gravity="left|center_vertical|center_horizontal|center" android:id="@+id/paymentid" android:padding="@dimen/padding" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_weight="1" android:fontFamily="@font/josefinsans_regular"/>
-        <View android:background="@color/gray" android:layout_width="1dp" android:layout_height="match_parent"/>
-        <TextView android:textSize="@dimen/medtext" android:textColor="@color/black" android:gravity="center" android:layout_gravity="left|center_vertical|center_horizontal|center" android:id="@+id/amount" android:padding="@dimen/padding" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_weight="1.1" android:fontFamily="@font/josefinsans_regular"/>
-        <View android:background="@color/gray" android:layout_width="1dp" android:layout_height="match_parent"/>
-        <TextView android:textSize="@dimen/medtext" android:textColor="@color/black" android:gravity="center" android:layout_gravity="left|center_vertical|center_horizontal|center" android:id="@+id/status" android:padding="@dimen/padding" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_weight="1.1" android:fontFamily="@font/josefinsans_regular"/>
-        <View android:background="@color/gray" android:layout_width="1dp" android:layout_height="match_parent"/>
+
+    <LinearLayout
+        android:id="@+id/ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/imgDownload"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|center_vertical|center_horizontal|center"
+            android:fontFamily="@font/josefinsans_regular"
+            android:gravity="center"
+            android:padding="@dimen/padding"
+            android:src="@drawable/ic_download"
+            android:textColor="@color/black"
+            android:textSize="@dimen/medtext" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/gray" />
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|center_vertical|center_horizontal|center"
+
+            android:fontFamily="@font/josefinsans_regular"
+            android:gravity="center"
+            android:padding="@dimen/padding"
+            android:textColor="@color/black"
+            android:textSize="@dimen/medtext" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/gray" />
+
+        <TextView
+            android:id="@+id/paymentid"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|center_vertical|center_horizontal|center"
+
+            android:fontFamily="@font/josefinsans_regular"
+            android:gravity="center"
+            android:padding="@dimen/padding"
+            android:textColor="@color/black"
+            android:textSize="@dimen/medtext" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/gray" />
+
+        <TextView
+            android:id="@+id/amount"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|center_vertical|center_horizontal|center"
+            android:layout_weight="1.1"
+            android:fontFamily="@font/josefinsans_regular"
+            android:gravity="center"
+            android:padding="@dimen/padding"
+            android:textColor="@color/black"
+            android:textSize="@dimen/medtext" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/gray" />
+
+        <TextView
+            android:id="@+id/status"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|center_vertical|center_horizontal|center"
+            android:layout_weight="1.1"
+            android:fontFamily="@font/josefinsans_regular"
+            android:gravity="center"
+            android:padding="@dimen/padding"
+            android:textColor="@color/black"
+            android:textSize="@dimen/medtext" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/gray" />
     </LinearLayout>
-    <View android:background="@color/gray" android:layout_width="match_parent" android:layout_height="1dp" android:layout_below="@+id/ll"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/ll"
+        android:background="@color/gray" />
 </RelativeLayout>

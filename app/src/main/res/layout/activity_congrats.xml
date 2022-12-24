@@ -1,91 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
-    <RelativeLayout
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    <RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorPrimary"
         tools:context=".activity.CongratsActivity">
+
         <LinearLayout
             android:id="@+id/header"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="vertical">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
+
                 <ImageView
                     android:id="@+id/back"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
-                    android:layout_margin="10dp"
-                    android:src="@drawable/back"
-                    android:padding="5dp"
-                    android:visibility="gone"
                     android:layout_gravity="center|left"
-                    />
+                    android:layout_margin="10dp"
+                    android:padding="5dp"
+                    android:src="@drawable/back"
+                    android:visibility="gone" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center|left"
                     android:layout_weight="1"
-                    android:textColor="#FFF"
-                    android:text="Add Vehicle"
-                    android:visibility="gone"
-                    android:textAllCaps="true"
                     android:fontFamily="@font/josefinsans_bold"
-                    android:textSize="@dimen/heading"/>
+                    android:text="Add Vehicle"
+                    android:textAllCaps="true"
+                    android:textColor="#FFF"
+                    android:textSize="@dimen/heading"
+                    android:visibility="gone" />
             </LinearLayout>
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/header"
-            android:gravity="center"
             android:background="@drawable/bg"
+            android:gravity="center"
             android:orientation="vertical">
+
             <ImageView
                 android:layout_width="200dp"
                 android:layout_height="150dp"
                 android:layout_gravity="center"
-                android:src="@drawable/tick"/>
+                android:src="@drawable/tick" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|left"
-                android:textColor="@color/colorPrimary"
-                android:text="Congratulations !!!"
-                android:textAllCaps="false"
-                android:gravity="center"
                 android:layout_marginTop="@dimen/marginhigh"
                 android:fontFamily="@font/josefinsans_bold"
-                android:textSize="@dimen/heading"/>
+                android:gravity="center"
+                android:text="Congratulations !!!"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/heading" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:textColor="@color/colorPrimary"
-                android:text="Your Payment \n is successfully done."
-                android:textAllCaps="false"
-                android:gravity="center"
                 android:layout_marginTop="@dimen/marginhigh"
                 android:fontFamily="@font/josefinsans_bold"
-                android:textSize="@dimen/bigtext"/>
+                android:gravity="center"
+                android:text="Your Payment \n is successfully done."
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/bigtext" />
+
             <Button
                 android:id="@+id/continue_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Continue"
+                android:layout_marginLeft="@dimen/fifty"
+                android:layout_marginTop="@dimen/marginhigh"
+                android:layout_marginRight="@dimen/fifty"
                 android:background="@drawable/login_bg"
                 android:fontFamily="@font/josefinsans_bold"
-                android:textSize="@dimen/bigtext"
+                android:text="Continue"
                 android:textColor="@color/white"
-                android:layout_marginTop="@dimen/marginhigh"
-                android:layout_marginLeft="@dimen/fifty"
-                android:layout_marginRight="@dimen/fifty"/>
+                android:textSize="@dimen/bigtext" />
         </LinearLayout>
     </RelativeLayout>
 </layout>

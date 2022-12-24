@@ -1,342 +1,346 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardBackgroundColor="@color/white"
-        app:cardMaxElevation="5dp"
-        app:cardElevation="3dp"
-        app:cardCornerRadius="5dp"
         android:elevation="7dp"
         android:fitsSystemWindows="true"
-        app:cardUseCompatPadding="true"
-        app:cardPreventCornerOverlap="true">
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="3dp"
+        app:cardMaxElevation="5dp"
+        app:cardPreventCornerOverlap="true"
+        app:cardUseCompatPadding="true">
+
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <RelativeLayout
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
                 <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:layout_toLeftOf="@+id/delete_img"
-                    android:orientation="vertical"
                     android:layout_weight="0.5"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:orientation="vertical">
+
                     <TextView
                         android:id="@+id/cart_model"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center|left"
-                        android:textColor="#000"
-                        android:text="Audi - a6"
-                        android:textAllCaps="true"
                         android:layout_marginLeft="@dimen/margin"
                         android:layout_marginTop="@dimen/log_top"
                         android:fontFamily="@font/josefinsans_bold"
-                        android:textSize="@dimen/medtext"/>
+                        android:text="Audi - a6"
+                        android:textAllCaps="true"
+                        android:textColor="#000"
+                        android:textSize="@dimen/medtext" />
 
                     <TextView
                         android:id="@+id/cart_veno"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center|left"
-                        android:textColor="#000"
-                        android:text="TN 0 A 1234"
                         android:layout_marginLeft="@dimen/margin"
                         android:layout_marginTop="@dimen/marginverylow"
                         android:fontFamily="@font/josefinsans_regular"
-                        android:textSize="@dimen/medtext"/>
+                        android:text="TN 0 A 1234"
+                        android:textColor="#000"
+                        android:textSize="@dimen/medtext" />
 
                     <TextView
-                        android:visibility="gone"
                         android:id="@+id/cart_action"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center|left"
-                        android:textColor="@color/colorPrimary"
-                        android:text="Daily Car Wash"
-                        android:textAllCaps="true"
                         android:layout_marginLeft="@dimen/margin"
                         android:layout_marginTop="@dimen/log_top"
                         android:fontFamily="@font/josefinsans_bold"
-                        android:textSize="@dimen/medtext"/>
+                        android:text="Daily Car Wash"
+                        android:textAllCaps="true"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/medtext"
+                        android:visibility="gone" />
 
                     <TextView
                         android:id="@+id/cart_serice"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center|left"
-                        android:textColor="@color/colorPrimary"
+                        android:layout_marginLeft="@dimen/margin"
+                        android:layout_marginTop="@dimen/marginverylow"
+                        android:layout_marginRight="@dimen/margin"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/josefinsans_bold"
                         android:text="Wash"
                         android:textAllCaps="true"
-                        android:fontFamily="@font/josefinsans_bold"
-                        android:layout_marginLeft="@dimen/margin"
-                        android:layout_marginRight="@dimen/margin"
-                        android:layout_marginTop="@dimen/marginverylow"
-                        android:ellipsize="end"
-                        android:textSize="@dimen/bigtext"/>
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/bigtext" />
 
                     <TextView
                         android:id="@+id/cart_package"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center|left"
-                        android:textColor="#000"
-                        android:text="SUV"
-                        android:visibility="gone"
-                        android:fontFamily="@font/josefinsans_regular"
                         android:layout_marginLeft="@dimen/margin"
-                        android:layout_marginRight="@dimen/margin"
                         android:layout_marginTop="@dimen/log_top"
+                        android:layout_marginRight="@dimen/margin"
                         android:ellipsize="end"
-                        android:textSize="@dimen/bigtext"/>
+                        android:fontFamily="@font/josefinsans_regular"
+                        android:text="SUV"
+                        android:textColor="#000"
+                        android:textSize="@dimen/bigtext"
+                        android:visibility="gone" />
 
                     <TextView
-                        android:visibility="gone"
                         android:id="@+id/cart_sub_type"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center|left"
-                        android:textColor="#000"
-                        android:text="1 Month"
-                        android:fontFamily="@font/josefinsans_regular"
                         android:layout_marginLeft="@dimen/margin"
-                        android:layout_marginRight="@dimen/margin"
                         android:layout_marginTop="@dimen/marginverylow"
+                        android:layout_marginRight="@dimen/margin"
                         android:ellipsize="end"
-                        android:textSize="@dimen/bigtext"/>
+                        android:fontFamily="@font/josefinsans_regular"
+                        android:text="1 Month"
+                        android:textColor="#000"
+                        android:textSize="@dimen/bigtext"
+                        android:visibility="gone" />
 
                     <LinearLayout
-                        android:visibility="gone"
                         android:id="@+id/schedule_ll"
-                        android:layout_marginTop="@dimen/marginverylow"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/margin"
+                        android:layout_marginTop="@dimen/marginverylow"
                         android:layout_marginRight="@dimen/margin"
                         android:orientation="horizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:visibility="gone">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center|left"
+                            android:fontFamily="@font/josefinsans_regular"
                             android:text="Schedule Date :"
                             android:textColor="@color/dark_gray"
-                            android:fontFamily="@font/josefinsans_regular"
-                            android:textSize="@dimen/bigtext"/>
+                            android:textSize="@dimen/bigtext" />
 
                         <TextView
-                            android:layout_weight="1"
                             android:id="@+id/schedule_date"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:gravity="left"
                             android:layout_gravity="center|left"
-                            android:textColor="@color/black"
+                            android:layout_weight="1"
                             android:fontFamily="@font/josefinsans_bold"
-                            android:textSize="@dimen/bigtext"/>
+                            android:gravity="left"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/bigtext" />
 
                     </LinearLayout>
 
                 </LinearLayout>
 
                 <ImageView
-                    android:layout_margin="5dp"
-                    android:layout_alignParentRight="true"
                     android:id="@+id/delete_img"
-                    android:src="@drawable/ic_delete"
-                    android:layout_weight="1"
                     android:layout_width="25dp"
-                    android:layout_height="25dp" />
+                    android:layout_height="25dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_delete" />
 
             </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <ImageView
                     android:id="@+id/cart_car_img"
                     android:layout_width="150dp"
                     android:layout_height="100dp"
                     android:layout_gravity="center"
                     android:scaleType="centerCrop" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:layout_gravity="center"
-                    android:layout_margin="10dp">
+                    android:layout_margin="10dp"
+                    android:orientation="vertical">
 
                     <LinearLayout
-                        android:layout_marginTop="@dimen/marginverylow"
-                        android:layout_marginLeft="@dimen/margin"
-                        android:layout_marginRight="@dimen/margin"
-                        android:orientation="horizontal"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin"
+                        android:layout_marginTop="@dimen/marginverylow"
+                        android:layout_marginRight="@dimen/margin"
+                        android:orientation="horizontal">
 
                         <TextView
-                            android:layout_weight="1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center|left"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/josefinsans_regular"
                             android:text="Pack price :"
                             android:textColor="@color/dark_gray"
-                            android:fontFamily="@font/josefinsans_regular"
-                            android:textSize="@dimen/bigtext"/>
+                            android:textSize="@dimen/bigtext" />
 
                         <TextView
-                            android:layout_weight="1"
                             android:id="@+id/pack_amount"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:gravity="right"
                             android:layout_gravity="center|right"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/josefinsans_bold"
+                            android:gravity="right"
                             android:text="₹ 0"
                             android:textColor="@color/black"
-                            android:fontFamily="@font/josefinsans_bold"
-                            android:textSize="@dimen/bigtext"/>
+                            android:textSize="@dimen/bigtext" />
 
                     </LinearLayout>
 
                     <LinearLayout
-                        android:layout_marginTop="@dimen/marginverylow"
-                        android:layout_marginLeft="@dimen/margin"
-                        android:layout_marginRight="@dimen/margin"
-                        android:orientation="horizontal"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin"
+                        android:layout_marginTop="@dimen/marginverylow"
+                        android:layout_marginRight="@dimen/margin"
+                        android:orientation="horizontal">
 
                         <TextView
-                            android:layout_weight="1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center|left"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/josefinsans_regular"
                             android:text="Before Tax :"
                             android:textColor="@color/dark_gray"
-                            android:fontFamily="@font/josefinsans_regular"
-                            android:textSize="@dimen/bigtext"/>
+                            android:textSize="@dimen/bigtext" />
 
                         <TextView
-                            android:layout_weight="1"
                             android:id="@+id/before_total_amount"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:gravity="right"
                             android:layout_gravity="center|right"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/josefinsans_bold"
+                            android:gravity="right"
                             android:text="₹ 0"
                             android:textColor="@color/black"
-                            android:fontFamily="@font/josefinsans_bold"
-                            android:textSize="@dimen/bigtext"/>
+                            android:textSize="@dimen/bigtext" />
 
                     </LinearLayout>
 
                     <LinearLayout
-                        android:visibility="gone"
-                        android:layout_marginTop="@dimen/marginverylow"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/margin"
+                        android:layout_marginTop="@dimen/marginverylow"
                         android:layout_marginRight="@dimen/margin"
                         android:orientation="horizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:visibility="gone">
 
                         <TextView
-                            android:layout_weight="1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center|left"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/josefinsans_regular"
                             android:text="Tax :"
                             android:textColor="@color/dark_gray"
-                            android:fontFamily="@font/josefinsans_regular"
-                            android:textSize="@dimen/bigtext"/>
+                            android:textSize="@dimen/bigtext" />
 
                         <TextView
-                            android:layout_weight="1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:gravity="right"
                             android:layout_gravity="center|right"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/josefinsans_bold"
+                            android:gravity="right"
                             android:text="18%"
                             android:textColor="@color/black"
-                            android:fontFamily="@font/josefinsans_bold"
-                            android:textSize="@dimen/bigtext"/>
+                            android:textSize="@dimen/bigtext" />
 
                     </LinearLayout>
 
                     <LinearLayout
-                        android:layout_marginTop="@dimen/marginverylow"
-                        android:layout_marginLeft="@dimen/margin"
-                        android:layout_marginRight="@dimen/margin"
-                        android:orientation="horizontal"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin"
+                        android:layout_marginTop="@dimen/marginverylow"
+                        android:layout_marginRight="@dimen/margin"
+                        android:orientation="horizontal">
 
                         <TextView
                             android:id="@+id/tax_percentage"
-                            android:layout_weight="1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center|left"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/josefinsans_regular"
                             android:text="GST :"
                             android:textColor="@color/dark_gray"
-                            android:fontFamily="@font/josefinsans_regular"
-                            android:textSize="@dimen/bigtext"/>
+                            android:textSize="@dimen/bigtext" />
 
                         <TextView
-                            android:layout_weight="1"
                             android:id="@+id/tax_total_amount"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:gravity="right"
                             android:layout_gravity="center|right"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/josefinsans_bold"
+                            android:gravity="right"
                             android:text="₹ 0"
                             android:textColor="@color/black"
-                            android:fontFamily="@font/josefinsans_bold"
-                            android:textSize="@dimen/bigtext"/>
+                            android:textSize="@dimen/bigtext" />
 
                     </LinearLayout>
 
                     <LinearLayout
-                        android:layout_marginTop="@dimen/marginverylow"
-                        android:layout_marginLeft="@dimen/margin"
-                        android:layout_marginRight="@dimen/margin"
-                        android:orientation="horizontal"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin"
+                        android:layout_marginTop="@dimen/marginverylow"
+                        android:layout_marginRight="@dimen/margin"
+                        android:orientation="horizontal">
 
                         <TextView
-                            android:layout_weight="1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center|left"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/josefinsans_bold"
                             android:text="Total :"
                             android:textColor="@color/dark_gray"
-                            android:fontFamily="@font/josefinsans_bold"
-                            android:textSize="@dimen/bigtext"/>
+                            android:textSize="@dimen/bigtext" />
 
                         <TextView
-                            android:layout_weight="1"
                             android:id="@+id/car_price"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:gravity="right"
                             android:layout_gravity="center|right"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/josefinsans_bold"
+                            android:gravity="right"
                             android:text="₹ 0"
                             android:textColor="@color/black"
-                            android:fontFamily="@font/josefinsans_bold"
-                            android:textSize="@dimen/bigtext"/>
+                            android:textSize="@dimen/bigtext" />
 
                     </LinearLayout>
 

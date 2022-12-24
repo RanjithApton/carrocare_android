@@ -8,6 +8,7 @@ public class VehicleWashList {
     public String message;
     public List<WashDetails> wash_details;
     public List<InternalDetails> internal_details;
+
     public class WashDetails {
         public String date;
         public String vehicle_wash_id;
@@ -19,6 +20,7 @@ public class VehicleWashList {
         public String updated_date;
         public String updated_time;
     }
+
     public class InternalDetails {
         public String id;
         public String vehicle_id;

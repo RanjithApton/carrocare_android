@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="270dp"
@@ -18,46 +19,46 @@
 
             <ImageView
                 android:id="@+id/cat_image"
-                android:scaleType="centerCrop"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop" />
 
             <ImageView
-                android:src="@drawable/ic_close"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="20dp"
-                android:layout_alignParentRight="true"
                 android:id="@+id/cat_close_imgae"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:src="@drawable/ic_close" />
 
             <RelativeLayout
-                android:background="@drawable/toast_back"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:background="@drawable/toast_back">
 
                 <TextView
-                    android:visibility="gone"
-                    android:textAllCaps="true"
-                    android:gravity="center"
-                    android:textStyle="bold"
-                    android:textColor="@color/white"
                     android:id="@+id/cat_title"
-                    android:layout_marginTop="70dp"
-                    android:textSize="18sp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="70dp"
+                    android:gravity="center"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
 
                 <TextView
-                    android:textColor="@color/black"
-                    android:gravity="left"
-                    android:padding="10dp"
-                    android:lines="4"
-                    android:ellipsize="end"
                     android:id="@+id/cat_description"
-                    android:layout_alignParentBottom="true"
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"/>
+                    android:layout_height="100dp"
+                    android:layout_alignParentBottom="true"
+                    android:ellipsize="end"
+                    android:gravity="left"
+                    android:lines="4"
+                    android:padding="10dp"
+                    android:textColor="@color/black" />
 
             </RelativeLayout>
 

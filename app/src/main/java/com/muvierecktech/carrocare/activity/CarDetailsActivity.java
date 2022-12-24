@@ -16,7 +16,8 @@ import com.squareup.picasso.Picasso;
 
 public class CarDetailsActivity extends AppCompatActivity {
     ActivityCarDetailsBinding binding;
-    String carname,carprice,cardesc,carimage,carid,header;
+    String carname, carprice, cardesc, carimage, carid, header;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,13 +31,13 @@ public class CarDetailsActivity extends AppCompatActivity {
         carid = intent.getStringExtra("carid");
         header = intent.getStringExtra("header");
 
-        if (header.equalsIgnoreCase(Constant.MACHINEPOLISH)){
+        if (header.equalsIgnoreCase(Constant.MACHINEPOLISH)) {
             binding.booknow.setText("Proceed");
         }
         binding.carName.setText(carname);
         binding.headerName.setText(header);
-        binding.carDesc.setText(HtmlCompat.fromHtml(cardesc,0));
-        binding.carPrice.setText("Total amount \n ₹ "+carprice);
+        binding.carDesc.setText(HtmlCompat.fromHtml(cardesc, 0));
+        binding.carPrice.setText("Total amount \n ₹ " + carprice);
         Picasso.get()
                 .load(carimage)
                 .placeholder(R.drawable.placeholder)
@@ -46,17 +47,17 @@ public class CarDetailsActivity extends AppCompatActivity {
         binding.booknow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (binding.booknow.getText().equals("Proceed")){
+                if (binding.booknow.getText().equals("Proceed")) {
                     Intent intent1 = new Intent(CarDetailsActivity.this, ConfirmFormActivity.class);
                     startActivity(intent1);
-                }else {
+                } else {
                     Intent intent = new Intent(CarDetailsActivity.this, VehicleListActivity.class);
-                    intent.putExtra("carname",carname);
-                    intent.putExtra("carprice",carprice);
-                    intent.putExtra("cardesc",cardesc);
-                    intent.putExtra("carimage",carimage);
-                    intent.putExtra("carid",carid);
-                    intent.putExtra("header",header);
+                    intent.putExtra("carname", carname);
+                    intent.putExtra("carprice", carprice);
+                    intent.putExtra("cardesc", cardesc);
+                    intent.putExtra("carimage", carimage);
+                    intent.putExtra("carid", carid);
+                    intent.putExtra("header", header);
                     startActivity(intent);
                 }
             }

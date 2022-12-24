@@ -36,15 +36,16 @@ import retrofit2.Response;
 
 public class MyOrdersActivity extends AppCompatActivity {
     ActivityMyOrdersBinding binding;
-     SessionManager sessionManager;
-     String token,customerid;
+    SessionManager sessionManager;
+    String token, customerid;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.activity_my_orders);
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_my_orders);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_my_orders);
         sessionManager = new SessionManager(this);
-        HashMap<String,String> hashMap = sessionManager.getUserDetails();
+        HashMap<String, String> hashMap = sessionManager.getUserDetails();
         token = hashMap.get(SessionManager.KEY_TOKEN);
         customerid = hashMap.get(SessionManager.KEY_USERID);
         work();
@@ -59,7 +60,7 @@ public class MyOrdersActivity extends AppCompatActivity {
         binding.renew.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MyOrdersActivity.this,RenewActivity.class));
+                startActivity(new Intent(MyOrdersActivity.this, RenewActivity.class));
                 finish();
             }
         });
@@ -67,20 +68,20 @@ public class MyOrdersActivity extends AppCompatActivity {
     }
 
     private void work() {
-        if (isNetworkAvailable()){
+        if (isNetworkAvailable()) {
             ServicePrice();
-        }else {
+        } else {
             AlertDialog.Builder dialog = new AlertDialog.Builder(MyOrdersActivity.this);
             dialog.setCancelable(false);
             dialog.setTitle("Alert!");
-            dialog.setMessage("No internet.Please check your connection." );
+            dialog.setMessage("No internet.Please check your connection.");
             dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int id) {
-                    //Action for "Ok".
-                    work();
-                }
-            })
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            //Action for "Ok".
+                            work();
+                        }
+                    })
                     .setNegativeButton("Cancel ", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -102,13 +103,13 @@ public class MyOrdersActivity extends AppCompatActivity {
                 .setDimAmount(0.5f)
                 .show();
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        Call<OrdersList> call = apiInterface.orderlist(token,customerid);
+        Call<OrdersList> call = apiInterface.orderlist(token, customerid);
         call.enqueue(new Callback<OrdersList>() {
             @Override
             public void onResponse(Call<OrdersList> call, Response<OrdersList> response) {
                 hud.dismiss();
-                try{
-                    if(response.isSuccessful()){
+                try {
+                    if (response.isSuccessful()) {
                         final OrdersList ordersList = response.body();
                         if (ordersList.code.equalsIgnoreCase("200")) {
                             Gson gson = new Gson();
@@ -116,32 +117,33 @@ public class MyOrdersActivity extends AppCompatActivity {
                             binding.noorders.setVisibility(View.GONE);
                             binding.ordersRc.setVisibility(View.VISIBLE);
 
-                            MyOrdersAdapter mainAdapter = new MyOrdersAdapter(MyOrdersActivity.this,ordersList.orders);
-                            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MyOrdersActivity.this,LinearLayoutManager.VERTICAL,false);
+                            MyOrdersAdapter mainAdapter = new MyOrdersAdapter(MyOrdersActivity.this, ordersList.orders);
+                            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MyOrdersActivity.this, LinearLayoutManager.VERTICAL, false);
                             binding.ordersRc.setLayoutManager(linearLayoutManager);
                             binding.ordersRc.setAdapter(mainAdapter);
 
-                        }else  if (ordersList.code.equalsIgnoreCase("203")) {
+                        } else if (ordersList.code.equalsIgnoreCase("203")) {
                             sessionManager.logoutUsers();
-                        }else  if (ordersList.code.equalsIgnoreCase("201")){
+                        } else if (ordersList.code.equalsIgnoreCase("201")) {
                             binding.noorders.setVisibility(View.VISIBLE);
                             binding.bottomLl.setVisibility(View.GONE);
                             binding.ordersRc.setVisibility(View.GONE);
                         }
-                    } else{
+                    } else {
                         ApiConfig.responseToast(MyOrdersActivity.this, response.code());
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
+
             @Override
             public void onFailure(Call<OrdersList> call, Throwable t) {
                 hud.dismiss();
                 binding.noorders.setVisibility(View.VISIBLE);
                 binding.bottomLl.setVisibility(View.GONE);
                 binding.ordersRc.setVisibility(View.GONE);
-                Toast.makeText(MyOrdersActivity.this,"Timeout.Try after sometime",Toast.LENGTH_SHORT).show();
+                Toast.makeText(MyOrdersActivity.this, "Timeout.Try after sometime", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -156,7 +158,7 @@ public class MyOrdersActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = new Intent(MyOrdersActivity.this,MainActivity.class);
+        Intent intent = new Intent(MyOrdersActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
     }

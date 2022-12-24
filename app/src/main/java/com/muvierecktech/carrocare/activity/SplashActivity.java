@@ -23,16 +23,42 @@ import com.muvierecktech.carrocare.databinding.ActivitySplashBinding;
 
 
 public class SplashActivity extends AppCompatActivity {
+    private static final int MAX_STEP = 4;
     ActivitySplashBinding binding;
     private MyViewPagerAdapter myViewPagerAdapter;
-
-    private static final int MAX_STEP = 4;
-
     private int about_images_array[] = {
             R.drawable.intro_image1,
             R.drawable.intro_image2,
             R.drawable.intro_image3,
             R.drawable.intro_image4
+    };
+    //  viewpager change listener
+    ViewPager.OnPageChangeListener viewPagerPageChangeListener = new ViewPager.OnPageChangeListener() {
+
+        @Override
+        public void onPageSelected(final int position) {
+            bottomProgressDots(position);
+
+            if (position == about_images_array.length - 1) {
+                binding.btnLogin.setVisibility(View.VISIBLE);
+                binding.btnNext.setVisibility(View.GONE);
+                binding.btnSkip.setVisibility(View.GONE);
+            } else {
+                binding.btnLogin.setVisibility(View.INVISIBLE);
+                binding.btnNext.setVisibility(View.VISIBLE);
+                binding.btnSkip.setVisibility(View.VISIBLE);
+            }
+        }
+
+        @Override
+        public void onPageScrolled(int arg0, float arg1, int arg2) {
+
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int arg0) {
+
+        }
     };
 
     @Override
@@ -73,7 +99,7 @@ public class SplashActivity extends AppCompatActivity {
         binding.btnSkip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SplashActivity.this,LoginActivity.class);
+                Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -82,7 +108,7 @@ public class SplashActivity extends AppCompatActivity {
         binding.btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SplashActivity.this,LoginActivity.class);
+                Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -112,36 +138,6 @@ public class SplashActivity extends AppCompatActivity {
             dots[current_index].setColorFilter(getResources().getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
         }
     }
-
-    //  viewpager change listener
-    ViewPager.OnPageChangeListener viewPagerPageChangeListener = new ViewPager.OnPageChangeListener() {
-
-        @Override
-        public void onPageSelected(final int position) {
-            bottomProgressDots(position);
-
-            if (position == about_images_array.length - 1) {
-                binding.btnLogin.setVisibility(View.VISIBLE);
-                binding.btnNext.setVisibility(View.GONE);
-                binding.btnSkip.setVisibility(View.GONE);
-            } else {
-                binding.btnLogin.setVisibility(View.INVISIBLE);
-                binding.btnNext.setVisibility(View.VISIBLE);
-                binding.btnSkip.setVisibility(View.VISIBLE);
-            }
-        }
-
-        @Override
-        public void onPageScrolled(int arg0, float arg1, int arg2) {
-
-        }
-
-        @Override
-        public void onPageScrollStateChanged(int arg0) {
-
-        }
-    };
-
 
     /**
      * View pager adapter

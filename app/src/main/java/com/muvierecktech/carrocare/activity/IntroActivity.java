@@ -15,11 +15,12 @@ import com.muvierecktech.carrocare.common.SessionManager;
 import java.util.HashMap;
 
 public class IntroActivity extends AppCompatActivity {
-    SharedPreferences prefs = null;
     private static int SPLASH_TIME_OUT = 1000;
-    private Thread startThread;
+    SharedPreferences prefs = null;
     SessionManager sessionManager;
     String accesstoken;
+    private Thread startThread;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,14 +29,13 @@ public class IntroActivity extends AppCompatActivity {
         prefs = getSharedPreferences("com.muvierecktech.carrocare", MODE_PRIVATE);
         sessionManager = new SessionManager(this);
 
-        HashMap<String,String> hashMap = sessionManager.getUserDetails();
+        HashMap<String, String> hashMap = sessionManager.getUserDetails();
         accesstoken = hashMap.get(SessionManager.KEY_TOKEN);
 
-        sessionManager.setData(SessionManager.USER_WANTS,"apartment");
+        sessionManager.setData(SessionManager.USER_WANTS, "apartment");
 
         int SDK_INT = android.os.Build.VERSION.SDK_INT;
-        if (SDK_INT > 8)
-        {
+        if (SDK_INT > 8) {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
                     .permitAll().build();
             StrictMode.setThreadPolicy(policy);
@@ -75,11 +75,11 @@ public class IntroActivity extends AppCompatActivity {
                     // Do first run stuff here then set 'firstrun' as false
                     // using the following line to edit/commit prefs
                     prefs.edit().putBoolean("firstrun", false).commit();
-                    Intent intent = new Intent(IntroActivity.this,SplashActivity.class);
+                    Intent intent = new Intent(IntroActivity.this, SplashActivity.class);
                     startActivity(intent);
                     finish();
-                }else {
-                    Intent intent = new Intent(IntroActivity.this,IntroductionActivity.class);
+                } else {
+                    Intent intent = new Intent(IntroActivity.this, IntroductionActivity.class);
                     startActivity(intent);
                     finish();
                 }

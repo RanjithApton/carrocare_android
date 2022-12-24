@@ -1,49 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
-    <RelativeLayout
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    <RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorPrimary"
         tools:context=".activity.NotificationActivity">
+
         <LinearLayout
             android:id="@+id/header"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:orientation="horizontal"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/back"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
+                android:layout_gravity="center|left"
                 android:layout_margin="10dp"
                 android:padding="@dimen/padding"
-                android:src="@drawable/back"
-                android:layout_gravity="center|left"
-                />
+                android:src="@drawable/back" />
+
             <TextView
                 android:id="@+id/header_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|left"
                 android:layout_weight="1"
-                android:textColor="@color/white"
-                android:textAllCaps="true"
                 android:fontFamily="@font/josefinsans_bold"
-                android:textSize="@dimen/heading"/>
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="@dimen/heading" />
         </LinearLayout>
+
         <ScrollView
-            android:layout_below="@+id/header"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_below="@+id/header"
             android:background="@drawable/bg">
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                >
+                android:orientation="vertical">
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/notification_rc"
                     android:layout_width="match_parent"
@@ -53,4 +56,5 @@
                 </androidx.recyclerview.widget.RecyclerView>
             </RelativeLayout>
         </ScrollView>
-    </RelativeLayout></layout>
+    </RelativeLayout>
+</layout>

@@ -1,217 +1,219 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
-<RelativeLayout
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".activity.CartActivity">
 
-    <LinearLayout
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:id="@+id/header"
-        android:background="@color/colorPrimary"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize">
-
-        <ImageView
-            android:layout_gravity="left|center_vertical|center_horizontal|center"
-            android:id="@+id/back"
-            android:padding="@dimen/padding"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_margin="10dp"
-            android:src="@drawable/back"/>
-
-        <TextView
-            android:textSize="@dimen/heading"
-            android:textColor="#fff"
-            android:layout_gravity="left|center_vertical|center_horizontal"
-            android:id="@+id/header_name"
-            android:layout_width="wrap_content"
-            android:text="Cart"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textAllCaps="true"
-            android:fontFamily="@font/josefinsans_bold"/>
-    </LinearLayout>
-
-    <ScrollView
-        android:background="@drawable/bg"
-        android:clipToPadding="false"
-        android:layout_above="@+id/lyttotal"
+    <RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/header">
+        tools:context=".activity.CartActivity">
 
         <LinearLayout
-            android:orientation="vertical"
+            android:id="@+id/header"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_cartitem"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-
-        </LinearLayout>
-    </ScrollView>
-
-    <LinearLayout
-        android:layout_below="@+id/header"
-        android:id="@+id/novehicle"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone"
-        android:orientation="vertical">
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:src="@drawable/tyre"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center|left"
-            android:layout_weight="1"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary"
             android:gravity="center"
-            android:text="No vehicles added yet"
-            android:fontFamily="@font/josefinsans_regular"
-            android:layout_marginBottom="@dimen/margin"
-            android:layout_marginTop="@dimen/marginhalf"
-            android:layout_marginLeft="@dimen/margin"
-            android:textSize="@dimen/heading"/>
-    </LinearLayout>
-
-    <RelativeLayout
-        android:id="@+id/lyttotal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/card_shadow"
-        android:padding="10dp"
-        android:visibility="visible">
-
-        <LinearLayout
-            android:id="@+id/lytamt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:text="Subtotal"
-                android:fontFamily="@font/josefinsans_regular"
-                android:textSize="12dp" />
+            <ImageView
+                android:id="@+id/back"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_gravity="left|center_vertical|center_horizontal|center"
+                android:layout_margin="10dp"
+                android:padding="@dimen/padding"
+                android:src="@drawable/back" />
 
             <TextView
-                android:id="@+id/txtstotal"
-                android:layout_width="0dp"
+                android:id="@+id/header_name"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="left|center_vertical|center_horizontal"
                 android:layout_weight="1"
-                android:gravity="end"
                 android:fontFamily="@font/josefinsans_bold"
-                android:textSize="12dp" />
+                android:text="Cart"
+                android:textAllCaps="true"
+                android:textColor="#fff"
+                android:textSize="@dimen/heading" />
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/lyttax"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/lytamt"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:layout_above="@+id/lyttotal"
+            android:layout_below="@+id/header"
+            android:background="@drawable/bg"
+            android:clipToPadding="false">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_cartitem"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </LinearLayout>
+        </ScrollView>
+
+        <LinearLayout
+            android:id="@+id/novehicle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/header"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:src="@drawable/tyre" />
 
             <TextView
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:text="Tax amount"
+                android:layout_gravity="center|left"
+                android:layout_marginLeft="@dimen/margin"
+                android:layout_marginTop="@dimen/marginhalf"
+                android:layout_marginBottom="@dimen/margin"
+                android:layout_weight="1"
                 android:fontFamily="@font/josefinsans_regular"
-                android:textSize="12dp" />
-
-            <TextView
-                android:id="@+id/txttaxtotal"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="end"
-                android:fontFamily="@font/josefinsans_bold"
-                android:textSize="12dp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/lytsubtotal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/lyttax"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:text="Total"
-                android:textColor="@color/black"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/txttotal"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="end"
-                android:textColor="@color/black"
-                android:textStyle="bold" />
+                android:gravity="center"
+                android:text="No vehicles added yet"
+                android:textSize="@dimen/heading" />
         </LinearLayout>
 
         <RelativeLayout
+            android:id="@+id/lyttotal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/lytsubtotal"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/bg_button"
-            android:paddingStart="5dp"
-            android:paddingTop="8dp"
-            android:paddingEnd="5dp"
-            android:paddingBottom="8dp">
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/card_shadow"
+            android:padding="10dp"
+            android:visibility="visible">
 
-            <TextView
-                android:id="@+id/txtfinaltotal"
+            <LinearLayout
+                android:id="@+id/lytamt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_toStartOf="@+id/txtcheckout"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textColor="@color/white"
-                android:fontFamily="@font/josefinsans_regular"
-                android:textStyle="bold|italic" />
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/txtcheckout"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:fontFamily="@font/josefinsans_regular"
+                    android:text="Subtotal"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:id="@+id/txtstotal"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/josefinsans_bold"
+                    android:gravity="end"
+                    android:textSize="12dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lyttax"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_toStartOf="@+id/imgcheckout"
+                android:layout_below="@+id/lytamt"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:fontFamily="@font/josefinsans_regular"
+                    android:text="Tax amount"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:id="@+id/txttaxtotal"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/josefinsans_bold"
+                    android:gravity="end"
+                    android:textSize="12dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lytsubtotal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/lyttax"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:text="Total"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txttotal"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/lytsubtotal"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/bg_button"
                 android:paddingStart="5dp"
+                android:paddingTop="8dp"
                 android:paddingEnd="5dp"
-                android:text="Checkout"
-                android:fontFamily="@font/josefinsans_regular"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textColor="@color/white"
-                android:textStyle="bold" />
+                android:paddingBottom="8dp">
 
-            <ImageView
-                android:id="@+id/imgcheckout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:src="@drawable/checkout" />
+                <TextView
+                    android:id="@+id/txtfinaltotal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toStartOf="@+id/txtcheckout"
+                    android:fontFamily="@font/josefinsans_regular"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textColor="@color/white"
+                    android:textStyle="bold|italic" />
 
+                <TextView
+                    android:id="@+id/txtcheckout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toStartOf="@+id/imgcheckout"
+                    android:fontFamily="@font/josefinsans_regular"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    android:text="Checkout"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/imgcheckout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/checkout" />
+
+            </RelativeLayout>
         </RelativeLayout>
-    </RelativeLayout>
 
-</RelativeLayout>
+    </RelativeLayout>
 </layout>

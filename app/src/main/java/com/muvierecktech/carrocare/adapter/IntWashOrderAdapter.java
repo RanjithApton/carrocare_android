@@ -28,6 +28,7 @@ public class IntWashOrderAdapter extends RecyclerView.Adapter {
     public Context context;
     List<OrdersList.Orders> ordersList;
     private int lastSelectedPosition = -1;
+
     public IntWashOrderAdapter(Context context, List<OrdersList.Orders> orders) {
         this.context = context;
         this.ordersList = orders;
@@ -35,7 +36,7 @@ public class IntWashOrderAdapter extends RecyclerView.Adapter {
 
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder( ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemLayoutView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_pick_order, null);
         return new MyViewHolder(itemLayoutView);
@@ -65,40 +66,40 @@ public class IntWashOrderAdapter extends RecyclerView.Adapter {
                 //((MainActivity)context).binding.orderEdt.setText(ordersList.get(pos).order_id);
                 //((InternalwashActivity)context).binding.vehicleId.setText(ordersList.get(pos).vehicle_id);
                 //InternalwashActivity.order_id=(ordersList.get(pos).order_id);
-                ((MainActivity)context).binding.orderrl.setVisibility(View.GONE);
+                ((MainActivity) context).binding.orderrl.setVisibility(View.GONE);
 
 
                 Intent intent = new Intent(context, InternalwashActivity.class);
-                intent.putExtra(Constant.DE_DATE,ordersList.get(pos).date_and_time);
-                intent.putExtra(Constant.DE_ORDERID ,ordersList.get(pos).order_id);
-                intent.putExtra(Constant.DE_SERVTYPE,ordersList.get(pos).service_type);
-                intent.putExtra(Constant.DE_PAYTYPE ,ordersList.get(pos).payment_type);
-                intent.putExtra(Constant.DE_PACKTYPE,ordersList.get(pos).package_type);
-                intent.putExtra(Constant.DE_VECMAKE ,ordersList.get(pos).vehicle_make);
-                intent.putExtra(Constant.DE_VECMODEL,ordersList.get(pos).vehicle_model);
-                intent.putExtra(Constant.DE_VECNO ,ordersList.get(pos).vehicle_no);
-                intent.putExtra(Constant.DE_VECID ,ordersList.get(pos).vehicle_id);
-                intent.putExtra(Constant.DE_PACKVALUE,ordersList.get(pos).package_value);
-                intent.putExtra(Constant.DE_TOTAMOUNT,ordersList.get(pos).total_amount);
-                intent.putExtra(Constant.DE_GST,ordersList.get(pos).gst);
-                intent.putExtra(Constant.DE_GSTAMOUNT,ordersList.get(pos).gst_amount);
-                intent.putExtra(Constant.DE_SUB_TOTAMOUNT,ordersList.get(pos).sub_total_amount);
-                intent.putExtra(Constant.DE_DISCOUNTMOUNT,ordersList.get(pos).discount_amount);
-                intent.putExtra(Constant.DE_PAYMODE ,ordersList.get(pos).payment_mode);
-                intent.putExtra(Constant.DE_PACKMONTH,ordersList.get(pos).paid_count);
-                intent.putExtra(Constant.DE_VALID,ordersList.get(pos).valid);
-                intent.putExtra(Constant.DE_NEXTDUE,ordersList.get(pos).next_due);
-                intent.putExtra(Constant.DE_STATUS,ordersList.get(pos).status);
-                intent.putExtra(Constant.DE_WASHDET,ordersList.get(pos).wash_details);
-                intent.putExtra(Constant.DE_EXTRADET,ordersList.get(pos).extra_interior);
-                intent.putExtra(Constant.DE_CANCEL,ordersList.get(pos).cancel_subscription);
-                intent.putExtra(Constant.DE_PAYMENT_HISTORY,ordersList.get(pos).payment_history);
-                intent.putExtra(Constant.DE_PAYMENTDETAILS,(Serializable) ordersList.get(pos).payment_details);
+                intent.putExtra(Constant.DE_DATE, ordersList.get(pos).date_and_time);
+                intent.putExtra(Constant.DE_ORDERID, ordersList.get(pos).order_id);
+                intent.putExtra(Constant.DE_SERVTYPE, ordersList.get(pos).service_type);
+                intent.putExtra(Constant.DE_PAYTYPE, ordersList.get(pos).payment_type);
+                intent.putExtra(Constant.DE_PACKTYPE, ordersList.get(pos).package_type);
+                intent.putExtra(Constant.DE_VECMAKE, ordersList.get(pos).vehicle_make);
+                intent.putExtra(Constant.DE_VECMODEL, ordersList.get(pos).vehicle_model);
+                intent.putExtra(Constant.DE_VECNO, ordersList.get(pos).vehicle_no);
+                intent.putExtra(Constant.DE_VECID, ordersList.get(pos).vehicle_id);
+                intent.putExtra(Constant.DE_PACKVALUE, ordersList.get(pos).package_value);
+                intent.putExtra(Constant.DE_TOTAMOUNT, ordersList.get(pos).total_amount);
+                intent.putExtra(Constant.DE_GST, ordersList.get(pos).gst);
+                intent.putExtra(Constant.DE_GSTAMOUNT, ordersList.get(pos).gst_amount);
+                intent.putExtra(Constant.DE_SUB_TOTAMOUNT, ordersList.get(pos).sub_total_amount);
+                intent.putExtra(Constant.DE_DISCOUNTMOUNT, ordersList.get(pos).discount_amount);
+                intent.putExtra(Constant.DE_PAYMODE, ordersList.get(pos).payment_mode);
+                intent.putExtra(Constant.DE_PACKMONTH, ordersList.get(pos).paid_count);
+                intent.putExtra(Constant.DE_VALID, ordersList.get(pos).valid);
+                intent.putExtra(Constant.DE_NEXTDUE, ordersList.get(pos).next_due);
+                intent.putExtra(Constant.DE_STATUS, ordersList.get(pos).status);
+                intent.putExtra(Constant.DE_WASHDET, ordersList.get(pos).wash_details);
+                intent.putExtra(Constant.DE_EXTRADET, ordersList.get(pos).extra_interior);
+                intent.putExtra(Constant.DE_CANCEL, ordersList.get(pos).cancel_subscription);
+                intent.putExtra(Constant.DE_PAYMENT_HISTORY, ordersList.get(pos).payment_history);
+                intent.putExtra(Constant.DE_PAYMENTDETAILS, (Serializable) ordersList.get(pos).payment_details);
                 context.startActivity(intent);
 
-                ((MainActivity)context).binding.detailrl.setVisibility(View.GONE);
-                ((MainActivity)context).binding.orderrl.setVisibility(View.GONE);
-                ((MainActivity)context).binding.popupinternal.setVisibility(View.GONE);
+                ((MainActivity) context).binding.detailrl.setVisibility(View.GONE);
+                ((MainActivity) context).binding.orderrl.setVisibility(View.GONE);
+                ((MainActivity) context).binding.popupinternal.setVisibility(View.GONE);
 
 
             }
@@ -174,34 +175,34 @@ public class IntWashOrderAdapter extends RecyclerView.Adapter {
                 MyViewHolder viewHolder1 = (MyViewHolder) v.getTag();
                 int pos = viewHolder1.getAdapterPosition();
 
-                ((MainActivity)context).binding.date.setText(ordersList.get(pos).date_and_time);
-                ((MainActivity)context).binding.paymentId.setText(ordersList.get(pos).order_id);
-                ((MainActivity)context).binding.serviceType.setText(ordersList.get(pos).service_type);
-                ((MainActivity)context).binding.paymentType.setText(ordersList.get(pos).payment_type);
-                ((MainActivity)context).binding.packageType.setText(ordersList.get(pos).package_type);
-                ((MainActivity)context).binding.vecMake.setText(ordersList.get(pos).vehicle_make);
-                ((MainActivity)context).binding.vecModel.setText(ordersList.get(pos).vehicle_model);
-                ((MainActivity)context).binding.vecNo.setText(ordersList.get(pos).vehicle_no);
-                ((MainActivity)context).binding.packageValue.setText("₹ "+ordersList.get(pos).package_value);
-                ((MainActivity)context).binding.totalAmount.setText("₹ "+ordersList.get(pos).total_amount);
-                ((MainActivity)context).binding.paymentMode.setText(ordersList.get(pos).payment_mode);
-                ((MainActivity)context).binding.paidCount.setText(ordersList.get(pos).paid_count);
-                ((MainActivity)context).binding.status.setText(ordersList.get(pos).status);
+                ((MainActivity) context).binding.date.setText(ordersList.get(pos).date_and_time);
+                ((MainActivity) context).binding.paymentId.setText(ordersList.get(pos).order_id);
+                ((MainActivity) context).binding.serviceType.setText(ordersList.get(pos).service_type);
+                ((MainActivity) context).binding.paymentType.setText(ordersList.get(pos).payment_type);
+                ((MainActivity) context).binding.packageType.setText(ordersList.get(pos).package_type);
+                ((MainActivity) context).binding.vecMake.setText(ordersList.get(pos).vehicle_make);
+                ((MainActivity) context).binding.vecModel.setText(ordersList.get(pos).vehicle_model);
+                ((MainActivity) context).binding.vecNo.setText(ordersList.get(pos).vehicle_no);
+                ((MainActivity) context).binding.packageValue.setText("₹ " + ordersList.get(pos).package_value);
+                ((MainActivity) context).binding.totalAmount.setText("₹ " + ordersList.get(pos).total_amount);
+                ((MainActivity) context).binding.paymentMode.setText(ordersList.get(pos).payment_mode);
+                ((MainActivity) context).binding.paidCount.setText(ordersList.get(pos).paid_count);
+                ((MainActivity) context).binding.status.setText(ordersList.get(pos).status);
 
-                if(ordersList.get(pos).discount_amount.equalsIgnoreCase("0")){
-                    ((MainActivity)context).binding.discountField.setVisibility(View.GONE);
-                }else {
-                    ((MainActivity)context).binding.discountAmount.setText(ordersList.get(pos).discount_amount);
-                    ((MainActivity)context).binding.discountField.setVisibility(View.VISIBLE);
+                if (ordersList.get(pos).discount_amount.equalsIgnoreCase("0")) {
+                    ((MainActivity) context).binding.discountField.setVisibility(View.GONE);
+                } else {
+                    ((MainActivity) context).binding.discountAmount.setText(ordersList.get(pos).discount_amount);
+                    ((MainActivity) context).binding.discountField.setVisibility(View.VISIBLE);
                 }
 
-                if(ordersList.get(pos).wash_details.equalsIgnoreCase("0")){
-                    ((MainActivity)context).binding.valid.setText(ordersList.get(pos).valid);
-                }else if(ordersList.get(pos).wash_details.equalsIgnoreCase("1")){
-                    ((MainActivity)context).binding.valid.setText(ordersList.get(pos).next_due);
+                if (ordersList.get(pos).wash_details.equalsIgnoreCase("0")) {
+                    ((MainActivity) context).binding.valid.setText(ordersList.get(pos).valid);
+                } else if (ordersList.get(pos).wash_details.equalsIgnoreCase("1")) {
+                    ((MainActivity) context).binding.valid.setText(ordersList.get(pos).next_due);
                 }
 
-                ((MainActivity)context).binding.detailrl.setVisibility(View.VISIBLE);
+                ((MainActivity) context).binding.detailrl.setVisibility(View.VISIBLE);
             }
         });
 
@@ -244,10 +245,12 @@ public class IntWashOrderAdapter extends RecyclerView.Adapter {
     public int getItemCount() {
         return ordersList.size();
     }
+
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         RadioButton payment_id;
         Button view_details;
         RelativeLayout order_lay;
+
         public MyViewHolder(View itemLayoutView) {
             super(itemLayoutView);
             payment_id = (RadioButton) itemLayoutView.findViewById(R.id.payment_id);

@@ -36,12 +36,13 @@ public class CarWashActivity extends AppCompatActivity {
     ActivityCarWashBinding binding;
     String headername;
     SessionManager sessionManager;
-//    int images[] = {R.drawable.slide_1,R.drawable.slide_2,R.drawable.slide_3};
+    //    int images[] = {R.drawable.slide_1,R.drawable.slide_2,R.drawable.slide_3};
     String description;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_car_wash);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_car_wash);
 
         headername = Constant.WASH;
         binding.headerName.setText(headername);
@@ -61,20 +62,20 @@ public class CarWashActivity extends AppCompatActivity {
     }
 
     private void work() {
-        if (isNetworkAvailable()){
+        if (isNetworkAvailable()) {
             ServicePrice();
-        }else {
+        } else {
             AlertDialog.Builder dialog = new AlertDialog.Builder(CarWashActivity.this);
             dialog.setCancelable(false);
             dialog.setTitle("Alert!");
-            dialog.setMessage("No internet.Please check your connection." );
+            dialog.setMessage("No internet.Please check your connection.");
             dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int id) {
-                    //Action for "Ok".
-                    work();
-                }
-            })
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            //Action for "Ok".
+                            work();
+                        }
+                    })
                     .setNegativeButton("Cancel ", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -101,41 +102,42 @@ public class CarWashActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ServicePriceList> call, Response<ServicePriceList> response) {
                 hud.dismiss();
-                try{
-                    if(response.isSuccessful()){
+                try {
+                    if (response.isSuccessful()) {
                         final ServicePriceList servicePriceList = response.body();
                         if (servicePriceList.code.equalsIgnoreCase("200")) {
                             Gson gson = new Gson();
                             String json = gson.toJson(servicePriceList);
 
-                            binding.description.setText(HtmlCompat.fromHtml(servicePriceList.description+"",0));
+                            binding.description.setText(HtmlCompat.fromHtml(servicePriceList.description + "", 0));
                             description = servicePriceList.description;
-                            MainAdapter mainAdapter = new MainAdapter(CarWashActivity.this,servicePriceList.services, headername);
-                            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(CarWashActivity.this,LinearLayoutManager.VERTICAL,false);
+                            MainAdapter mainAdapter = new MainAdapter(CarWashActivity.this, servicePriceList.services, headername);
+                            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(CarWashActivity.this, LinearLayoutManager.VERTICAL, false);
                             binding.carslistRc.setLayoutManager(linearLayoutManager);
                             binding.carslistRc.setAdapter(mainAdapter);
 
                             binding.info.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    Intent intent = new Intent(CarWashActivity.this,InfoActivity.class);
-                                    intent.putExtra("headername",Constant.DAILYWASH);
-                                    intent.putExtra("description",description);
+                                    Intent intent = new Intent(CarWashActivity.this, InfoActivity.class);
+                                    intent.putExtra("headername", Constant.DAILYWASH);
+                                    intent.putExtra("description", description);
                                     startActivity(intent);
                                 }
                             });
                         }
-                    } else{
+                    } else {
                         ApiConfig.responseToast(CarWashActivity.this, response.code());
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
+
             @Override
             public void onFailure(Call<ServicePriceList> call, Throwable t) {
                 hud.dismiss();
-                Toast.makeText(CarWashActivity.this,"Timeout.Try after sometime",Toast.LENGTH_SHORT).show();
+                Toast.makeText(CarWashActivity.this, "Timeout.Try after sometime", Toast.LENGTH_SHORT).show();
             }
         });
     }

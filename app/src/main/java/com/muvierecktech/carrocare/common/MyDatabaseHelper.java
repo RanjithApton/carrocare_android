@@ -124,9 +124,9 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         ArrayList<CartList> arrayList = new ArrayList<>();
 
         // select all query
-        String select_query= "SELECT *FROM " + TABLE_NAME;
+        String select_query = "SELECT *FROM " + TABLE_NAME;
 
-        SQLiteDatabase db = this .getWritableDatabase();
+        SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(select_query, null);
 
         // looping through all rows and adding to list
@@ -149,7 +149,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                 cartList.setTime(cursor.getString(13));
 
                 arrayList.add(cartList);
-            }while (cursor.moveToNext());
+            } while (cursor.moveToNext());
         }
         return arrayList;
     }
@@ -253,9 +253,9 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         int qty = Integer.parseInt(CheckOrderExists(type, carid));
 
         if (qty == 0) {
-            AddOrderData(type+"", imge+"", model+"", number+"", carprice+"", carid+"", paidmonth+"", fine+"",sub_total+"", gst+"", gstamount+"",total+"", date+"", time+"");
+            AddOrderData(type + "", imge + "", model + "", number + "", carprice + "", carid + "", paidmonth + "", fine + "", sub_total + "", gst + "", gstamount + "", total + "", date + "", time + "");
         } else {
-            UpdateOrderData(type+"", carid+"", paidmonth+"", fine+"",sub_total+"", gst+"",gstamount+"", total+"",  date+"", time+"");
+            UpdateOrderData(type + "", carid + "", paidmonth + "", fine + "", sub_total + "", gst + "", gstamount + "", total + "", date + "", time + "");
         }
         return "1";
     }

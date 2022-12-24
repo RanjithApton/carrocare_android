@@ -43,18 +43,18 @@ public class LocateOnMapActivity extends AppCompatActivity implements OnMapReady
         GoogleMap.OnMapLongClickListener,
         View.OnClickListener {
 
-    private GoogleApiClient googleApiClient;
-    private double longitude, c_longitude, c_latitude;
-    private double latitude;
-    private GoogleMap mMap;
+    public boolean isCurrent;
     TextView text, tvSatellite, tvStreet;
     Toolbar toolbar;
     SessionManager sessionManager;
     FloatingActionButton fabSatellite, fabStreet, fabCurrent;
     int mapType = GoogleMap.MAP_TYPE_NORMAL;
     SupportMapFragment mapFragment;
-    public boolean isCurrent;
     String address;
+    private GoogleApiClient googleApiClient;
+    private double longitude, c_longitude, c_latitude;
+    private double latitude;
+    private GoogleMap mMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +78,6 @@ public class LocateOnMapActivity extends AppCompatActivity implements OnMapReady
         text = findViewById(R.id.tvLocation);
 
         fabCurrent = findViewById(R.id.fabCurrent);
-
 
 
         fabCurrent.setOnClickListener(new View.OnClickListener() {
@@ -317,7 +316,7 @@ public class LocateOnMapActivity extends AppCompatActivity implements OnMapReady
     }
 
     public void UpdateLocation(View view) {
-        sessionManager.setData(SessionManager.KEY_ADDRESS,address);
+        sessionManager.setData(SessionManager.KEY_ADDRESS, address);
         sessionManager.setData(SessionManager.KEY_LATITUDE, String.valueOf(latitude));
         sessionManager.setData(SessionManager.KEY_LONGITUDE, String.valueOf(longitude));
         finish();

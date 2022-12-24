@@ -4,6 +4,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -54,23 +55,24 @@ import java.util.HashMap;
 import java.util.List;
 
 public class RenewActivity extends AppCompatActivity {
+    public static String time;
     public ActivityRenewBinding binding;
     SessionManager sessionManager;
-    String token,customerid,action,onetimeService,paidMonths,fineAmount,discountAmount,onetimecarprice;
+    String token, customerid, action, onetimeService, paidMonths, fineAmount, discountAmount, onetimecarprice;
     RenewOrderAdapter renewOrderAdapter;
     MyDatabaseHelper databaseHelper;
     List<OneTimeWashCheckout.getResult> result;
     int totalAmountStr;
     String[] subsMonths = {"1 Month", "2 Months", "3 Months", "4 Months", "5 Months", "6 Months", "7 Months", "8 Months", "9 Months", "10 Months", "11 Months", "12 Months", "13 Months", "14 Months", "15 Months", "16 Months", "17 Months", "18 Months", "19 Months", "20 Months", "21 Months", "22 Months", "23 Months", "24 Months"};
-    String preTime[] = {Constant.ANYTIME, "9.00 AM - 10.00 AM","10.00 AM - 11.00 AM","11.00 AM - 12.00 PM","12.00 PM - 1.00 PM","6.00 PM - 7.00 PM","7.00 PM - 8.00 PM"};
-    public static String time;
+    String preTime[] = {Constant.ANYTIME, "9.00 AM - 10.00 AM", "10.00 AM - 11.00 AM", "11.00 AM - 12.00 PM", "12.00 PM - 1.00 PM", "6.00 PM - 7.00 PM", "7.00 PM - 8.00 PM"};
     DatePickerDialog picker;
+
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_renew);
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_renew);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_renew);
 
         databaseHelper = new MyDatabaseHelper(this);
 
@@ -79,19 +81,19 @@ public class RenewActivity extends AppCompatActivity {
         binding.checkCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(RenewActivity.this,CartActivity.class));
+                startActivity(new Intent(RenewActivity.this, CartActivity.class));
             }
         });
 
         sessionManager = new SessionManager(this);
-        HashMap<String,String> hashMap = sessionManager.getUserDetails();
+        HashMap<String, String> hashMap = sessionManager.getUserDetails();
         token = hashMap.get(SessionManager.KEY_TOKEN);
         customerid = hashMap.get(SessionManager.KEY_USERID);
         work();
         binding.back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(RenewActivity.this,MyOrdersActivity.class));
+                startActivity(new Intent(RenewActivity.this, MyOrdersActivity.class));
                 finish();
             }
         });
@@ -99,17 +101,17 @@ public class RenewActivity extends AppCompatActivity {
         binding.makePayment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(RenewActivity.this,CartActivity.class));
+                startActivity(new Intent(RenewActivity.this, CartActivity.class));
                 finish();
             }
         });
 
-        if(Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) != 0){
+        if (Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) != 0) {
             binding.taxField.setVisibility(View.VISIBLE);
             binding.taxField1.setVisibility(View.VISIBLE);
-            binding.taxPercentage.setText("GST ("+Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE))+"%)");
-            binding.taxPercentage1.setText("GST ("+Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE))+"%)");
-        }else{
+            binding.taxPercentage.setText("GST (" + Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) + "%)");
+            binding.taxPercentage1.setText("GST (" + Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) + "%)");
+        } else {
             binding.taxField.setVisibility(View.GONE);
             binding.taxField1.setVisibility(View.GONE);
         }
@@ -135,9 +137,9 @@ public class RenewActivity extends AppCompatActivity {
         binding.preferredtimeEdt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (TextUtils.isEmpty(binding.preferDate.getText().toString())){
-                    Toast.makeText(RenewActivity.this,"Choose Preferred Schedule",Toast.LENGTH_SHORT).show();
-                }else {
+                if (TextUtils.isEmpty(binding.preferDate.getText().toString())) {
+                    Toast.makeText(RenewActivity.this, "Choose Preferred Schedule", Toast.LENGTH_SHORT).show();
+                } else {
                     binding.timeLl.setVisibility(View.VISIBLE);
                     PreferredAdapter preferredAdapter = new PreferredAdapter(RenewActivity.this, preTime, "renew_wax");
                     LinearLayoutManager linearLayoutManage = new LinearLayoutManager(RenewActivity.this, LinearLayoutManager.VERTICAL, false);
@@ -169,7 +171,7 @@ public class RenewActivity extends AppCompatActivity {
                             }
                         }, year, month, day);
                 //picker.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
-                picker.getDatePicker().setMinDate(System.currentTimeMillis()+24*60*60*1000);
+                picker.getDatePicker().setMinDate(System.currentTimeMillis() + 24 * 60 * 60 * 1000);
                 picker.show();
             }
         });
@@ -177,9 +179,9 @@ public class RenewActivity extends AppCompatActivity {
         binding.preferredtimeEdt1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (TextUtils.isEmpty(binding.preferDate1.getText().toString())){
-                    Toast.makeText(RenewActivity.this,"Choose Preferred Schedule",Toast.LENGTH_SHORT).show();
-                }else {
+                if (TextUtils.isEmpty(binding.preferDate1.getText().toString())) {
+                    Toast.makeText(RenewActivity.this, "Choose Preferred Schedule", Toast.LENGTH_SHORT).show();
+                } else {
                     binding.timeLl.setVisibility(View.VISIBLE);
                     PreferredAdapter preferredAdapter = new PreferredAdapter(RenewActivity.this, preTime, "renew_ext");
                     LinearLayoutManager linearLayoutManage = new LinearLayoutManager(RenewActivity.this, LinearLayoutManager.VERTICAL, false);
@@ -211,13 +213,10 @@ public class RenewActivity extends AppCompatActivity {
                             }
                         }, year, month, day);
                 //picker.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
-                picker.getDatePicker().setMinDate(System.currentTimeMillis()+24*60*60*1000);
+                picker.getDatePicker().setMinDate(System.currentTimeMillis() + 24 * 60 * 60 * 1000);
                 picker.show();
             }
         });
-
-
-
 
 
 //        binding.addToCart.setOnClickListener(new View.OnClickListener() {
@@ -230,17 +229,17 @@ public class RenewActivity extends AppCompatActivity {
 
     }
 
-    public void checkIfExists(String servicetype,String  finalCarid,String carmakemodel,String carno){
+    public void checkIfExists(String servicetype, String finalCarid, String carmakemodel, String carno) {
 
-        if (servicetype.equalsIgnoreCase("AddOn")){
+        if (servicetype.equalsIgnoreCase("AddOn")) {
             action = Constant.ACTIONEXTRAONE;
-        }else if (servicetype.equalsIgnoreCase("Wash")){
+        } else if (servicetype.equalsIgnoreCase("Wash")) {
             action = Constant.ACTIONWASHONE;
         }
 
         String carid = finalCarid;
 
-        databaseHelper.CheckOrderExists(action,carid);
+        databaseHelper.CheckOrderExists(action, carid);
 
         String tottal_amt = String.valueOf(totalAmountStr);
 
@@ -248,40 +247,40 @@ public class RenewActivity extends AppCompatActivity {
         int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * before_tax) / 100);
         int finalAmt = taxAmt + before_tax;
 
-        String result = databaseHelper.AddUpdateOrder(action+"",
+        String result = databaseHelper.AddUpdateOrder(action + "",
                 "1",
-                carmakemodel+"",
-                carno+"",
-                onetimecarprice+"",
-                carid+"",
-                paidMonths+"",
-                fineAmount+"",
-                tottal_amt+"",
-                Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE))+"",
-                taxAmt+"",
+                carmakemodel + "",
+                carno + "",
+                onetimecarprice + "",
+                carid + "",
+                paidMonths + "",
+                fineAmount + "",
+                tottal_amt + "",
+                Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) + "",
+                taxAmt + "",
                 String.valueOf(finalAmt),
-                binding.preferDate.getText().toString()+"",
-                time+"");
+                binding.preferDate.getText().toString() + "",
+                time + "");
 
-        if(result.equalsIgnoreCase("1")){
+        if (result.equalsIgnoreCase("1")) {
             time = "";
             binding.popupCard.setVisibility(View.GONE);
             Toast.makeText(RenewActivity.this, "Added. ", Toast.LENGTH_SHORT).show();
             showCartCount();
             work();
             binding.preferDate.setText("");
-        }else{
+        } else {
             Toast.makeText(RenewActivity.this, "Added Failed. ", Toast.LENGTH_SHORT).show();
         }
 
 
     }
 
-    public void checkIfExists1(String servicetype, String finalCarid, String carmakemodel, String carno, String carprice){
+    public void checkIfExists1(String servicetype, String finalCarid, String carmakemodel, String carno, String carprice) {
 
-        if(servicetype.equals("AddOn")){
+        if (servicetype.equals("AddOn")) {
             action = Constant.ACTIONONE;
-        }else if(servicetype.equals("Disinsfection")){
+        } else if (servicetype.equals("Disinsfection")) {
             action = Constant.ACTIONDISONE;
         }
 
@@ -291,29 +290,29 @@ public class RenewActivity extends AppCompatActivity {
         int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * before_tax) / 100);
         int finalAmt = taxAmt + before_tax;
 
-        String result = databaseHelper.AddUpdateOrder(action+"",
+        String result = databaseHelper.AddUpdateOrder(action + "",
                 "1",
-                carmakemodel+"",
-                carno+"",
-                carprice+"",
-                carid+"",
+                carmakemodel + "",
+                carno + "",
+                carprice + "",
+                carid + "",
                 "1",
                 "0",
-                carprice+"",
-                Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE))+"",
-                taxAmt+"",
+                carprice + "",
+                Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) + "",
+                taxAmt + "",
                 String.valueOf(finalAmt),
-                binding.preferDate1.getText().toString()+"",
-                time+"");
+                binding.preferDate1.getText().toString() + "",
+                time + "");
 
-        if(result.equalsIgnoreCase("1")){
+        if (result.equalsIgnoreCase("1")) {
             time = "";
             binding.popupCard1.setVisibility(View.GONE);
             Toast.makeText(RenewActivity.this, "Added. ", Toast.LENGTH_SHORT).show();
             showCartCount();
             work();
             binding.preferDate1.setText("");
-        }else{
+        } else {
             Toast.makeText(RenewActivity.this, "Added Failed. ", Toast.LENGTH_SHORT).show();
         }
 
@@ -323,13 +322,13 @@ public class RenewActivity extends AppCompatActivity {
 
     public void checkOnetime(String carprice, String carid, String onetimeService) {
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        Call<OneTimeWashCheckout> call = apiInterface.onetime_wash(customerid,carprice,carid,onetimeService);
+        Call<OneTimeWashCheckout> call = apiInterface.onetime_wash(customerid, carprice, carid, onetimeService);
         call.enqueue(new Callback<OneTimeWashCheckout>() {
             @SuppressLint("LongLogTag")
             @Override
             public void onResponse(Call<OneTimeWashCheckout> call, Response<OneTimeWashCheckout> response) {
-                try{
-                    if(response.isSuccessful()){
+                try {
+                    if (response.isSuccessful()) {
                         OneTimeWashCheckout body = response.body();
                         if (body.code.equalsIgnoreCase("200")) {
                             showDropdown();
@@ -344,7 +343,7 @@ public class RenewActivity extends AppCompatActivity {
                                     int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * Integer.parseInt(onetimecarprice)) / 100);
                                     int finalAmt = taxAmt + Integer.parseInt(onetimecarprice);
                                     binding.taxTotal1.setText("₹ " + taxAmt);
-                                    binding.totalAmount1.setText("₹ " +finalAmt);
+                                    binding.totalAmount1.setText("₹ " + finalAmt);
                                     //binding.totalAmount1.setText("₹ " + onetimecarprice);
 
                                     //showing Discount filed
@@ -361,13 +360,13 @@ public class RenewActivity extends AppCompatActivity {
                                     if (result.get(i).total_amount.equalsIgnoreCase("0")) {
                                         //onetimecarprice.equals(carprice);
                                         //Log.e("is 0","Price"+onetimecarprice);
-                                    }else{
+                                    } else {
                                         onetimecarprice = result.get(i).total_amount;
-                                        binding.total1.setText("₹ " +result.get(i).total_amount);
+                                        binding.total1.setText("₹ " + result.get(i).total_amount);
                                         int taxAmt1 = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * Integer.parseInt(result.get(i).total_amount)) / 100);
                                         int finalAmt1 = taxAmt1 + Integer.parseInt(result.get(i).total_amount);
                                         binding.taxTotal1.setText("₹ " + taxAmt1);
-                                        binding.totalAmount1.setText("₹ " +finalAmt1);
+                                        binding.totalAmount1.setText("₹ " + finalAmt1);
                                         //binding.totalAmount1.setText("₹ " +result.get(i).total_amount);
                                         //Log.e("not 0","Price"+onetimecarprice);
                                     }
@@ -388,23 +387,23 @@ public class RenewActivity extends AppCompatActivity {
                                     if (result.get(i).discount_amount.equalsIgnoreCase("0")) {
                                         discountAmount = result.get(i).discount_amount;
                                         binding.discountField.setVisibility(View.GONE);
-                                        binding.discountAmount1.setText("₹ "+result.get(i).discount_amount);
+                                        binding.discountAmount1.setText("₹ " + result.get(i).discount_amount);
                                     } else {
                                         binding.discountField.setVisibility(View.VISIBLE);
                                         discountAmount = result.get(i).discount_amount;
-                                        binding.discountAmount1.setText("₹ "+result.get(i).discount_amount);
+                                        binding.discountAmount1.setText("₹ " + result.get(i).discount_amount);
                                     }
 
                                     if (result.get(i).total_amount.equalsIgnoreCase("0")) {
                                         //onetimecarprice.equals(carprice);
                                         //Log.e("is 0","Price"+onetimecarprice);
-                                    }else{
+                                    } else {
                                         onetimecarprice = result.get(i).total_amount;
-                                        binding.total1.setText("₹ " +result.get(i).total_amount);
+                                        binding.total1.setText("₹ " + result.get(i).total_amount);
                                         int taxAmt2 = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * Integer.parseInt(result.get(i).total_amount)) / 100);
                                         int finalAmt2 = taxAmt2 + Integer.parseInt(result.get(i).total_amount);
                                         binding.taxTotal1.setText("₹ " + taxAmt2);
-                                        binding.totalAmount1.setText("₹ " +finalAmt2);
+                                        binding.totalAmount1.setText("₹ " + finalAmt2);
                                         //binding.totalAmount1.setText("₹ " +result.get(i).total_amount);
                                         //Log.e("not 0","Price"+onetimecarprice);
                                     }
@@ -413,9 +412,9 @@ public class RenewActivity extends AppCompatActivity {
 
                             }
                         } else if (body.code.equalsIgnoreCase("201")) {
-                            Toast.makeText(RenewActivity.this,body.staus,Toast.LENGTH_SHORT).show();
+                            Toast.makeText(RenewActivity.this, body.staus, Toast.LENGTH_SHORT).show();
                         }
-                    } else{
+                    } else {
                         ApiConfig.responseToast(RenewActivity.this, response.code());
                     }
                 } catch (Exception e) {
@@ -425,28 +424,28 @@ public class RenewActivity extends AppCompatActivity {
 
             @SuppressLint("LongLogTag")
             public void onFailure(Call<OneTimeWashCheckout> call, Throwable th) {
-                Toast.makeText(RenewActivity.this,"Timeout.Try after sometime",Toast.LENGTH_SHORT).show();
+                Toast.makeText(RenewActivity.this, "Timeout.Try after sometime", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void work() {
-        if (isNetworkAvailable()){
+        if (isNetworkAvailable()) {
             ServicePrice();
             binding.preferredtimeEdt.setText("");
             binding.preferredtimeEdt1.setText("");
-        }else {
+        } else {
             AlertDialog.Builder dialog = new AlertDialog.Builder(RenewActivity.this);
             dialog.setCancelable(false);
             dialog.setTitle("Alert!");
-            dialog.setMessage("No internet.Please check your connection." );
+            dialog.setMessage("No internet.Please check your connection.");
             dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int id) {
-                    //Action for "Ok".
-                    work();
-                }
-            })
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            //Action for "Ok".
+                            work();
+                        }
+                    })
                     .setNegativeButton("Cancel ", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -468,13 +467,13 @@ public class RenewActivity extends AppCompatActivity {
                 .setDimAmount(0.5f)
                 .show();
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        Call<OrdersList> call = apiInterface.orderlist(token,customerid);
+        Call<OrdersList> call = apiInterface.orderlist(token, customerid);
         call.enqueue(new Callback<OrdersList>() {
             @Override
             public void onResponse(Call<OrdersList> call, Response<OrdersList> response) {
                 hud.dismiss();
-                try{
-                    if(response.isSuccessful()){
+                try {
+                    if (response.isSuccessful()) {
                         final OrdersList ordersList = response.body();
                         if (ordersList.code.equalsIgnoreCase("200")) {
                             Gson gson = new Gson();
@@ -482,34 +481,35 @@ public class RenewActivity extends AppCompatActivity {
                             binding.noorders.setVisibility(View.GONE);
                             binding.ordersRc.setVisibility(View.VISIBLE);
 
-                            renewOrderAdapter = new RenewOrderAdapter(RenewActivity.this,ordersList.orders);
-                            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(RenewActivity.this,LinearLayoutManager.VERTICAL,false);
+                            renewOrderAdapter = new RenewOrderAdapter(RenewActivity.this, ordersList.orders);
+                            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(RenewActivity.this, LinearLayoutManager.VERTICAL, false);
                             binding.ordersRc.setLayoutManager(linearLayoutManager);
                             binding.ordersRc.setAdapter(renewOrderAdapter);
 
-                        }else  if (ordersList.code.equalsIgnoreCase("203")) {
+                        } else if (ordersList.code.equalsIgnoreCase("203")) {
                             sessionManager.logoutUsers();
-                        }else  if (ordersList.code.equalsIgnoreCase("201")){
+                        } else if (ordersList.code.equalsIgnoreCase("201")) {
                             binding.noorders.setVisibility(View.VISIBLE);
                             binding.bottomLl.setVisibility(View.GONE);
                             binding.ordersRc.setVisibility(View.GONE);
                         }
-                    } else{
+                    } else {
                         ApiConfig.responseToast(RenewActivity.this, response.code());
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
+
             @Override
             public void onFailure(Call<OrdersList> call, Throwable t) {
                 hud.dismiss();
-                Toast.makeText(RenewActivity.this,"Timeout.Try after sometime",Toast.LENGTH_SHORT).show();
+                Toast.makeText(RenewActivity.this, "Timeout.Try after sometime", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    private void showDropdown(){
+    private void showDropdown() {
         ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, subsMonths);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         this.binding.subscriptionType1.setAdapter(arrayAdapter);
@@ -527,7 +527,7 @@ public class RenewActivity extends AppCompatActivity {
                     int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                     int finalAmt = taxAmt + totalAmountStr;
                     binding.taxTotal1.setText("₹ " + taxAmt);
-                    binding.totalAmount1.setText("₹ " +finalAmt);
+                    binding.totalAmount1.setText("₹ " + finalAmt);
                     //binding.totalAmount1.setText("₹ " + totalAmountStr);
                     Log.e("AMOUNTRZP", String.valueOf(parseDouble));
                 } else if (i == 1) {
@@ -538,7 +538,7 @@ public class RenewActivity extends AppCompatActivity {
                     int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                     int finalAmt = taxAmt + totalAmountStr;
                     binding.taxTotal1.setText("₹ " + taxAmt);
-                    binding.totalAmount1.setText("₹ " +finalAmt);
+                    binding.totalAmount1.setText("₹ " + finalAmt);
                     //binding.totalAmount1.setText("₹ " + totalAmountStr);
                     Log.e("AMOUNTRZP", String.valueOf(parseDouble2));
                 } else if (i == 2) {
@@ -549,7 +549,7 @@ public class RenewActivity extends AppCompatActivity {
                     int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                     int finalAmt = taxAmt + totalAmountStr;
                     binding.taxTotal1.setText("₹ " + taxAmt);
-                    binding.totalAmount1.setText("₹ " +finalAmt);
+                    binding.totalAmount1.setText("₹ " + finalAmt);
                     //binding.totalAmount1.setText("₹ " + totalAmountStr);
                     Log.e("AMOUNTRZP", String.valueOf(parseDouble3));
                 } else if (i == 3) {
@@ -560,7 +560,7 @@ public class RenewActivity extends AppCompatActivity {
                     int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                     int finalAmt = taxAmt + totalAmountStr;
                     binding.taxTotal1.setText("₹ " + taxAmt);
-                    binding.totalAmount1.setText("₹ " +finalAmt);
+                    binding.totalAmount1.setText("₹ " + finalAmt);
                     //binding.totalAmount1.setText("₹ " + totalAmountStr);
                     Log.e("AMOUNTRZP", String.valueOf(parseDouble4));
                 } else if (i == 4) {
@@ -571,7 +571,7 @@ public class RenewActivity extends AppCompatActivity {
                     int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                     int finalAmt = taxAmt + totalAmountStr;
                     binding.taxTotal1.setText("₹ " + taxAmt);
-                    binding.totalAmount1.setText("₹ " +finalAmt);
+                    binding.totalAmount1.setText("₹ " + finalAmt);
                     //binding.totalAmount1.setText("₹ " + totalAmountStr);
                     Log.e("AMOUNTRZP", String.valueOf(parseDouble5));
                 } else if (i == 5) {
@@ -582,7 +582,7 @@ public class RenewActivity extends AppCompatActivity {
                     int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                     int finalAmt = taxAmt + totalAmountStr;
                     binding.taxTotal1.setText("₹ " + taxAmt);
-                    binding.totalAmount1.setText("₹ " +finalAmt);
+                    binding.totalAmount1.setText("₹ " + finalAmt);
                     //binding.totalAmount1.setText("₹ " + totalAmountStr);
                     Log.e("AMOUNTRZP", String.valueOf(parseDouble6));
                 } else if (i == 6) {
@@ -593,7 +593,7 @@ public class RenewActivity extends AppCompatActivity {
                     int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                     int finalAmt = taxAmt + totalAmountStr;
                     binding.taxTotal1.setText("₹ " + taxAmt);
-                    binding.totalAmount1.setText("₹ " +finalAmt);
+                    binding.totalAmount1.setText("₹ " + finalAmt);
                     //binding.totalAmount1.setText("₹ " + totalAmountStr);
                     Log.e("AMOUNTRZP", String.valueOf(parseDouble7));
                 } else if (i == 7) {
@@ -604,7 +604,7 @@ public class RenewActivity extends AppCompatActivity {
                     int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                     int finalAmt = taxAmt + totalAmountStr;
                     binding.taxTotal1.setText("₹ " + taxAmt);
-                    binding.totalAmount1.setText("₹ " +finalAmt);
+                    binding.totalAmount1.setText("₹ " + finalAmt);
                     //binding.totalAmount1.setText("₹ " + totalAmountStr);
                     Log.e("AMOUNTRZP", String.valueOf(parseDouble8));
                 } else if (i == 8) {
@@ -615,7 +615,7 @@ public class RenewActivity extends AppCompatActivity {
                     int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                     int finalAmt = taxAmt + totalAmountStr;
                     binding.taxTotal1.setText("₹ " + taxAmt);
-                    binding.totalAmount1.setText("₹ " +finalAmt);
+                    binding.totalAmount1.setText("₹ " + finalAmt);
                     //binding.totalAmount1.setText("₹ " + totalAmountStr);
                     Log.e("AMOUNTRZP", String.valueOf(parseDouble9));
                 } else if (i == 9) {
@@ -626,7 +626,7 @@ public class RenewActivity extends AppCompatActivity {
                     int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                     int finalAmt = taxAmt + totalAmountStr;
                     binding.taxTotal1.setText("₹ " + taxAmt);
-                    binding.totalAmount1.setText("₹ " +finalAmt);
+                    binding.totalAmount1.setText("₹ " + finalAmt);
                     //binding.totalAmount1.setText("₹ " + totalAmountStr);
                     Log.e("AMOUNTRZP", String.valueOf(parseDouble10));
                 } else if (i == 10) {
@@ -637,7 +637,7 @@ public class RenewActivity extends AppCompatActivity {
                     int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                     int finalAmt = taxAmt + totalAmountStr;
                     binding.taxTotal1.setText("₹ " + taxAmt);
-                    binding.totalAmount1.setText("₹ " +finalAmt);
+                    binding.totalAmount1.setText("₹ " + finalAmt);
                     //binding.totalAmount1.setText("₹ " + totalAmountStr);
                     Log.e("AMOUNTRZP", String.valueOf(parseDouble11));
                 } else if (i == 11) {
@@ -648,7 +648,7 @@ public class RenewActivity extends AppCompatActivity {
                     int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                     int finalAmt = taxAmt + totalAmountStr;
                     binding.taxTotal1.setText("₹ " + taxAmt);
-                    binding.totalAmount1.setText("₹ " +finalAmt);
+                    binding.totalAmount1.setText("₹ " + finalAmt);
                     //binding.totalAmount1.setText("₹ " + totalAmountStr);
                     Log.e("AMOUNTRZP", String.valueOf(parseDouble12));
                 } else if (i == 12) {
@@ -659,7 +659,7 @@ public class RenewActivity extends AppCompatActivity {
                     int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                     int finalAmt = taxAmt + totalAmountStr;
                     binding.taxTotal1.setText("₹ " + taxAmt);
-                    binding.totalAmount1.setText("₹ " +finalAmt);
+                    binding.totalAmount1.setText("₹ " + finalAmt);
                     //binding.totalAmount1.setText("₹ " + totalAmountStr);
                     Log.e("AMOUNTRZP", String.valueOf(parseDouble13));
                 } else if (i == 13) {
@@ -670,7 +670,7 @@ public class RenewActivity extends AppCompatActivity {
                     int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                     int finalAmt = taxAmt + totalAmountStr;
                     binding.taxTotal1.setText("₹ " + taxAmt);
-                    binding.totalAmount1.setText("₹ " +finalAmt);
+                    binding.totalAmount1.setText("₹ " + finalAmt);
                     //binding.totalAmount1.setText("₹ " + totalAmountStr);
                     Log.e("AMOUNTRZP", String.valueOf(parseDouble14));
                 } else if (i == 14) {
@@ -681,7 +681,7 @@ public class RenewActivity extends AppCompatActivity {
                     int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                     int finalAmt = taxAmt + totalAmountStr;
                     binding.taxTotal1.setText("₹ " + taxAmt);
-                    binding.totalAmount1.setText("₹ " +finalAmt);
+                    binding.totalAmount1.setText("₹ " + finalAmt);
                     //binding.totalAmount1.setText("₹ " + totalAmountStr);
                     Log.e("AMOUNTRZP", String.valueOf(parseDouble15));
                 } else if (i == 15) {
@@ -692,7 +692,7 @@ public class RenewActivity extends AppCompatActivity {
                     int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                     int finalAmt = taxAmt + totalAmountStr;
                     binding.taxTotal1.setText("₹ " + taxAmt);
-                    binding.totalAmount1.setText("₹ " +finalAmt);
+                    binding.totalAmount1.setText("₹ " + finalAmt);
                     //binding.totalAmount1.setText("₹ " + totalAmountStr);
                     Log.e("AMOUNTRZP", String.valueOf(parseDouble16));
                 } else if (i == 16) {
@@ -703,7 +703,7 @@ public class RenewActivity extends AppCompatActivity {
                     int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                     int finalAmt = taxAmt + totalAmountStr;
                     binding.taxTotal1.setText("₹ " + taxAmt);
-                    binding.totalAmount1.setText("₹ " +finalAmt);
+                    binding.totalAmount1.setText("₹ " + finalAmt);
                     //binding.totalAmount1.setText("₹ " + totalAmountStr);
                     Log.e("AMOUNTRZP", String.valueOf(parseDouble17));
                 } else if (i == 17) {
@@ -714,7 +714,7 @@ public class RenewActivity extends AppCompatActivity {
                     int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                     int finalAmt = taxAmt + totalAmountStr;
                     binding.taxTotal1.setText("₹ " + taxAmt);
-                    binding.totalAmount1.setText("₹ " +finalAmt);
+                    binding.totalAmount1.setText("₹ " + finalAmt);
                     //binding.totalAmount1.setText("₹ " + totalAmountStr);
                     Log.e("AMOUNTRZP", String.valueOf(parseDouble18));
                 } else if (i == 18) {
@@ -725,7 +725,7 @@ public class RenewActivity extends AppCompatActivity {
                     int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                     int finalAmt = taxAmt + totalAmountStr;
                     binding.taxTotal1.setText("₹ " + taxAmt);
-                    binding.totalAmount1.setText("₹ " +finalAmt);
+                    binding.totalAmount1.setText("₹ " + finalAmt);
                     //binding.totalAmount1.setText("₹ " + totalAmountStr);
                     Log.e("AMOUNTRZP", String.valueOf(parseDouble19));
                 } else if (i == 19) {
@@ -736,7 +736,7 @@ public class RenewActivity extends AppCompatActivity {
                     int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                     int finalAmt = taxAmt + totalAmountStr;
                     binding.taxTotal1.setText("₹ " + taxAmt);
-                    binding.totalAmount1.setText("₹ " +finalAmt);
+                    binding.totalAmount1.setText("₹ " + finalAmt);
                     //binding.totalAmount1.setText("₹ " + totalAmountStr);
                     Log.e("AMOUNTRZP", String.valueOf(parseDouble20));
                 } else if (i == 20) {
@@ -747,7 +747,7 @@ public class RenewActivity extends AppCompatActivity {
                     int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                     int finalAmt = taxAmt + totalAmountStr;
                     binding.taxTotal1.setText("₹ " + taxAmt);
-                    binding.totalAmount1.setText("₹ " +finalAmt);
+                    binding.totalAmount1.setText("₹ " + finalAmt);
                     //binding.totalAmount1.setText("₹ " + totalAmountStr);
                     Log.e("AMOUNTRZP", String.valueOf(parseDouble21));
                 } else if (i == 21) {
@@ -758,7 +758,7 @@ public class RenewActivity extends AppCompatActivity {
                     int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                     int finalAmt = taxAmt + totalAmountStr;
                     binding.taxTotal1.setText("₹ " + taxAmt);
-                    binding.totalAmount1.setText("₹ " +finalAmt);
+                    binding.totalAmount1.setText("₹ " + finalAmt);
                     //binding.totalAmount1.setText("₹ " + totalAmountStr);
                     Log.e("AMOUNTRZP", String.valueOf(parseDouble22));
                 } else if (i == 22) {
@@ -769,7 +769,7 @@ public class RenewActivity extends AppCompatActivity {
                     int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                     int finalAmt = taxAmt + totalAmountStr;
                     binding.taxTotal1.setText("₹ " + taxAmt);
-                    binding.totalAmount1.setText("₹ " +finalAmt);
+                    binding.totalAmount1.setText("₹ " + finalAmt);
                     //binding.totalAmount1.setText("₹ " + totalAmountStr);
                     Log.e("AMOUNTRZP", String.valueOf(parseDouble23));
                 } else if (i == 23) {
@@ -780,7 +780,7 @@ public class RenewActivity extends AppCompatActivity {
                     int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                     int finalAmt = taxAmt + totalAmountStr;
                     binding.taxTotal1.setText("₹ " + taxAmt);
-                    binding.totalAmount1.setText("₹ " +finalAmt);
+                    binding.totalAmount1.setText("₹ " + finalAmt);
                     //binding.totalAmount1.setText("₹ " + totalAmountStr);
                     Log.e("AMOUNTRZP", String.valueOf(parseDouble24));
                 }
@@ -797,17 +797,17 @@ public class RenewActivity extends AppCompatActivity {
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
-    
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = new Intent(RenewActivity.this,MyOrdersActivity.class);
+        Intent intent = new Intent(RenewActivity.this, MyOrdersActivity.class);
         startActivity(intent);
         finish();
     }
 
     @SuppressLint("LongLogTag")
-    public void showCartCount(){
+    public void showCartCount() {
         //int totalItemOfCart = dbAdapter.cart_count;
         int totalItemOfCart = databaseHelper.getTotalItemOfCart();
 
@@ -819,6 +819,6 @@ public class RenewActivity extends AppCompatActivity {
 //           binding.cartCount.setText(String.valueOf(totalItemOfCart));
 //        }
 
-        Log.e("Total item of cart--->   ",""+totalItemOfCart);
+        Log.e("Total item of cart--->   ", "" + totalItemOfCart);
     }
 }

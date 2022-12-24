@@ -53,7 +53,7 @@ public class ProfileActivity extends AppCompatActivity {
     SessionManager sessionManager;
     List<ApartmentList.Apartment> apartments;
     ArrayList<String> apartmentname;
-    String token,customerid,apartname;
+    String token, customerid, apartname;
     String type, latitude, longitude;
     ArrayList<String> spinner_item;
 
@@ -61,9 +61,9 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_profile);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_profile);
         sessionManager = new SessionManager(this);
-        HashMap<String,String> hashMap = sessionManager.getUserDetails();
+        HashMap<String, String> hashMap = sessionManager.getUserDetails();
         token = hashMap.get(SessionManager.KEY_TOKEN);
         customerid = hashMap.get(SessionManager.KEY_USERID);
 
@@ -71,13 +71,13 @@ public class ProfileActivity extends AppCompatActivity {
 
         type = sessionManager.getData(SessionManager.USER_WANTS);
 
-        if(type.equalsIgnoreCase("apartment")){
+        if (type.equalsIgnoreCase("apartment")) {
             binding.apartmentFields.setVisibility(View.VISIBLE);
             binding.addressEdt.setVisibility(View.GONE);
-        }else if(type.equalsIgnoreCase("doorstep")){
+        } else if (type.equalsIgnoreCase("doorstep")) {
             binding.addressEdt.setVisibility(View.VISIBLE);
             binding.apartmentFields.setVisibility(View.GONE);
-        }else{
+        } else {
             binding.apartmentFields.setVisibility(View.VISIBLE);
             binding.addressEdt.setVisibility(View.GONE);
         }
@@ -105,43 +105,47 @@ public class ProfileActivity extends AppCompatActivity {
         binding.Update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(type.equalsIgnoreCase("apartment")){
-                    if (binding.nameEdt.getText().toString().length()>0 &&binding.emailEdt.getText().toString().length()>0 &&
-                            binding.mobileEdt.getText().toString().length()>0 &&binding.apartbuildingEdt.getText().toString().length()>0 &&
+                if (type.equalsIgnoreCase("apartment")) {
+                    if (binding.nameEdt.getText().toString().length() > 0 && binding.emailEdt.getText().toString().length() > 0 &&
+                            binding.mobileEdt.getText().toString().length() > 0 && binding.apartbuildingEdt.getText().toString().length() > 0 &&
 //                        binding.apartnameEdt.getSelectedItem().toString().equalsIgnoreCase(Constant.APARTMENTNAME)
-                            binding.apartnameEdt.getText().toString().length()> 0 &&binding.flatnoEdt.getText().toString().length()>0 ){
-                        if (binding.mobileEdt.getText().length()==10){
-                            if (emailValidator(binding.emailEdt.getText().toString())){
+                            binding.apartnameEdt.getText().toString().length() > 0 && binding.flatnoEdt.getText().toString().length() > 0 &&
+                            binding.gstEdt.getText().toString().length() > 0) {
+                        if (binding.mobileEdt.getText().length() == 10) {
+                            if (emailValidator(binding.emailEdt.getText().toString())) {
                                 workUpdate();
                             }
-                        }else Toast.makeText(ProfileActivity.this, Constant.VALIDMOBILE,Toast.LENGTH_SHORT).show();
+                        } else
+                            Toast.makeText(ProfileActivity.this, Constant.VALIDMOBILE, Toast.LENGTH_SHORT).show();
 
-                    }else
-                        Toast.makeText(ProfileActivity.this,Constant.DETAILS,Toast.LENGTH_SHORT).show();
-                }else if(type.equalsIgnoreCase("doorstep")){
-                    if (binding.nameEdt.getText().toString().length()>0 &&binding.emailEdt.getText().toString().length()>0 &&
-                            binding.mobileEdt.getText().toString().length()>0 &&binding.addressEdt.getText().toString().length()>0 ){
-                        if (binding.mobileEdt.getText().length()==10){
-                            if (emailValidator(binding.emailEdt.getText().toString())){
+                    } else
+                        Toast.makeText(ProfileActivity.this, Constant.DETAILS, Toast.LENGTH_SHORT).show();
+                } else if (type.equalsIgnoreCase("doorstep")) {
+                    if (binding.nameEdt.getText().toString().length() > 0 && binding.emailEdt.getText().toString().length() > 0 &&
+                            binding.mobileEdt.getText().toString().length() > 0 && binding.addressEdt.getText().toString().length() > 0) {
+                        if (binding.mobileEdt.getText().length() == 10) {
+                            if (emailValidator(binding.emailEdt.getText().toString())) {
                                 workUpdate();
                             }
-                        }else Toast.makeText(ProfileActivity.this, Constant.VALIDMOBILE,Toast.LENGTH_SHORT).show();
+                        } else
+                            Toast.makeText(ProfileActivity.this, Constant.VALIDMOBILE, Toast.LENGTH_SHORT).show();
 
-                    }else
-                        Toast.makeText(ProfileActivity.this,Constant.DETAILS,Toast.LENGTH_SHORT).show();
-                }else{
-                    if (binding.nameEdt.getText().toString().length()>0 &&binding.emailEdt.getText().toString().length()>0 &&
-                            binding.mobileEdt.getText().toString().length()>0 &&binding.apartbuildingEdt.getText().toString().length()>0 &&
+                    } else
+                        Toast.makeText(ProfileActivity.this, Constant.DETAILS, Toast.LENGTH_SHORT).show();
+                } else {
+                    if (binding.nameEdt.getText().toString().length() > 0 && binding.emailEdt.getText().toString().length() > 0 &&
+                            binding.mobileEdt.getText().toString().length() > 0 && binding.apartbuildingEdt.getText().toString().length() > 0 &&
 //                        binding.apartnameEdt.getSelectedItem().toString().equalsIgnoreCase(Constant.APARTMENTNAME)
-                            binding.apartnameEdt.getText().toString().length()> 0 &&binding.flatnoEdt.getText().toString().length()>0 ){
-                        if (binding.mobileEdt.getText().length()==10){
-                            if (emailValidator(binding.emailEdt.getText().toString())){
+                            binding.apartnameEdt.getText().toString().length() > 0 && binding.flatnoEdt.getText().toString().length() > 0) {
+                        if (binding.mobileEdt.getText().length() == 10) {
+                            if (emailValidator(binding.emailEdt.getText().toString())) {
                                 workUpdate();
                             }
-                        }else Toast.makeText(ProfileActivity.this, Constant.VALIDMOBILE,Toast.LENGTH_SHORT).show();
+                        } else
+                            Toast.makeText(ProfileActivity.this, Constant.VALIDMOBILE, Toast.LENGTH_SHORT).show();
 
-                    }else
-                        Toast.makeText(ProfileActivity.this,Constant.DETAILS,Toast.LENGTH_SHORT).show();
+                    } else
+                        Toast.makeText(ProfileActivity.this, Constant.DETAILS, Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -157,21 +161,21 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void work() {
-        if (isNetworkAvailable()){
+        if (isNetworkAvailable()) {
             profile();
             apartmentList();
-        }else {
+        } else {
             AlertDialog.Builder dialog = new AlertDialog.Builder(ProfileActivity.this);
             dialog.setCancelable(false);
             dialog.setTitle("Alert!");
-            dialog.setMessage("No internet.Please check your connection." );
+            dialog.setMessage("No internet.Please check your connection.");
             dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int id) {
-                    //Action for "Ok".
-                    work();
-                }
-            })
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            //Action for "Ok".
+                            work();
+                        }
+                    })
                     .setNegativeButton("Cancel ", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -200,13 +204,13 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ApartmentList> call, Response<ApartmentList> response) {
                 hud.dismiss();
-                try{
-                    if(response.isSuccessful()){
+                try {
+                    if (response.isSuccessful()) {
                         ApartmentList apartmentList = response.body();
-                        if (apartmentList.code.equalsIgnoreCase("200")){
+                        if (apartmentList.code.equalsIgnoreCase("200")) {
                             apartments = apartmentList.Apartment;
                             int pos = 0;
-                            for(int i = 0; i < apartments.size(); i++){
+                            for (int i = 0; i < apartments.size(); i++) {
                                 String items = apartments.get(i).name;
                                 apartmentname.add(items);
                             }
@@ -215,29 +219,31 @@ public class ProfileActivity extends AppCompatActivity {
                             spinner_item.addAll(apartmentname);
                             //spinner_item.clear();
 
-                            binding.spinner.setAdapter(new ArrayAdapter<String>(ProfileActivity.this, android.R.layout.simple_list_item_1,spinner_item));
+                            binding.spinner.setAdapter(new ArrayAdapter<String>(ProfileActivity.this, android.R.layout.simple_list_item_1, spinner_item));
 
                             binding.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                 @Override
                                 public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                                     binding.apartnameEdt.setText(spinner_item.get(i));
                                 }
+
                                 @Override
                                 public void onNothingSelected(AdapterView<?> adapterView) {
                                 }
                             });
                         }
-                    } else{
+                    } else {
                         ApiConfig.responseToast(ProfileActivity.this, response.code());
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
+
             @Override
             public void onFailure(Call<ApartmentList> call, Throwable t) {
                 hud.dismiss();
-                Toast.makeText(ProfileActivity.this,"Timeout.Try after sometime",Toast.LENGTH_SHORT).show();
+                Toast.makeText(ProfileActivity.this, "Timeout.Try after sometime", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -250,13 +256,13 @@ public class ProfileActivity extends AppCompatActivity {
                 .setDimAmount(0.5f)
                 .show();
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        Call<LoginDetails> call = apiInterface.profile(token,customerid);
+        Call<LoginDetails> call = apiInterface.profile(token, customerid);
         call.enqueue(new Callback<LoginDetails>() {
             @Override
             public void onResponse(Call<LoginDetails> call, Response<LoginDetails> response) {
                 hud.dismiss();
-                try{
-                    if(response.isSuccessful()){
+                try {
+                    if (response.isSuccessful()) {
                         final LoginDetails loginDetails = response.body();
                         if (loginDetails.code.equalsIgnoreCase("200")) {
                             Gson gson = new Gson();
@@ -280,41 +286,43 @@ public class ProfileActivity extends AppCompatActivity {
                             binding.apartbuildingEdt.setText(loginDetails.apartment_building);
                             binding.flatnoEdt.setText(loginDetails.flat_no);
                             binding.addressEdt.setText(loginDetails.address);
+                            binding.gstEdt.setText(loginDetails.gst);
                             latitude = loginDetails.latitude;
                             longitude = loginDetails.longitude;
-                        }else  if (loginDetails.code.equalsIgnoreCase("201")) {
+                        } else if (loginDetails.code.equalsIgnoreCase("201")) {
                             sessionManager.logoutUsers();
                         }
-                    } else{
+                    } else {
                         ApiConfig.responseToast(ProfileActivity.this, response.code());
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
+
             @Override
             public void onFailure(Call<LoginDetails> call, Throwable t) {
                 hud.dismiss();
-                Toast.makeText(ProfileActivity.this,"Timeout.Try after sometime",Toast.LENGTH_SHORT).show();
+                Toast.makeText(ProfileActivity.this, "Timeout.Try after sometime", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void workUpdate() {
-        if (isNetworkAvailable()){
+        if (isNetworkAvailable()) {
             profileUpdate();
-        }else {
+        } else {
             AlertDialog.Builder dialog = new AlertDialog.Builder(ProfileActivity.this);
             dialog.setCancelable(false);
             dialog.setTitle("Alert!");
-            dialog.setMessage("No internet.Please check your connection." );
+            dialog.setMessage("No internet.Please check your connection.");
             dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int id) {
-                    //Action for "Ok".
-                    workUpdate();
-                }
-            })
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            //Action for "Ok".
+                            workUpdate();
+                        }
+                    })
                     .setNegativeButton("Cancel ", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -327,6 +335,7 @@ public class ProfileActivity extends AppCompatActivity {
             alert.show();
         }
     }
+
     private void profileUpdate() {
         final KProgressHUD hud = KProgressHUD.create(ProfileActivity.this)
                 .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
@@ -335,39 +344,40 @@ public class ProfileActivity extends AppCompatActivity {
                 .setDimAmount(0.5f)
                 .show();
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        Call<JsonObject> call = apiInterface.profileupdate(token,customerid,binding.apartnameEdt.getText().toString(),
-                binding.apartbuildingEdt.getText().toString(),binding.flatnoEdt.getText().toString(),binding.addressEdt.getText().toString(),
-                latitude,longitude );
+        Call<JsonObject> call = apiInterface.profileupdate(token, customerid, binding.apartnameEdt.getText().toString(),
+                binding.apartbuildingEdt.getText().toString(), binding.flatnoEdt.getText().toString(), binding.addressEdt.getText().toString(),
+                latitude, longitude, binding.gstEdt.getText().toString().trim());
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                 hud.dismiss();
                 try {
-                    if(response.isSuccessful()){
+                    if (response.isSuccessful()) {
                         JsonElement jsonElement = response.body();
                         JSONObject jsonObject = new JSONObject(jsonElement.toString());
                         if (jsonObject.optString("code").equalsIgnoreCase("200")) {
                             Gson gson = new Gson();
-                            Toast.makeText(ProfileActivity.this,jsonObject.optString("result"),Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ProfileActivity.this, jsonObject.optString("result"), Toast.LENGTH_SHORT).show();
                             Intent i = new Intent(ProfileActivity.this, MainActivity.class);
                             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             i.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                             startActivity(i);
-                        }else {
-                            Toast.makeText(ProfileActivity.this,jsonObject.optString("message"),Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(ProfileActivity.this, jsonObject.optString("message"), Toast.LENGTH_SHORT).show();
                         }
-                    } else{
+                    } else {
                         ApiConfig.responseToast(ProfileActivity.this, response.code());
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
+
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
                 hud.dismiss();
-                Toast.makeText(ProfileActivity.this,"Timeout.Try after sometime",Toast.LENGTH_SHORT).show();
+                Toast.makeText(ProfileActivity.this, "Timeout.Try after sometime", Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/carwashSheet"
-    android:background="@drawable/bottom_sheet_background"
-    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@drawable/bottom_sheet_background">
 
     <RelativeLayout
         android:id="@+id/carwash_popup"
@@ -13,77 +12,77 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:layout_above="@+id/bot_amount"
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_above="@+id/bot_amount"
+            android:orientation="vertical">
 
             <LinearLayout
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="50dp">
+                android:layout_height="50dp"
+                android:orientation="horizontal">
 
                 <ImageView
                     android:id="@+id/close_popup"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginLeft="20dp"
-                    android:src="@drawable/ic_back"
                     android:layout_width="25dp"
-                    android:layout_height="25dp"/>
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:src="@drawable/ic_back" />
 
                 <TextView
-                    android:paddingRight="20dp"
-                    android:textSize="18dp"
-                    android:gravity="center"
-                    android:textColor="@color/white"
-                    android:text="2.Select Service"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:paddingRight="20dp"
+                    android:text="2.Select Service"
+                    android:textColor="@color/white"
+                    android:textSize="18dp" />
 
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/servive_rv"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/bot_amount"
-            android:visibility="gone"
-            android:weightSum="2"
-            android:background="@color/colorPrimary"
-            android:layout_alignParentBottom="true"
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorPrimary"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            android:weightSum="2">
 
 
             <TextView
-                android:layout_weight="1"
                 android:id="@+id/totalAmount"
-                android:paddingRight="20dp"
-                android:textSize="18dp"
-                android:gravity="center"
-                android:layout_gravity="center"
-                android:textColor="@color/white"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:paddingRight="20dp"
+                android:textColor="@color/white"
+                android:textSize="18dp" />
 
             <Button
                 android:id="@+id/button_processed"
-                android:background="@drawable/btn_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
                 android:layout_weight="1"
+                android:background="@drawable/btn_info"
                 android:text="Proceed"
                 android:textAllCaps="false"
-                android:textColor="@color/colorPrimary"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginLeft="20dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:textColor="@color/colorPrimary" />
 
         </LinearLayout>
 

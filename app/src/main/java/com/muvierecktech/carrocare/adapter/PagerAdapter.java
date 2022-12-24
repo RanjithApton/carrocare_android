@@ -50,7 +50,7 @@ public class PagerAdapter extends androidx.viewpager.widget.PagerAdapter {
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
         layoutInflater = LayoutInflater.from(context);
-        View view = layoutInflater.inflate(R.layout.item_viewpager,container,false);
+        View view = layoutInflater.inflate(R.layout.item_viewpager, container, false);
 
         ImageView imageView;
         TextView textView;
@@ -67,41 +67,40 @@ public class PagerAdapter extends androidx.viewpager.widget.PagerAdapter {
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(textView.getText().toString().equalsIgnoreCase("Door step car wash")){
-                    ((DoorStepServiceActivity)context).showPopup("carwash");
+                if (textView.getText().toString().equalsIgnoreCase("Door step car wash")) {
+                    ((DoorStepServiceActivity) context).showPopup("carwash");
 //                    Constant.ONETIME_PACK_TYPE = "Door step car wash";
 //                    Constant.ONETIME_SERVICE_TYPE = "Door step Wash";
-                }else if(textView.getText().toString().equalsIgnoreCase("Detailing")){
-                    ((DoorStepServiceActivity)context).showPopup("detailing");
+                } else if (textView.getText().toString().equalsIgnoreCase("Detailing")) {
+                    ((DoorStepServiceActivity) context).showPopup("detailing");
 //                    Constant.ONETIME_PACK_TYPE = "Door step bike wash";
 //                    Constant.ONETIME_SERVICE_TYPE = "Door step Wash";
-                }else if(textView.getText().toString().equalsIgnoreCase("Painting & Denting")){
-                    ((DoorStepServiceActivity)context).showPopup("painting");
+                } else if (textView.getText().toString().equalsIgnoreCase("Painting & Denting")) {
+                    ((DoorStepServiceActivity) context).showPopup("painting");
 //                    Constant.ONETIME_PACK_TYPE = "Door step wax polish";
 //                    Constant.ONETIME_SERVICE_TYPE = "Door step AddOn";
-                }
-                else if(textView.getText().toString().equalsIgnoreCase("Battery change")){
-                    ((DoorStepServiceActivity)context).showPopup("battery");
+                } else if (textView.getText().toString().equalsIgnoreCase("Battery change")) {
+                    ((DoorStepServiceActivity) context).showPopup("battery");
 //                    Constant.ONETIME_PACK_TYPE = "Door step wax polish";
 //                    Constant.ONETIME_SERVICE_TYPE = "Door step AddOn";
                 }
 //                else if(textView.getText().toString().equalsIgnoreCase("Door step car polish")){
 //                    context.startActivity(new Intent(context, ConfirmFormActivity.class));
 //                }
-                else if(textView.getText().toString().equalsIgnoreCase("Door step insurance")){
+                else if (textView.getText().toString().equalsIgnoreCase("Door step insurance")) {
                     context.startActivity(new Intent(context, ConfirmFormActivity.class).putExtra("headername", Constant.INSURANCE));
                 }
             }
         });
 
-        container.addView(view,0);
+        container.addView(view, 0);
 
         return view;
     }
 
     @Override
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
-        container.removeView((View)object);
+        container.removeView((View) object);
     }
 
     @Override

@@ -24,25 +24,25 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
-    public static final String BASE_URL = "https://www.carrocare.in/Android_API/api-1.2.10/";
-    //public static final String BASE_URL = "https://www.carrocare.in/test/Android_API/api-1.2.10/";
+    //public static final String BASE_URL = "https://www.carrocare.in/Android_API/api-1.2.10/";
+    public static final String BASE_URL = "https://www.carrocare.in/test/Android_API/api-1.2.10/";
     private static Retrofit retrofit = null;
 
     public static Retrofit getClient() {
         if (retrofit == null) {
             HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
-            httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.NONE);
+            httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
             OkHttpClient client = new OkHttpClient.Builder()
                     .addInterceptor(httpLoggingInterceptor)
                     .connectTimeout(5, TimeUnit.MINUTES)
-                    .readTimeout(5,TimeUnit.MINUTES)
+                    .readTimeout(5, TimeUnit.MINUTES)
                     //.addInterceptor(new BasicAuthInterceptor("RegalCarWashAdmin","TechAdmin@Muviereck"))
                     .addInterceptor(new Interceptor() {
                         @NonNull
                         @Override
                         public Response intercept(@NonNull Chain chain) throws IOException {
                             Request authenticatedRequest = chain.request().newBuilder()
-                                    .header("Accept","application/json")
+                                    .header("Accept", "application/json")
                                     .header("Authorization", "Bearer " + createJWT("RLAG3QAILVRTIS1Q694JVUK1S6AA", "CarrocareAuth"))
                                     .build();
                             return chain.proceed(authenticatedRequest);

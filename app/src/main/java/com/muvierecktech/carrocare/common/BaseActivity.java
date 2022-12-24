@@ -11,6 +11,8 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import com.muvierecktech.carrocare.R;
 
 public class BaseActivity extends Activity {
+    private boolean keyboardListenersAttached = false;
+    private ViewGroup rootLayout;
     private ViewTreeObserver.OnGlobalLayoutListener keyboardLayoutListener = new ViewTreeObserver.OnGlobalLayoutListener() {
         @Override
         public void onGlobalLayout() {
@@ -19,7 +21,7 @@ public class BaseActivity extends Activity {
 
             LocalBroadcastManager broadcastManager = LocalBroadcastManager.getInstance(BaseActivity.this);
 
-            if(heightDiff <= contentViewTop){
+            if (heightDiff <= contentViewTop) {
                 onHideKeyboard();
 
                 Intent intent = new Intent("KeyboardWillHide");
@@ -35,11 +37,11 @@ public class BaseActivity extends Activity {
         }
     };
 
-    private boolean keyboardListenersAttached = false;
-    private ViewGroup rootLayout;
+    protected void onShowKeyboard(int keyboardHeight) {
+    }
 
-    protected void onShowKeyboard(int keyboardHeight) {}
-    protected void onHideKeyboard() {}
+    protected void onHideKeyboard() {
+    }
 
     protected void attachKeyboardListeners() {
         if (keyboardListenersAttached) {

@@ -8,10 +8,12 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.text.HtmlCompat;
 import androidx.databinding.DataBindingUtil;
+
 import com.google.gson.Gson;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.muvierecktech.carrocare.R;
@@ -23,7 +25,9 @@ import com.muvierecktech.carrocare.model.ServicePriceList;
 import com.muvierecktech.carrocare.restapi.ApiClient;
 import com.muvierecktech.carrocare.restapi.ApiInterface;
 import com.squareup.picasso.Picasso;
+
 import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -80,8 +84,8 @@ public class ExtraInteriorActivity extends AppCompatActivity {
         ((ApiInterface) ApiClient.getClient().create(ApiInterface.class)).Service(Constant.ADDONSERVICE).enqueue(new Callback<ServicePriceList>() {
             public void onResponse(Call<ServicePriceList> call, Response<ServicePriceList> response) {
                 show.dismiss();
-                try{
-                    if(response.isSuccessful()){
+                try {
+                    if (response.isSuccessful()) {
                         ServicePriceList body = response.body();
                         if (body.code.equalsIgnoreCase("200")) {
                             new Gson().toJson((Object) body);
@@ -116,7 +120,7 @@ public class ExtraInteriorActivity extends AppCompatActivity {
                                 }
                             }
                         }
-                    } else{
+                    } else {
                         ApiConfig.responseToast(ExtraInteriorActivity.this, response.code());
                     }
                 } catch (Exception e) {

@@ -13,11 +13,12 @@ import com.muvierecktech.carrocare.common.SessionManager;
 import java.util.HashMap;
 
 public class IntroductionActivity extends AppCompatActivity {
-    SharedPreferences prefs = null;
     private static int SPLASH_TIME_OUT = 2000;
-    private Thread startThread;
+    SharedPreferences prefs = null;
     SessionManager sessionManager;
     String accesstoken;
+    private Thread startThread;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,7 +27,7 @@ public class IntroductionActivity extends AppCompatActivity {
         prefs = getSharedPreferences("com.muvierecktech.carrocare.activity", MODE_PRIVATE);
         sessionManager = new SessionManager(this);
 
-        HashMap<String,String> hashMap = sessionManager.getUserDetails();
+        HashMap<String, String> hashMap = sessionManager.getUserDetails();
         accesstoken = hashMap.get(SessionManager.KEY_TOKEN);
 
         /*started thread*/
@@ -35,17 +36,18 @@ public class IntroductionActivity extends AppCompatActivity {
         startThread.start();
 
     }
+
     private class MyRunnable implements Runnable {
         @Override
         public void run() {
             try {
                 startThread.sleep(SPLASH_TIME_OUT);
-               if (accesstoken!=null){
-                    Intent intent = new Intent(IntroductionActivity.this,MainActivity.class);
+                if (accesstoken != null) {
+                    Intent intent = new Intent(IntroductionActivity.this, MainActivity.class);
                     startActivity(intent);
                     finish();
-                }else {
-                    Intent intent = new Intent(IntroductionActivity.this,LoginActivity.class);
+                } else {
+                    Intent intent = new Intent(IntroductionActivity.this, LoginActivity.class);
                     startActivity(intent);
                     finish();
                 }

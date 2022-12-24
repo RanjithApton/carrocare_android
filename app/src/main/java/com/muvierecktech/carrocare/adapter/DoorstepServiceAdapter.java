@@ -60,9 +60,9 @@ public class DoorstepServiceAdapter extends RecyclerView.Adapter {
         viewHolder.service_name.setText(services.get(position).service);
         viewHolder.extrerior_amt.setText(services.get(position).prices);
 
-        if(services.get(position).status.equalsIgnoreCase("Active")){
+        if (services.get(position).status.equalsIgnoreCase("Active")) {
             viewHolder.extrerior_card.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             viewHolder.extrerior_card.setVisibility(View.GONE);
         }
 
@@ -72,7 +72,7 @@ public class DoorstepServiceAdapter extends RecyclerView.Adapter {
             public void onClick(View view) {
                 MyViewHolder viewHolder1 = (MyViewHolder) view.getTag();
                 int pos = viewHolder1.getAdapterPosition();
-                ((DoorStepServiceActivity)context).showPopupDialog(services.get(pos).description, services.get(pos).image);
+                ((DoorStepServiceActivity) context).showPopupDialog(services.get(pos).description, services.get(pos).image);
             }
         });
 
@@ -85,9 +85,9 @@ public class DoorstepServiceAdapter extends RecyclerView.Adapter {
         viewHolder.extrerior_card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(viewHolder.extrerior_check.isChecked()){
+                if (viewHolder.extrerior_check.isChecked()) {
                     viewHolder.extrerior_check.setChecked(false);
-                }else
+                } else
                     viewHolder.extrerior_check.setChecked(true);
             }
         });
@@ -99,41 +99,41 @@ public class DoorstepServiceAdapter extends RecyclerView.Adapter {
                 MyViewHolder viewHolder1 = (MyViewHolder) buttonView.getTag();
                 int pos = viewHolder1.getAdapterPosition();
 
-                if(isChecked){
-                    ((DoorStepServiceActivity)context).botAmount.setVisibility(View.VISIBLE);
+                if (isChecked) {
+                    ((DoorStepServiceActivity) context).botAmount.setVisibility(View.VISIBLE);
                     int num1 = (int) Double.parseDouble(total_amount);
                     int num2 = (int) Double.parseDouble(services.get(pos).prices);
                     int sum = num1 + num2;
                     total_amount = String.valueOf(sum);
-                    ((DoorStepServiceActivity)context).total_amount = total_amount;
-                    ((DoorStepServiceActivity)context).totalAmount.setText("INR "+total_amount);
-                }else if(!isChecked){
+                    ((DoorStepServiceActivity) context).total_amount = total_amount;
+                    ((DoorStepServiceActivity) context).totalAmount.setText("INR " + total_amount);
+                } else if (!isChecked) {
                     int num1 = (int) Double.parseDouble(total_amount);
                     int num2 = (int) Double.parseDouble(services.get(pos).prices);
                     int sum = num1 - num2;
                     total_amount = String.valueOf(sum);
-                    ((DoorStepServiceActivity)context).total_amount = total_amount;
-                    ((DoorStepServiceActivity)context).totalAmount.setText("INR "+total_amount);
-                    if(sum == 0){
-                        ((DoorStepServiceActivity)context).botAmount.setVisibility(View.GONE);
-                    }else{
-                        ((DoorStepServiceActivity)context).botAmount.setVisibility(View.VISIBLE);
+                    ((DoorStepServiceActivity) context).total_amount = total_amount;
+                    ((DoorStepServiceActivity) context).totalAmount.setText("INR " + total_amount);
+                    if (sum == 0) {
+                        ((DoorStepServiceActivity) context).botAmount.setVisibility(View.GONE);
+                    } else {
+                        ((DoorStepServiceActivity) context).botAmount.setVisibility(View.VISIBLE);
                     }
                 }
             }
         });
 
-        ((DoorStepServiceActivity)context).button_processed.setOnClickListener(new View.OnClickListener() {
+        ((DoorStepServiceActivity) context).button_processed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Constant.ONETIME_CAR_PRICE = total_amount;
-                if(action.equalsIgnoreCase("carwash")){
+                if (action.equalsIgnoreCase("carwash")) {
                     Constant.ONETIME_SERVICE_TYPE = "Door step Wash";
-                }else{
+                } else {
                     Constant.ONETIME_SERVICE_TYPE = "Door step Detailing";
                 }
 
-                ((DoorStepServiceActivity)context).showDateAndTime();
+                ((DoorStepServiceActivity) context).showDateAndTime();
             }
         });
 
@@ -150,8 +150,8 @@ public class DoorstepServiceAdapter extends RecyclerView.Adapter {
         TextView service_name, extrerior_amt;
         Button extrerior_info;
         CheckBox extrerior_check;
-        
-        
+
+
         public MyViewHolder(View itemLayoutView) {
             super(itemLayoutView);
             extrerior_card = itemLayoutView.findViewById(R.id.extrerior_card);

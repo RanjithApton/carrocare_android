@@ -51,29 +51,28 @@ import java.util.HashMap;
 import static com.muvierecktech.carrocare.common.DatabaseHelper.TABLE_NAME;
 
 public class CartActivity extends AppCompatActivity implements PaymentResultListener {
+    public static int total;
+    public static double pay_amount;
     public ActivityCartBinding binding;
-
     MyDatabaseHelper databaseHelper;
     String Sum;
     ArrayList<CartList> arrayList;
-    String custmob,custemail,razorpayid;
-    public static int total;
-    public static double pay_amount;
+    String custmob, custemail, razorpayid;
     SessionManager sessionManager;
     SQLiteDatabase sqLiteDatabase;
     Cursor cursor;
 
-    String type,customerid,token,carprice,carid,paidMonths,fineAmount,gst,gstAmount,totalAmountStr,subtotal,date,time;
+    String type, customerid, token, carprice, carid, paidMonths, fineAmount, gst, gstAmount, totalAmountStr, subtotal, date, time;
 
     @SuppressLint("LongLogTag")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_cart);
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_cart);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_cart);
         databaseHelper = new MyDatabaseHelper(this);
         sessionManager = new SessionManager(this);
-        HashMap<String,String> hashMap = sessionManager.getUserDetails();
+        HashMap<String, String> hashMap = sessionManager.getUserDetails();
         customerid = hashMap.get(SessionManager.KEY_USERID);
         token = hashMap.get(SessionManager.KEY_TOKEN);
         custmob = hashMap.get(SessionManager.KEY_USERMOBILE);
@@ -82,8 +81,7 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
         getData();
 
         int SDK_INT = android.os.Build.VERSION.SDK_INT;
-        if (SDK_INT > 8)
-        {
+        if (SDK_INT > 8) {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
                     .permitAll().build();
             StrictMode.setThreadPolicy(policy);
@@ -94,7 +92,7 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
         binding.back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(CartActivity.this,MainActivity.class));
+                startActivity(new Intent(CartActivity.this, MainActivity.class));
                 finish();
             }
         });
@@ -115,17 +113,17 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
 
     }
 
-    public void getData(){
+    public void getData() {
         SetDataTotal();
         arrayList = new ArrayList<>(databaseHelper.getItems());
         binding.rvCartitem.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         binding.rvCartitem.setItemAnimator(new DefaultItemAnimator());
-        CartListAdapter adapter = new CartListAdapter(getApplicationContext(),this,arrayList);
+        CartListAdapter adapter = new CartListAdapter(getApplicationContext(), this, arrayList);
         binding.rvCartitem.setAdapter(adapter);
     }
 
     @SuppressLint("SetTextI18n")
-    public void SetDataTotal(){
+    public void SetDataTotal() {
         SQLiteDatabase sQLiteDatabase = databaseHelper.getReadableDatabase();
         Cursor rawQuery1 = sQLiteDatabase.rawQuery(" SELECT SUM (" + databaseHelper.SUB_TOTAL + ") FROM " + TABLE_NAME, null);
         rawQuery1.moveToFirst();
@@ -139,13 +137,13 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
         rawQuery.moveToFirst();
         total = Integer.parseInt(String.valueOf(rawQuery.getInt(0)));
         binding.txttotal.setText("₹ " + total);
-        binding.txtfinaltotal.setText(databaseHelper.getTotalItemOfCart()+" Items  "+"₹ " + total);
+        binding.txtfinaltotal.setText(databaseHelper.getTotalItemOfCart() + " Items  " + "₹ " + total);
 
         final ArrayList<String> idslist = databaseHelper.getCartList();
         if (idslist.isEmpty()) {
             binding.novehicle.setVisibility(View.VISIBLE);
             binding.lyttotal.setVisibility(View.GONE);
-        }else{
+        } else {
             binding.novehicle.setVisibility(View.GONE);
             binding.lyttotal.setVisibility(View.VISIBLE);
         }
@@ -154,20 +152,20 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
 
 
     private void workmode() {
-        if (isNetworkAvailable()){
+        if (isNetworkAvailable()) {
             getPayMode();
-        }else {
+        } else {
             AlertDialog.Builder dialog = new AlertDialog.Builder(CartActivity.this);
             dialog.setCancelable(false);
             dialog.setTitle("Alert!");
-            dialog.setMessage("No internet.Please check your connection." );
+            dialog.setMessage("No internet.Please check your connection.");
             dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int id) {
-                    //Action for "Ok".
-                    getPayMode();
-                }
-            })
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            //Action for "Ok".
+                            getPayMode();
+                        }
+                    })
                     .setNegativeButton("Cancel ", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -196,7 +194,7 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
 
                 hud.dismiss();
                 try {
-                    if(response.isSuccessful()){
+                    if (response.isSuccessful()) {
                         JsonElement jsonElement = response.body();
                         JSONObject jsonObject = new JSONObject(jsonElement.toString());
                         if (jsonObject.optString("code").equalsIgnoreCase("200")) {
@@ -207,22 +205,23 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
 
                             createOrderId();
                         }
-                    } else{
+                    } else {
                         ApiConfig.responseToast(CartActivity.this, response.code());
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
+
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
                 hud.dismiss();
-                Toast.makeText(CartActivity.this,"Timeout.Try after sometime",Toast.LENGTH_SHORT).show();
+                Toast.makeText(CartActivity.this, "Timeout.Try after sometime", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    private void createOrderId(){
+    private void createOrderId() {
         //int amount = total * 100;
         final KProgressHUD hud = KProgressHUD.create(CartActivity.this)
                 .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
@@ -231,14 +230,14 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
                 .setDimAmount(0.5f)
                 .show();
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        Call<JsonObject> call = apiInterface.createOrderId("create_orderid",total +"");
+        Call<JsonObject> call = apiInterface.createOrderId("create_orderid", total + "");
         //Call<JsonObject> call = apiInterface.createOrderId("create_orderid","1");
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                 hud.dismiss();
                 try {
-                    if(response.isSuccessful()){
+                    if (response.isSuccessful()) {
                         JsonElement jsonElement = response.body();
                         JSONObject jsonObject = new JSONObject(jsonElement.toString());
                         if (jsonObject.optString("code").equalsIgnoreCase("200")) {
@@ -246,7 +245,7 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
                             Constant.RAZOR_PAY_ORDER_ID = jsonObject.optString("rzp_order_id");
                             createTempOrder();
                         }
-                    } else{
+                    } else {
                         ApiConfig.responseToast(CartActivity.this, response.code());
                     }
                 } catch (JSONException e) {
@@ -257,16 +256,16 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
                 hud.dismiss();
-                Toast.makeText(CartActivity.this,"Timeout.Try after sometime",Toast.LENGTH_SHORT).show();
+                Toast.makeText(CartActivity.this, "Timeout.Try after sometime", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void createTempOrder() {
-        if (isNetworkAvailable()){
+        if (isNetworkAvailable()) {
 
             sqLiteDatabase = databaseHelper.getReadableDatabase();
-            cursor = sqLiteDatabase.rawQuery(" SELECT * FROM " + TABLE_NAME,null);
+            cursor = sqLiteDatabase.rawQuery(" SELECT * FROM " + TABLE_NAME, null);
 
             if (cursor.moveToFirst()) {
                 do {
@@ -293,16 +292,16 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
                                 .show();
                         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
                         Call<JsonObject> call = apiInterface.tempWashOrderOneTime("temp_order",
-                                Constant.RAZOR_PAY_ORDER_ID+"",
-                                customerid+"",
-                                token+"",
-                                carprice+"",
-                                carid+"",
+                                Constant.RAZOR_PAY_ORDER_ID + "",
+                                customerid + "",
+                                token + "",
+                                carprice + "",
+                                carid + "",
                                 paidMonths + "",
                                 fineAmount + "",
-                                subtotal+"",
-                                gst+"",
-                                gstAmount+"",
+                                subtotal + "",
+                                gst + "",
+                                gstAmount + "",
                                 totalAmountStr + "",
                                 "Wash",
                                 "onetime_wash_payment");
@@ -311,7 +310,7 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
                             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                                 hud.dismiss();
                                 try {
-                                    if(response.isSuccessful()){
+                                    if (response.isSuccessful()) {
                                         JsonElement body = response.body();
                                         JSONObject jSONObject = new JSONObject(body.toString());
                                         if (jSONObject.optString("code").equalsIgnoreCase("200")) {
@@ -319,11 +318,11 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
                                             startwashonetimepayment();
                                         } else if (jSONObject.optString("code").equalsIgnoreCase("201")) {
                                             Toast.makeText(CartActivity.this, jSONObject.optString("result"), Toast.LENGTH_SHORT).show();
-                                        }else if (jSONObject.optString("message").equalsIgnoreCase("success")){
+                                        } else if (jSONObject.optString("message").equalsIgnoreCase("success")) {
                                             Toast.makeText(CartActivity.this, jSONObject.optString("result"), Toast.LENGTH_SHORT).show();
                                             //paymentSuccess();
                                         }
-                                    } else{
+                                    } else {
                                         ApiConfig.responseToast(CartActivity.this, response.code());
                                     }
                                 } catch (JSONException e) {
@@ -337,7 +336,7 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
                             }
                         });
 
-                    }else if(type.equalsIgnoreCase("onetime_wax_payment")){
+                    } else if (type.equalsIgnoreCase("onetime_wax_payment")) {
                         final KProgressHUD hud = KProgressHUD.create(CartActivity.this)
                                 .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
                                 .setCancellable(true)
@@ -346,27 +345,27 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
                                 .show();
                         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
                         Call<JsonObject> call = apiInterface.tempAddOnOrderOneTime("temp_order",
-                                Constant.RAZOR_PAY_ORDER_ID+"",
-                                customerid+"",
-                                token+"",
-                                carprice+"",
-                                carid+"",
+                                Constant.RAZOR_PAY_ORDER_ID + "",
+                                customerid + "",
+                                token + "",
+                                carprice + "",
+                                carid + "",
                                 paidMonths + "",
                                 fineAmount + "",
-                                subtotal+"",
-                                gst+"",
-                                gstAmount+"",
+                                subtotal + "",
+                                gst + "",
+                                gstAmount + "",
                                 totalAmountStr + "",
                                 "AddOn",
-                                date +"",
-                                time +"",
+                                date + "",
+                                time + "",
                                 "onetime_wash_payment");
                         call.enqueue(new Callback<JsonObject>() {
                             @Override
                             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                                 hud.dismiss();
                                 try {
-                                    if(response.isSuccessful()){
+                                    if (response.isSuccessful()) {
                                         JsonElement body = response.body();
                                         JSONObject jSONObject = new JSONObject(body.toString());
                                         if (jSONObject.optString("code").equalsIgnoreCase("200")) {
@@ -375,7 +374,7 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
                                         } else if (jSONObject.optString("code").equalsIgnoreCase("201")) {
                                             Toast.makeText(CartActivity.this, jSONObject.optString("result"), Toast.LENGTH_SHORT).show();
                                         }
-                                    } else{
+                                    } else {
                                         ApiConfig.responseToast(CartActivity.this, response.code());
                                     }
                                 } catch (JSONException e) {
@@ -389,7 +388,7 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
                             }
                         });
 
-                    }else if(type.equalsIgnoreCase("onetime_payment")){
+                    } else if (type.equalsIgnoreCase("onetime_payment")) {
                         final KProgressHUD hud = KProgressHUD.create(CartActivity.this)
                                 .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
                                 .setCancellable(true)
@@ -398,19 +397,19 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
                                 .show();
                         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
                         Call<JsonObject> call = apiInterface.tempOrderOneTime("temp_order",
-                                Constant.RAZOR_PAY_ORDER_ID+"",
-                                customerid+"",
-                                token+"",
+                                Constant.RAZOR_PAY_ORDER_ID + "",
+                                customerid + "",
+                                token + "",
                                 "ExtraInterior",
-                                carprice+"",
-                                carid+"",
+                                carprice + "",
+                                carid + "",
                                 "AddOn",
-                                subtotal+"",
-                                gst+"",
-                                gstAmount+"",
-                                totalAmountStr+"",
-                                date +"",
-                                time +"",
+                                subtotal + "",
+                                gst + "",
+                                gstAmount + "",
+                                totalAmountStr + "",
+                                date + "",
+                                time + "",
                                 "onetime_payment");
                         call.enqueue(new Callback<JsonObject>() {
                             @Override
@@ -418,30 +417,32 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
 
                                 hud.dismiss();
                                 try {
-                                    if(response.isSuccessful()){
+                                    if (response.isSuccessful()) {
                                         JsonElement jsonElement = response.body();
                                         JSONObject jsonObject = new JSONObject(jsonElement.toString());
                                         if (jsonObject.optString("code").equalsIgnoreCase("200")) {
                                             Gson gson = new Gson();
                                             startwashonetimepayment();
-                                        }else if (jsonObject.optString("code").equalsIgnoreCase("201")) {
-                                            Toast.makeText(CartActivity.this,jsonObject.optString("result"),Toast.LENGTH_SHORT).show();
+                                        } else if (jsonObject.optString("code").equalsIgnoreCase("201")) {
+                                            Toast.makeText(CartActivity.this, jsonObject.optString("result"), Toast.LENGTH_SHORT).show();
                                         }
-                                    } else{
+                                    } else {
                                         ApiConfig.responseToast(CartActivity.this, response.code());
                                     }
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
                             }
+
                             @Override
                             public void onFailure(Call<JsonObject> call, Throwable t) {
                                 hud.dismiss();
-                                Toast.makeText(CartActivity.this,"Timeout.Try after sometime",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(CartActivity.this, "Timeout.Try after sometime", Toast.LENGTH_SHORT).show();
                             }
                         });
 
-                    }if (type.equalsIgnoreCase("onetime_disinsfection_payment")) {
+                    }
+                    if (type.equalsIgnoreCase("onetime_disinsfection_payment")) {
                         final KProgressHUD hud = KProgressHUD.create(CartActivity.this)
                                 .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
                                 .setCancellable(true)
@@ -450,19 +451,19 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
                                 .show();
                         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
                         Call<JsonObject> call = apiInterface.tempOrderOneTime("temp_order",
-                                Constant.RAZOR_PAY_ORDER_ID+"",
-                                customerid+"",
-                                token+"",
+                                Constant.RAZOR_PAY_ORDER_ID + "",
+                                customerid + "",
+                                token + "",
                                 "Wash",
-                                carprice+"",
-                                carid+"",
+                                carprice + "",
+                                carid + "",
                                 "Disinsfection",
-                                subtotal+"",
-                                gst+"",
-                                gstAmount+"",
-                                totalAmountStr+"",
-                                date +"",
-                                time +"",
+                                subtotal + "",
+                                gst + "",
+                                gstAmount + "",
+                                totalAmountStr + "",
+                                date + "",
+                                time + "",
                                 "onetime_payment");
                         call.enqueue(new Callback<JsonObject>() {
                             @Override
@@ -470,48 +471,49 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
 
                                 hud.dismiss();
                                 try {
-                                    if(response.isSuccessful()){
+                                    if (response.isSuccessful()) {
                                         JsonElement jsonElement = response.body();
                                         JSONObject jsonObject = new JSONObject(jsonElement.toString());
                                         if (jsonObject.optString("code").equalsIgnoreCase("200")) {
                                             Gson gson = new Gson();
                                             startwashonetimepayment();
-                                        }else if (jsonObject.optString("code").equalsIgnoreCase("201")) {
-                                            Toast.makeText(CartActivity.this,jsonObject.optString("result"),Toast.LENGTH_SHORT).show();
+                                        } else if (jsonObject.optString("code").equalsIgnoreCase("201")) {
+                                            Toast.makeText(CartActivity.this, jsonObject.optString("result"), Toast.LENGTH_SHORT).show();
                                         }
-                                    } else{
+                                    } else {
                                         ApiConfig.responseToast(CartActivity.this, response.code());
                                     }
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
                             }
+
                             @Override
                             public void onFailure(Call<JsonObject> call, Throwable t) {
                                 hud.dismiss();
-                                Toast.makeText(CartActivity.this,"Timeout.Try after sometime",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(CartActivity.this, "Timeout.Try after sometime", Toast.LENGTH_SHORT).show();
                             }
                         });
 
                     }
 
 
-                }while (cursor.moveToNext());
+                } while (cursor.moveToNext());
             }
 
 
-        }else {
+        } else {
             AlertDialog.Builder dialog = new AlertDialog.Builder(CartActivity.this);
             dialog.setCancelable(false);
             dialog.setTitle("Alert!");
-            dialog.setMessage("No internet.Please check your connection." );
+            dialog.setMessage("No internet.Please check your connection.");
             dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int id) {
-                    //Action for "Ok".
-                    createTempOrder();
-                }
-            })
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            //Action for "Ok".
+                            createTempOrder();
+                        }
+                    })
                     .setNegativeButton("Cancel ", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -541,7 +543,7 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
             //int i = 1;
             Log.e("AMOUNTRZP", String.valueOf(i));
             jSONObject.put("amount", i);
-            jSONObject.put("send_sms_hash",false);
+            jSONObject.put("send_sms_hash", false);
             JSONObject jSONObject2 = new JSONObject();
             jSONObject2.put("email", custemail);
             jSONObject2.put("contact", custmob);
@@ -567,8 +569,8 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
     public void onPaymentSuccess(String razorpayPaymentID) {
         try {
             razorpayid = razorpayPaymentID;
-            Log.e("razorpayPaymentID>>>>>>>>>>>>>>>>>>>>>>>>>  :  ",""+razorpayid);
-            Log.e("razorpaytempID>>>>>>>>>>>>>>>>>>>>>>>>>  :  ",""+Constant.RAZOR_PAY_ORDER_ID);
+            Log.e("razorpayPaymentID>>>>>>>>>>>>>>>>>>>>>>>>>  :  ", "" + razorpayid);
+            Log.e("razorpaytempID>>>>>>>>>>>>>>>>>>>>>>>>>  :  ", "" + Constant.RAZOR_PAY_ORDER_ID);
             workPlaceOrder(razorpayid);
         } catch (Exception e) {
             Log.e("TAG onPaymentSuccess  ", e.getMessage());
@@ -586,10 +588,10 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
     }
 
     private void workPlaceOrder(final String razorpayid) {
-        if (isNetworkAvailable()){
+        if (isNetworkAvailable()) {
 
             sqLiteDatabase = databaseHelper.getReadableDatabase();
-            cursor = sqLiteDatabase.rawQuery(" SELECT * FROM " + TABLE_NAME,null);
+            cursor = sqLiteDatabase.rawQuery(" SELECT * FROM " + TABLE_NAME, null);
 
             if (cursor.moveToFirst()) {
                 do {
@@ -609,31 +611,31 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
 
                     if (type.equalsIgnoreCase("onetime_wash_payment")) {
                         PlaceOrderOneTimeWash(razorpayid);
-                    }else if(type.equalsIgnoreCase("onetime_wax_payment")){
+                    } else if (type.equalsIgnoreCase("onetime_wax_payment")) {
                         PlaceOrderOneTimeAddOn(razorpayid);
-                    }else if(type.equalsIgnoreCase("onetime_payment")){
+                    } else if (type.equalsIgnoreCase("onetime_payment")) {
                         PlaceOrderOneTime(razorpayid);
-                    }else if (type.equalsIgnoreCase("onetime_disinsfection_payment")) {
+                    } else if (type.equalsIgnoreCase("onetime_disinsfection_payment")) {
                         PlaceOrderOneTimeDisinsfecion(razorpayid);
                     }
 
 
-                }while (cursor.moveToNext());
+                } while (cursor.moveToNext());
             }
 
 
-        }else {
+        } else {
             AlertDialog.Builder dialog = new AlertDialog.Builder(CartActivity.this);
             dialog.setCancelable(false);
             dialog.setTitle("Alert!");
-            dialog.setMessage("No internet.Please check your connection." );
+            dialog.setMessage("No internet.Please check your connection.");
             dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int id) {
-                    //Action for "Ok".
-                    workPlaceOrder(razorpayid);
-                }
-            })
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            //Action for "Ok".
+                            workPlaceOrder(razorpayid);
+                        }
+                    })
                     .setNegativeButton("Cancel ", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -648,8 +650,6 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
     }
 
 
-
-
     private void PlaceOrderOneTimeWash(String razorpayid) {
         final KProgressHUD hud = KProgressHUD.create(CartActivity.this)
                 .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
@@ -659,17 +659,17 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
                 .show();
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
         Call<JsonObject> call = apiInterface.saveWashOrderOneTime("onetime_wash_payment",
-                razorpayid+"",
-                Constant.RAZOR_PAY_ORDER_ID +"",
-                customerid+"",
-                token+"",
-                carprice+"",
-                carid+"",
+                razorpayid + "",
+                Constant.RAZOR_PAY_ORDER_ID + "",
+                customerid + "",
+                token + "",
+                carprice + "",
+                carid + "",
                 paidMonths + "",
                 fineAmount + "",
-                subtotal+"",
-                gst+"",
-                gstAmount+"",
+                subtotal + "",
+                gst + "",
+                gstAmount + "",
                 totalAmountStr + "",
                 "Wash");
         call.enqueue(new Callback<JsonObject>() {
@@ -678,23 +678,23 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
 
                 hud.dismiss();
                 try {
-                    if(response.isSuccessful()){
+                    if (response.isSuccessful()) {
                         JsonElement body = response.body();
                         JSONObject jSONObject = new JSONObject(body.toString());
                         if (jSONObject.optString("code").equalsIgnoreCase("200")) {
                             new Gson();
                             Toast.makeText(CartActivity.this, jSONObject.optString("result"), Toast.LENGTH_SHORT).show();
                             paymentSuccess();
-                            Log.e("payresponse",""+jSONObject.optString("result"));
+                            Log.e("payresponse", "" + jSONObject.optString("result"));
                             //startActivity(new Intent(CartActivity.this, CongratsActivity.class));
                             //finish();
                         } else if (jSONObject.optString("code").equalsIgnoreCase("201")) {
                             Toast.makeText(CartActivity.this, jSONObject.optString("result"), Toast.LENGTH_SHORT).show();
-                        }else if (jSONObject.optString("message").equalsIgnoreCase("success")){
+                        } else if (jSONObject.optString("message").equalsIgnoreCase("success")) {
                             Toast.makeText(CartActivity.this, jSONObject.optString("result"), Toast.LENGTH_SHORT).show();
                             paymentSuccess();
                         }
-                    } else{
+                    } else {
                         ApiConfig.responseToast(CartActivity.this, response.code());
                     }
                 } catch (JSONException e) {
@@ -718,40 +718,40 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
                 .show();
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
         Call<JsonObject> call = apiInterface.saveAddOnOrderOneTime("onetime_wash_payment",
-                razorpayid+"",
-                Constant.RAZOR_PAY_ORDER_ID +"",
-                customerid+"",
-                token+"",
-                carprice+"",
-                carid+"",
+                razorpayid + "",
+                Constant.RAZOR_PAY_ORDER_ID + "",
+                customerid + "",
+                token + "",
+                carprice + "",
+                carid + "",
                 paidMonths + "",
                 fineAmount + "",
-                subtotal+"",
-                gst+"",
-                gstAmount+"",
+                subtotal + "",
+                gst + "",
+                gstAmount + "",
                 totalAmountStr + "",
                 "AddOn",
-                date +"",
-                time +"");
+                date + "",
+                time + "");
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                 hud.dismiss();
                 try {
-                    if(response.isSuccessful()){
+                    if (response.isSuccessful()) {
                         JsonElement body = response.body();
                         JSONObject jSONObject = new JSONObject(body.toString());
                         if (jSONObject.optString("code").equalsIgnoreCase("200")) {
                             new Gson();
                             Toast.makeText(CartActivity.this, jSONObject.optString("result"), Toast.LENGTH_SHORT).show();
                             paymentSuccess();
-                            Log.e("payresponse",""+jSONObject.optString("result"));
+                            Log.e("payresponse", "" + jSONObject.optString("result"));
                             //startActivity(new Intent(CartActivity.this, CongratsActivity.class));
                             //finish();
                         } else if (jSONObject.optString("code").equalsIgnoreCase("201")) {
                             Toast.makeText(CartActivity.this, jSONObject.optString("result"), Toast.LENGTH_SHORT).show();
                         }
-                    } else{
+                    } else {
                         ApiConfig.responseToast(CartActivity.this, response.code());
                     }
                 } catch (JSONException e) {
@@ -761,7 +761,7 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
 
             public void onFailure(Call<JsonObject> call, Throwable th) {
                 hud.dismiss();
-                Log.e("123456",""+th.getMessage());
+                Log.e("123456", "" + th.getMessage());
                 Toast.makeText(CartActivity.this, "Timeout.Try after sometime", Toast.LENGTH_SHORT).show();
             }
         });
@@ -781,51 +781,52 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
                 .show();
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
         Call<JsonObject> call = apiInterface.saveOrderOneTime("onetime_payment",
-                razorpayid+"",
-                Constant.RAZOR_PAY_ORDER_ID +"",
-                customerid+"",
-                token+"",
+                razorpayid + "",
+                Constant.RAZOR_PAY_ORDER_ID + "",
+                customerid + "",
+                token + "",
                 "ExtraInterior",
-                carprice+"",
-                carid+"",
+                carprice + "",
+                carid + "",
                 "AddOn",
-                subtotal+"",
-                gst+"",
-                gstAmount+"",
-                totalAmountStr+"",
-                date +"",
-                time +"");
+                subtotal + "",
+                gst + "",
+                gstAmount + "",
+                totalAmountStr + "",
+                date + "",
+                time + "");
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                 hud.dismiss();
                 try {
-                    if(response.isSuccessful()){
+                    if (response.isSuccessful()) {
                         JsonElement jsonElement = response.body();
                         JSONObject jsonObject = new JSONObject(jsonElement.toString());
                         if (jsonObject.optString("code").equalsIgnoreCase("200")) {
                             Gson gson = new Gson();
-                            Toast.makeText(CartActivity.this,jsonObject.optString("result"),Toast.LENGTH_SHORT).show();
+                            Toast.makeText(CartActivity.this, jsonObject.optString("result"), Toast.LENGTH_SHORT).show();
                             paymentSuccess();
-                            Log.e("payresponse",""+jsonObject.optString("result"));
+                            Log.e("payresponse", "" + jsonObject.optString("result"));
 //                        Intent intent = new Intent(CartActivity.this,CongratsActivity.class);
 //                        startActivity(intent);
 //                        finish();
-                        }else if (jsonObject.optString("code").equalsIgnoreCase("201")) {
-                            Toast.makeText(CartActivity.this,jsonObject.optString("result"),Toast.LENGTH_SHORT).show();
+                        } else if (jsonObject.optString("code").equalsIgnoreCase("201")) {
+                            Toast.makeText(CartActivity.this, jsonObject.optString("result"), Toast.LENGTH_SHORT).show();
                         }
-                    } else{
+                    } else {
                         ApiConfig.responseToast(CartActivity.this, response.code());
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
+
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
                 hud.dismiss();
-                Log.e("123456",""+t.getMessage());
-                Toast.makeText(CartActivity.this,"Timeout.Try after sometime",Toast.LENGTH_SHORT).show();
+                Log.e("123456", "" + t.getMessage());
+                Toast.makeText(CartActivity.this, "Timeout.Try after sometime", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -840,56 +841,57 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
                 .show();
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
         Call<JsonObject> call = apiInterface.saveOrderOneTime("onetime_payment",
-                razorpayid+"",
-                Constant.RAZOR_PAY_ORDER_ID +"",
-                customerid+"",
-                token+"",
+                razorpayid + "",
+                Constant.RAZOR_PAY_ORDER_ID + "",
+                customerid + "",
+                token + "",
                 "Wash",
-                carprice+"",
-                carid+"",
+                carprice + "",
+                carid + "",
                 "Disinsfection",
-                subtotal+"",
-                gst+"",
-                gstAmount+"",
-                totalAmountStr+"",
-                date +"",
-                time +"");
+                subtotal + "",
+                gst + "",
+                gstAmount + "",
+                totalAmountStr + "",
+                date + "",
+                time + "");
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                 hud.dismiss();
                 try {
-                    if(response.isSuccessful()){
+                    if (response.isSuccessful()) {
                         JsonElement jsonElement = response.body();
                         JSONObject jsonObject = new JSONObject(jsonElement.toString());
                         if (jsonObject.optString("code").equalsIgnoreCase("200")) {
                             Gson gson = new Gson();
-                            Toast.makeText(CartActivity.this,jsonObject.optString("result"),Toast.LENGTH_SHORT).show();
+                            Toast.makeText(CartActivity.this, jsonObject.optString("result"), Toast.LENGTH_SHORT).show();
                             paymentSuccess();
-                            Log.e("payresponse",""+jsonObject.optString("result"));
+                            Log.e("payresponse", "" + jsonObject.optString("result"));
 //                        Intent intent = new Intent(CartActivity.this,CongratsActivity.class);
 //                        startActivity(intent);
 //                        finish();
-                        }else if (jsonObject.optString("code").equalsIgnoreCase("201")) {
-                            Toast.makeText(CartActivity.this,jsonObject.optString("result"),Toast.LENGTH_SHORT).show();
+                        } else if (jsonObject.optString("code").equalsIgnoreCase("201")) {
+                            Toast.makeText(CartActivity.this, jsonObject.optString("result"), Toast.LENGTH_SHORT).show();
                         }
-                    } else{
+                    } else {
                         ApiConfig.responseToast(CartActivity.this, response.code());
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
+
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
                 hud.dismiss();
-                Log.e("123456",""+t.getMessage());
-                Toast.makeText(CartActivity.this,"Timeout.Try after sometime",Toast.LENGTH_SHORT).show();
+                Log.e("123456", "" + t.getMessage());
+                Toast.makeText(CartActivity.this, "Timeout.Try after sometime", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    public void paymentSuccess(){
+    public void paymentSuccess() {
         startActivity(new Intent(CartActivity.this, CongratsActivity.class));
         finish();
         databaseHelper.DeleteAllOrderData();
@@ -898,7 +900,7 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = new Intent(CartActivity.this,MainActivity.class);
+        Intent intent = new Intent(CartActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
     }

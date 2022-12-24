@@ -39,7 +39,7 @@ public class ViewpagerAdapter extends RecyclerView.Adapter<ViewpagerAdapter.MyVi
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemLayoutView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_viewpager, parent,false);
+                .inflate(R.layout.item_viewpager, parent, false);
         return new MyViewHolder(itemLayoutView);
     }
 
@@ -51,28 +51,27 @@ public class ViewpagerAdapter extends RecyclerView.Adapter<ViewpagerAdapter.MyVi
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(holder.textView.getText().toString().equalsIgnoreCase("Door step car wash")){
-                    ((DoorStepServiceActivity)context).showPopup("carwash");
+                if (holder.textView.getText().toString().equalsIgnoreCase("Door step car wash")) {
+                    ((DoorStepServiceActivity) context).showPopup("carwash");
 //                    Constant.ONETIME_PACK_TYPE = "Door step car wash";
 //                    Constant.ONETIME_SERVICE_TYPE = "Door step Wash";
-                }else if(holder.textView.getText().toString().equalsIgnoreCase("Detailing")){
-                    ((DoorStepServiceActivity)context).showPopup("detailing");
+                } else if (holder.textView.getText().toString().equalsIgnoreCase("Detailing")) {
+                    ((DoorStepServiceActivity) context).showPopup("detailing");
 //                    Constant.ONETIME_PACK_TYPE = "Door step bike wash";
 //                    Constant.ONETIME_SERVICE_TYPE = "Door step Wash";
-                }else if(holder.textView.getText().toString().equalsIgnoreCase("Painting & Denting")){
-                    ((DoorStepServiceActivity)context).showPopup("painting");
+                } else if (holder.textView.getText().toString().equalsIgnoreCase("Painting & Denting")) {
+                    ((DoorStepServiceActivity) context).showPopup("painting");
 //                    Constant.ONETIME_PACK_TYPE = "Door step wax polish";
 //                    Constant.ONETIME_SERVICE_TYPE = "Door step AddOn";
-                }
-                else if(holder.textView.getText().toString().equalsIgnoreCase("Battery change")){
-                    ((DoorStepServiceActivity)context).showPopup("battery");
+                } else if (holder.textView.getText().toString().equalsIgnoreCase("Battery change")) {
+                    ((DoorStepServiceActivity) context).showPopup("battery");
 //                    Constant.ONETIME_PACK_TYPE = "Door step wax polish";
 //                    Constant.ONETIME_SERVICE_TYPE = "Door step AddOn";
                 }
 //                else if(textView.getText().toString().equalsIgnoreCase("Door step car polish")){
 //                    context.startActivity(new Intent(context, ConfirmFormActivity.class));
 //                }
-                else if(holder.textView.getText().toString().equalsIgnoreCase("Door step insurance")){
+                else if (holder.textView.getText().toString().equalsIgnoreCase("Door step insurance")) {
                     context.startActivity(new Intent(context, ConfirmFormActivity.class).putExtra("headername", Constant.INSURANCE));
                 }
             }
@@ -84,17 +83,17 @@ public class ViewpagerAdapter extends RecyclerView.Adapter<ViewpagerAdapter.MyVi
         return pagerModelList.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder{
+    public class MyViewHolder extends RecyclerView.ViewHolder {
 
         ImageView imageView;
         TextView textView;
         CardView cardView;
 
-       public MyViewHolder(@NonNull View itemView) {
-           super(itemView);
-           cardView = itemView.findViewById(R.id.card);
-           imageView = itemView.findViewById(R.id.image);
-           textView = itemView.findViewById(R.id.title);
-       }
-   }
+        public MyViewHolder(@NonNull View itemView) {
+            super(itemView);
+            cardView = itemView.findViewById(R.id.card);
+            imageView = itemView.findViewById(R.id.image);
+            textView = itemView.findViewById(R.id.title);
+        }
+    }
 }

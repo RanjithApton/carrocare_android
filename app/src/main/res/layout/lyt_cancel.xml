@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -15,30 +15,30 @@
 
         <LinearLayout
             android:id="@+id/post_rate_ll"
-            android:layout_margin="10dp"
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:orientation="vertical">
 
             <EditText
-                android:layout_marginTop="5dp"
                 android:id="@+id/et_comments"
-                android:hint="Reason for cancel"
-                android:padding="5dp"
-                android:inputType="textMultiLine"
-                android:background="@drawable/comment_background"
                 android:layout_width="match_parent"
-                android:layout_height="80dp"/>
+                android:layout_height="80dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/comment_background"
+                android:hint="Reason for cancel"
+                android:inputType="textMultiLine"
+                android:padding="5dp" />
 
             <Button
                 android:id="@+id/btn_submit_rate"
-                android:textAllCaps="false"
-                android:text="Submit"
-                android:textColor="@color/white"
-                android:background="@drawable/login_bg"
-                android:layout_marginTop="15dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/login_bg"
+                android:text="Submit"
+                android:textAllCaps="false"
+                android:textColor="@color/white" />
 
         </LinearLayout>
 

@@ -4,13 +4,12 @@
     android:id="@+id/tvTitle"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:textColor="@color/black"
+    android:layout_margin="@dimen/margin"
+    android:background="@drawable/spinner_item_divider"
+    android:fontFamily="@font/josefinsans_regular"
+    android:hint="Select"
     android:padding="12dp"
     android:singleLine="false"
-    android:layout_margin="@dimen/margin"
-    android:hint="Select"
-    android:fontFamily="@font/josefinsans_regular"
+    android:textColor="@color/black"
     android:textColorHint="@color/black"
-    android:background="@drawable/spinner_item_divider"
-    android:textSize="@dimen/bigtext">
-</TextView>
+    android:textSize="@dimen/bigtext"></TextView>

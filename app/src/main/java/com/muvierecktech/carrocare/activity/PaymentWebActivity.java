@@ -25,14 +25,15 @@ import com.muvierecktech.carrocare.databinding.ActivityPaymentWebBinding;
 
 public class PaymentWebActivity extends AppCompatActivity {
     ActivityPaymentWebBinding binding;
-    String pacakagetype,vehicletype,subscriptiontype,servicetype,vehicleid,customerid,carprice;
+    String pacakagetype, vehicletype, subscriptiontype, servicetype, vehicleid, customerid, carprice;
     ProgressDialog progressdialog;
+
     @SuppressLint({"SetJavaScriptEnabled", "JavascriptInterface"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.activity_payment_web);
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_payment_web);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_payment_web);
 
         Intent intent = getIntent();
         pacakagetype = intent.getStringExtra("package_type");
@@ -43,14 +44,14 @@ public class PaymentWebActivity extends AppCompatActivity {
         customerid = intent.getStringExtra("customer_id");
         carprice = intent.getStringExtra("amount");
 
-        if (pacakagetype.equalsIgnoreCase("bike") || pacakagetype.equalsIgnoreCase("Bike") || pacakagetype.equalsIgnoreCase(Constant.BIKE)){
-            pacakagetype= "Bike";
-        }else if (pacakagetype.equalsIgnoreCase("hatchback") || pacakagetype.equalsIgnoreCase("Hatchback") || pacakagetype.equalsIgnoreCase(Constant.HATCHBACK)){
-            pacakagetype= "Hatchback";
-        }else if (pacakagetype.equalsIgnoreCase("sedan") || pacakagetype.equalsIgnoreCase("Sedan") || pacakagetype.equalsIgnoreCase(Constant.SEDAN)){
-            pacakagetype= "Sedan";
-        }else if (pacakagetype.equalsIgnoreCase("suv") || pacakagetype.equalsIgnoreCase("SUV") || pacakagetype.equalsIgnoreCase("Suv") || pacakagetype.equalsIgnoreCase(Constant.SUV)){
-            pacakagetype= "SUV";
+        if (pacakagetype.equalsIgnoreCase("bike") || pacakagetype.equalsIgnoreCase("Bike") || pacakagetype.equalsIgnoreCase(Constant.BIKE)) {
+            pacakagetype = "Bike";
+        } else if (pacakagetype.equalsIgnoreCase("hatchback") || pacakagetype.equalsIgnoreCase("Hatchback") || pacakagetype.equalsIgnoreCase(Constant.HATCHBACK)) {
+            pacakagetype = "Hatchback";
+        } else if (pacakagetype.equalsIgnoreCase("sedan") || pacakagetype.equalsIgnoreCase("Sedan") || pacakagetype.equalsIgnoreCase(Constant.SEDAN)) {
+            pacakagetype = "Sedan";
+        } else if (pacakagetype.equalsIgnoreCase("suv") || pacakagetype.equalsIgnoreCase("SUV") || pacakagetype.equalsIgnoreCase("Suv") || pacakagetype.equalsIgnoreCase(Constant.SUV)) {
+            pacakagetype = "SUV";
         }
 //        progressdialog = new ProgressDialog(PaymentWebActivity.this);
 //        progressdialog.setMessage("Please Wait....");
@@ -69,11 +70,11 @@ public class PaymentWebActivity extends AppCompatActivity {
         binding.webview.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
         binding.webview.getSettings().setSupportMultipleWindows(true);
         binding.webview.getSettings().setAllowUniversalAccessFromFileURLs(true);
-        binding.webview.getSettings().setMixedContentMode( WebSettings.MIXED_CONTENT_ALWAYS_ALLOW );
-        binding.webview.addJavascriptInterface(new PaymentInterface(),"PaymentInterface");
+        binding.webview.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+        binding.webview.addJavascriptInterface(new PaymentInterface(), "PaymentInterface");
         binding.webview.setWebViewClient(new MyBrowser());
 
-        binding.webview.loadUrl("https://www.carrocare.in/Android_API/webview_checkout.php?p_type="+pacakagetype+"&v_type="+vehicletype+"&su_type="+subscriptiontype+"&se_type="+servicetype+"&v_id="+vehicleid+"&customer_id="+customerid+"");
+        binding.webview.loadUrl("https://www.carrocare.in/Android_API/webview_checkout.php?p_type=" + pacakagetype + "&v_type=" + vehicletype + "&su_type=" + subscriptiontype + "&se_type=" + servicetype + "&v_id=" + vehicleid + "&customer_id=" + customerid + "");
 //        binding.webview.setWebChromeClient(new WebChromeClient() {
 //            @Override
 //            public boolean onCreateWindow(WebView view, boolean dialog, boolean userGesture, Message resultMsg)
@@ -125,15 +126,16 @@ public class PaymentWebActivity extends AppCompatActivity {
 //            }
 //        });
     }
-     private class MyBrowser extends WebViewClient {
+
+    private class MyBrowser extends WebViewClient {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
             view.loadUrl(url);
-            if(url.indexOf("carrocare.in") > -1 ) return false;
+            if (url.indexOf("carrocare.in") > -1) return false;
 
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
             startActivity(intent);
-            Log.e("URL",url);
+            Log.e("URL", url);
 //            view.addJavascriptInterface(new Object()
 //            {
 //                @JavascriptInterface
@@ -149,8 +151,8 @@ public class PaymentWebActivity extends AppCompatActivity {
         @Override
         public void onPageFinished(WebView view, String url) {
 //            progressdialog.dismiss();
-            Log.e("URLfinis",url);
-            if(url.contains("https://www.carrocare.in/Android_API/emandate_authentication.php?")) {
+            Log.e("URLfinis", url);
+            if (url.contains("https://www.carrocare.in/Android_API/emandate_authentication.php?")) {
                 Uri uri = Uri.parse(url);
                 String razorpay_customer_id = uri.getQueryParameter("razorpay_customer_id");
                 String order_id = uri.getQueryParameter("order_id");
@@ -174,19 +176,19 @@ public class PaymentWebActivity extends AppCompatActivity {
         @Override
         public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
             super.onReceivedError(view, request, error);
-            Log.e("ERROR",error.getDescription().toString());
+            Log.e("ERROR", error.getDescription().toString());
         }
     }
 
     private class PaymentInterface {
         @JavascriptInterface
-        public void success(String data){
-            Log.e("Success",data);
+        public void success(String data) {
+            Log.e("Success", data);
         }
 
         @JavascriptInterface
-        public void error(String data){
-            Log.e("Error",data);
+        public void error(String data) {
+            Log.e("Error", data);
         }
     }
 }

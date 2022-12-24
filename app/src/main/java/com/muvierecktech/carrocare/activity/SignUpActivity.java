@@ -50,6 +50,7 @@ public class SignUpActivity extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
     SessionManager sessionManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,24 +66,24 @@ public class SignUpActivity extends AppCompatActivity {
                     }
                     // Get new FCM registration token
                     String newToken = task.getResult();
-                    Log.e("newToken",newToken);
+                    Log.e("newToken", newToken);
                     deviceID = newToken;
                 });
 
         binding.loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (binding.loginBtn.getText().toString().equals("Send OTP")){
-                    if (binding.nameEdt.getText().toString().length()>0 && binding.emailEdt.getText().toString().length()>0
-                            && binding.mobileEdt.getText().toString().length() > 0){
-                        if (binding.mobileEdt.getText().toString().length()==10){
-                            if (emailValidator(binding.emailEdt.getText().toString())){
+                if (binding.loginBtn.getText().toString().equals("Send OTP")) {
+                    if (binding.nameEdt.getText().toString().length() > 0 && binding.emailEdt.getText().toString().length() > 0
+                            && binding.mobileEdt.getText().toString().length() > 0) {
+                        if (binding.mobileEdt.getText().toString().length() == 10) {
+                            if (emailValidator(binding.emailEdt.getText().toString())) {
                                 worksendOtp();
-                            }else
+                            } else
                                 Toast.makeText(SignUpActivity.this, Constant.VALIDEMAIL, Toast.LENGTH_LONG).show();
-                        }else
-                            Toast.makeText(SignUpActivity.this,Constant.VALIDMOBILE, Toast.LENGTH_LONG).show();
-                    }else
+                        } else
+                            Toast.makeText(SignUpActivity.this, Constant.VALIDMOBILE, Toast.LENGTH_LONG).show();
+                    } else
                         Toast.makeText(SignUpActivity.this, Constant.DETAILS, Toast.LENGTH_LONG).show();
                 }
             }
@@ -92,7 +93,7 @@ public class SignUpActivity extends AppCompatActivity {
         binding.backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SignUpActivity.this,LoginActivity.class);
+                Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -100,7 +101,7 @@ public class SignUpActivity extends AppCompatActivity {
         binding.back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SignUpActivity.this,LoginActivity.class);
+                Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -108,13 +109,14 @@ public class SignUpActivity extends AppCompatActivity {
         binding.signin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SignUpActivity.this,LoginActivity.class);
+                Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
                 startActivity(intent);
                 finish();
             }
         });
 
     }
+
     /*Email validating*/
     private boolean emailValidator(String s) {
         Pattern pattern;
@@ -124,14 +126,15 @@ public class SignUpActivity extends AppCompatActivity {
         matcher = pattern.matcher(s);
         return matcher.matches();
     }
+
     private void worksendOtp() {
-        if (isNetworkAvailable()){
+        if (isNetworkAvailable()) {
             SendOTP();
-        }else {
+        } else {
             AlertDialog.Builder dialog = new AlertDialog.Builder(SignUpActivity.this);
             dialog.setCancelable(false);
             dialog.setTitle("Alert!");
-            dialog.setMessage("No internet.Please check your connection." );
+            dialog.setMessage("No internet.Please check your connection.");
             dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int id) {
@@ -159,13 +162,13 @@ public class SignUpActivity extends AppCompatActivity {
                 .setDimAmount(0.5f)
                 .show();
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        Call<JsonObject> call = apiInterface.loginotp(binding.mobileEdt.getText().toString(),binding.nameEdt.getText().toString(),binding.emailEdt.getText().toString());
+        Call<JsonObject> call = apiInterface.loginotp(binding.mobileEdt.getText().toString(), binding.nameEdt.getText().toString(), binding.emailEdt.getText().toString());
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                 hud.dismiss();
                 try {
-                    if(response.isSuccessful()){
+                    if (response.isSuccessful()) {
                         JsonElement jsonElement = response.body();
                         JSONObject jsonObject = new JSONObject(jsonElement.toString());
                         if (jsonObject.optString("code").equalsIgnoreCase("200")) {
@@ -241,11 +244,11 @@ public class SignUpActivity extends AppCompatActivity {
                                     }
                                 }
                             });
-                        }else {
-                            Toast.makeText(SignUpActivity.this,jsonObject.optString("message"),Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(SignUpActivity.this, jsonObject.optString("message"), Toast.LENGTH_SHORT).show();
 
                         }
-                    } else{
+                    } else {
                         ApiConfig.responseToast(SignUpActivity.this, response.code());
                     }
                 } catch (JSONException e) {
@@ -257,19 +260,19 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
                 hud.dismiss();
-                Toast.makeText(SignUpActivity.this,"Timeout.Try after sometime",Toast.LENGTH_SHORT).show();
+                Toast.makeText(SignUpActivity.this, "Timeout.Try after sometime", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void workregister() {
-        if (isNetworkAvailable()){
+        if (isNetworkAvailable()) {
             Register();
-        }else {
+        } else {
             AlertDialog.Builder dialog = new AlertDialog.Builder(SignUpActivity.this);
             dialog.setCancelable(false);
             dialog.setTitle("Alert!");
-            dialog.setMessage("No internet.Please check your connection." );
+            dialog.setMessage("No internet.Please check your connection.");
             dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int id) {
@@ -306,14 +309,14 @@ public class SignUpActivity extends AppCompatActivity {
 
 
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        Call<LoginDetails> call = apiInterface.register(binding.mobileEdt.getText().toString(),binding.passEdt.getText().toString(),
-                binding.nameEdt.getText().toString(),binding.emailEdt.getText().toString(),deviceID,name,model,deviceOs);
+        Call<LoginDetails> call = apiInterface.register(binding.mobileEdt.getText().toString(), binding.passEdt.getText().toString(),
+                binding.nameEdt.getText().toString(), binding.emailEdt.getText().toString(), deviceID, name, model, deviceOs);
         call.enqueue(new Callback<LoginDetails>() {
             @Override
             public void onResponse(Call<LoginDetails> call, Response<LoginDetails> response) {
                 hud.dismiss();
-                try{
-                    if(response.isSuccessful()){
+                try {
+                    if (response.isSuccessful()) {
                         final LoginDetails loginDetails = response.body();
                         if (loginDetails.code.equalsIgnoreCase("200")) {
                             Gson gson = new Gson();
@@ -329,23 +332,24 @@ public class SignUpActivity extends AppCompatActivity {
                             sessionManager.UserApartName(loginDetails.apartment_name);
                             sessionManager.UserFlatno(loginDetails.flat_no);
 
-                            Intent intent = new Intent(SignUpActivity.this,MainActivity.class);
+                            Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
                             startActivity(intent);
                             finish();
                         } else if (loginDetails.code.equalsIgnoreCase("201")) {
                             Toast.makeText(SignUpActivity.this, loginDetails.message, Toast.LENGTH_LONG).show();
                         }
-                    } else{
+                    } else {
                         ApiConfig.responseToast(SignUpActivity.this, response.code());
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
+
             @Override
             public void onFailure(Call<LoginDetails> call, Throwable t) {
                 hud.dismiss();
-                Toast.makeText(SignUpActivity.this,"Timeout.Try after sometime",Toast.LENGTH_SHORT).show();
+                Toast.makeText(SignUpActivity.this, "Timeout.Try after sometime", Toast.LENGTH_SHORT).show();
             }
         });
     }

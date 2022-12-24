@@ -51,19 +51,19 @@ public class MapCarWashAdapter extends RecyclerView.Adapter {
         final MyViewHolder viewHolder = (MyViewHolder) holder;
 
 
-        if(header.equalsIgnoreCase("carwash")){
-            if(services.get(position).id.equalsIgnoreCase("4")){
+        if (header.equalsIgnoreCase("carwash")) {
+            if (services.get(position).id.equalsIgnoreCase("4")) {
                 viewHolder.linearLayout.setVisibility(View.GONE);
                 viewHolder.card.setVisibility(View.GONE);
-            }else{
+            } else {
                 viewHolder.linearLayout.setVisibility(View.VISIBLE);
                 viewHolder.card.setVisibility(View.VISIBLE);
             }
-        }else if(header.equalsIgnoreCase("bikewash")){
-            if(services.get(position).type.equalsIgnoreCase("bike")){
+        } else if (header.equalsIgnoreCase("bikewash")) {
+            if (services.get(position).type.equalsIgnoreCase("bike")) {
                 viewHolder.linearLayout.setVisibility(View.VISIBLE);
                 viewHolder.card.setVisibility(View.VISIBLE);
-            }else{
+            } else {
                 viewHolder.card.setVisibility(View.GONE);
                 viewHolder.linearLayout.setVisibility(View.GONE);
             }
@@ -82,7 +82,7 @@ public class MapCarWashAdapter extends RecyclerView.Adapter {
         viewHolder.info_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MyViewHolder myViewHolder = (MyViewHolder)v.getTag();
+                MyViewHolder myViewHolder = (MyViewHolder) v.getTag();
                 int pos = myViewHolder.getAdapterPosition();
                 //((DoorStepServiceActivity)context).binding.infoPopup.clearAnimation();
             }
@@ -92,7 +92,7 @@ public class MapCarWashAdapter extends RecyclerView.Adapter {
         viewHolder.card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MyViewHolder myViewHolder = (MyViewHolder)v.getTag();
+                MyViewHolder myViewHolder = (MyViewHolder) v.getTag();
                 int pos = myViewHolder.getAdapterPosition();
                 Constant.ONETIME_CAR_PRICE = services.get(pos).prices;
                 String car_name = services.get(pos).type;
@@ -101,10 +101,12 @@ public class MapCarWashAdapter extends RecyclerView.Adapter {
         });
 
     }
+
     @Override
     public int getItemCount() {
         return services.size();
     }
+
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         ImageView image;
         Button info_btn;
@@ -114,8 +116,8 @@ public class MapCarWashAdapter extends RecyclerView.Adapter {
 
         public MyViewHolder(View itemLayoutView) {
             super(itemLayoutView);
-            image = (ImageView)itemLayoutView.findViewById(R.id.image);
-            title = (TextView)itemLayoutView.findViewById(R.id.title);
+            image = (ImageView) itemLayoutView.findViewById(R.id.image);
+            title = (TextView) itemLayoutView.findViewById(R.id.title);
             info_btn = (Button) itemLayoutView.findViewById(R.id.info_btn);
             card = (CardView) itemLayoutView.findViewById(R.id.card);
             linearLayout = (LinearLayout) itemLayoutView.findViewById(R.id.linearLayout);

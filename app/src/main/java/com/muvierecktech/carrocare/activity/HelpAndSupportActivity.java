@@ -42,16 +42,17 @@ import retrofit2.Response;
 public class HelpAndSupportActivity extends AppCompatActivity {
     public ActivityHelpAndSupportBinding binding;
     SessionManager sessionManager;
-    String customerid,token;
-    String[] messageList = {Constant.NOTCLEANPROPER,Constant.NOTCLEANTIME,Constant.PACKAGE,Constant.PAYMENT,Constant.NOTCLEAN,Constant.VEHICLEDAMAGE,
-            Constant.CHANGEMOBILE,Constant.NOTCLEANLONGTIME,Constant.NOTMYVEHICLE,Constant.INTERIORNOT,Constant.EARLIERPHOTO,Constant.IAMNOTAVAILE,Constant.OTHERS};
+    String customerid, token;
+    String[] messageList = {Constant.NOTCLEANPROPER, Constant.NOTCLEANTIME, Constant.PACKAGE, Constant.PAYMENT, Constant.NOTCLEAN, Constant.VEHICLEDAMAGE,
+            Constant.CHANGEMOBILE, Constant.NOTCLEANLONGTIME, Constant.NOTMYVEHICLE, Constant.INTERIORNOT, Constant.EARLIERPHOTO, Constant.IAMNOTAVAILE, Constant.OTHERS};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_help_and_support);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_help_and_support);
         sessionManager = new SessionManager(this);
-        HashMap<String,String> hashMap = sessionManager.getUserDetails();
+        HashMap<String, String> hashMap = sessionManager.getUserDetails();
         customerid = hashMap.get(SessionManager.KEY_USERID);
         token = hashMap.get(SessionManager.KEY_TOKEN);
         binding.back.setOnClickListener(new View.OnClickListener() {
@@ -60,27 +61,27 @@ public class HelpAndSupportActivity extends AppCompatActivity {
                 finish();
             }
         });
-        HelpListAdapter helpListAdapter = new HelpListAdapter(HelpAndSupportActivity.this,messageList);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
+        HelpListAdapter helpListAdapter = new HelpListAdapter(HelpAndSupportActivity.this, messageList);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         binding.helpRc.setLayoutManager(linearLayoutManager);
         binding.helpRc.setAdapter(helpListAdapter);
     }
 
     public void work(final String title, final String message) {
-        if (isNetworkAvailable()){
-            SubmitForm(title,message);
-        }else {
+        if (isNetworkAvailable()) {
+            SubmitForm(title, message);
+        } else {
             AlertDialog.Builder dialog = new AlertDialog.Builder(HelpAndSupportActivity.this);
             dialog.setCancelable(false);
             dialog.setTitle("Alert!");
-            dialog.setMessage("No internet.Please check your connection." );
+            dialog.setMessage("No internet.Please check your connection.");
             dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int id) {
-                    //Action for "Ok".
-                    work(title,message);
-                }
-            })
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            //Action for "Ok".
+                            work(title, message);
+                        }
+                    })
                     .setNegativeButton("Cancel ", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -101,39 +102,41 @@ public class HelpAndSupportActivity extends AppCompatActivity {
                 .setAnimationSpeed(2)
                 .setDimAmount(0.5f)
                 .show();
-        Log.e("****************",title+""+message);
+        Log.e("****************", title + "" + message);
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        Call<JsonObject> call = apiInterface.helpandsupport(title,message,
-                customerid+"",""+token);
+        Call<JsonObject> call = apiInterface.helpandsupport(title, message,
+                customerid + "", "" + token);
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                 hud.dismiss();
                 try {
-                    if(response.isSuccessful()){
+                    if (response.isSuccessful()) {
                         JsonElement jsonElement = response.body();
                         JSONObject jsonObject = new JSONObject(jsonElement.toString());
                         if (jsonObject.optString("code").equalsIgnoreCase("200")) {
                             Gson gson = new Gson();
-                            Toast.makeText(HelpAndSupportActivity.this,jsonObject.optString("result"),Toast.LENGTH_LONG).show();
+                            Toast.makeText(HelpAndSupportActivity.this, jsonObject.optString("result"), Toast.LENGTH_LONG).show();
                             finish();
-                        }else {
-                            Toast.makeText(HelpAndSupportActivity.this,jsonObject.optString("message"),Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(HelpAndSupportActivity.this, jsonObject.optString("message"), Toast.LENGTH_SHORT).show();
                         }
-                    } else{
+                    } else {
                         ApiConfig.responseToast(HelpAndSupportActivity.this, response.code());
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
+
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
                 hud.dismiss();
-                Toast.makeText(HelpAndSupportActivity.this,"Timeout.Try after sometime",Toast.LENGTH_SHORT).show();
+                Toast.makeText(HelpAndSupportActivity.this, "Timeout.Try after sometime", Toast.LENGTH_SHORT).show();
             }
         });
     }
+
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);

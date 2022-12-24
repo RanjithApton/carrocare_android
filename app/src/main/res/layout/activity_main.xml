@@ -1,67 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
-    <RelativeLayout
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    <RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".activity.MainActivity">
+
         <LinearLayout
             android:id="@+id/header"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/colorPrimary"
-            android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="vertical">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:orientation="horizontal">
+
                 <ImageView
                     android:id="@+id/menu"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:src="@drawable/ic_menu_24"
-                    android:padding="2dp"
                     android:layout_gravity="center|left"
-                    />
+                    android:layout_margin="10dp"
+                    android:padding="2dp"
+                    android:src="@drawable/ic_menu_24" />
+
                 <TextView
                     android:id="@+id/username"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center|left"
-                    android:text="Hi !"
                     android:layout_weight="1"
-                    android:textColor="@color/white"
                     android:fontFamily="@font/josefinsans_regular"
-                    android:textSize="@dimen/paratext"/>
+                    android:text="Hi !"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/paratext" />
 
                 <RelativeLayout
-                    android:layout_marginRight="@dimen/marginmed"
                     android:layout_width="25dp"
-                    android:layout_height="25dp">
+                    android:layout_height="25dp"
+                    android:layout_marginRight="@dimen/marginmed">
 
                     <ImageView
                         android:id="@+id/check_cart"
-                        android:layout_gravity="center|right"
-                        android:src="@drawable/ic_cart"
                         android:layout_width="25dp"
-                        android:layout_height="25dp"/>
+                        android:layout_height="25dp"
+                        android:layout_gravity="center|right"
+                        android:src="@drawable/ic_cart" />
 
                     <TextView
                         android:id="@+id/cart_count"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="0"
-                        android:gravity="center"
-                        android:fontFamily="@font/josefinsans_bold"
                         android:layout_centerHorizontal="true"
-                        android:textSize="8sp"
+                        android:background="@drawable/rounded_textview"
+                        android:fontFamily="@font/josefinsans_bold"
+                        android:gravity="center"
+                        android:text="0"
                         android:textColor="@color/white"
-                        android:background="@drawable/rounded_textview"/>
+                        android:textSize="8sp" />
 
                 </RelativeLayout>
 
@@ -69,19 +72,20 @@
                     android:id="@+id/notify"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="right|center"
                     android:layout_margin="10dp"
-                    android:src="@drawable/notify"
                     android:padding="2dp"
-                    android:visibility="gone"
-                    android:layout_gravity="right|center"/>
+                    android:src="@drawable/notify"
+                    android:visibility="gone" />
+
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="25dp"
+                    android:layout_gravity="center|right"
                     android:layout_margin="7dp"
                     android:layout_weight="1"
-                    android:visibility="gone"
-                    android:layout_gravity="center|right"
-                    android:background="@drawable/search_bg">
+                    android:background="@drawable/search_bg"
+                    android:visibility="gone">
                     <!--<LinearLayout-->
                     <!--android:id="@+id/place"-->
                     <!--android:layout_width="30dp"-->
@@ -92,78 +96,83 @@
                         android:layout_width="30dp"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
-                        android:src="@drawable/send"
                         android:background="#000"
-                        android:padding="5dp"/>
+                        android:padding="5dp"
+                        android:src="@drawable/send" />
 
                     <!--</LinearLayout>-->
                     <TextView
 
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Chennai"
-                        android:gravity="center"
-                        android:textSize="@dimen/bigtext"
-                        android:layout_centerHorizontal="true"
                         android:layout_centerInParent="true"
+                        android:layout_centerHorizontal="true"
                         android:layout_toRightOf="@id/place"
                         android:fontFamily="@font/josefinsans_regular"
-                        android:textColor="#0c0c0c"/>
+                        android:gravity="center"
+                        android:text="Chennai"
+                        android:textColor="#0c0c0c"
+                        android:textSize="@dimen/bigtext" />
                 </RelativeLayout>
 
             </LinearLayout>
+
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:layout_margin="10dp"
                 android:layout_gravity="center|right"
-                android:visibility="gone"
-                android:background="@drawable/search_bg">
+                android:layout_margin="10dp"
+                android:background="@drawable/search_bg"
+                android:visibility="gone">
+
                 <LinearLayout
                     android:id="@+id/search"
                     android:layout_width="30dp"
-                    android:orientation="horizontal"
+                    android:layout_height="match_parent"
                     android:layout_marginLeft="15dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="12dp"
                     android:layout_marginBottom="10dp"
-                    android:layout_height="match_parent">
+                    android:orientation="horizontal">
+
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:src="@drawable/search"
-                        android:padding="5dp"/>
+                        android:padding="5dp"
+                        android:src="@drawable/search" />
 
                 </LinearLayout>
+
                 <EditText
                     android:id="@+id/search_edt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="12sp"
-                    android:layout_toRightOf="@+id/search"
                     android:layout_centerInParent="true"
+                    android:layout_toRightOf="@+id/search"
                     android:background="@null"
-                    android:singleLine="true"
                     android:fontFamily="@font/roboto_regular"
                     android:hint="Type to search...."
-                    android:textColor="#0c0c0c"/>
+                    android:singleLine="true"
+                    android:textColor="#0c0c0c"
+                    android:textSize="12sp" />
             </RelativeLayout>
 
         </LinearLayout>
+
         <ScrollView
-            android:layout_below="@+id/header"
-            android:layout_above="@+id/footer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_above="@+id/footer"
+            android:layout_below="@+id/header"
             android:background="@drawable/bg">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <com.denzcoskun.imageslider.ImageSlider
-                    app:layout_constraintTop_toTopOf="parent"
                     android:id="@+id/imageSlider"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
@@ -171,6 +180,7 @@
                     app:corner_radius="0"
                     app:delay="0"
                     app:error_image="@drawable/placeholder"
+                    app:layout_constraintTop_toTopOf="parent"
                     app:period="1500"
                     app:placeholder="@drawable/placeholder"
                     app:selected_dot="@drawable/default_selected_dot"
@@ -184,35 +194,35 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:layout_marginLeft="15dp"
-                        android:textSize="@dimen/bigtext"
-                        android:textColor="@color/black"
-                        android:fontFamily="@font/ubuntu_medium"
-                        android:text="Our  Services"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-
-                    <LinearLayout
-                        android:visibility="gone"
-                        android:weightSum="2"
-                        android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:layout_marginLeft="15dp"
+                        android:fontFamily="@font/ubuntu_medium"
+                        android:text="Our  Services"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/bigtext" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal"
+                        android:visibility="gone"
+                        android:weightSum="2">
 
                         <androidx.cardview.widget.CardView
                             android:id="@+id/apartment_service123"
-                            android:layout_margin="10dp"
-                            android:layout_weight="1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:cardCornerRadius="7dp"
-                            app:cardBackgroundColor="@color/white"
+                            android:layout_margin="10dp"
+                            android:layout_weight="1"
                             android:elevation="5dp"
                             android:fitsSystemWindows="true"
-                            app:cardUseCompatPadding="true"
+                            app:cardBackgroundColor="@color/white"
+                            app:cardCornerRadius="7dp"
+                            app:cardElevation="3dp"
                             app:cardPreventCornerOverlap="true"
-                            app:cardElevation="3dp">
+                            app:cardUseCompatPadding="true">
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -220,75 +230,81 @@
                                 android:layout_gravity="fill"
                                 android:layout_marginBottom="10dp"
                                 android:orientation="vertical">
+
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:gravity="center"
                                     android:padding="@dimen/padding">
+
                                     <ImageView
                                         android:layout_width="150dp"
                                         android:layout_height="150dp"
-                                        android:src="@drawable/apartment_services"
-                                        android:layout_gravity="center"/>
+                                        android:layout_gravity="center"
+                                        android:src="@drawable/apartment_services" />
                                 </LinearLayout>
+
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
-                                    android:gravity="center"
-                                    android:textSize="@dimen/medtext"
-                                    android:textColor="@color/black"
-                                    android:textAllCaps="true"
-                                    android:textStyle="bold"
                                     android:fontFamily="@font/josefinsans_regular"
-                                    android:text="Apartment Service"/>
+                                    android:gravity="center"
+                                    android:text="Apartment Service"
+                                    android:textAllCaps="true"
+                                    android:textColor="@color/black"
+                                    android:textSize="@dimen/medtext"
+                                    android:textStyle="bold" />
                             </LinearLayout>
 
                         </androidx.cardview.widget.CardView>
 
                         <androidx.cardview.widget.CardView
                             android:id="@+id/doorstep_service"
-                            android:layout_margin="10dp"
-                            android:layout_weight="1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:cardCornerRadius="7dp"
-                            app:cardBackgroundColor="@color/white"
+                            android:layout_margin="10dp"
+                            android:layout_weight="1"
                             android:elevation="5dp"
                             android:fitsSystemWindows="true"
-                            app:cardUseCompatPadding="true"
+                            app:cardBackgroundColor="@color/white"
+                            app:cardCornerRadius="7dp"
+                            app:cardElevation="3dp"
                             app:cardPreventCornerOverlap="true"
-                            app:cardElevation="3dp">
+                            app:cardUseCompatPadding="true">
 
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
                                 android:layout_gravity="fill"
                                 android:layout_marginBottom="10dp"
+                                android:layout_weight="1"
                                 android:orientation="vertical">
+
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:gravity="center"
                                     android:padding="@dimen/padding">
+
                                     <ImageView
                                         android:layout_width="150dp"
                                         android:layout_height="150dp"
-                                        android:src="@drawable/doorstep_service"
-                                        android:layout_gravity="center"/>
+                                        android:layout_gravity="center"
+                                        android:src="@drawable/doorstep_service" />
                                 </LinearLayout>
+
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
-                                    android:gravity="center"
-                                    android:textSize="@dimen/medtext"
-                                    android:textColor="@color/black"
-                                    android:textAllCaps="true"
-                                    android:textStyle="bold"
                                     android:fontFamily="@font/josefinsans_regular"
-                                    android:text="Doorstep service"/>
+                                    android:gravity="center"
+                                    android:text="Doorstep service"
+                                    android:textAllCaps="true"
+                                    android:textColor="@color/black"
+                                    android:textSize="@dimen/medtext"
+                                    android:textStyle="bold" />
                             </LinearLayout>
 
                         </androidx.cardview.widget.CardView>
@@ -297,9 +313,9 @@
                     </LinearLayout>
 
                     <ScrollView
-                        android:layout_below="@+id/header"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:layout_below="@+id/header"
                         android:background="@drawable/bg">
 
                         <LinearLayout
@@ -311,102 +327,110 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="5dp"
-                                android:layout_marginBottom="10dp"
                                 android:layout_marginLeft="5dp"
+                                android:layout_marginTop="5dp"
                                 android:layout_marginRight="5dp"
+                                android:layout_marginBottom="10dp"
                                 android:orientation="horizontal">
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="1"
                                     android:layout_gravity="fill"
                                     android:layout_marginBottom="10dp"
+                                    android:layout_weight="1"
                                     android:orientation="vertical">
+
                                     <LinearLayout
                                         android:id="@+id/car_wash"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:gravity="center"
                                         android:padding="@dimen/padding">
+
                                         <androidx.cardview.widget.CardView
-                                            android:layout_margin="10dp"
-                                            android:layout_weight="1"
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
-                                            app:cardCornerRadius="7dp"
-                                            app:cardBackgroundColor="@color/white"
+                                            android:layout_margin="10dp"
+                                            android:layout_weight="1"
                                             android:elevation="5dp"
                                             android:fitsSystemWindows="true"
-                                            app:cardUseCompatPadding="true"
+                                            app:cardBackgroundColor="@color/white"
+                                            app:cardCornerRadius="7dp"
+                                            app:cardElevation="3dp"
                                             app:cardPreventCornerOverlap="true"
-                                            app:cardElevation="3dp">
+                                            app:cardUseCompatPadding="true">
+
                                             <ImageView
                                                 android:id="@+id/wash1"
                                                 android:layout_width="match_parent"
                                                 android:layout_height="130dp"
-                                                android:src="@drawable/home_car_wash"
+                                                android:layout_gravity="center"
                                                 android:padding="@dimen/marginhalf"
-                                                android:layout_gravity="center"/>
+                                                android:src="@drawable/home_car_wash" />
                                         </androidx.cardview.widget.CardView>
                                     </LinearLayout>
+
                                     <TextView
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center"
-                                        android:gravity="center"
-                                        android:textSize="@dimen/medtext"
-                                        android:textColor="@color/black"
-                                        android:textAllCaps="true"
                                         android:fontFamily="@font/josefinsans_regular"
-                                        android:text="Daily Car Wash"/>
+                                        android:gravity="center"
+                                        android:text="Daily Car Wash"
+                                        android:textAllCaps="true"
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/medtext" />
                                 </LinearLayout>
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:layout_gravity="fill"
                                     android:layout_marginBottom="10dp"
                                     android:layout_weight="1"
-                                    android:layout_gravity="fill"
                                     android:orientation="vertical">
+
                                     <LinearLayout
                                         android:id="@+id/car_disinfection"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:gravity="center"
                                         android:padding="@dimen/padding">
+
                                         <androidx.cardview.widget.CardView
-                                            android:layout_margin="10dp"
-                                            android:layout_weight="1"
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
-                                            app:cardCornerRadius="7dp"
-                                            app:cardBackgroundColor="@color/white"
+                                            android:layout_margin="10dp"
+                                            android:layout_weight="1"
                                             android:elevation="5dp"
                                             android:fitsSystemWindows="true"
-                                            app:cardUseCompatPadding="true"
+                                            app:cardBackgroundColor="@color/white"
+                                            app:cardCornerRadius="7dp"
+                                            app:cardElevation="3dp"
                                             app:cardPreventCornerOverlap="true"
-                                            app:cardElevation="3dp">
+                                            app:cardUseCompatPadding="true">
+
                                             <ImageView
                                                 android:id="@+id/disinf"
                                                 android:layout_width="match_parent"
                                                 android:layout_height="130dp"
-                                                android:src="@drawable/car_disinsfection"
+                                                android:layout_gravity="center"
                                                 android:padding="@dimen/marginhalf"
-                                                android:layout_gravity="center"/>
+                                                android:src="@drawable/car_disinsfection" />
                                         </androidx.cardview.widget.CardView>
                                     </LinearLayout>
+
                                     <TextView
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center"
-                                        android:gravity="center"
-                                        android:textSize="@dimen/medtext"
-                                        android:textColor="@color/black"
-                                        android:textAllCaps="true"
                                         android:fontFamily="@font/josefinsans_regular"
-                                        android:text="Car Disinfection"/>
+                                        android:gravity="center"
+                                        android:text="Car Disinfection"
+                                        android:textAllCaps="true"
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/medtext" />
                                 </LinearLayout>
 
                             </LinearLayout>
@@ -414,104 +438,111 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="5dp"
-                                android:layout_marginBottom="10dp"
                                 android:layout_marginLeft="5dp"
+                                android:layout_marginTop="5dp"
                                 android:layout_marginRight="5dp"
+                                android:layout_marginBottom="10dp"
                                 android:orientation="horizontal">
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="1"
                                     android:layout_gravity="fill"
                                     android:layout_marginBottom="10dp"
+                                    android:layout_weight="1"
                                     android:orientation="vertical">
+
                                     <LinearLayout
                                         android:id="@+id/bike_wash"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
                                         android:gravity="center"
                                         android:padding="@dimen/padding">
+
                                         <androidx.cardview.widget.CardView
-                                            android:layout_margin="10dp"
-                                            android:layout_weight="1"
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
-                                            app:cardCornerRadius="7dp"
-                                            app:cardBackgroundColor="@color/white"
+                                            android:layout_margin="10dp"
+                                            android:layout_weight="1"
                                             android:elevation="5dp"
                                             android:fitsSystemWindows="true"
-                                            app:cardUseCompatPadding="true"
+                                            app:cardBackgroundColor="@color/white"
+                                            app:cardCornerRadius="7dp"
+                                            app:cardElevation="3dp"
                                             app:cardPreventCornerOverlap="true"
-                                            app:cardElevation="3dp">
+                                            app:cardUseCompatPadding="true">
+
                                             <ImageView
                                                 android:id="@+id/wash11"
                                                 android:layout_width="match_parent"
                                                 android:layout_height="130dp"
-                                                android:src="@drawable/bile_wash"
+                                                android:layout_gravity="center"
                                                 android:padding="@dimen/marginhalf"
-                                                android:layout_gravity="center"/>
+                                                android:src="@drawable/bile_wash" />
                                         </androidx.cardview.widget.CardView>
                                     </LinearLayout>
+
                                     <TextView
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center"
-                                        android:gravity="center"
-                                        android:textSize="@dimen/medtext"
-                                        android:textColor="@color/black"
-                                        android:textAllCaps="true"
                                         android:fontFamily="@font/josefinsans_regular"
-                                        android:text="Bike Wash"/>
+                                        android:gravity="center"
+                                        android:text="Bike Wash"
+                                        android:textAllCaps="true"
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/medtext" />
                                 </LinearLayout>
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="1"
                                     android:layout_gravity="fill"
                                     android:layout_marginBottom="10dp"
+                                    android:layout_weight="1"
                                     android:orientation="vertical">
+
                                     <LinearLayout
                                         android:id="@+id/car_service"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:gravity="center"
                                         android:padding="@dimen/padding">
+
                                         <androidx.cardview.widget.CardView
-                                            android:layout_margin="10dp"
-                                            android:layout_weight="1"
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
-                                            app:cardCornerRadius="7dp"
-                                            app:cardBackgroundColor="@color/white"
+                                            android:layout_margin="10dp"
+                                            android:layout_weight="1"
                                             android:elevation="5dp"
                                             android:fitsSystemWindows="true"
-                                            app:cardUseCompatPadding="true"
+                                            app:cardBackgroundColor="@color/white"
+                                            app:cardCornerRadius="7dp"
+                                            app:cardElevation="3dp"
                                             app:cardPreventCornerOverlap="true"
-                                            app:cardElevation="3dp">
+                                            app:cardUseCompatPadding="true">
+
                                             <ImageView
                                                 android:id="@+id/wash2"
                                                 android:layout_width="match_parent"
                                                 android:layout_height="130dp"
-                                                android:src="@drawable/home_wax_polish"
+                                                android:layout_gravity="center"
                                                 android:padding="@dimen/marginhalf"
-                                                android:layout_gravity="center"/>
+                                                android:src="@drawable/home_wax_polish" />
                                         </androidx.cardview.widget.CardView>
                                     </LinearLayout>
+
                                     <TextView
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center"
-                                        android:gravity="center"
-                                        android:textSize="@dimen/medtext"
-                                        android:textColor="@color/black"
-                                        android:textAllCaps="true"
                                         android:fontFamily="@font/josefinsans_regular"
-                                        android:text="Wax Polish"/>
+                                        android:gravity="center"
+                                        android:text="Wax Polish"
+                                        android:textAllCaps="true"
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/medtext" />
                                 </LinearLayout>
-
 
 
                             </LinearLayout>
@@ -519,105 +550,111 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="5dp"
-                                android:layout_marginBottom="10dp"
                                 android:layout_marginLeft="5dp"
+                                android:layout_marginTop="5dp"
                                 android:layout_marginRight="5dp"
+                                android:layout_marginBottom="10dp"
                                 android:orientation="horizontal">
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="1"
                                     android:layout_gravity="fill"
                                     android:layout_marginBottom="10dp"
+                                    android:layout_weight="1"
                                     android:orientation="vertical">
+
                                     <LinearLayout
                                         android:id="@+id/extra_interior"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:gravity="center"
                                         android:padding="@dimen/padding">
+
                                         <androidx.cardview.widget.CardView
-                                            android:layout_margin="10dp"
-                                            android:layout_weight="1"
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
-                                            app:cardCornerRadius="7dp"
-                                            app:cardBackgroundColor="@color/white"
+                                            android:layout_margin="10dp"
+                                            android:layout_weight="1"
                                             android:elevation="5dp"
                                             android:fitsSystemWindows="true"
-                                            app:cardUseCompatPadding="true"
+                                            app:cardBackgroundColor="@color/white"
+                                            app:cardCornerRadius="7dp"
+                                            app:cardElevation="3dp"
                                             app:cardPreventCornerOverlap="true"
-                                            app:cardElevation="3dp">
+                                            app:cardUseCompatPadding="true">
+
                                             <ImageView
                                                 android:id="@+id/wash21"
                                                 android:layout_width="match_parent"
                                                 android:layout_height="130dp"
-                                                android:src="@drawable/home_extra_int"
+                                                android:layout_gravity="center"
                                                 android:padding="@dimen/marginhalf"
-                                                android:layout_gravity="center"/>
+                                                android:src="@drawable/home_extra_int" />
                                         </androidx.cardview.widget.CardView>
                                     </LinearLayout>
+
                                     <TextView
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center"
-                                        android:gravity="center"
-                                        android:textSize="@dimen/medtext"
-                                        android:textColor="@color/black"
-                                        android:textAllCaps="true"
                                         android:fontFamily="@font/josefinsans_regular"
-                                        android:text="Extra Interior"/>
+                                        android:gravity="center"
+                                        android:text="Extra Interior"
+                                        android:textAllCaps="true"
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/medtext" />
                                 </LinearLayout>
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="fill"
-                                    android:layout_weight="1"
                                     android:layout_marginBottom="10dp"
+                                    android:layout_weight="1"
                                     android:orientation="vertical">
+
                                     <LinearLayout
                                         android:id="@+id/my_vechicle"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
                                         android:gravity="center"
                                         android:padding="@dimen/padding">
+
                                         <androidx.cardview.widget.CardView
-                                            android:layout_margin="10dp"
-                                            android:layout_weight="1"
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
-                                            app:cardCornerRadius="7dp"
-                                            app:cardBackgroundColor="@color/white"
+                                            android:layout_margin="10dp"
+                                            android:layout_weight="1"
                                             android:elevation="5dp"
                                             android:fitsSystemWindows="true"
-                                            app:cardUseCompatPadding="true"
+                                            app:cardBackgroundColor="@color/white"
+                                            app:cardCornerRadius="7dp"
+                                            app:cardElevation="3dp"
                                             app:cardPreventCornerOverlap="true"
-                                            app:cardElevation="3dp">
+                                            app:cardUseCompatPadding="true">
+
                                             <ImageView
                                                 android:id="@+id/vechicle"
                                                 android:layout_width="match_parent"
                                                 android:layout_height="130dp"
-                                                android:src="@drawable/home_my_vehicle"
+                                                android:layout_gravity="center"
                                                 android:padding="@dimen/marginhalf"
-                                                android:layout_gravity="center"/>
+                                                android:src="@drawable/home_my_vehicle" />
                                         </androidx.cardview.widget.CardView>
                                     </LinearLayout>
+
                                     <TextView
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center"
-                                        android:gravity="center"
-                                        android:textSize="@dimen/medtext"
-                                        android:textColor="@color/black"
-                                        android:textAllCaps="true"
                                         android:fontFamily="@font/josefinsans_regular"
-                                        android:text="My Vehicles"/>
+                                        android:gravity="center"
+                                        android:text="My Vehicles"
+                                        android:textAllCaps="true"
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/medtext" />
                                 </LinearLayout>
-
-
 
 
                             </LinearLayout>
@@ -629,17 +666,17 @@
                     </ScrollView>
 
 
-
                 </LinearLayout>
             </LinearLayout>
 
         </ScrollView>
+
         <LinearLayout
             android:id="@+id/footer"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:orientation="vertical"
-            android:layout_alignParentBottom="true">
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical">
 
             <com.google.android.material.bottomnavigation.BottomNavigationView
                 android:id="@+id/navigation"
@@ -649,37 +686,41 @@
                 android:theme="@style/BottomNavigationView"
                 app:itemIconTint="@drawable/color_state_white"
                 app:itemTextColor="@drawable/color_state_white"
-                app:menu="@menu/menu_bottom_navigation_basic"/>
+                app:menu="@menu/menu_bottom_navigation_basic" />
 
         </LinearLayout>
 
         <RelativeLayout
             android:id="@+id/popupinternal"
-            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/trans">
+            android:background="@color/trans"
+            android:visibility="gone">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:orientation="vertical">
+
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardpop"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:cardCornerRadius="11dp"
-                    app:cardBackgroundColor="@color/white"
                     android:elevation="7dp"
                     android:fitsSystemWindows="true"
-                    app:cardUseCompatPadding="true"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="11dp"
+                    app:cardElevation="7dp"
                     app:cardPreventCornerOverlap="true"
-                    app:cardElevation="7dp">
+                    app:cardUseCompatPadding="true">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
+
                         <ImageView
                             android:id="@+id/popup_cancel"
                             android:layout_width="20dp"
@@ -687,7 +728,7 @@
                             android:layout_gravity="right"
                             android:layout_marginTop="@dimen/marginmed"
                             android:layout_marginRight="@dimen/marginmed"
-                            android:src="@drawable/ic_cancel"/>
+                            android:src="@drawable/ic_cancel" />
 
 
                         <TextView
@@ -695,61 +736,66 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center|left"
-                            android:layout_weight="1"
-                            android:textColor="@color/black"
-                            android:text="Internal Clean"
-                            android:gravity="center"
-                            android:textAllCaps="true"
                             android:layout_margin="@dimen/padding"
+                            android:layout_weight="1"
                             android:fontFamily="@font/josefinsans_bold"
-                            android:textSize="@dimen/heading"/>
+                            android:gravity="center"
+                            android:text="Internal Clean"
+                            android:textAllCaps="true"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/heading" />
+
                         <RelativeLayout
                             android:id="@+id/order_rl"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
+
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:background="@drawable/edit_bg"
-                                android:layout_margin="@dimen/marginhalf">
+                                android:layout_margin="@dimen/marginhalf"
+                                android:background="@drawable/edit_bg">
+
                                 <TextView
                                     android:id="@+id/order_edt"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_centerVertical="true"
-                                    android:textSize="@dimen/bigtext"
-                                    android:padding="@dimen/paddinghigh"
-                                    android:inputType="text"
-                                    android:singleLine="true"
-                                    android:textColor="@color/black"
-                                    android:background="@color/white"
-                                    android:fontFamily="@font/josefinsans_regular"
-                                    android:layout_marginRight="35dp"
                                     android:layout_marginLeft="3dp"
                                     android:layout_marginTop="3dp"
+                                    android:layout_marginRight="35dp"
                                     android:layout_marginBottom="3dp"
-                                    android:hint="Order Id"/>
+                                    android:background="@color/white"
+                                    android:fontFamily="@font/josefinsans_regular"
+                                    android:hint="Order Id"
+                                    android:inputType="text"
+                                    android:padding="@dimen/paddinghigh"
+                                    android:singleLine="true"
+                                    android:textColor="@color/black"
+                                    android:textSize="@dimen/bigtext" />
+
                                 <ImageView
                                     android:id="@+id/order_img"
                                     android:layout_width="30dp"
                                     android:layout_height="30dp"
-                                    android:src="@drawable/ic_baseline_arrow_forward_ios_24"
+                                    android:layout_alignParentRight="true"
                                     android:layout_centerVertical="true"
-                                    android:rotation="90"
                                     android:padding="@dimen/paddinglow"
-                                    android:layout_alignParentRight="true"/>
+                                    android:rotation="90"
+                                    android:src="@drawable/ic_baseline_arrow_forward_ios_24" />
                             </RelativeLayout>
                         </RelativeLayout>
+
                         <Button
                             android:id="@+id/button_processed"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="submit"
-                            android:fontFamily="@font/josefinsans_bold"
-                            android:textSize="@dimen/heading"
-                            android:textColor="@color/white"
+                            android:layout_marginTop="@dimen/marginmed"
                             android:background="@color/colorPrimary"
-                            android:layout_marginTop="@dimen/marginmed"/>
+                            android:fontFamily="@font/josefinsans_bold"
+                            android:text="submit"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/heading" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
             </LinearLayout>
@@ -760,58 +806,64 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="gone">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/trans"
                 android:gravity="center">
+
                 <androidx.cardview.widget.CardView
                     android:id="@+id/card"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:cardCornerRadius="11dp"
-                    app:cardBackgroundColor="@color/white"
+                    android:layout_margin="@dimen/margin"
                     android:elevation="7dp"
                     android:fitsSystemWindows="true"
-                    app:cardUseCompatPadding="true"
-                    android:layout_margin="@dimen/margin"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="11dp"
+                    app:cardElevation="5dp"
                     app:cardPreventCornerOverlap="true"
-                    app:cardElevation="5dp">
+                    app:cardUseCompatPadding="true">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
+
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/order_rc"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_margin="@dimen/marginmed">
-                        </androidx.recyclerview.widget.RecyclerView>
+                            android:layout_margin="@dimen/marginmed"></androidx.recyclerview.widget.RecyclerView>
                     </LinearLayout>
+
                     <LinearLayout
                         android:id="@+id/noorders"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:visibility="gone"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
                         <TextView
-                            android:fontFamily="@font/roboto_regular"
-                            android:gravity="center"
-                            android:text="* Note : Internal wash only eligible for Car Wash Bookings"
                             android:id="@+id/top"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto_regular"
+                            android:gravity="center"
+                            android:text="* Note : Internal wash only eligible for Car Wash Bookings" />
+
                         <Button
-                            android:visibility="gone"
                             android:id="@+id/noorder_back"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="back"
-                            android:fontFamily="@font/josefinsans_bold"
-                            android:textSize="@dimen/heading"
-                            android:textColor="@color/white"
+                            android:layout_marginTop="@dimen/marginmed"
                             android:background="@color/colorPrimary"
-                            android:layout_marginTop="@dimen/marginmed"/>
+                            android:fontFamily="@font/josefinsans_bold"
+                            android:text="back"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/heading"
+                            android:visibility="gone" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
             </LinearLayout>
@@ -822,96 +874,108 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="gone">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/trans"
                 android:gravity="center">
+
                 <androidx.cardview.widget.CardView
                     android:id="@+id/detail_card"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:cardCornerRadius="11dp"
-                    app:cardBackgroundColor="@color/white"
+                    android:layout_margin="@dimen/margin"
                     android:elevation="7dp"
                     android:fitsSystemWindows="true"
-                    app:cardUseCompatPadding="true"
-                    android:layout_margin="@dimen/margin"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="11dp"
+                    app:cardElevation="5dp"
                     app:cardPreventCornerOverlap="true"
-                    app:cardElevation="5dp">
+                    app:cardUseCompatPadding="true">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_gravity="center">
+                            android:layout_gravity="center"
+                            android:orientation="vertical">
+
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/margin"
                                 android:layout_marginRight="@dimen/margin"
                                 android:orientation="vertical">
+
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:orientation="horizontal"
-                                    android:layout_gravity="center">
+                                    android:layout_gravity="center"
+                                    android:orientation="horizontal">
+
                                     <TextView
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center|left"
-                                        android:text="Date : "
-                                        android:gravity="center|left"
                                         android:layout_weight="1"
-                                        android:textColor="@color/black"
                                         android:fontFamily="@font/josefinsans_regular"
+                                        android:gravity="center|left"
                                         android:padding="@dimen/padding"
-                                        android:textSize="@dimen/heading"/>
+                                        android:text="Date : "
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/heading" />
+
                                     <TextView
                                         android:id="@+id/date"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center|left"
-                                        android:gravity="center|left"
                                         android:layout_weight="1"
-                                        android:textColor="@color/black"
-                                        android:padding="@dimen/padding"
                                         android:fontFamily="@font/josefinsans_regular"
-                                        android:textSize="@dimen/heading"/>
+                                        android:gravity="center|left"
+                                        android:padding="@dimen/padding"
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/heading" />
                                 </LinearLayout>
+
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:orientation="horizontal"
-                                    android:layout_gravity="center">
+                                    android:layout_gravity="center"
+                                    android:orientation="horizontal">
+
                                     <TextView
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center|left"
-                                        android:text="Payment ID : "
-                                        android:gravity="center|left"
                                         android:layout_weight="1"
-                                        android:textColor="@color/black"
                                         android:fontFamily="@font/josefinsans_regular"
+                                        android:gravity="center|left"
                                         android:padding="@dimen/padding"
-                                        android:textSize="@dimen/heading"/>
+                                        android:text="Payment ID : "
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/heading" />
+
                                     <TextView
                                         android:id="@+id/payment_id"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center|left"
-                                        android:gravity="center|left"
                                         android:layout_weight="1"
+                                        android:fontFamily="@font/josefinsans_semibold"
+                                        android:gravity="center|left"
+                                        android:padding="@dimen/padding"
                                         android:singleLine="true"
                                         android:textColor="@color/black"
-                                        android:padding="@dimen/padding"
-                                        android:fontFamily="@font/josefinsans_semibold"
-                                        android:textSize="@dimen/bigtext"/>
+                                        android:textSize="@dimen/bigtext" />
                                 </LinearLayout>
                             </LinearLayout>
+
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -919,66 +983,73 @@
                                 android:layout_marginLeft="@dimen/margin"
                                 android:layout_marginRight="@dimen/margin"
                                 android:orientation="vertical">
+
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:orientation="horizontal"
-                                    android:layout_gravity="center">
+                                    android:layout_gravity="center"
+                                    android:orientation="horizontal">
+
                                     <TextView
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center|left"
-                                        android:text="Service Type : "
-                                        android:gravity="center|left"
                                         android:layout_weight="1"
-                                        android:textColor="@color/black"
                                         android:fontFamily="@font/josefinsans_regular"
+                                        android:gravity="center|left"
                                         android:padding="@dimen/padding"
-                                        android:textSize="@dimen/heading"/>
+                                        android:text="Service Type : "
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/heading" />
+
                                     <TextView
                                         android:id="@+id/service_type"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:layout_weight="1"
                                         android:layout_gravity="center|left"
-                                        android:textColor="@color/black"
-                                        android:text=""
-                                        android:gravity="left"
+                                        android:layout_weight="1"
                                         android:fontFamily="@font/josefinsans_regular"
+                                        android:gravity="left"
                                         android:padding="@dimen/padding"
-                                        android:textSize="@dimen/heading"/>
+                                        android:text=""
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/heading" />
                                 </LinearLayout>
+
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:orientation="horizontal"
                                     android:layout_gravity="center"
-                                    android:layout_weight="0.5">
+                                    android:layout_weight="0.5"
+                                    android:orientation="horizontal">
+
                                     <TextView
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center|left"
-                                        android:text="Payment Type : "
-                                        android:gravity="center|left"
                                         android:layout_weight="1"
-                                        android:textColor="@color/black"
                                         android:fontFamily="@font/josefinsans_regular"
+                                        android:gravity="center|left"
                                         android:padding="@dimen/padding"
-                                        android:textSize="@dimen/heading"/>
+                                        android:text="Payment Type : "
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/heading" />
+
                                     <TextView
                                         android:id="@+id/payment_type"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center|left"
-                                        android:textColor="@color/black"
                                         android:layout_weight="1"
-                                        android:text=""
-                                        android:gravity="left"
                                         android:fontFamily="@font/josefinsans_regular"
+                                        android:gravity="left"
                                         android:padding="@dimen/padding"
-                                        android:textSize="@dimen/heading"/>
+                                        android:text=""
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/heading" />
                                 </LinearLayout>
                             </LinearLayout>
+
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -986,67 +1057,74 @@
                                 android:layout_marginLeft="@dimen/margin"
                                 android:layout_marginRight="@dimen/margin"
                                 android:orientation="vertical">
+
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:orientation="horizontal"
                                     android:layout_gravity="center"
-                                    android:layout_weight="0.5">
+                                    android:layout_weight="0.5"
+                                    android:orientation="horizontal">
+
                                     <TextView
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center|left"
-                                        android:text="Package Type : "
-                                        android:gravity="center|left"
                                         android:layout_weight="1"
-                                        android:textColor="@color/black"
                                         android:fontFamily="@font/josefinsans_regular"
+                                        android:gravity="center|left"
                                         android:padding="@dimen/padding"
-                                        android:textSize="@dimen/heading"/>
+                                        android:text="Package Type : "
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/heading" />
+
                                     <TextView
                                         android:id="@+id/package_type"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center|left"
-                                        android:textColor="@color/black"
-                                        android:text=""
                                         android:layout_weight="1"
-                                        android:gravity="left"
                                         android:fontFamily="@font/josefinsans_regular"
+                                        android:gravity="left"
                                         android:padding="@dimen/padding"
-                                        android:textSize="@dimen/heading"/>
+                                        android:text=""
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/heading" />
                                 </LinearLayout>
+
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:orientation="horizontal"
                                     android:layout_gravity="center"
-                                    android:layout_weight="0.5">
+                                    android:layout_weight="0.5"
+                                    android:orientation="horizontal">
+
                                     <TextView
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center|left"
-                                        android:text="Vehicle Make : "
                                         android:layout_weight="1"
-                                        android:gravity="center|left"
-                                        android:textColor="@color/black"
                                         android:fontFamily="@font/josefinsans_regular"
+                                        android:gravity="center|left"
                                         android:padding="@dimen/padding"
-                                        android:textSize="@dimen/heading"/>
+                                        android:text="Vehicle Make : "
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/heading" />
+
                                     <TextView
                                         android:id="@+id/vec_make"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center|left"
-                                        android:textColor="@color/black"
-                                        android:text=""
                                         android:layout_weight="1"
-                                        android:gravity="left"
                                         android:fontFamily="@font/josefinsans_regular"
+                                        android:gravity="left"
                                         android:padding="@dimen/padding"
-                                        android:textSize="@dimen/heading"/>
+                                        android:text=""
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/heading" />
                                 </LinearLayout>
                             </LinearLayout>
+
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -1054,67 +1132,74 @@
                                 android:layout_marginLeft="@dimen/margin"
                                 android:layout_marginRight="@dimen/margin"
                                 android:orientation="vertical">
+
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:orientation="horizontal"
                                     android:layout_gravity="center"
-                                    android:layout_weight="0.5">
+                                    android:layout_weight="0.5"
+                                    android:orientation="horizontal">
+
                                     <TextView
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center|left"
-                                        android:text="Vehicle Model : "
                                         android:layout_weight="1"
-                                        android:gravity="center|left"
-                                        android:textColor="@color/black"
                                         android:fontFamily="@font/josefinsans_regular"
+                                        android:gravity="center|left"
                                         android:padding="@dimen/padding"
-                                        android:textSize="@dimen/heading"/>
+                                        android:text="Vehicle Model : "
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/heading" />
+
                                     <TextView
                                         android:id="@+id/vec_model"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:layout_weight="1"
                                         android:layout_gravity="center|left"
-                                        android:textColor="@color/black"
-                                        android:text=""
-                                        android:gravity="left"
+                                        android:layout_weight="1"
                                         android:fontFamily="@font/josefinsans_regular"
+                                        android:gravity="left"
                                         android:padding="@dimen/padding"
-                                        android:textSize="@dimen/heading"/>
+                                        android:text=""
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/heading" />
                                 </LinearLayout>
+
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:orientation="horizontal"
                                     android:layout_gravity="center"
-                                    android:layout_weight="0.5">
+                                    android:layout_weight="0.5"
+                                    android:orientation="horizontal">
+
                                     <TextView
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center|left"
-                                        android:text="Vehicle No. : "
                                         android:layout_weight="1"
-                                        android:gravity="center|left"
-                                        android:textColor="@color/black"
                                         android:fontFamily="@font/josefinsans_regular"
+                                        android:gravity="center|left"
                                         android:padding="@dimen/padding"
-                                        android:textSize="@dimen/heading"/>
+                                        android:text="Vehicle No. : "
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/heading" />
+
                                     <TextView
                                         android:id="@+id/vec_no"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center|left"
-                                        android:textColor="@color/black"
                                         android:layout_weight="1"
-                                        android:text=""
-                                        android:gravity="left"
                                         android:fontFamily="@font/josefinsans_regular"
+                                        android:gravity="left"
                                         android:padding="@dimen/padding"
-                                        android:textSize="@dimen/heading"/>
+                                        android:text=""
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/heading" />
                                 </LinearLayout>
                             </LinearLayout>
+
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -1122,99 +1207,109 @@
                                 android:layout_marginLeft="@dimen/margin"
                                 android:layout_marginRight="@dimen/margin"
                                 android:orientation="vertical">
+
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:orientation="horizontal"
                                     android:layout_gravity="center"
-                                    android:layout_weight="0.5">
+                                    android:layout_weight="0.5"
+                                    android:orientation="horizontal">
+
                                     <TextView
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center|left"
-                                        android:text="Package Value : "
-                                        android:gravity="center|left"
                                         android:layout_weight="1"
-                                        android:textColor="@color/black"
                                         android:fontFamily="@font/josefinsans_regular"
+                                        android:gravity="center|left"
                                         android:padding="@dimen/padding"
-                                        android:textSize="@dimen/heading"/>
+                                        android:text="Package Value : "
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/heading" />
+
                                     <TextView
                                         android:id="@+id/package_value"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center|left"
-                                        android:textColor="@color/black"
-                                        android:text=""
-                                        android:gravity="left"
                                         android:layout_weight="1"
                                         android:fontFamily="@font/josefinsans_regular"
+                                        android:gravity="left"
                                         android:padding="@dimen/padding"
-                                        android:textSize="@dimen/heading"/>
+                                        android:text=""
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/heading" />
                                 </LinearLayout>
+
                                 <LinearLayout
                                     android:id="@+id/discount_field"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:orientation="horizontal"
-                                    android:visibility="gone"
                                     android:layout_gravity="center"
-                                    android:layout_weight="0.5">
+                                    android:layout_weight="0.5"
+                                    android:orientation="horizontal"
+                                    android:visibility="gone">
+
                                     <TextView
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center|left"
-                                        android:text="Discount Amount : "
-                                        android:gravity="center|left"
                                         android:layout_weight="1"
-                                        android:textColor="@color/black"
                                         android:fontFamily="@font/josefinsans_regular"
+                                        android:gravity="center|left"
                                         android:padding="@dimen/padding"
-                                        android:textSize="@dimen/heading"/>
+                                        android:text="Discount Amount : "
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/heading" />
+
                                     <TextView
                                         android:id="@+id/discount_amount"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center|left"
-                                        android:textColor="@color/black"
-                                        android:text=""
                                         android:layout_weight="1"
-                                        android:gravity="left"
                                         android:fontFamily="@font/josefinsans_regular"
+                                        android:gravity="left"
                                         android:padding="@dimen/padding"
-                                        android:textSize="@dimen/heading"/>
+                                        android:text=""
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/heading" />
                                 </LinearLayout>
+
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:orientation="horizontal"
                                     android:layout_gravity="center"
-                                    android:layout_weight="0.5">
+                                    android:layout_weight="0.5"
+                                    android:orientation="horizontal">
+
                                     <TextView
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center|left"
-                                        android:text="Total Amount : "
-                                        android:gravity="center|left"
                                         android:layout_weight="1"
-                                        android:textColor="@color/black"
                                         android:fontFamily="@font/josefinsans_regular"
+                                        android:gravity="center|left"
                                         android:padding="@dimen/padding"
-                                        android:textSize="@dimen/heading"/>
+                                        android:text="Total Amount : "
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/heading" />
+
                                     <TextView
                                         android:id="@+id/total_amount"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center|left"
-                                        android:textColor="@color/black"
-                                        android:text=""
                                         android:layout_weight="1"
-                                        android:gravity="left"
                                         android:fontFamily="@font/josefinsans_regular"
+                                        android:gravity="left"
                                         android:padding="@dimen/padding"
-                                        android:textSize="@dimen/heading"/>
+                                        android:text=""
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/heading" />
                                 </LinearLayout>
                             </LinearLayout>
+
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -1222,66 +1317,73 @@
                                 android:layout_marginLeft="@dimen/margin"
                                 android:layout_marginRight="@dimen/margin"
                                 android:orientation="vertical">
+
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:orientation="horizontal"
                                     android:layout_gravity="center"
-                                    android:layout_weight="0.5">
+                                    android:layout_weight="0.5"
+                                    android:orientation="horizontal">
+
                                     <TextView
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center|left"
-                                        android:text="Payment Mode : "
-                                        android:gravity="center|left"
                                         android:layout_weight="1"
-                                        android:textColor="@color/black"
                                         android:fontFamily="@font/josefinsans_regular"
+                                        android:gravity="center|left"
                                         android:padding="@dimen/padding"
-                                        android:textSize="@dimen/heading"/>
+                                        android:text="Payment Mode : "
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/heading" />
+
                                     <TextView
                                         android:id="@+id/payment_mode"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center|left"
-                                        android:textColor="@color/black"
-                                        android:gravity="left"
                                         android:layout_weight="1"
                                         android:fontFamily="@font/josefinsans_regular"
+                                        android:gravity="left"
                                         android:padding="@dimen/padding"
-                                        android:textSize="@dimen/heading"/>
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/heading" />
                                 </LinearLayout>
+
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:orientation="horizontal"
                                     android:layout_gravity="center"
-                                    android:layout_weight="0.5">
+                                    android:layout_weight="0.5"
+                                    android:orientation="horizontal">
+
                                     <TextView
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center|left"
-                                        android:text="Paid Count : "
                                         android:layout_weight="1"
-                                        android:gravity="center|left"
-                                        android:textColor="@color/black"
                                         android:fontFamily="@font/josefinsans_regular"
+                                        android:gravity="center|left"
                                         android:padding="@dimen/padding"
-                                        android:textSize="@dimen/heading"/>
+                                        android:text="Paid Count : "
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/heading" />
+
                                     <TextView
                                         android:id="@+id/paid_count"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center|left"
-                                        android:textColor="@color/black"
-                                        android:text=""
                                         android:layout_weight="1"
-                                        android:gravity="left"
                                         android:fontFamily="@font/josefinsans_regular"
+                                        android:gravity="left"
                                         android:padding="@dimen/padding"
-                                        android:textSize="@dimen/heading"/>
+                                        android:text=""
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/heading" />
                                 </LinearLayout>
                             </LinearLayout>
+
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -1289,77 +1391,84 @@
                                 android:layout_marginLeft="@dimen/margin"
                                 android:layout_marginRight="@dimen/margin"
                                 android:orientation="vertical">
+
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:orientation="horizontal"
                                     android:layout_gravity="center"
-                                    android:layout_weight="0.5">
+                                    android:layout_weight="0.5"
+                                    android:orientation="horizontal">
+
                                     <TextView
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center|left"
-                                        android:text="Valid : "
                                         android:layout_weight="1"
-                                        android:gravity="center|left"
-                                        android:textColor="@color/black"
                                         android:fontFamily="@font/josefinsans_regular"
+                                        android:gravity="center|left"
                                         android:padding="@dimen/padding"
-                                        android:textSize="@dimen/heading"/>
+                                        android:text="Valid : "
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/heading" />
+
                                     <TextView
                                         android:id="@+id/valid"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center|left"
-                                        android:textColor="@color/black"
-                                        android:text=""
-                                        android:gravity="left"
                                         android:layout_weight="1"
                                         android:fontFamily="@font/josefinsans_regular"
+                                        android:gravity="left"
                                         android:padding="@dimen/padding"
-                                        android:textSize="@dimen/heading"/>
+                                        android:text=""
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/heading" />
                                 </LinearLayout>
+
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:orientation="horizontal"
                                     android:layout_gravity="center"
-                                    android:layout_weight="0.5">
+                                    android:layout_weight="0.5"
+                                    android:orientation="horizontal">
+
                                     <TextView
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center|left"
-                                        android:text="Status : "
                                         android:layout_weight="1"
-                                        android:gravity="center|left"
-                                        android:textColor="@color/black"
                                         android:fontFamily="@font/josefinsans_regular"
+                                        android:gravity="center|left"
                                         android:padding="@dimen/padding"
-                                        android:textSize="@dimen/heading"/>
+                                        android:text="Status : "
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/heading" />
+
                                     <TextView
                                         android:id="@+id/status"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center|left"
-                                        android:textColor="@color/black"
-                                        android:text=""
-                                        android:gravity="left"
                                         android:layout_weight="1"
                                         android:fontFamily="@font/josefinsans_regular"
+                                        android:gravity="left"
                                         android:padding="@dimen/padding"
-                                        android:textSize="@dimen/heading"/>
+                                        android:text=""
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/heading" />
                                 </LinearLayout>
                             </LinearLayout>
+
                             <Button
                                 android:id="@+id/detail_back"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="back"
-                                android:fontFamily="@font/josefinsans_bold"
-                                android:textSize="@dimen/heading"
-                                android:textColor="@color/white"
+                                android:layout_marginTop="@dimen/marginmed"
                                 android:background="@color/colorPrimary"
-                                android:layout_marginTop="@dimen/marginmed"/>
+                                android:fontFamily="@font/josefinsans_bold"
+                                android:text="back"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/heading" />
                         </LinearLayout>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>

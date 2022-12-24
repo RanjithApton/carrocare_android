@@ -28,9 +28,10 @@
                         </option>
                         <option name="values">
                           <map>
+                            <entry key="assetSourceType" value="FILE" />
                             <entry key="color" value="ee3131" />
-                            <entry key="outputName" value="ic_login" />
-                            <entry key="sourceFile" value="D:\Android Workspace\CarroCare" />
+                            <entry key="outputName" value="ic_billing" />
+                            <entry key="sourceFile" value="C:\Users\WIn 10\Desktop\ic_billing.svg" />
                           </map>
                         </option>
                       </PersistentState>

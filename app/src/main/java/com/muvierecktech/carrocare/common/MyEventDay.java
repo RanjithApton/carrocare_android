@@ -8,22 +8,6 @@ import com.applandeo.materialcalendarview.EventDay;
 import java.util.Calendar;
 
 public class MyEventDay extends EventDay implements Parcelable {
-    private String mNote;
-
-    public MyEventDay(Calendar day, int imageResource, String note) {
-        super(day, imageResource);
-        mNote = note;
-    }
-
-    String getNote() {
-        return mNote;
-    }
-
-    private MyEventDay(Parcel in) {
-        super((Calendar) in.readSerializable(), in.readInt());
-        mNote = in.readString();
-    }
-
     public static final Creator<MyEventDay> CREATOR = new Creator<MyEventDay>() {
         @Override
         public MyEventDay createFromParcel(Parcel in) {
@@ -35,6 +19,21 @@ public class MyEventDay extends EventDay implements Parcelable {
             return new MyEventDay[size];
         }
     };
+    private String mNote;
+
+    public MyEventDay(Calendar day, int imageResource, String note) {
+        super(day, imageResource);
+        mNote = note;
+    }
+
+    private MyEventDay(Parcel in) {
+        super((Calendar) in.readSerializable(), in.readInt());
+        mNote = in.readString();
+    }
+
+    String getNote() {
+        return mNote;
+    }
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {

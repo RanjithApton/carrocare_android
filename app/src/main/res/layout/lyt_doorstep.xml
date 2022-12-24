@@ -1,78 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <LinearLayout
         android:id="@+id/extrerior_card"
-        android:layout_margin="20dp"
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:orientation="vertical">
 
 
         <ImageView
-            android:scaleType="centerCrop"
-            android:background="@drawable/novehicle"
             android:id="@+id/service_image"
             android:layout_width="match_parent"
-            android:layout_height="120dp"/>
+            android:layout_height="120dp"
+            android:background="@drawable/novehicle"
+            android:scaleType="centerCrop" />
 
         <TextView
             android:id="@+id/service_name"
-            android:textColor="@color/white"
-            android:fontFamily="@font/josefinsans_bold"
-            android:textStyle="bold"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/josefinsans_bold"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
 
         <LinearLayout
-            android:weightSum="2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:weightSum="2">
 
             <TextView
-                android:layout_marginRight="5dp"
-                android:layout_gravity="center"
-                android:textStyle="bold"
-                android:textColor="@color/white"
-                android:text="INR"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginRight="5dp"
+                android:text="INR"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/extrerior_amt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1.8"
-                android:textStyle="bold"
-                android:textColor="@color/white"
                 android:text="INR 250"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:textColor="@color/white"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/extrerior_info"
+                android:layout_width="50dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
                 android:layout_weight="0.2"
                 android:background="@drawable/btn_info"
-                android:layout_gravity="center"
                 android:text="Info"
-                android:textColor="@color/colorPrimary"
                 android:textAllCaps="false"
-                android:textSize="8sp"
-                android:layout_width="50dp"
-                android:layout_height="30dp"/>
+                android:textColor="@color/colorPrimary"
+                android:textSize="8sp" />
 
         </LinearLayout>
 
     </LinearLayout>
 
     <CheckBox
-        android:layout_margin="20dp"
-        style="@style/DefalutCheckBox"
         android:id="@+id/extrerior_check"
-        android:layout_alignParentRight="true"
+        style="@style/DefalutCheckBox"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_margin="20dp" />
 
 </RelativeLayout>

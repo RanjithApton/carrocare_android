@@ -49,7 +49,7 @@ public class MyVehicleAdapter extends RecyclerView.Adapter {
 //            viewHolder.card.setVisibility(View.GONE);
 //        }
 
-        viewHolder.vec_makemodel.setText(vecDetails.get(position).vehicle_make+"-"+vecDetails.get(position).vehicle_model);
+        viewHolder.vec_makemodel.setText(vecDetails.get(position).vehicle_make + "-" + vecDetails.get(position).vehicle_model);
 //        viewHolder.category.setText(vecDetails.get(position).vehicle_category);
         viewHolder.vehicleno.setText(vecDetails.get(position).vehicle_no);
         viewHolder.color.setText(vecDetails.get(position).vehicle_color);
@@ -74,20 +74,21 @@ public class MyVehicleAdapter extends RecyclerView.Adapter {
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         ImageView carimage;
-        TextView vec_type,vec_makemodel,category,vehicleno,color,apart_name,parkinglotno,parkingarea,preferredschedule,preferredtime;
+        TextView vec_type, vec_makemodel, category, vehicleno, color, apart_name, parkinglotno, parkingarea, preferredschedule, preferredtime;
         CardView card;
+
         public MyViewHolder(View itemLayoutView) {
             super(itemLayoutView);
-            apart_name = (TextView)itemLayoutView.findViewById(R.id.apart_name);
-            vehicleno = (TextView)itemLayoutView.findViewById(R.id.vec_no);
-            vec_makemodel = (TextView)itemLayoutView.findViewById(R.id.vec_makemodel);
-            color = (TextView)itemLayoutView.findViewById(R.id.vec_color);
-            parkingarea = (TextView)itemLayoutView.findViewById(R.id.parking_area);
-            parkinglotno = (TextView)itemLayoutView.findViewById(R.id.parking_lot);
-            preferredschedule = (TextView)itemLayoutView.findViewById(R.id.pref_schedule);
-            preferredtime = (TextView)itemLayoutView.findViewById(R.id.preftime);
+            apart_name = (TextView) itemLayoutView.findViewById(R.id.apart_name);
+            vehicleno = (TextView) itemLayoutView.findViewById(R.id.vec_no);
+            vec_makemodel = (TextView) itemLayoutView.findViewById(R.id.vec_makemodel);
+            color = (TextView) itemLayoutView.findViewById(R.id.vec_color);
+            parkingarea = (TextView) itemLayoutView.findViewById(R.id.parking_area);
+            parkinglotno = (TextView) itemLayoutView.findViewById(R.id.parking_lot);
+            preferredschedule = (TextView) itemLayoutView.findViewById(R.id.pref_schedule);
+            preferredtime = (TextView) itemLayoutView.findViewById(R.id.preftime);
             carimage = (ImageView) itemLayoutView.findViewById(R.id.car_img);
-            card  = (CardView)itemLayoutView.findViewById(R.id.card);
+            card = (CardView) itemLayoutView.findViewById(R.id.card);
         }
     }
 

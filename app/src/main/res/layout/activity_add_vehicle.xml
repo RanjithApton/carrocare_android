@@ -1,452 +1,489 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
-    tools:context=".activity.AddVehicleActivity">
-    <LinearLayout
-        android:id="@+id/header"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:orientation="vertical"
-        android:gravity="center">
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary"
+        tools:context=".activity.AddVehicleActivity">
+
         <LinearLayout
+            android:id="@+id/header"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <ImageView
-                android:id="@+id/back"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_margin="10dp"
-                android:src="@drawable/back"
-                android:padding="5dp"
-                android:layout_gravity="center|left"
-                />
+            android:layout_height="?attr/actionBarSize"
+            android:gravity="center"
+            android:orientation="vertical">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:orientation="vertical">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center|left"
-                android:layout_weight="1"
-                android:textColor="#FFF"
-                android:text="Add Vehicle"
-                android:textAllCaps="true"
-                android:fontFamily="@font/josefinsans_bold"
-                android:textSize="@dimen/heading"/>
-                <TextView
-                    android:id="@+id/header_name"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/back"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center|left"
+                    android:layout_margin="10dp"
+                    android:padding="5dp"
+                    android:src="@drawable/back" />
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center|left"
-                    android:layout_weight="1"
-                    android:textColor="#FFF"
-                    android:textStyle="bold"
-                    android:visibility="gone"
-                    android:fontFamily="@font/roboto_regular"
-                    android:text="Welcome to the Regal Car Wash !!"
-                    android:textSize="@dimen/bigtext"/>
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|left"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/josefinsans_bold"
+                        android:text="Add Vehicle"
+                        android:textAllCaps="true"
+                        android:textColor="#FFF"
+                        android:textSize="@dimen/heading" />
+
+                    <TextView
+                        android:id="@+id/header_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|left"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/roboto_regular"
+                        android:text="Welcome to the Regal Car Wash !!"
+                        android:textColor="#FFF"
+                        android:textSize="@dimen/bigtext"
+                        android:textStyle="bold"
+                        android:visibility="gone" />
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/header"
-        android:background="@drawable/bg">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="@dimen/marginlow"
-        android:orientation="vertical">
-        <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
-            android:id="@+id/spinner"
+
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:smsp_baseColor="@color/colorPrimary"
-            app:smsp_enableSearchHeader="false"
-            app:smsp_isSearchable="true"
-            app:smsp_multilineError="false"
-            app:smsp_selectedItemListColor="@color/colorPrimary" />
-        <RelativeLayout
-            android:id="@+id/makemodel_rl"
-            android:layout_width="match_parent"
-            android:visibility="visible"
-            android:layout_height="wrap_content">
-            <RelativeLayout
+            android:layout_height="match_parent"
+            android:layout_below="@id/header"
+            android:background="@drawable/bg">
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/edit_bg"
-                android:layout_margin="@dimen/marginhalf">
-                <TextView
-                    android:id="@+id/make_model_edt"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/marginlow"
+                android:orientation="vertical">
+
+                <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
+                    android:id="@+id/spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    app:smsp_baseColor="@color/colorPrimary"
+                    app:smsp_enableSearchHeader="false"
+                    app:smsp_isSearchable="true"
+                    app:smsp_multilineError="false"
+                    app:smsp_selectedItemListColor="@color/colorPrimary" />
+
+                <RelativeLayout
+                    android:id="@+id/makemodel_rl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="visible">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/marginhalf"
+                        android:background="@drawable/edit_bg">
+
+                        <TextView
+                            android:id="@+id/make_model_edt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="3dp"
+                            android:layout_marginTop="3dp"
+                            android:layout_marginRight="35dp"
+                            android:layout_marginBottom="3dp"
+                            android:background="@color/white"
+                            android:fontFamily="@font/josefinsans_light"
+                            android:hint="Make and Model"
+                            android:inputType="text"
+                            android:padding="@dimen/paddinghigh"
+                            android:singleLine="true"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/bigtext" />
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:padding="@dimen/paddinglow"
+                            android:src="@drawable/down_arrow" />
+                        <!--                <android.support.v7.widget.AppCompatSpinner-->
+                        <!--                    android:id="@+id/make_model_edt"-->
+                        <!--                    android:layout_width="match_parent"-->
+                        <!--                    android:layout_height="wrap_content"-->
+                        <!--                    android:paddingLeft="@dimen/paddinglow"-->
+                        <!--                    android:paddingRight="@dimen/paddinglow"/>-->
+                    </RelativeLayout>
+                </RelativeLayout>
+
+                <EditText
+                    android:id="@+id/make_edt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:textSize="@dimen/bigtext"
-                    android:padding="@dimen/paddinghigh"
+                    android:layout_margin="@dimen/marginhalf"
+                    android:background="@drawable/edit_bg"
+                    android:fontFamily="@font/josefinsans_light"
+                    android:hint="Make"
+                    android:imeOptions="actionNext"
                     android:inputType="text"
+                    android:padding="@dimen/paddinghigh"
                     android:singleLine="true"
                     android:textColor="@color/black"
-                    android:background="@color/white"
-                    android:fontFamily="@font/josefinsans_light"
-                    android:layout_marginRight="35dp"
-                    android:layout_marginLeft="3dp"
-                    android:layout_marginTop="3dp"
-                    android:layout_marginBottom="3dp"
-                    android:hint="Make and Model"/>
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/down_arrow"
-                    android:layout_centerVertical="true"
-                    android:padding="@dimen/paddinglow"
-                    android:layout_alignParentRight="true"/>
-<!--                <android.support.v7.widget.AppCompatSpinner-->
-<!--                    android:id="@+id/make_model_edt"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:paddingLeft="@dimen/paddinglow"-->
-<!--                    android:paddingRight="@dimen/paddinglow"/>-->
-            </RelativeLayout>
-        </RelativeLayout>
-        <EditText
-            android:id="@+id/make_edt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:textSize="@dimen/bigtext"
-            android:padding="@dimen/paddinghigh"
-            android:background="@drawable/edit_bg"
-            android:inputType="text"
-            android:singleLine="true"
-            android:visibility="gone"
-            android:layout_margin="@dimen/marginhalf"
-            android:textColor="@color/black"
-            android:imeOptions="actionNext"
-            android:fontFamily="@font/josefinsans_light"
-            android:hint="Make"/>
-        <EditText
-            android:id="@+id/model_edt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:textSize="@dimen/bigtext"
-            android:padding="@dimen/paddinghigh"
-            android:background="@drawable/edit_bg"
-            android:inputType="text"
-            android:singleLine="true"
-            android:visibility="gone"
-            android:layout_margin="@dimen/marginhalf"
-            android:textColor="@color/black"
-            android:imeOptions="actionNext"
-            android:fontFamily="@font/josefinsans_light"
-            android:hint="Model"/>
-
-        <EditText
-            android:id="@+id/vec_no_edt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_margin="@dimen/marginhalf"
-            android:background="@drawable/edit_bg"
-            android:fontFamily="@font/josefinsans_light"
-            android:hint="Vehicle No."
-            android:imeOptions="actionNext"
-            android:inputType="text"
-            android:padding="@dimen/paddinghigh"
-            android:singleLine="true"
-            android:textColor="@color/black"
-            android:textSize="@dimen/bigtext" />
-
-        <EditText
-            android:id="@+id/vec_color_edt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:textSize="@dimen/bigtext"
-            android:padding="@dimen/paddinghigh"
-            android:background="@drawable/edit_bg"
-            android:inputType="text"
-            android:singleLine="true"
-            android:layout_margin="@dimen/marginhalf"
-            android:textColor="@color/black"
-            android:imeOptions="actionNext"
-            android:fontFamily="@font/josefinsans_light"
-            android:hint="Vehicle Color"/>
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/edit_bg"
-                android:layout_margin="@dimen/marginhalf">
-                <TextView
-                    android:id="@+id/apartment_edt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center|left"
-                    android:textColor="#000"
-                    android:lines="3"
-                    android:gravity="center|left"
-                    android:paddingLeft="@dimen/paddinglow"
-                    android:paddingRight="@dimen/paddinglow"
-                    android:fontFamily="@font/josefinsans_light"
                     android:textSize="@dimen/bigtext"
-                    android:layout_marginRight="35dp"
-                    android:layout_marginLeft="3dp"
-                    android:layout_marginTop="3dp"
-                    android:layout_marginBottom="3dp"
-                    android:hint="Apartment Name"/>
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/down_arrow"
-                    android:layout_centerVertical="true"
-                    android:padding="@dimen/paddinglow"
-                    android:layout_alignParentRight="true"/>
-<!--                <android.support.v7.widget.AppCompatSpinner-->
-<!--                    android:id="@+id/apartname_edt"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    style="@style/SampleTheme"-->
-<!--                    android:paddingLeft="@dimen/paddinglow"-->
-<!--                    android:paddingRight="@dimen/paddinglow" />-->
-            </RelativeLayout>
-        </RelativeLayout>
-        <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
-            android:id="@+id/apartment_spinner"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:smsp_baseColor="@color/colorPrimary"
-            app:smsp_enableSearchHeader="false"
-            app:smsp_isSearchable="true"
-            app:smsp_multilineError="false"
-            app:smsp_selectedItemListColor="@color/colorPrimary" />
-        <EditText
-            android:id="@+id/parking_lot_edt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:textSize="@dimen/bigtext"
-            android:padding="@dimen/paddinghigh"
-            android:background="@drawable/edit_bg"
-            android:inputType="text"
-            android:singleLine="true"
-            android:layout_margin="@dimen/marginhalf"
-            android:textColor="@color/black"
-            android:imeOptions="actionNext"
-            android:fontFamily="@font/josefinsans_light"
-            android:hint="Parking lot no."/>
-<!--        <EditText-->
-<!--            android:id="@+id/parking_area_edt"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_centerVertical="true"-->
-<!--            android:textSize="@dimen/bigtext"-->
-<!--            android:padding="@dimen/paddinghigh"-->
-<!--            android:background="@drawable/edit_bg"-->
-<!--            android:inputType="text"-->
-<!--            android:singleLine="true"-->
-<!--            android:layout_margin="@dimen/marginhalf"-->
-<!--            android:textColor="@color/black"-->
-<!--            android:imeOptions="actionNext"-->
-<!--            android:fontFamily="@font/josefinsans_light"-->
-<!--            android:hint="Parking Area"/>-->
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/edit_bg"
-            android:layout_margin="@dimen/marginhalf">
-            <TextView
-                android:id="@+id/parking_area_edt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:textSize="@dimen/bigtext"
-                android:padding="@dimen/paddinghigh"
-                android:inputType="text"
-                android:singleLine="true"
-                android:textColor="@color/black"
-                android:background="@color/white"
-                android:fontFamily="@font/josefinsans_light"
-                android:layout_marginRight="35dp"
-                android:layout_marginLeft="3dp"
-                android:layout_marginTop="3dp"
-                android:layout_marginBottom="3dp"
-                android:hint="Parking Area"/>
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/down_arrow"
-                android:layout_centerVertical="true"
-                android:padding="@dimen/paddinglow"
-                android:layout_alignParentRight="true"/>
-<!--         <android.support.v7.widget.AppCompatSpinner-->
-<!--                    android:id="@+id/parking_area_edt"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--             android:paddingLeft="@dimen/paddinglow"-->
-<!--             android:paddingRight="@dimen/paddinglow"/>-->
-        </RelativeLayout>
-        </RelativeLayout>
-        <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
-            android:id="@+id/parking_spinner"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:smsp_baseColor="@color/colorPrimary"
-            app:smsp_enableSearchHeader="false"
-            app:smsp_isSearchable="true"
-            app:smsp_multilineError="false"
-            app:smsp_selectedItemListColor="@color/colorPrimary" />
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/edit_bg"
-                android:layout_margin="@dimen/marginhalf">
+                    android:visibility="gone" />
 
-                <TextView
-                    android:id="@+id/preferredschedule_edt"
+                <EditText
+                    android:id="@+id/model_edt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginBottom="3dp"
-                    android:layout_marginLeft="3dp"
-                    android:layout_marginRight="35dp"
-                    android:layout_marginTop="3dp"
-                    android:background="@color/white"
+                    android:layout_margin="@dimen/marginhalf"
+                    android:background="@drawable/edit_bg"
                     android:fontFamily="@font/josefinsans_light"
-                    android:hint="Preferred Schedule"
+                    android:hint="Model"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"
+                    android:padding="@dimen/paddinghigh"
+                    android:singleLine="true"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/bigtext"
+                    android:visibility="gone" />
+
+                <EditText
+                    android:id="@+id/vec_no_edt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="@dimen/marginhalf"
+                    android:background="@drawable/edit_bg"
+                    android:fontFamily="@font/josefinsans_light"
+                    android:hint="Vehicle No."
+                    android:imeOptions="actionNext"
                     android:inputType="text"
                     android:padding="@dimen/paddinghigh"
                     android:singleLine="true"
                     android:textColor="@color/black"
                     android:textSize="@dimen/bigtext" />
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/down_arrow"
-                    android:layout_centerVertical="true"
-                    android:padding="@dimen/paddinglow"
-                    android:layout_alignParentRight="true"/>
-<!--                <android.support.v7.widget.AppCompatSpinner-->
-<!--                    android:id="@+id/preferredschedule_edt"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:paddingLeft="@dimen/paddinglow"-->
-<!--                    android:paddingRight="@dimen/paddinglow"/>-->
-            </RelativeLayout>
-        </RelativeLayout>
-        <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
-            android:id="@+id/schedule_spinner"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:smsp_baseColor="@color/colorPrimary"
-            app:smsp_enableSearchHeader="false"
-            app:smsp_isSearchable="true"
-            app:smsp_multilineError="false"
-            app:smsp_selectedItemListColor="@color/colorPrimary" />
-        <RelativeLayout
-            android:id="@+id/prefertime_rl"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/edit_bg"
-                android:layout_margin="@dimen/marginhalf">
-                <TextView
-                    android:id="@+id/preferredtime_edt"
+
+                <EditText
+                    android:id="@+id/vec_color_edt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:textSize="@dimen/bigtext"
-                    android:padding="@dimen/paddinghigh"
+                    android:layout_margin="@dimen/marginhalf"
+                    android:background="@drawable/edit_bg"
+                    android:fontFamily="@font/josefinsans_light"
+                    android:hint="Vehicle Color"
+                    android:imeOptions="actionNext"
                     android:inputType="text"
+                    android:padding="@dimen/paddinghigh"
                     android:singleLine="true"
                     android:textColor="@color/black"
-                    android:background="@color/white"
-                    android:fontFamily="@font/josefinsans_light"
-                    android:layout_marginRight="35dp"
-                    android:layout_marginLeft="3dp"
-                    android:layout_marginTop="3dp"
-                    android:layout_marginBottom="3dp"
-                    android:hint="Preferred Time"/>
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/down_arrow"
+                    android:textSize="@dimen/bigtext" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/marginhalf"
+                        android:background="@drawable/edit_bg">
+
+                        <TextView
+                            android:id="@+id/apartment_edt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center|left"
+                            android:layout_marginLeft="3dp"
+                            android:layout_marginTop="3dp"
+                            android:layout_marginRight="35dp"
+                            android:layout_marginBottom="3dp"
+                            android:fontFamily="@font/josefinsans_light"
+                            android:gravity="center|left"
+                            android:hint="Apartment Name"
+                            android:lines="3"
+                            android:paddingLeft="@dimen/paddinglow"
+                            android:paddingRight="@dimen/paddinglow"
+                            android:textColor="#000"
+                            android:textSize="@dimen/bigtext" />
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:padding="@dimen/paddinglow"
+                            android:src="@drawable/down_arrow" />
+                        <!--                <android.support.v7.widget.AppCompatSpinner-->
+                        <!--                    android:id="@+id/apartname_edt"-->
+                        <!--                    android:layout_width="match_parent"-->
+                        <!--                    android:layout_height="wrap_content"-->
+                        <!--                    style="@style/SampleTheme"-->
+                        <!--                    android:paddingLeft="@dimen/paddinglow"-->
+                        <!--                    android:paddingRight="@dimen/paddinglow" />-->
+                    </RelativeLayout>
+                </RelativeLayout>
+
+                <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
+                    android:id="@+id/apartment_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    app:smsp_baseColor="@color/colorPrimary"
+                    app:smsp_enableSearchHeader="false"
+                    app:smsp_isSearchable="true"
+                    app:smsp_multilineError="false"
+                    app:smsp_selectedItemListColor="@color/colorPrimary" />
+
+                <EditText
+                    android:id="@+id/parking_lot_edt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:padding="@dimen/paddinglow"
-                    android:layout_alignParentRight="true"/>
-<!--                <android.support.v7.widget.AppCompatSpinner-->
-<!--                    android:id="@+id/preferredtime_edt"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:paddingLeft="@dimen/paddinglow"-->
-<!--                    android:paddingRight="@dimen/paddinglow"/>-->
-            </RelativeLayout>
-        </RelativeLayout>
-        <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
-            android:id="@+id/time_spinner"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:smsp_baseColor="@color/colorPrimary"
-            app:smsp_enableSearchHeader="false"
-            app:smsp_isSearchable="true"
-            app:smsp_multilineError="false"
-            app:smsp_selectedItemListColor="@color/colorPrimary" />
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="95dp"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:layout_alignParentBottom="true"
-            android:background="@drawable/bg"
-            android:layout_margin="@dimen/marginmed">
-            <Button
-                android:id="@+id/cancel_btn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Cancel"
-                android:fontFamily="@font/josefinsans_bold"
-                android:textColor="@color/white"
-                android:layout_gravity="center"
-                android:textSize="@dimen/bigtext"
-                android:layout_weight="1"
-                android:background="@drawable/login_bg"
-                android:textAllCaps="true"
-                android:layout_margin="@dimen/margin" />
-            <Button
-                android:id="@+id/submit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Submit"
-                android:layout_weight="1"
-                android:fontFamily="@font/josefinsans_bold"
-                android:textColor="@color/white"
-                android:layout_gravity="center"
-                android:textSize="@dimen/bigtext"
-                android:background="@drawable/login_bg"
-                android:textAllCaps="true"
-                android:layout_margin="@dimen/margin"
-                />
-        </LinearLayout>
-    </LinearLayout>
-    </ScrollView>
-</RelativeLayout></layout>
+                    android:layout_margin="@dimen/marginhalf"
+                    android:background="@drawable/edit_bg"
+                    android:fontFamily="@font/josefinsans_light"
+                    android:hint="Parking lot no."
+                    android:imeOptions="actionNext"
+                    android:inputType="text"
+                    android:padding="@dimen/paddinghigh"
+                    android:singleLine="true"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/bigtext" />
+                <!--        <EditText-->
+                <!--            android:id="@+id/parking_area_edt"-->
+                <!--            android:layout_width="match_parent"-->
+                <!--            android:layout_height="wrap_content"-->
+                <!--            android:layout_centerVertical="true"-->
+                <!--            android:textSize="@dimen/bigtext"-->
+                <!--            android:padding="@dimen/paddinghigh"-->
+                <!--            android:background="@drawable/edit_bg"-->
+                <!--            android:inputType="text"-->
+                <!--            android:singleLine="true"-->
+                <!--            android:layout_margin="@dimen/marginhalf"-->
+                <!--            android:textColor="@color/black"-->
+                <!--            android:imeOptions="actionNext"-->
+                <!--            android:fontFamily="@font/josefinsans_light"-->
+                <!--            android:hint="Parking Area"/>-->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/marginhalf"
+                        android:background="@drawable/edit_bg">
+
+                        <TextView
+                            android:id="@+id/parking_area_edt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="3dp"
+                            android:layout_marginTop="3dp"
+                            android:layout_marginRight="35dp"
+                            android:layout_marginBottom="3dp"
+                            android:background="@color/white"
+                            android:fontFamily="@font/josefinsans_light"
+                            android:hint="Parking Area"
+                            android:inputType="text"
+                            android:padding="@dimen/paddinghigh"
+                            android:singleLine="true"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/bigtext" />
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:padding="@dimen/paddinglow"
+                            android:src="@drawable/down_arrow" />
+                        <!--         <android.support.v7.widget.AppCompatSpinner-->
+                        <!--                    android:id="@+id/parking_area_edt"-->
+                        <!--                    android:layout_width="match_parent"-->
+                        <!--                    android:layout_height="wrap_content"-->
+                        <!--             android:paddingLeft="@dimen/paddinglow"-->
+                        <!--             android:paddingRight="@dimen/paddinglow"/>-->
+                    </RelativeLayout>
+                </RelativeLayout>
+
+                <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
+                    android:id="@+id/parking_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    app:smsp_baseColor="@color/colorPrimary"
+                    app:smsp_enableSearchHeader="false"
+                    app:smsp_isSearchable="true"
+                    app:smsp_multilineError="false"
+                    app:smsp_selectedItemListColor="@color/colorPrimary" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/marginhalf"
+                        android:background="@drawable/edit_bg">
+
+                        <TextView
+                            android:id="@+id/preferredschedule_edt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="3dp"
+                            android:layout_marginTop="3dp"
+                            android:layout_marginRight="35dp"
+                            android:layout_marginBottom="3dp"
+                            android:background="@color/white"
+                            android:fontFamily="@font/josefinsans_light"
+                            android:hint="Preferred Schedule"
+                            android:inputType="text"
+                            android:padding="@dimen/paddinghigh"
+                            android:singleLine="true"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/bigtext" />
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:padding="@dimen/paddinglow"
+                            android:src="@drawable/down_arrow" />
+                        <!--                <android.support.v7.widget.AppCompatSpinner-->
+                        <!--                    android:id="@+id/preferredschedule_edt"-->
+                        <!--                    android:layout_width="match_parent"-->
+                        <!--                    android:layout_height="wrap_content"-->
+                        <!--                    android:paddingLeft="@dimen/paddinglow"-->
+                        <!--                    android:paddingRight="@dimen/paddinglow"/>-->
+                    </RelativeLayout>
+                </RelativeLayout>
+
+                <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
+                    android:id="@+id/schedule_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    app:smsp_baseColor="@color/colorPrimary"
+                    app:smsp_enableSearchHeader="false"
+                    app:smsp_isSearchable="true"
+                    app:smsp_multilineError="false"
+                    app:smsp_selectedItemListColor="@color/colorPrimary" />
+
+                <RelativeLayout
+                    android:id="@+id/prefertime_rl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/marginhalf"
+                        android:background="@drawable/edit_bg">
+
+                        <TextView
+                            android:id="@+id/preferredtime_edt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="3dp"
+                            android:layout_marginTop="3dp"
+                            android:layout_marginRight="35dp"
+                            android:layout_marginBottom="3dp"
+                            android:background="@color/white"
+                            android:fontFamily="@font/josefinsans_light"
+                            android:hint="Preferred Time"
+                            android:inputType="text"
+                            android:padding="@dimen/paddinghigh"
+                            android:singleLine="true"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/bigtext" />
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:padding="@dimen/paddinglow"
+                            android:src="@drawable/down_arrow" />
+                        <!--                <android.support.v7.widget.AppCompatSpinner-->
+                        <!--                    android:id="@+id/preferredtime_edt"-->
+                        <!--                    android:layout_width="match_parent"-->
+                        <!--                    android:layout_height="wrap_content"-->
+                        <!--                    android:paddingLeft="@dimen/paddinglow"-->
+                        <!--                    android:paddingRight="@dimen/paddinglow"/>-->
+                    </RelativeLayout>
+                </RelativeLayout>
+
+                <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
+                    android:id="@+id/time_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    app:smsp_baseColor="@color/colorPrimary"
+                    app:smsp_enableSearchHeader="false"
+                    app:smsp_isSearchable="true"
+                    app:smsp_multilineError="false"
+                    app:smsp_selectedItemListColor="@color/colorPrimary" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="95dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/marginmed"
+                    android:background="@drawable/bg"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/cancel_btn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="@dimen/margin"
+                        android:layout_weight="1"
+                        android:background="@drawable/login_bg"
+                        android:fontFamily="@font/josefinsans_bold"
+                        android:text="Cancel"
+                        android:textAllCaps="true"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/bigtext" />
+
+                    <Button
+                        android:id="@+id/submit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="@dimen/margin"
+                        android:layout_weight="1"
+                        android:background="@drawable/login_bg"
+                        android:fontFamily="@font/josefinsans_bold"
+                        android:text="Submit"
+                        android:textAllCaps="true"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/bigtext" />
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+    </RelativeLayout>
+</layout>

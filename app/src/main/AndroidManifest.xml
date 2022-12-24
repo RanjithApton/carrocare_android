@@ -6,8 +6,8 @@
         <package android:name="com.whatsapp" />
         <package android:name="com.whatsapp.w4b" />
     </queries>
-
     <queries>
+
         <!-- List of apps which you want to support for Intent pay -->
         <package android:name="com.google.android.apps.nbu.paisa.user" />
         <package android:name="com.phonepe.app" />
@@ -18,7 +18,8 @@
     </queries>
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -35,28 +36,46 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activity.DisinfectionActivity"
-            android:exported="false"/>
-        <activity android:name=".activity.PaymentSucessActivity"
-            android:exported="false"/>
-        <activity android:name=".activity.LocateOnMapActivity"
-            android:exported="false"/>
-        <activity android:name=".activity.MapAddVechileActivity"
-            android:exported="false"/>
-        <activity android:name=".activity.DoorStepServiceActivity"
-            android:exported="false"/>
-        <activity android:name=".activity.ApartmentServiceActivity"
-            android:exported="false"/>
-        <activity android:name=".activity.MyVechiclesAddActivity"
-            android:exported="false"/>
-        <activity android:name=".activity.MyRemainderActivity"
-            android:exported="false"/>
-        <activity android:name=".activity.MyVehiclesActivity"
-            android:exported="false"/>
-        <activity android:name=".activity.RenewActivity"
-            android:exported="false"/>
-        <activity android:name=".activity.IntroductionActivity"
-            android:exported="false"/>
+        <activity
+            android:name=".activity.MyBillingActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".activity.DisinfectionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.PaymentSucessActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.LocateOnMapActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.MapAddVechileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.DoorStepServiceActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ApartmentServiceActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.MyVechiclesAddActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.MyRemainderActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.MyVehiclesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.RenewActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.IntroductionActivity"
+            android:exported="false" />
         <activity
             android:name=".activity.CartActivity"
             android:exported="false"
@@ -309,7 +328,6 @@
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:value="@string/default_notification_channel_id" />
-
     </application>
 
 </manifest>

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -35,16 +36,16 @@ import java.util.HashMap;
 public class MyVehiclesActivity extends AppCompatActivity {
     ActivityMyVehiclesBinding binding;
     SessionManager sessionManager;
-    String token,customerid;
+    String token, customerid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_my_vehicles);
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_my_vehicles);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_my_vehicles);
 
         sessionManager = new SessionManager(this);
-        HashMap<String,String> hashMap = sessionManager.getUserDetails();
+        HashMap<String, String> hashMap = sessionManager.getUserDetails();
         token = hashMap.get(SessionManager.KEY_TOKEN);
         customerid = hashMap.get(SessionManager.KEY_USERID);
 
@@ -53,7 +54,7 @@ public class MyVehiclesActivity extends AppCompatActivity {
         binding.back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               // startActivity(new Intent(MyVehiclesActivity.this, MainActivity.class));
+                // startActivity(new Intent(MyVehiclesActivity.this, MainActivity.class));
                 finish();
             }
         });
@@ -69,20 +70,20 @@ public class MyVehiclesActivity extends AppCompatActivity {
     }
 
     private void work() {
-        if (isNetworkAvailable()){
+        if (isNetworkAvailable()) {
             VehicleDeatils();
-        }else {
+        } else {
             AlertDialog.Builder dialog = new AlertDialog.Builder(MyVehiclesActivity.this);
             dialog.setCancelable(false);
             dialog.setTitle("Alert!");
-            dialog.setMessage("No internet.Please check your connection." );
+            dialog.setMessage("No internet.Please check your connection.");
             dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int id) {
-                    //Action for "Ok".
-                    work();
-                }
-            })
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            //Action for "Ok".
+                            work();
+                        }
+                    })
                     .setNegativeButton("Cancel ", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -104,14 +105,14 @@ public class MyVehiclesActivity extends AppCompatActivity {
                 .setDimAmount(0.5f)
                 .show();
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        Call<VehicleDetails> call = apiInterface.myvehicledetails(customerid,token);
+        Call<VehicleDetails> call = apiInterface.myvehicledetails(customerid, token);
 
         call.enqueue(new Callback<VehicleDetails>() {
             @Override
             public void onResponse(Call<VehicleDetails> call, Response<VehicleDetails> response) {
                 hud.dismiss();
-                try{
-                    if(response.isSuccessful()){
+                try {
+                    if (response.isSuccessful()) {
                         final VehicleDetails vehicleDetails = response.body();
                         if (vehicleDetails.code.equalsIgnoreCase("200")) {
                             Gson gson = new Gson();
@@ -119,27 +120,28 @@ public class MyVehiclesActivity extends AppCompatActivity {
                             binding.novehicle.setVisibility(View.GONE);
                             binding.vehiclelistRc.setVisibility(View.VISIBLE);
 
-                            MyVehicleAdapter myVehicleAdapter = new MyVehicleAdapter(MyVehiclesActivity.this,vehicleDetails.details);
-                            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MyVehiclesActivity.this,LinearLayoutManager.VERTICAL,false);
+                            MyVehicleAdapter myVehicleAdapter = new MyVehicleAdapter(MyVehiclesActivity.this, vehicleDetails.details);
+                            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MyVehiclesActivity.this, LinearLayoutManager.VERTICAL, false);
                             binding.vehiclelistRc.setLayoutManager(linearLayoutManager);
                             binding.vehiclelistRc.setAdapter(myVehicleAdapter);
-                        }else if (vehicleDetails.code.equalsIgnoreCase("201")) {
+                        } else if (vehicleDetails.code.equalsIgnoreCase("201")) {
                             binding.novehicle.setVisibility(View.VISIBLE);
                             binding.vehiclelistRc.setVisibility(View.GONE);
-                        }else if (vehicleDetails.code.equalsIgnoreCase("203")) {
+                        } else if (vehicleDetails.code.equalsIgnoreCase("203")) {
                             sessionManager.logoutUsers();
                         }
-                    } else{
+                    } else {
                         ApiConfig.responseToast(MyVehiclesActivity.this, response.code());
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
+
             @Override
             public void onFailure(Call<VehicleDetails> call, Throwable t) {
                 hud.dismiss();
-                Toast.makeText(MyVehiclesActivity.this,"Timeout.Try after sometime",Toast.LENGTH_SHORT).show();
+                Toast.makeText(MyVehiclesActivity.this, "Timeout.Try after sometime", Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -24,7 +24,7 @@ import java.util.List;
 public class MapVehileAdapter extends RecyclerView.Adapter {
     public Context context;
     List<VehicleDetails.VecDetails> vecDetails;
-    String header,price,carname;
+    String header, price, carname;
     private int selectedPosition = 0;
     private ArrayList<Integer> selectCheck = new ArrayList<>();
 
@@ -49,9 +49,9 @@ public class MapVehileAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
         final MyViewHolder viewHolder = (MyViewHolder) holder;
 
-        if(vecDetails.get(position).vehicle_Type.equalsIgnoreCase("Bike")){
+        if (vecDetails.get(position).vehicle_Type.equalsIgnoreCase("Bike")) {
             viewHolder.card.setVisibility(View.GONE);
-        }else{
+        } else {
             viewHolder.card.setVisibility(View.VISIBLE);
         }
 
@@ -64,7 +64,6 @@ public class MapVehileAdapter extends RecyclerView.Adapter {
 //                viewHolder.card.setVisibility(View.VISIBLE);
 //            }
 //        }
-
 
 
         //viewHolder.vec_makemodel.setText(vecDetails.get(position).vehicle_make+"-"+vecDetails.get(position).vehicle_model);
@@ -93,11 +92,11 @@ public class MapVehileAdapter extends RecyclerView.Adapter {
         viewHolder.checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                for(int i=0; i<selectCheck.size(); i++) {
-                    if(i==position) {
-                        selectCheck.set(i,1);
+                for (int i = 0; i < selectCheck.size(); i++) {
+                    if (i == position) {
+                        selectCheck.set(i, 1);
                     } else {
-                        selectCheck.set(i,0);
+                        selectCheck.set(i, 0);
                     }
                 }
                 notifyDataSetChanged();
@@ -108,11 +107,11 @@ public class MapVehileAdapter extends RecyclerView.Adapter {
             @Override
             public void onClick(View v) {
                 viewHolder.checkBox.setChecked(true);
-                for(int i=0; i<selectCheck.size(); i++) {
-                    if(i==position) {
-                        selectCheck.set(i,1);
+                for (int i = 0; i < selectCheck.size(); i++) {
+                    if (i == position) {
+                        selectCheck.set(i, 1);
                     } else {
-                        selectCheck.set(i,0);
+                        selectCheck.set(i, 0);
                     }
                 }
                 notifyDataSetChanged();
@@ -124,7 +123,7 @@ public class MapVehileAdapter extends RecyclerView.Adapter {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
-                if(isChecked==true){
+                if (isChecked == true) {
                     MyViewHolder viewHolder1 = (MyViewHolder) buttonView.getTag();
                     int pos = viewHolder1.getAdapterPosition();
                     Constant.ONETIME_CAR_TYPE = vecDetails.get(pos).vehicle_category;
@@ -136,23 +135,26 @@ public class MapVehileAdapter extends RecyclerView.Adapter {
         });
 
     }
+
     @Override
     public int getItemCount() {
         return vecDetails.size();
     }
+
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         ImageView carimage;
-        TextView vec_makemodel,vehicleno,color;
+        TextView vec_makemodel, vehicleno, color;
         CardView card;
         CheckBox checkBox;
+
         public MyViewHolder(View itemLayoutView) {
             super(itemLayoutView);
-            vehicleno = (TextView)itemLayoutView.findViewById(R.id.vec_no);
+            vehicleno = (TextView) itemLayoutView.findViewById(R.id.vec_no);
             //vec_makemodel = (TextView)itemLayoutView.findViewById(R.id.vec_makemodel);
             //color = (TextView)itemLayoutView.findViewById(R.id.vec_color);
             carimage = (ImageView) itemLayoutView.findViewById(R.id.car_img);
-            card  = (CardView)itemLayoutView.findViewById(R.id.card);
-            checkBox = (CheckBox)itemLayoutView.findViewById(R.id.car_check);
+            card = (CardView) itemLayoutView.findViewById(R.id.card);
+            checkBox = (CheckBox) itemLayoutView.findViewById(R.id.car_check);
         }
 
     }

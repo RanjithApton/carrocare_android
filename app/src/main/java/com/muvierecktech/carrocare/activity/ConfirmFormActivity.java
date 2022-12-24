@@ -50,13 +50,13 @@ import retrofit2.Response;
 public class ConfirmFormActivity extends BaseActivity implements View.OnClickListener {
     public ActivityConfirmFormBinding binding;
     SessionManager sessionManager;
-    String name,mobile,email,form,header,description,vectype,veccat;
+    String name, mobile, email, form, header, description, vectype, veccat;
     String type[] = {
 //            Constant.VECTYPE,
-            Constant.CAR,Constant.BIKE};
+            Constant.CAR, Constant.BIKE};
     String categoryCar[] = {
 //            Constant.VECCAT,
-            Constant.HATCHBACK,Constant.SEDAN,Constant.SUV};
+            Constant.HATCHBACK, Constant.SEDAN, Constant.SUV};
     String[] categoryBike = {Constant.BIKE};
     ArrayList<String> spinner_item;
     ArrayList<String> type_item;
@@ -68,7 +68,7 @@ public class ConfirmFormActivity extends BaseActivity implements View.OnClickLis
         binding = DataBindingUtil.setContentView(this, R.layout.activity_confirm_form);
         attachKeyboardListeners();
         sessionManager = new SessionManager(this);
-        HashMap<String,String> hashMap = sessionManager.getUserDetails();
+        HashMap<String, String> hashMap = sessionManager.getUserDetails();
         name = hashMap.get(SessionManager.KEY_USERNAME);
         email = hashMap.get(SessionManager.KEY_USEREMAIL);
         mobile = hashMap.get(SessionManager.KEY_USERMOBILE);
@@ -80,14 +80,14 @@ public class ConfirmFormActivity extends BaseActivity implements View.OnClickLis
         type_item = new ArrayList<>();
         Collections.addAll(type_item, type);
 
-        if (intent.hasExtra("headername")){
-            if (header.equalsIgnoreCase("Doorstep Insurance")){
+        if (intent.hasExtra("headername")) {
+            if (header.equalsIgnoreCase("Doorstep Insurance")) {
                 binding.info.setVisibility(View.VISIBLE);
                 binding.headerName.setText(header);
                 form = "car_insurance";
                 workPrice();
             }
-        }else {
+        } else {
             binding.info.setVisibility(View.GONE);
             binding.headerName.setText("Confirm Form");
             form = "car_machine_polish";
@@ -101,47 +101,49 @@ public class ConfirmFormActivity extends BaseActivity implements View.OnClickLis
         binding.next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    if (binding.nameEdt.getText().toString().length()>0 &&binding.emailEdt.getText().toString().length()>0 &&
-                            binding.mobileEdt.getText().toString().length()>0 &&binding.addressEdt.getText().toString().length()>0 &&
-                            binding.landmarkEdt.getText().toString().length()>0 &&binding.cityEdt.getText().toString().length()>0 &&
-                            binding.stateEdt.getText().toString().length()>0 &&binding.countryEdt.getText().toString().length()>0 &&
-                            binding.pincodeEdt.getText().toString().length()>0 && binding.vecTypeEdt.getText().toString().length()>0&&
-                            binding.vecMakeEdt.getText().toString().length()>0 &&binding.vecModelEdt.getText().toString().length()>0 &&
-                            binding.vecCategoryEdt.getText().toString().length()>0 ){
-                        if (binding.mobileEdt.getText().toString().length()==10){
-                            if (binding.pincodeEdt.getText().toString().length()==6){
-                                if (emailValidator(binding.emailEdt.getText().toString())){
-                                    work();
-                                }else Toast.makeText(ConfirmFormActivity.this,Constant.VALIDEMAIL,Toast.LENGTH_SHORT).show();
+                if (binding.nameEdt.getText().toString().length() > 0 && binding.emailEdt.getText().toString().length() > 0 &&
+                        binding.mobileEdt.getText().toString().length() > 0 && binding.addressEdt.getText().toString().length() > 0 &&
+                        binding.landmarkEdt.getText().toString().length() > 0 && binding.cityEdt.getText().toString().length() > 0 &&
+                        binding.stateEdt.getText().toString().length() > 0 && binding.countryEdt.getText().toString().length() > 0 &&
+                        binding.pincodeEdt.getText().toString().length() > 0 && binding.vecTypeEdt.getText().toString().length() > 0 &&
+                        binding.vecMakeEdt.getText().toString().length() > 0 && binding.vecModelEdt.getText().toString().length() > 0 &&
+                        binding.vecCategoryEdt.getText().toString().length() > 0) {
+                    if (binding.mobileEdt.getText().toString().length() == 10) {
+                        if (binding.pincodeEdt.getText().toString().length() == 6) {
+                            if (emailValidator(binding.emailEdt.getText().toString())) {
+                                work();
+                            } else
+                                Toast.makeText(ConfirmFormActivity.this, Constant.VALIDEMAIL, Toast.LENGTH_SHORT).show();
 
-                            }else Toast.makeText(ConfirmFormActivity.this,Constant.ENTERPINCODE,Toast.LENGTH_SHORT).show();
+                        } else
+                            Toast.makeText(ConfirmFormActivity.this, Constant.ENTERPINCODE, Toast.LENGTH_SHORT).show();
 
-                        }else Toast.makeText(ConfirmFormActivity.this,Constant.VALIDMOBILE,Toast.LENGTH_SHORT).show();
+                    } else
+                        Toast.makeText(ConfirmFormActivity.this, Constant.VALIDMOBILE, Toast.LENGTH_SHORT).show();
 
-                    }else {
-                        Toast.makeText(ConfirmFormActivity.this,Constant.DETAILS,Toast.LENGTH_SHORT).show();
-                    }
+                } else {
+                    Toast.makeText(ConfirmFormActivity.this, Constant.DETAILS, Toast.LENGTH_SHORT).show();
                 }
+            }
         });
     }
 
 
-
     private void workPrice() {
-        if (isNetworkAvailable()){
+        if (isNetworkAvailable()) {
             ServicePrice();
-        }else {
+        } else {
             AlertDialog.Builder dialog = new AlertDialog.Builder(ConfirmFormActivity.this);
             dialog.setCancelable(false);
             dialog.setTitle("Alert!");
-            dialog.setMessage("No internet.Please check your connection." );
+            dialog.setMessage("No internet.Please check your connection.");
             dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int id) {
-                    //Action for "Ok".
-                    workPrice();
-                }
-            })
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            //Action for "Ok".
+                            workPrice();
+                        }
+                    })
                     .setNegativeButton("Cancel ", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -169,7 +171,7 @@ public class ConfirmFormActivity extends BaseActivity implements View.OnClickLis
             public void onResponse(Call<ServicePriceList> call, Response<ServicePriceList> response) {
                 hud.dismiss();
                 try {
-                    if(response.isSuccessful()){
+                    if (response.isSuccessful()) {
                         final ServicePriceList servicePriceList = response.body();
                         if (servicePriceList.code.equalsIgnoreCase("200")) {
                             Gson gson = new Gson();
@@ -185,36 +187,37 @@ public class ConfirmFormActivity extends BaseActivity implements View.OnClickLis
                                 }
                             });
                         }
-                    } else{
+                    } else {
                         ApiConfig.responseToast(ConfirmFormActivity.this, response.code());
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
+
             @Override
             public void onFailure(Call<ServicePriceList> call, Throwable t) {
                 hud.dismiss();
-                Toast.makeText(ConfirmFormActivity.this,"Timeout.Try after sometime",Toast.LENGTH_SHORT).show();
+                Toast.makeText(ConfirmFormActivity.this, "Timeout.Try after sometime", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void work() {
-        if (isNetworkAvailable()){
+        if (isNetworkAvailable()) {
             FormSubmit();
-        }else {
+        } else {
             AlertDialog.Builder dialog = new AlertDialog.Builder(ConfirmFormActivity.this);
             dialog.setCancelable(false);
             dialog.setTitle("Alert!");
-            dialog.setMessage("No internet.Please check your connection." );
+            dialog.setMessage("No internet.Please check your connection.");
             dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int id) {
-                    //Action for "Ok".
-                    work();
-                }
-            })
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            //Action for "Ok".
+                            work();
+                        }
+                    })
                     .setNegativeButton("Cancel ", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -236,36 +239,37 @@ public class ConfirmFormActivity extends BaseActivity implements View.OnClickLis
                 .setDimAmount(0.5f)
                 .show();
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        Call<JsonObject> call = apiInterface.serviceForm(name,mobile,email,binding.addressEdt.getText().toString(),binding.landmarkEdt.getText().toString()
-                ,binding.cityEdt.getText().toString(),binding.stateEdt.getText().toString(),binding.countryEdt.getText().toString(),binding.pincodeEdt.getText().toString(),
-                binding.vecTypeEdt.getText().toString(),binding.vecMakeEdt.getText().toString(),binding.vecModelEdt.getText().toString(),
-                binding.vecCategoryEdt.getText().toString(),form);
+        Call<JsonObject> call = apiInterface.serviceForm(name, mobile, email, binding.addressEdt.getText().toString(), binding.landmarkEdt.getText().toString()
+                , binding.cityEdt.getText().toString(), binding.stateEdt.getText().toString(), binding.countryEdt.getText().toString(), binding.pincodeEdt.getText().toString(),
+                binding.vecTypeEdt.getText().toString(), binding.vecMakeEdt.getText().toString(), binding.vecModelEdt.getText().toString(),
+                binding.vecCategoryEdt.getText().toString(), form);
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                 hud.dismiss();
                 try {
-                    if(response.isSuccessful()){
+                    if (response.isSuccessful()) {
                         JsonElement jsonElement = response.body();
                         JSONObject jsonObject = new JSONObject(jsonElement.toString());
                         if (jsonObject.optString("code").equalsIgnoreCase("200")) {
                             Gson gson = new Gson();
-                            Toast.makeText(ConfirmFormActivity.this,jsonObject.optString("message"),Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ConfirmFormActivity.this, jsonObject.optString("message"), Toast.LENGTH_SHORT).show();
                             finish();
-                        }else {
-                            Toast.makeText(ConfirmFormActivity.this,jsonObject.optString("message"),Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(ConfirmFormActivity.this, jsonObject.optString("message"), Toast.LENGTH_SHORT).show();
                         }
-                    } else{
+                    } else {
                         ApiConfig.responseToast(ConfirmFormActivity.this, response.code());
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
+
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
                 hud.dismiss();
-                Toast.makeText(ConfirmFormActivity.this,"Timeout.Try after sometime",Toast.LENGTH_SHORT).show();
+                Toast.makeText(ConfirmFormActivity.this, "Timeout.Try after sometime", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -307,8 +311,9 @@ public class ConfirmFormActivity extends BaseActivity implements View.OnClickLis
         matcher = pattern.matcher(s);
         return matcher.matches();
     }
+
     @Override
-    public void onClick (View view){
+    public void onClick(View view) {
         switch (view.getId()) {
             case R.id.vec_type_edt:
                 binding.apartRl.setVisibility(View.VISIBLE);
@@ -328,10 +333,10 @@ public class ConfirmFormActivity extends BaseActivity implements View.OnClickLis
                     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ConfirmFormActivity.this, LinearLayoutManager.VERTICAL, false);
                     binding.catlistRc.setLayoutManager(linearLayoutManager);
                     binding.catlistRc.setAdapter(preferredAdapter1);
-                }else  if (binding.vecTypeEdt.getText().toString().equalsIgnoreCase(Constant.BIKE)){
+                } else if (binding.vecTypeEdt.getText().toString().equalsIgnoreCase(Constant.BIKE)) {
                     binding.vecCategoryEdt.setText(Constant.BIKE);
-                }else {
-                    Toast.makeText(ConfirmFormActivity.this,"Choose Vehicle type",Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(ConfirmFormActivity.this, "Choose Vehicle type", Toast.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.apart_rl:
@@ -399,7 +404,7 @@ public class ConfirmFormActivity extends BaseActivity implements View.OnClickLis
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = new Intent(ConfirmFormActivity.this,MainActivity.class);
+        Intent intent = new Intent(ConfirmFormActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
     }

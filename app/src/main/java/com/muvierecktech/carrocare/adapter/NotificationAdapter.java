@@ -33,21 +33,24 @@ public class NotificationAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
-         final MyViewHolder viewHolder = (MyViewHolder) holder;
+        final MyViewHolder viewHolder = (MyViewHolder) holder;
         viewHolder.title.setText(notificationsList.get(position).title);
         viewHolder.vecno.setText(notificationsList.get(position).description);
 
     }
+
     @Override
     public int getItemCount() {
         return notificationsList.size();
     }
+
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView title,vecno;
+        TextView title, vecno;
+
         public MyViewHolder(View itemLayoutView) {
             super(itemLayoutView);
-            title = (TextView)itemLayoutView.findViewById(R.id.title);
-            vecno = (TextView)itemLayoutView.findViewById(R.id.vec_no);
+            title = (TextView) itemLayoutView.findViewById(R.id.title);
+            vecno = (TextView) itemLayoutView.findViewById(R.id.vec_no);
         }
     }
 

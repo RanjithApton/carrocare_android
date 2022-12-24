@@ -22,18 +22,18 @@ import java.util.List;
 import java.util.Locale;
 
 public class GPSTracker extends Service implements LocationListener {
-    private Context mContext;
+    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10;
+    private static final long MIN_TIME_BW_UPDATES = 1000 * 60 * 1;
+    public double latitude; // latitude
+    public double longitude; // longitude
+    protected LocationManager locationManager;
     boolean isGPSEnabled = false;
     boolean isNetworkEnabled = false;
     boolean canGetLocation = false;
     int geocoderMaxResults = 1;
     Location location; // location
-    public double latitude; // latitude
-    public double longitude; // longitude
     boolean isGPSTrackingEnabled = false;
-    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10;
-    private static final long MIN_TIME_BW_UPDATES = 1000 * 60 * 1;
-    protected LocationManager locationManager;
+    private Context mContext;
 
     //SessionManager sessionManager =  new SessionManager(this);
 

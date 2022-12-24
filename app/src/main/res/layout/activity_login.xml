@@ -1,207 +1,222 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
-    <RelativeLayout
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    <RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorPrimary"
         tools:context=".activity.LoginActivity">
+
         <RelativeLayout
             android:id="@+id/header"
             android:layout_width="match_parent"
             android:layout_height="90dp"
             android:orientation="horizontal">
+
             <ImageView
                 android:id="@+id/back"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
                 android:layout_margin="@dimen/margin"
                 android:padding="@dimen/padding"
-                android:layout_centerVertical="true"
-                android:src="@drawable/back"
-                android:layout_gravity="center"/>
+                android:src="@drawable/back" />
+
             <androidx.cardview.widget.CardView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="7dp"
-                app:cardBackgroundColor="@color/colorPrimary"
-                android:elevation="7dp"
-                android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
-                android:fitsSystemWindows="true"
-                app:cardUseCompatPadding="true"
+                android:layout_centerVertical="true"
                 android:layout_marginRight="@dimen/marginmed"
-                app:cardElevation="5dp">
+                android:elevation="7dp"
+                android:fitsSystemWindows="true"
+                app:cardBackgroundColor="@color/colorPrimary"
+                app:cardCornerRadius="7dp"
+                app:cardElevation="5dp"
+                app:cardUseCompatPadding="true">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:padding="@dimen/padding"
-                    android:src="@drawable/logo50"/>
+                    android:src="@drawable/logo50" />
             </androidx.cardview.widget.CardView>
         </RelativeLayout>
+
         <RelativeLayout
-            android:layout_below="@+id/header"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_below="@+id/header"
             android:background="@drawable/log_back">
+
             <LinearLayout
                 android:id="@+id/top"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:layout_marginLeft="@dimen/marginlow"
                 android:layout_marginTop="@dimen/marginlowheight"
-                android:layout_marginLeft="@dimen/marginlow">
+                android:orientation="vertical">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Sign In"
-                    android:textSize="@dimen/ultrapara"
-                    android:gravity="center"
-                    android:textColor="@color/black"
                     android:layout_marginTop="@dimen/marginlow"
                     android:fontFamily="@font/josefinsans_bold"
-                    />
+                    android:gravity="center"
+                    android:text="Sign In"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/ultrapara" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Welcome to the Carro Care !!"
                     android:layout_marginTop="@dimen/margin"
-                    android:textSize="@dimen/heading"
+                    android:fontFamily="@font/josefinsans_light"
                     android:gravity="center"
+                    android:text="Welcome to the Carro Care !!"
                     android:textColor="@color/black"
-                    android:fontFamily="@font/josefinsans_light" />
+                    android:textSize="@dimen/heading" />
 
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/marginlow"
                 android:layout_centerInParent="true"
+                android:layout_margin="@dimen/marginlow"
                 android:orientation="vertical">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/paddinglow"
-                    android:layout_marginTop="@dimen/marginhigh"
                     android:layout_marginLeft="@dimen/marginmed"
+                    android:layout_marginTop="@dimen/marginhigh"
                     android:layout_marginRight="@dimen/marginmed"
-                    android:background="@drawable/log_bg">
+                    android:background="@drawable/log_bg"
+                    android:padding="@dimen/paddinglow">
+
                     <ImageView
                         android:id="@+id/emailicon"
                         android:layout_width="@dimen/marginhigh"
                         android:layout_height="@dimen/marginhigh"
                         android:layout_margin="10dp"
-                        android:src="@drawable/email"
                         android:padding="@dimen/padding"
-                        />
+                        android:src="@drawable/email" />
+
                     <EditText
                         android:id="@+id/email_edt"
-                        android:layout_toRightOf="@+id/emailicon"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:textSize="@dimen/heading"
-                        android:padding="@dimen/paddinghigh"
+                        android:layout_toRightOf="@+id/emailicon"
                         android:background="@color/white"
-                        android:inputType="textEmailAddress"
                         android:fontFamily="@font/josefinsans_regular"
-                        android:hint="Email address"/>
+                        android:hint="Email address"
+                        android:inputType="textEmailAddress"
+                        android:padding="@dimen/paddinghigh"
+                        android:textSize="@dimen/heading" />
 
                 </RelativeLayout>
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/paddinglow"
-                    android:layout_marginTop="@dimen/log_top"
                     android:layout_marginLeft="@dimen/marginmed"
+                    android:layout_marginTop="@dimen/log_top"
                     android:layout_marginRight="@dimen/marginmed"
-                    android:background="@drawable/log_bg">
+                    android:background="@drawable/log_bg"
+                    android:padding="@dimen/paddinglow">
+
                     <ImageView
                         android:id="@+id/passicon"
                         android:layout_width="@dimen/marginhigh"
                         android:layout_height="@dimen/marginhigh"
                         android:layout_margin="10dp"
                         android:padding="@dimen/padding"
-                        android:src="@drawable/password"
-                        />
+                        android:src="@drawable/password" />
+
                     <EditText
                         android:id="@+id/pass_edt"
-                        android:layout_toRightOf="@+id/passicon"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:textSize="@dimen/heading"
-                        android:padding="@dimen/paddinghigh"
+                        android:layout_toRightOf="@+id/passicon"
                         android:background="@color/white"
-                        android:inputType="textWebPassword"
                         android:fontFamily="@font/josefinsans_regular"
-                        android:hint="Password"/>
+                        android:hint="Password"
+                        android:inputType="textWebPassword"
+                        android:padding="@dimen/paddinghigh"
+                        android:textSize="@dimen/heading" />
+
                     <ImageView
                         android:id="@+id/passhide"
                         android:layout_width="@dimen/marginhigh"
                         android:layout_height="@dimen/marginhigh"
-                        android:layout_margin="10dp"
                         android:layout_alignParentRight="true"
-                        android:padding="@dimen/padding"
+                        android:layout_margin="10dp"
                         android:onClick="ShowHidePass"
-                        android:src="@drawable/ic_invisible"
-                        />
+                        android:padding="@dimen/padding"
+                        android:src="@drawable/ic_invisible" />
                 </RelativeLayout>
+
                 <TextView
                     android:id="@+id/forgotpass"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Forgot password ?"
-                    android:textSize="@dimen/heading"
-                    android:fontFamily="@font/josefinsans_regular"
                     android:layout_marginLeft="@dimen/marginmed"
-                    android:layout_marginTop="@dimen/marginmed"/>
+                    android:layout_marginTop="@dimen/marginmed"
+                    android:fontFamily="@font/josefinsans_regular"
+                    android:text="Forgot password ?"
+                    android:textSize="@dimen/heading" />
+
                 <Button
                     android:id="@+id/login_btn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Login"
-                    android:layout_marginLeft="@dimen/marginmed"
-                    android:layout_marginRight="@dimen/marginmed"
-                    android:fontFamily="@font/josefinsans_bold"
-                    android:textColor="@color/white"
                     android:layout_gravity="center"
-                    android:textSize="@dimen/bigtext"
+                    android:layout_marginLeft="@dimen/marginmed"
+                    android:layout_marginTop="@dimen/marginhigh"
+                    android:layout_marginRight="@dimen/marginmed"
                     android:background="@drawable/login_bg"
+                    android:fontFamily="@font/josefinsans_bold"
                     android:paddingLeft="@dimen/fifty"
-                    android:textAllCaps="true"
                     android:paddingRight="@dimen/fifty"
-                    android:layout_marginTop="@dimen/marginhigh"/>
+                    android:text="Login"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/bigtext" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:gravity="center"
                     android:layout_marginTop="@dimen/marginhigh"
+                    android:gravity="center"
                     android:orientation="horizontal">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Create An Account  "
-                        android:textSize="@dimen/bigtext"
                         android:layout_gravity="center"
-                        android:gravity="center"
                         android:fontFamily="@font/josefinsans_regular"
-                        />
+                        android:gravity="center"
+                        android:text="Create An Account  "
+                        android:textSize="@dimen/bigtext" />
+
                     <TextView
                         android:id="@+id/signup"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/signup"
-                        android:textSize="@dimen/heading"
                         android:layout_gravity="center"
-                        android:gravity="center"
                         android:clickable="true"
+                        android:fontFamily="@font/josefinsans_regular"
+                        android:gravity="center"
+                        android:text="@string/signup"
                         android:textColor="@color/colorPrimary"
-                        android:fontFamily="@font/josefinsans_regular" />
+                        android:textSize="@dimen/heading" />
                 </LinearLayout>
             </LinearLayout>
 

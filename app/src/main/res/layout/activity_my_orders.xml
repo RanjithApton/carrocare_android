@@ -1,87 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
-    <RelativeLayout
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    <RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorPrimary"
         tools:context=".activity.MyOrdersActivity">
+
         <LinearLayout
             android:id="@+id/header"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:orientation="horizontal"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="horizontal">
+
             <ImageView
                 android:id="@+id/back"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:layout_margin="10dp"
-                android:src="@drawable/back"
-                android:padding="@dimen/padding"
                 android:layout_gravity="center|left"
-                />
+                android:layout_margin="10dp"
+                android:padding="@dimen/padding"
+                android:src="@drawable/back" />
+
             <TextView
                 android:id="@+id/header_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|left"
                 android:layout_weight="1"
-                android:textColor="#FFF"
-                android:textAllCaps="true"
-                android:text="My Orders"
                 android:fontFamily="@font/josefinsans_bold"
-                android:textSize="@dimen/heading"/>
+                android:text="My Orders"
+                android:textAllCaps="true"
+                android:textColor="#FFF"
+                android:textSize="@dimen/heading" />
         </LinearLayout>
+
         <RelativeLayout
-            android:layout_above="@+id/bottom_ll"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/bg"
+            android:layout_above="@+id/bottom_ll"
             android:layout_below="@+id/header"
+            android:background="@drawable/bg"
             android:orientation="vertical">
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/orders_rc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
             </androidx.recyclerview.widget.RecyclerView>
+
             <ImageView
                 android:id="@+id/noorders"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
                 android:layout_centerInParent="true"
-                android:visibility="gone"
-                android:src="@drawable/noorder"/>
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/noorder"
+                android:visibility="gone" />
         </RelativeLayout>
 
         <LinearLayout
             android:id="@+id/bottom_ll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg"
             android:layout_alignParentBottom="true"
-            android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/bg"
             android:gravity="center"
             android:orientation="horizontal">
+
             <Button
                 android:id="@+id/renew"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/add_bg"
-                android:text="Renew"
-                android:textColor="@color/white"
-                android:textSize="@dimen/bigtext"
                 android:layout_gravity="center"
-                android:gravity="center"
-                android:fontFamily="@font/josefinsans_bold"
                 android:layout_marginTop="@dimen/margin"
                 android:layout_marginBottom="@dimen/marginmed"
+                android:background="@drawable/add_bg"
+                android:fontFamily="@font/josefinsans_bold"
+                android:gravity="center"
                 android:paddingLeft="@dimen/fifty"
-                android:paddingRight="@dimen/fifty"/>
+                android:paddingRight="@dimen/fifty"
+                android:text="Renew"
+                android:textColor="@color/white"
+                android:textSize="@dimen/bigtext" />
         </LinearLayout>
 
     </RelativeLayout>

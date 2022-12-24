@@ -19,6 +19,7 @@ public class PreferredTimeAdapter extends RecyclerView.Adapter {
     String[] prefer;
     String type;
     private int lastSelectedPosition = -1;
+
     public PreferredTimeAdapter(Context context, String[] predferred) {
         this.context = context;
         this.prefer = predferred;
@@ -35,33 +36,36 @@ public class PreferredTimeAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int position) {
-         final MyViewHolder viewHolder = (MyViewHolder) holder;
+        final MyViewHolder viewHolder = (MyViewHolder) holder;
         viewHolder._name.setText(prefer[position]);
         viewHolder._name.setTag(viewHolder);
-        viewHolder._name.setChecked(lastSelectedPosition==position);
+        viewHolder._name.setChecked(lastSelectedPosition == position);
         viewHolder._name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    MyViewHolder viewHolder1 = (MyViewHolder) view.getTag();
-                    int pos = viewHolder1.getAdapterPosition();
-                    lastSelectedPosition = pos;
-                    notifyDataSetChanged();
-                    ((CalenderActivity)context).binding.preferredtimeEdt.setText(prefer[pos]);
+                MyViewHolder viewHolder1 = (MyViewHolder) view.getTag();
+                int pos = viewHolder1.getAdapterPosition();
+                lastSelectedPosition = pos;
+                notifyDataSetChanged();
+                ((CalenderActivity) context).binding.preferredtimeEdt.setText(prefer[pos]);
 //                    ((CalenderActivity)context).time = prefer[pos];
-                    ((CalenderActivity)context).binding.timerl.setVisibility(View.GONE);
+                ((CalenderActivity) context).binding.timerl.setVisibility(View.GONE);
             }
         });
 
     }
+
     @Override
     public int getItemCount() {
         return prefer.length;
     }
+
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         RadioButton _name;
+
         public MyViewHolder(View itemLayoutView) {
             super(itemLayoutView);
-             _name = (RadioButton)itemLayoutView.findViewById(R.id.apart_name);
+            _name = (RadioButton) itemLayoutView.findViewById(R.id.apart_name);
         }
     }
 

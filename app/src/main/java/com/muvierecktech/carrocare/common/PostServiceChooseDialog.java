@@ -14,12 +14,6 @@ import com.muvierecktech.carrocare.R;
 public class PostServiceChooseDialog extends DialogFragment {
     AlertPositiveListener alertPositiveListener;
 
-    public interface AlertPositiveListener {
-        void apartmentSevice();
-
-        void doorstepService();
-    }
-
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -48,5 +42,11 @@ public class PostServiceChooseDialog extends DialogFragment {
             }
         });
         return builderSingle.create();
+    }
+
+    public interface AlertPositiveListener {
+        void apartmentSevice();
+
+        void doorstepService();
     }
 }

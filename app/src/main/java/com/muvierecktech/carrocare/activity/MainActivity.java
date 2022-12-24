@@ -55,15 +55,16 @@ import java.util.HashMap;
 import java.util.List;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
     public ActivityMainBinding binding;
-    int[] cars = {R.drawable.slide_1,R.drawable.slide_2,R.drawable.slide_3};
+    int[] cars = {R.drawable.slide_1, R.drawable.slide_2, R.drawable.slide_3};
     SessionManager sessionManager;
-    String username,apartname,token,customerid;
+    String username, apartname, token, customerid;
     boolean doubleBackToExitPressedOnce = false;
     String currentVersion;
     List<OrdersList.Orders> order;
@@ -73,6 +74,82 @@ public class MainActivity extends AppCompatActivity {
     MyDatabaseHelper databaseHelper;
     CartListAdapter dbAdapter;
     String firebase_id;
+
+    public static void OpenBottomDialog(final Activity activity) {
+        View sheetView = activity.getLayoutInflater().inflate(R.layout.lyt_update, null);
+        ViewGroup parentViewGroup = (ViewGroup) sheetView.getParent();
+        if (parentViewGroup != null) {
+            parentViewGroup.removeAllViews();
+        }
+
+        final BottomSheetDialog mBottomSheetDialog = new BottomSheetDialog(activity);
+        mBottomSheetDialog.setContentView(sheetView);
+        mBottomSheetDialog.show();
+        mBottomSheetDialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+
+        ImageView imgclose = sheetView.findViewById(R.id.imgclose);
+        Button btnNotNow = sheetView.findViewById(R.id.btnNotNow);
+        Button btnUpadateNow = sheetView.findViewById(R.id.btnUpdateNow);
+        if (Constant.VERSION_STATUS.equals("0")) {
+            btnNotNow.setVisibility(View.VISIBLE);
+            imgclose.setVisibility(View.VISIBLE);
+            mBottomSheetDialog.setCancelable(true);
+        } else
+            mBottomSheetDialog.setCancelable(false);
+
+        imgclose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mBottomSheetDialog.isShowing())
+                    mBottomSheetDialog.dismiss();
+            }
+        });
+        btnNotNow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mBottomSheetDialog.isShowing())
+                    mBottomSheetDialog.dismiss();
+            }
+        });
+        btnUpadateNow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("TAG", "play store link is " + Constant.PLAY_STORE_LINK + activity.getPackageName());
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(Constant.PLAY_STORE_LINK + activity.getPackageName()));
+                activity.startActivity(intent);
+                activity.finish();
+            }
+        });
+    }
+
+    public static int compareVersion(String version1, String version2) {
+        String[] arr1 = version1.split("\\.");
+        String[] arr2 = version2.split("\\.");
+
+        int i = 0;
+        while (i < arr1.length || i < arr2.length) {
+            if (i < arr1.length && i < arr2.length) {
+                if (Integer.parseInt(arr1[i]) < Integer.parseInt(arr2[i])) {
+                    return -1;
+                } else if (Integer.parseInt(arr1[i]) > Integer.parseInt(arr2[i])) {
+                    return 1;
+                }
+            } else if (i < arr1.length) {
+                if (Integer.parseInt(arr1[i]) != 0) {
+                    return 1;
+                }
+            } else {
+                if (Integer.parseInt(arr2[i]) != 0) {
+                    return -1;
+                }
+            }
+
+            i++;
+        }
+
+        return 0;
+    }
+
     @SuppressLint("LongLogTag")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,12 +158,12 @@ public class MainActivity extends AppCompatActivity {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         sessionManager = new SessionManager(this);
-        HashMap<String,String> hashMap = sessionManager.getUserDetails();
+        HashMap<String, String> hashMap = sessionManager.getUserDetails();
         username = hashMap.get(SessionManager.KEY_USERNAME);
         apartname = hashMap.get(SessionManager.KEY_APARTNAME);
         token = hashMap.get(SessionManager.KEY_TOKEN);
         customerid = hashMap.get(SessionManager.KEY_USERID);
-        binding.username.setText("Hi "+username+" !");
+        binding.username.setText("Hi " + username + " !");
 
         databaseHelper = new MyDatabaseHelper(this);
 
@@ -103,7 +180,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     // Get new FCM registration token
                     String newToken = task.getResult();
-                    Log.e("newToken",newToken);
+                    Log.e("newToken", newToken);
                     firebase_id = newToken;
                 });
 
@@ -112,30 +189,30 @@ public class MainActivity extends AppCompatActivity {
         binding.checkCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this,CartActivity.class));
+                startActivity(new Intent(MainActivity.this, CartActivity.class));
             }
         });
 
         binding.apartmentService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sessionManager.setData(SessionManager.USER_WANTS,"apartment");
-                startActivity(new Intent(MainActivity.this,ApartmentServiceActivity.class));
+                sessionManager.setData(SessionManager.USER_WANTS, "apartment");
+                startActivity(new Intent(MainActivity.this, ApartmentServiceActivity.class));
             }
         });
 
         binding.doorstepService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sessionManager.setData(SessionManager.USER_WANTS,"doorstep");
-                startActivity(new Intent(MainActivity.this,DoorStepServiceActivity.class));
+                sessionManager.setData(SessionManager.USER_WANTS, "doorstep");
+                startActivity(new Intent(MainActivity.this, DoorStepServiceActivity.class));
             }
         });
 
         binding.menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this,MainProfileActivity.class);
+                Intent intent = new Intent(MainActivity.this, MainProfileActivity.class);
                 startActivity(intent);
             }
         });
@@ -167,7 +244,7 @@ public class MainActivity extends AppCompatActivity {
 
         binding.orderImg.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-               workextra();
+                workextra();
             }
         });
         binding.orderEdt.setOnClickListener(new View.OnClickListener() {
@@ -210,20 +287,20 @@ public class MainActivity extends AppCompatActivity {
         binding.myVechicle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,MyVehiclesActivity.class);
+                Intent intent = new Intent(MainActivity.this, MyVehiclesActivity.class);
                 startActivity(intent);
             }
         });
         binding.carWash.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (TextUtils.isEmpty(apartname) || apartname == null || apartname.equalsIgnoreCase("null")){
+                if (TextUtils.isEmpty(apartname) || apartname == null || apartname.equalsIgnoreCase("null")) {
                     Constant.LOAD_FROM = "main";
-                    Intent intent = new Intent(MainActivity.this,ProfileActivity.class);
+                    Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
                     startActivity(intent);
                     finish();
-                }else {
-                    Intent intent = new Intent(MainActivity.this,CarWashActivity.class);
+                } else {
+                    Intent intent = new Intent(MainActivity.this, CarWashActivity.class);
                     //intent.putExtra("headername", Constant.WASH);
                     startActivity(intent);
                 }
@@ -232,13 +309,13 @@ public class MainActivity extends AppCompatActivity {
         binding.carDisinfection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (TextUtils.isEmpty(apartname) || apartname == null || apartname.equalsIgnoreCase("null")){
+                if (TextUtils.isEmpty(apartname) || apartname == null || apartname.equalsIgnoreCase("null")) {
                     Constant.LOAD_FROM = "main";
-                    Intent intent = new Intent(MainActivity.this,ProfileActivity.class);
+                    Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
                     startActivity(intent);
                     finish();
-                }else {
-                    Intent intent = new Intent(MainActivity.this,DisinfectionActivity.class);
+                } else {
+                    Intent intent = new Intent(MainActivity.this, DisinfectionActivity.class);
                     //intent.putExtra("headername", Constant.WASH);
                     startActivity(intent);
                 }
@@ -248,11 +325,11 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (TextUtils.isEmpty(apartname) || apartname == null || apartname.equalsIgnoreCase("null")) {
                     Constant.LOAD_FROM = "main";
-                    Intent intent = new Intent(MainActivity.this,ProfileActivity.class);
+                    Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
                     startActivity(intent);
                     finish();
-                }else {
-                    Intent intent = new Intent(MainActivity.this,BikeWashActivity.class);
+                } else {
+                    Intent intent = new Intent(MainActivity.this, BikeWashActivity.class);
                     //intent.putExtra("headername", Constant.BWASH);
                     startActivity(intent);
                 }
@@ -261,13 +338,13 @@ public class MainActivity extends AppCompatActivity {
         binding.carService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (TextUtils.isEmpty(apartname) || apartname == null || apartname.equalsIgnoreCase("null")){
+                if (TextUtils.isEmpty(apartname) || apartname == null || apartname.equalsIgnoreCase("null")) {
                     Constant.LOAD_FROM = "main";
-                    Intent intent = new Intent(MainActivity.this,ProfileActivity.class);
+                    Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
                     startActivity(intent);
                     finish();
-                }else {
-                    Intent intent = new Intent(MainActivity.this,AddOnActivity.class);
+                } else {
+                    Intent intent = new Intent(MainActivity.this, AddOnActivity.class);
                     //intent.putExtra("headername",Constant.ADDON);
                     startActivity(intent);
                 }
@@ -275,12 +352,12 @@ public class MainActivity extends AppCompatActivity {
         });
         binding.extraInterior.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                if (TextUtils.isEmpty(apartname) || apartname == null || apartname.equalsIgnoreCase("null")){
+                if (TextUtils.isEmpty(apartname) || apartname == null || apartname.equalsIgnoreCase("null")) {
                     Constant.LOAD_FROM = "main";
-                    Intent intent = new Intent(MainActivity.this,ProfileActivity.class);
+                    Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
                     startActivity(intent);
                     finish();
-                }else {
+                } else {
                     Intent intent = new Intent(MainActivity.this, ExtraInteriorActivity.class);
                     //intent.putExtra("headername",Constant.EXTRAINT);
                     startActivity(intent);
@@ -291,22 +368,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void work() {
-        if (isNetworkAvailable()){
+        if (isNetworkAvailable()) {
             getSettings();
             Sliders();
             profile();
-        }else {
+        } else {
             AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
             dialog.setCancelable(false);
             dialog.setTitle("Alert!");
-            dialog.setMessage("No internet.Please check your connection." );
+            dialog.setMessage("No internet.Please check your connection.");
             dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int id) {
-                    //Action for "Ok".
-                    work();
-                }
-            })
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            //Action for "Ok".
+                            work();
+                        }
+                    })
                     .setNegativeButton("Cancel ", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -321,20 +398,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void workextra() {
-        if (isNetworkAvailable()){
+        if (isNetworkAvailable()) {
             internalWash();
-        }else {
+        } else {
             AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
             dialog.setCancelable(false);
             dialog.setTitle("Alert!");
-            dialog.setMessage("No internet.Please check your connection." );
+            dialog.setMessage("No internet.Please check your connection.");
             dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int id) {
-                    //Action for "Ok".
-                    workextra();
-                }
-            })
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            //Action for "Ok".
+                            workextra();
+                        }
+                    })
                     .setNegativeButton("Cancel ", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -361,12 +438,12 @@ public class MainActivity extends AppCompatActivity {
                 .setDimAmount(0.5f)
                 .show();
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        Call<OrdersList> call = apiInterface.orderlistInternal(token,customerid);
+        Call<OrdersList> call = apiInterface.orderlistInternal(token, customerid);
         call.enqueue(new Callback<OrdersList>() {
             @Override
             public void onResponse(Call<OrdersList> call, Response<OrdersList> response) {
-                try{
-                    if(response.isSuccessful()){
+                try {
+                    if (response.isSuccessful()) {
                         OrdersList body = response.body();
                         if (body.code.equalsIgnoreCase("200")) {
                             hud.dismiss();
@@ -397,7 +474,7 @@ public class MainActivity extends AppCompatActivity {
                             if (!body.orders.isEmpty()) {
                                 binding.orderRc.setVisibility(View.VISIBLE);
                                 binding.noorders.setVisibility(View.GONE);
-                            }else{
+                            } else {
                                 binding.orderRc.setVisibility(View.GONE);
                                 binding.noorders.setVisibility(View.VISIBLE);
                             }
@@ -418,7 +495,7 @@ public class MainActivity extends AppCompatActivity {
                             binding.noorders.setVisibility(View.VISIBLE);
                             binding.orderRc.setVisibility(View.GONE);
                         }
-                    } else{
+                    } else {
                         ApiConfig.responseToast(MainActivity.this, response.code());
                     }
                 } catch (Exception e) {
@@ -436,7 +513,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
     private void profile() {
         final KProgressHUD hud = KProgressHUD.create(MainActivity.this)
                 .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
@@ -445,13 +521,13 @@ public class MainActivity extends AppCompatActivity {
                 .setDimAmount(0.5f)
                 .show();
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        Call<LoginDetails> call = apiInterface.profile(token,customerid);
+        Call<LoginDetails> call = apiInterface.profile(token, customerid);
         call.enqueue(new Callback<LoginDetails>() {
             @Override
             public void onResponse(Call<LoginDetails> call, Response<LoginDetails> response) {
                 hud.dismiss();
-                try{
-                    if(response.isSuccessful()){
+                try {
+                    if (response.isSuccessful()) {
                         final LoginDetails loginDetails = response.body();
                         if (loginDetails.code.equalsIgnoreCase("200")) {
                             Gson gson = new Gson();
@@ -466,24 +542,26 @@ public class MainActivity extends AppCompatActivity {
                             sessionManager.UserApartName(loginDetails.apartment_name);
                             apartname = loginDetails.apartment_name;
                             sessionManager.UserFlatno(loginDetails.flat_no);
-                        }else  if (loginDetails.code.equalsIgnoreCase("201")) {
+                        } else if (loginDetails.code.equalsIgnoreCase("201")) {
                             sessionManager.logoutUsers();
                         }
-                    } else{
+                    } else {
                         ApiConfig.responseToast(MainActivity.this, response.code());
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
+
             @Override
             public void onFailure(Call<LoginDetails> call, Throwable t) {
                 hud.dismiss();
-                Toast.makeText(MainActivity.this,"Timeout.Try after sometime",Toast.LENGTH_SHORT).show();
-                Log.e("Profile",""+t.toString());
+                Toast.makeText(MainActivity.this, "Timeout.Try after sometime", Toast.LENGTH_SHORT).show();
+                Log.e("Profile", "" + t.toString());
             }
         });
     }
+
     private void Sliders() {
         final KProgressHUD hud = KProgressHUD.create(MainActivity.this)
                 .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
@@ -497,8 +575,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<SliderList> call, Response<SliderList> response) {
                 hud.dismiss();
-                try{
-                    if(response.isSuccessful()){
+                try {
+                    if (response.isSuccessful()) {
                         final SliderList sliderList = response.body();
                         if (sliderList.code.equalsIgnoreCase("200")) {
                             Gson gson = new Gson();
@@ -506,31 +584,32 @@ public class MainActivity extends AppCompatActivity {
                             SliderAdapter offerAdapter = new SliderAdapter(MainActivity.this, sliderList.slider);
                             addBannerImages(sliderList.slider);
                         }
-                    } else{
+                    } else {
                         ApiConfig.responseToast(MainActivity.this, response.code());
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
+
             @Override
             public void onFailure(Call<SliderList> call, Throwable t) {
                 hud.dismiss();
-                Toast.makeText(MainActivity.this,"Timeout.Try after sometime",Toast.LENGTH_SHORT).show();
-                Log.e("Slider",""+t.toString());
+                Toast.makeText(MainActivity.this, "Timeout.Try after sometime", Toast.LENGTH_SHORT).show();
+                Log.e("Slider", "" + t.toString());
             }
         });
     }
 
     private void addBannerImages(List<SliderList.Slider> slider) {
-        try{
+        try {
             List<SlideModel> slideModelList = new ArrayList<>();
 
             for (int i = 0; i < slider.size(); i++) {
                 slideModelList.add(new SlideModel(slider.get(i).simage));
             }
 
-            binding.imageSlider.setImageList(slideModelList,true);
+            binding.imageSlider.setImageList(slideModelList, true);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -552,17 +631,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @SuppressLint("LongLogTag")
-    public void showCartCount(){
+    public void showCartCount() {
         //int totalItemOfCart = dbAdapter.cart_count;
         int totalItemOfCart = databaseHelper.getTotalItemOfCart();
 
-        if(totalItemOfCart == 0){
+        if (totalItemOfCart == 0) {
             binding.cartCount.setVisibility(View.GONE);
-        }else{
+        } else {
             binding.cartCount.setText(String.valueOf(totalItemOfCart));
         }
 
-        Log.e("Total item of cart--->   ",""+totalItemOfCart);
+        Log.e("Total item of cart--->   ", "" + totalItemOfCart);
     }
 
     @Override
@@ -581,128 +660,52 @@ public class MainActivity extends AppCompatActivity {
         }, 2000);
     }
 
-
     private void getSettings() {
-            ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-            Call<SettingsList> call = apiInterface.getSettings("");
-            call.enqueue(new Callback<SettingsList>() {
-                @Override
-                public void onResponse(Call<SettingsList> call, Response<SettingsList> response) {
-                    try{
-                        if(response.isSuccessful()){
-                            final SettingsList settingsList = response.body();
-                            if (settingsList.code.equalsIgnoreCase("200")){
-                                Gson gson = new Gson();
-                                String json = gson.toJson(settingsList);
-                                Constant.GST_PERCENTAGE = settingsList.res.gst;
-                                sessionManager.setData(SessionManager.GST_PERCENTAGE, String.valueOf(settingsList.res.gst));
-                                Constant.VERSION_CODE = settingsList.res.current_version;
-                                Constant.REQUIRED_VERSION = settingsList.res.minimum_version;
-                                String versionName = "";
-                                try {
-                                    PackageInfo packageInfo = MainActivity.this.getPackageManager().getPackageInfo(MainActivity.this.getPackageName(), 0);
-                                    versionName = packageInfo.versionName;
-                                } catch (PackageManager.NameNotFoundException e) {
-                                    Log.e("TAG","version name exception is "+e);
-                                }
-                                Log.e("VERSION NAME",versionName);
-                                if (compareVersion(versionName, Constant.REQUIRED_VERSION) < 0) {
-                                    Constant.VERSION_STATUS = "1";
-                                    OpenBottomDialog(MainActivity.this);
-                                }else if (compareVersion(versionName, Constant.VERSION_CODE) < 0) {
-                                    Constant.VERSION_STATUS = "0";
-                                    OpenBottomDialog(MainActivity.this);
-                                }
+        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+        Call<SettingsList> call = apiInterface.getSettings("");
+        call.enqueue(new Callback<SettingsList>() {
+            @Override
+            public void onResponse(Call<SettingsList> call, Response<SettingsList> response) {
+                try {
+                    if (response.isSuccessful()) {
+                        final SettingsList settingsList = response.body();
+                        if (settingsList.code.equalsIgnoreCase("200")) {
+                            Gson gson = new Gson();
+                            String json = gson.toJson(settingsList);
+                            Constant.GST_PERCENTAGE = settingsList.res.gst;
+                            sessionManager.setData(SessionManager.GST_PERCENTAGE, String.valueOf(settingsList.res.gst));
+                            Constant.VERSION_CODE = settingsList.res.current_version;
+                            Constant.REQUIRED_VERSION = settingsList.res.minimum_version;
+                            String versionName = "";
+                            try {
+                                PackageInfo packageInfo = MainActivity.this.getPackageManager().getPackageInfo(MainActivity.this.getPackageName(), 0);
+                                versionName = packageInfo.versionName;
+                            } catch (PackageManager.NameNotFoundException e) {
+                                Log.e("TAG", "version name exception is " + e);
                             }
-                        } else{
-                            ApiConfig.responseToast(MainActivity.this, response.code());
+                            Log.e("VERSION NAME", versionName);
+                            if (compareVersion(versionName, Constant.REQUIRED_VERSION) < 0) {
+                                Constant.VERSION_STATUS = "1";
+                                OpenBottomDialog(MainActivity.this);
+                            } else if (compareVersion(versionName, Constant.VERSION_CODE) < 0) {
+                                Constant.VERSION_STATUS = "0";
+                                OpenBottomDialog(MainActivity.this);
+                            }
                         }
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                    } else {
+                        ApiConfig.responseToast(MainActivity.this, response.code());
                     }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
+            }
 
-                @Override
-                public void onFailure(Call<SettingsList> loginDetails, Throwable t) {
+            @Override
+            public void onFailure(Call<SettingsList> loginDetails, Throwable t) {
 //                progressDialog.dismiss();
-                    Toast.makeText(MainActivity.this, "Timeout.Try after sometime", Toast.LENGTH_SHORT).show();
-                    Log.e("Settings",""+t.toString());
-                }
-            });
-    }
-
-    public static void OpenBottomDialog(final Activity activity) {
-        View sheetView = activity.getLayoutInflater().inflate(R.layout.lyt_update, null);
-        ViewGroup parentViewGroup = (ViewGroup) sheetView.getParent();
-        if (parentViewGroup != null) {
-            parentViewGroup.removeAllViews();
-        }
-
-        final BottomSheetDialog mBottomSheetDialog = new BottomSheetDialog(activity);
-        mBottomSheetDialog.setContentView(sheetView);
-        mBottomSheetDialog.show();
-        mBottomSheetDialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-
-        ImageView imgclose = sheetView.findViewById(R.id.imgclose);
-        Button btnNotNow = sheetView.findViewById(R.id.btnNotNow);
-        Button btnUpadateNow = sheetView.findViewById(R.id.btnUpdateNow);
-        if (Constant.VERSION_STATUS.equals("0")) {
-            btnNotNow.setVisibility(View.VISIBLE);
-            imgclose.setVisibility(View.VISIBLE);
-            mBottomSheetDialog.setCancelable(true);
-        } else
-            mBottomSheetDialog.setCancelable(false);
-
-        imgclose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (mBottomSheetDialog.isShowing())
-                    mBottomSheetDialog.dismiss();
+                Toast.makeText(MainActivity.this, "Timeout.Try after sometime", Toast.LENGTH_SHORT).show();
+                Log.e("Settings", "" + t.toString());
             }
         });
-        btnNotNow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (mBottomSheetDialog.isShowing())
-                    mBottomSheetDialog.dismiss();
-            }
-        });
-        btnUpadateNow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d("TAG","play store link is "+Constant.PLAY_STORE_LINK+activity.getPackageName());
-                Intent intent=new Intent(Intent.ACTION_VIEW, Uri.parse(Constant.PLAY_STORE_LINK + activity.getPackageName()));
-                activity.startActivity(intent);
-                activity.finish();
-            }
-        });
-    }
-
-    public static int compareVersion(String version1, String version2) {
-        String[] arr1 = version1.split("\\.");
-        String[] arr2 = version2.split("\\.");
-
-        int i = 0;
-        while (i < arr1.length || i < arr2.length) {
-            if (i < arr1.length && i < arr2.length) {
-                if (Integer.parseInt(arr1[i]) < Integer.parseInt(arr2[i])) {
-                    return -1;
-                } else if (Integer.parseInt(arr1[i]) > Integer.parseInt(arr2[i])) {
-                    return 1;
-                }
-            } else if (i < arr1.length) {
-                if (Integer.parseInt(arr1[i]) != 0) {
-                    return 1;
-                }
-            } else {
-                if (Integer.parseInt(arr2[i]) != 0) {
-                    return -1;
-                }
-            }
-
-            i++;
-        }
-
-        return 0;
     }
 }

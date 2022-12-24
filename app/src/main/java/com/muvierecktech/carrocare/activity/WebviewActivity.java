@@ -18,19 +18,20 @@ import com.muvierecktech.carrocare.databinding.ActivityWebviewBinding;
 public class WebviewActivity extends AppCompatActivity {
     ActivityWebviewBinding binding;
     ProgressDialog progressdialog;
-    String header,link;
+    String header, link;
+
     @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_webview);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_webview);
 
         Intent intent = getIntent();
         header = intent.getStringExtra("headername");
         link = intent.getStringExtra("link");
 
-        binding.headerName.setText(header+"");
+        binding.headerName.setText(header + "");
 
         progressdialog = new ProgressDialog(WebviewActivity.this);
         progressdialog.setMessage("Please Wait....");

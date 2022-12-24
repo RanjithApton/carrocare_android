@@ -35,14 +35,14 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
 //                JSONObject json = new JSONObject(remoteMessage.getData().toString());
 //                System.out.println("=====n_response " + json.toString());
-                Log.e(TAG,  data.toString());
-                Log.e(TAG, "onMessageReceived: DATA"+remoteMessage.getData().get("message") );
+                Log.e(TAG, data.toString());
+                Log.e(TAG, "onMessageReceived: DATA" + remoteMessage.getData().get("message"));
                 sendPushNotification(data);
             } catch (Exception e) {
                 Log.e(TAG, "Exception: " + e.getMessage());
             }
-        }else {
-            Log.e(TAG,  remoteMessage.getFrom());
+        } else {
+            Log.e(TAG, remoteMessage.getFrom());
         }
     }
 
@@ -58,35 +58,35 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             message = data.get("message");
             imageUrl = data.get("image");
 
-            type =  data.get("type");
-            id =  data.get("id");
+            type = data.get("type");
+            id = data.get("id");
 
             Intent intent = null;
-            if (type.equals("carwash")){
+            if (type.equals("carwash")) {
                 intent = new Intent(getApplicationContext(), CarWashActivity.class);
 //                        intent.putExtra("id", id);
-            } else if (type.equals("bikewash")){
+            } else if (type.equals("bikewash")) {
                 intent = new Intent(getApplicationContext(), BikeWashActivity.class);
 //                        intent.putExtra("id", id);
-            } else if (type.equals("waxpolish")){
+            } else if (type.equals("waxpolish")) {
                 intent = new Intent(getApplicationContext(), AddOnActivity.class);
 //                        intent.putExtra("id", id);
-            }else if (type.equals("extra")){
+            } else if (type.equals("extra")) {
                 intent = new Intent(getApplicationContext(), ExtraInteriorActivity.class);
 //                        intent.putExtra("id", id);
-            } else if (type.equals("carpolish")){
+            } else if (type.equals("carpolish")) {
                 intent = new Intent(getApplicationContext(), CarPolishActivity.class);
 //                        intent.putExtra("id", id);
-            } else if (type.equals("insurance")){
+            } else if (type.equals("insurance")) {
                 intent = new Intent(getApplicationContext(), ConfirmFormActivity.class);
 //                        intent.putExtra("id", id);
-            } else if (type.equals("orders")){
+            } else if (type.equals("orders")) {
                 intent = new Intent(getApplicationContext(), MyOrdersActivity.class);
 //                        intent.putExtra("id", id);
-            } else if (type.equals("cart")){
+            } else if (type.equals("cart")) {
                 intent = new Intent(getApplicationContext(), CartActivity.class);
 //                        intent.putExtra("id", id);
-            }else {
+            } else {
                 intent = new Intent(getApplicationContext(), MainActivity.class);
             }
             MyNotificationManager mNotificationManager = new MyNotificationManager(getApplicationContext());

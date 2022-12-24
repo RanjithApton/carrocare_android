@@ -34,7 +34,7 @@ public class MyFirebaseInstanceIDService extends MyFirebaseMessagingService {
     public void onNewToken(@NotNull String s) {
         super.onNewToken(s);
         String refreshedToken = FirebaseMessaging.getInstance().getToken().toString();
-        Log.d("TAG","token in firebase instance class is "+refreshedToken);
+        Log.d("TAG", "token in firebase instance class is " + refreshedToken);
         storeRegIdInPref(refreshedToken);
 
         sendRegistrationToServer(refreshedToken);

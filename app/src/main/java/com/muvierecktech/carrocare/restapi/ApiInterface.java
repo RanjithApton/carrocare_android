@@ -2,6 +2,7 @@ package com.muvierecktech.carrocare.restapi;
 
 import com.google.gson.JsonObject;
 import com.muvierecktech.carrocare.model.ApartmentList;
+import com.muvierecktech.carrocare.model.BillingList;
 import com.muvierecktech.carrocare.model.DoorStepCarWash;
 import com.muvierecktech.carrocare.model.LoginDetails;
 import com.muvierecktech.carrocare.model.MakeModelList;
@@ -55,13 +56,14 @@ public interface ApiInterface {
                                 @Field("device_model") String device_model,
                                 @Field("os_version") String os_version
     );
+
     @FormUrlEncoded
     @POST("forgot_password_otp.php")
     Call<JsonObject> forgot(@Field("mobile") String mobile);
 
     @FormUrlEncoded
     @POST("forgot_password_update.php")
-    Call<JsonObject> forgotupdate(@Field("mobile") String mobile,@Field("password") String password);
+    Call<JsonObject> forgotupdate(@Field("mobile") String mobile, @Field("password") String password);
 
     @GET("slider.php")
     Call<SliderList> slider();
@@ -76,14 +78,14 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST("profile_details.php")
-    Call<LoginDetails> profile(@Field("token") String token,@Field("customer_id") String customer_id);
+    Call<LoginDetails> profile(@Field("token") String token, @Field("customer_id") String customer_id);
 
     @FormUrlEncoded
     @POST("profile_update.php")
-    Call<JsonObject> profileupdate(@Field("token") String token,@Field("customer_id") String customer_id,@Field("apartment_name") String apartmant_name,
-                                   @Field("apartment_building") String apartmant_building,@Field("flat_no") String flat_no,
-                                   @Field("address") String address,@Field("latitude") String latitude,
-                                   @Field("longitude") String longitude);
+    Call<JsonObject> profileupdate(@Field("token") String token, @Field("customer_id") String customer_id, @Field("apartment_name") String apartmant_name,
+                                   @Field("apartment_building") String apartmant_building, @Field("flat_no") String flat_no,
+                                   @Field("address") String address, @Field("latitude") String latitude,
+                                   @Field("longitude") String longitude, @Field("gst") String gst);
 
     @GET("apartment_list.php")
     Call<ApartmentList> apartmentList();
@@ -93,7 +95,7 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST("vehicle_details.php")
-    Call<VehicleDetails> vehicledetails(@Field("customer_id") String customer_id, @Field("token") String token, @Field("category") String category );
+    Call<VehicleDetails> vehicledetails(@Field("customer_id") String customer_id, @Field("token") String token, @Field("category") String category);
 
     @FormUrlEncoded
     @POST("vehicle_details.php")
@@ -103,9 +105,9 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("service_customer_form.php")
     Call<JsonObject> serviceForm(@Field("name") String name, @Field("mobile") String mobile,
-                                 @Field("email") String email , @Field("address_line") String address_line ,
-                                 @Field("landmark") String landmark , @Field("city") String city ,
-                                 @Field("state") String state , @Field("country") String country ,
+                                 @Field("email") String email, @Field("address_line") String address_line,
+                                 @Field("landmark") String landmark, @Field("city") String city,
+                                 @Field("state") String state, @Field("country") String country,
                                  @Field("pincode") String pincode, @Field("vehicle_type") String vehicle_type,
                                  @Field("make") String make, @Field("model") String model,
                                  @Field("category") String category, @Field("form") String form);
@@ -117,15 +119,20 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("vehicle_add.php")
     Call<JsonObject> vechileAdd(@Field("vehicle_type") String vehicle_type, @Field("category") String category,
-                                @Field("make") String make , @Field("model") String model,
-                                @Field("vehicle_no") String vehicle_no , @Field("color") String color,
+                                @Field("make") String make, @Field("model") String model,
+                                @Field("vehicle_no") String vehicle_no, @Field("color") String color,
                                 @Field("apartment_name") String apartment_name, @Field("parking_lot_no") String parking_lot_no,
                                 @Field("parking_area") String parking_area, @Field("preferred_schedule") String preferred_schedule,
                                 @Field("preferred_time") String preferred_time, @Field("customer_id") String customer_id,
                                 @Field("token") String token);
+
     @FormUrlEncoded
     @POST("order_list.php")
     Call<OrdersList> orderlist(@Field("token") String token, @Field("customer_id") String customer_id);
+
+    @FormUrlEncoded
+    @POST("invoice_list.php")
+    Call<BillingList> billinglist(@Field("token") String token, @Field("customer_id") String customer_id);
 
     @FormUrlEncoded
     @POST("order_list_ext.php")
@@ -140,20 +147,23 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST("contact_form.php")
-    Call<JsonObject> conatctFrom(@Field("subject") String subject,@Field("message") String message,@Field("name") String name,
-                                 @Field("email") String email,@Field("mobile") String mobile);
+    Call<JsonObject> conatctFrom(@Field("subject") String subject, @Field("message") String message, @Field("name") String name,
+                                 @Field("email") String email, @Field("mobile") String mobile);
+
     @FormUrlEncoded
     @POST("validate_checkout.php")
     Call<JsonObject> checkValidation(@Field("customer_id") String customer_id, @Field("vehicle_id") String vehicle_id, @Field("service_type") String service_type);
+
     @FormUrlEncoded
     @POST("create_subscription.php")
     Call<JsonObject> getSubcription(@Field("plan_id") String plan_id, @Field("customer_id") String customer_id,
                                     @Field("vehicle_id") String vehicle_id, @Field("token") String token, @Field("no_of_count") String no_of_count);
+
     @FormUrlEncoded
     @POST("save_order.php")
     Call<JsonObject> saveOrder(@Field("action") String action, @Field("order_id") String order_id,
                                @Field("customer_id") String customer_id, @Field("token") String token, @Field("vehicle_id") String vehicle_id,
-                               @Field("service_type") String service_type, @Field("tot_amt") String tot_amt,@Field("plan_id") String plan_id,
+                               @Field("service_type") String service_type, @Field("tot_amt") String tot_amt, @Field("plan_id") String plan_id,
                                @Field("subscription_id") String subscription_id);
 
     @FormUrlEncoded
@@ -274,15 +284,16 @@ public interface ApiInterface {
     @POST("help_and_support.php")
     Call<JsonObject> helpandsupport(@Field("type") String type, @Field("question") String question,
                                     @Field("customer_id") String customer_id, @Field("token") String token);
+
     @FormUrlEncoded
     @POST("customer_wash_details.php")
-    Call<VehicleWashList> washDetails(@Field("customer_id") String customer_id, @Field("token") String token,@Field("vehicle_id") String vehicle_id,@Field("order_id") String order_id);
+    Call<VehicleWashList> washDetails(@Field("customer_id") String customer_id, @Field("token") String token, @Field("vehicle_id") String vehicle_id, @Field("order_id") String order_id);
 
     @FormUrlEncoded
     @POST("internal_clean_schedule.php")
-    Call<JsonObject> interSchedule(@Field("customer_id") String customer_id, @Field("token") String token,@Field("vehicle_id") String vehicle_id,@Field("order_id") String order_id
-            ,@Field("schedule_date") String schedule_date,@Field("schedule_time") String schedule_time,@Field("comment_box") String comment_box,@Field("date_type") String date_type
-            ,@Field("id") String id);
+    Call<JsonObject> interSchedule(@Field("customer_id") String customer_id, @Field("token") String token, @Field("vehicle_id") String vehicle_id, @Field("order_id") String order_id
+            , @Field("schedule_date") String schedule_date, @Field("schedule_time") String schedule_time, @Field("comment_box") String comment_box, @Field("date_type") String date_type
+            , @Field("id") String id);
 
     @FormUrlEncoded
     @POST("internal_clean_schedule_new.php")
@@ -305,7 +316,7 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST("cancel_subscription.php")
-    Call<JsonObject> cancelSubs(@Field("token") String token,@Field("vehicle_id") String vehicle_id,@Field("order_id") String order_id);
+    Call<JsonObject> cancelSubs(@Field("token") String token, @Field("vehicle_id") String vehicle_id, @Field("order_id") String order_id);
 
     @GET("razorpay_mode.php")
     Call<JsonObject> getMode();
@@ -314,9 +325,9 @@ public interface ApiInterface {
     @POST("vehicle_add.php")
     Call<JsonObject> vechileAddDoorstep(@Field("vehicle_type") String vehicle_type,
                                         @Field("category") String category,
-                                        @Field("make") String make ,
+                                        @Field("make") String make,
                                         @Field("model") String model,
-                                        @Field("vehicle_no") String vehicle_no ,
+                                        @Field("vehicle_no") String vehicle_no,
                                         @Field("color") String color,
 //                                        @Field("address") String address,
 //                                        @Field("latitude") String latitude,

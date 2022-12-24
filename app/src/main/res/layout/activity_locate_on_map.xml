@@ -23,14 +23,14 @@
         android:id="@+id/fabCurrent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/detailLyt"
         android:layout_alignParentEnd="true"
+        android:layout_margin="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:clickable="true"
         android:focusable="true"
         app:fabSize="mini"
-        android:layout_above="@+id/detailLyt"
-        android:layout_margin="16dp"
         app:srcCompat="@drawable/ic_current" />
 
     <LinearLayout
@@ -49,15 +49,14 @@
             android:textColor="@color/colorPrimaryDark" />
 
         <Button
+            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Update location"
-            android:textAllCaps="false"
             android:layout_marginTop="10dp"
-            style="@style/Widget.AppCompat.Button.Colored"
             android:minHeight="0dp"
             android:onClick="UpdateLocation"
-            />
+            android:text="Update location"
+            android:textAllCaps="false" />
 
     </LinearLayout>
 </RelativeLayout>
