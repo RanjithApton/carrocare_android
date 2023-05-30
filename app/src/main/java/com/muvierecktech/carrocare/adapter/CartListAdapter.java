@@ -64,7 +64,9 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.viewHo
 
         holder.car_name.setText(dbm.getModel());
         holder.car_no.setText(dbm.getNumber());
-        holder.action.setText(dbm.getType());
+        final String[] split = dbm.getType().split("=");
+        holder.action.setText(split[0]);
+
         if (holder.action.getText().equals("onetime_wash_payment")) {
             holder.type.setText("Wash");
             holder.month.setVisibility(View.VISIBLE);
@@ -74,8 +76,8 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.viewHo
         } else if (holder.action.getText().equals("onetime_payment")) {
             holder.type.setText("Extra Interior");
             holder.schedule_ll.setVisibility(View.VISIBLE);
-        } else if (holder.action.getText().equals("onetime_disinsfection_payment")) {
-            holder.type.setText("Disinsfection");
+        } else if (holder.action.getText().equals("onetime_disinfection_payment")) {
+            holder.type.setText("Disinfection");
             holder.schedule_ll.setVisibility(View.VISIBLE);
         }
         holder.month.setText(dbm.getPaidmonth());

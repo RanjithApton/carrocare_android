@@ -1,5 +1,6 @@
 package com.muvierecktech.carrocare.common;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -273,6 +274,25 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         return count;
     }
 
+    @SuppressLint("Range")
+    public String CheckOrder(String action, String carid) {
+        String count = "0";
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + ACTION + " = ? AND " + CAR_ID + " = ?", new String[]{action, carid});
+        if (cursor.moveToFirst()) {
+            count = cursor.getString(cursor.getColumnIndex(P_MONTHS));
+            if (count.equals("0")) {
+                db.execSQL("DELETE FROM " + TABLE_NAME + " WHERE " + ACTION + " = ? AND " + CAR_ID + " = ?", new String[]{action, carid});
+
+            }
+
+        }
+        cursor.close();
+        db.close();
+
+        return count;
+    }
+
     public ArrayList<String> getCartList() {
         final ArrayList<String> ids = new ArrayList<>();
         String selectQuery = "SELECT *  FROM " + TABLE_NAME;
@@ -281,7 +301,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
             do {
-                String count = cursor.getString(cursor.getColumnIndex(CAR_PRICE));
+                @SuppressLint("Range") String count = cursor.getString(cursor.getColumnIndex(CAR_PRICE));
                 if (count.equals("0")) {
                     db.execSQL("DELETE FROM " + TABLE_NAME + " WHERE " + ACTION + " = ? AND " + CAR_ID + " = ?", new String[]{cursor.getString(cursor.getColumnIndexOrThrow(ACTION)), cursor.getString(cursor.getColumnIndexOrThrow(CAR_ID))});
 

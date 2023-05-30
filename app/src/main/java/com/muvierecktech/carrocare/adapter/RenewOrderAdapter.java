@@ -33,7 +33,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class RenewOrderAdapter extends RecyclerView.Adapter {
     public Context context;
     List<OrdersList.Orders> ordersList;
-    String header;
+    String header = "";
     DatabaseHelper databaseHelper;
     SessionManager sessionManager;
     String customerid, token, action, carimage, carmakemodel, carno, onetimecarprice, carid, paidMonths, fineAmount, tottal_amt, rn_total_amount;
@@ -104,7 +104,54 @@ public class RenewOrderAdapter extends RecyclerView.Adapter {
                 MyViewHolder viewHolder = (MyViewHolder) buttonView.getTag();
                 final int pos = viewHolder.getAdapterPosition();
 
-                final String carprice, carid, onetimeService;
+                String type = header;
+
+                if(ordersList.get(pos).service_type.equalsIgnoreCase("Wash") &&
+                        ordersList.get(pos).plan.equalsIgnoreCase("hatchback")){
+                    type = Constant.WASH;
+                } else if(ordersList.get(pos).service_type.equalsIgnoreCase("Wash") &&
+                        ordersList.get(pos).plan.equalsIgnoreCase("sedan")){
+                    type = Constant.WASH;
+                } else if(ordersList.get(pos).service_type.equalsIgnoreCase("Wash") &&
+                        ordersList.get(pos).plan.equalsIgnoreCase("suv")){
+                    type = Constant.WASH;
+                } else if(ordersList.get(pos).service_type.equalsIgnoreCase("Wash") &&
+                        ordersList.get(pos).plan.equalsIgnoreCase("bike")) {
+                    type = Constant.BWASH;
+                }
+
+                if(ordersList.get(pos).service_type.equalsIgnoreCase("AddOn") &&
+                        ordersList.get(pos).plan.equalsIgnoreCase("ExtraInterior")){
+                    type = Constant.EXTRAINT;
+                }
+
+                if(ordersList.get(pos).service_type.equalsIgnoreCase("Disinsfection") ||
+                        ordersList.get(pos).service_type.equalsIgnoreCase("Disinfection")){
+                    type = Constant.EXTRAINT;
+                }
+
+                if(ordersList.get(pos).service_type.equalsIgnoreCase("AddOn") &&
+                        !ordersList.get(pos).package_value.equalsIgnoreCase("100")){
+                    type = Constant.ADDON;
+                }
+
+                if (type.equalsIgnoreCase(Constant.ADDON)) {
+                    action = Constant.ACTIONEXTRAONE;
+                } else if (type.equalsIgnoreCase(Constant.EXTRAINT)) {
+                    action = Constant.ACTIONONE;
+                } else if (type.equalsIgnoreCase(Constant.DISINSFECTION)) {
+                    action = Constant.ACTIONDISONE;
+                } else {
+                    action = Constant.ACTIONWASHONE;
+                }
+
+                if (type.equalsIgnoreCase(Constant.WASH) || type.equalsIgnoreCase(Constant.BWASH)) {
+                    ((RenewActivity) context).showCheckoutPopupWash(type, action, ordersList.get(pos), ordersList.get(pos).package_value);
+                } else {
+                    ((RenewActivity) context).showCheckoutPopupAddon(type, action, ordersList.get(pos), ordersList.get(pos).package_value);
+                }
+
+                /*final String carprice, carid, onetimeService;
 
                 carprice = ordersList.get(pos).package_value;
                 carid = ordersList.get(pos).vehicle_id;
@@ -195,40 +242,7 @@ public class RenewOrderAdapter extends RecyclerView.Adapter {
 
                     }
                 });
-
-                /*carimage = "1";
-                carmakemodel = ordersList.get(pos).vehicle_make+"-"+ordersList.get(pos).vehicle_model;
-                carno = ordersList.get(pos).vehicle_no;
-                carid = ordersList.get(pos).vehicle_id;
-                fineAmount = "0";
-                tottal_amt = ordersList.get(pos).total_amount;
-
-                if (ordersList.get(pos).service_type.equalsIgnoreCase("AddOn")){
-                    action = Constant.ACTIONEXTRAONE;
-                }else if (ordersList.get(pos).service_type.equalsIgnoreCase("Wash")){
-                    action = Constant.ACTIONWASHONE;
-                }
-
-                onetimecarprice = ordersList.get(pos).package_value;
-
-                if(isChecked){
-                    databaseHelper.CheckOrderExists(action,carid);
-
-                    long result = databaseHelper.addCart(customerid,token,action,carimage,carmakemodel,carno,onetimecarprice,carid,paidMonths,fineAmount,tottal_amt);
-
-                    if(result > 0){
-                        Toast.makeText(context, "Added to Smart Checkout ", Toast.LENGTH_SHORT).show();
-                    }else{
-                        Toast.makeText(context, "Failed. ", Toast.LENGTH_SHORT).show();
-                    }
-
-                    ((RenewActivity)context).binding.bottomLl.setVisibility(View.VISIBLE);
-
-                }
-                else if(!isChecked){
-                    databaseHelper.CheckOrderExists(action,carid);
-                    ((RenewActivity)context).binding.bottomLl.setVisibility(View.GONE);
-                }*/
+*/
             }
         });
 

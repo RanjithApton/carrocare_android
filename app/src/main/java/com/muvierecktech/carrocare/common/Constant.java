@@ -47,7 +47,7 @@ public class Constant {
     public static String ADDON = "Wax Polish";
     public static String EXTRAINT = "Extra Interior";
     public static String CARMACHINE = "Doorstep Car Machine Polish";
-    public static String DISINSFECTION = "Car Disinsfection";
+    public static String DISINSFECTION = "Car Disinfection";
 
     public static String CARTYPE = "cartype";
     public static String CARNAME = "carname";
@@ -88,7 +88,7 @@ public class Constant {
     public static String ACTIONONE = "onetime_payment";
     public static String ACTIONWASHONE = "onetime_wash_payment";
     public static String ACTIONEXTRAONE = "onetime_wax_payment";
-    public static String ACTIONDISONE = "onetime_disinsfection_payment";
+    public static String ACTIONDISONE = "onetime_disinfection_payment";
 
     public static String NOTCLEANPROPER = "Not Cleaned Properly";
     public static String NOTCLEANTIME = "Not Cleaned On Time";

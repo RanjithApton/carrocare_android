@@ -27,6 +27,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -193,13 +194,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        binding.apartmentService.setOnClickListener(new View.OnClickListener() {
+        /*binding.apartmentService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 sessionManager.setData(SessionManager.USER_WANTS, "apartment");
                 startActivity(new Intent(MainActivity.this, ApartmentServiceActivity.class));
             }
-        });
+        });*/
 
         binding.doorstepService.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -606,10 +607,10 @@ public class MainActivity extends AppCompatActivity {
             List<SlideModel> slideModelList = new ArrayList<>();
 
             for (int i = 0; i < slider.size(); i++) {
-                slideModelList.add(new SlideModel(slider.get(i).simage));
+                slideModelList.add(new SlideModel(slider.get(i).simage, ScaleTypes.FIT));
             }
 
-            binding.imageSlider.setImageList(slideModelList, true);
+            binding.imageSlider.setImageList(slideModelList, ScaleTypes.FIT);
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -353,7 +353,7 @@ public class MyOrdersDetailActivity extends AppCompatActivity {
         }
 
 
-        if (service_type.equalsIgnoreCase("Disinsfection")) {
+        if (service_type.equalsIgnoreCase("Disinsfection") || service_type.equalsIgnoreCase("Disinfection")) {
 
             binding.viewWashdetails.setVisibility(View.GONE);
             binding.viewhistory.setVisibility(View.GONE);

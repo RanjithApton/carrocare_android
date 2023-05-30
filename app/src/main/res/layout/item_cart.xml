@@ -44,7 +44,6 @@
                         android:layout_marginLeft="@dimen/margin"
                         android:layout_marginTop="@dimen/log_top"
                         android:fontFamily="@font/josefinsans_bold"
-                        android:text="Audi - a6"
                         android:textAllCaps="true"
                         android:textColor="#000"
                         android:textSize="@dimen/medtext" />
@@ -57,7 +56,6 @@
                         android:layout_marginLeft="@dimen/margin"
                         android:layout_marginTop="@dimen/marginverylow"
                         android:fontFamily="@font/josefinsans_regular"
-                        android:text="TN 0 A 1234"
                         android:textColor="#000"
                         android:textSize="@dimen/medtext" />
 
@@ -85,7 +83,6 @@
                         android:layout_marginRight="@dimen/margin"
                         android:ellipsize="end"
                         android:fontFamily="@font/josefinsans_bold"
-                        android:text="Wash"
                         android:textAllCaps="true"
                         android:textColor="@color/colorPrimary"
                         android:textSize="@dimen/bigtext" />

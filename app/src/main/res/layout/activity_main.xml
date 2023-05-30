@@ -176,15 +176,15 @@
                     android:id="@+id/imageSlider"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
-                    app:auto_cycle="true"
-                    app:corner_radius="0"
-                    app:delay="0"
-                    app:error_image="@drawable/placeholder"
+                    app:iss_auto_cycle="true"
+                    app:iss_corner_radius="0"
+                    app:iss_delay="0"
+                    app:iss_error_image="@drawable/placeholder"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:period="1500"
-                    app:placeholder="@drawable/placeholder"
-                    app:selected_dot="@drawable/default_selected_dot"
-                    app:unselected_dot="@drawable/default_unselected_dot" />
+                    app:iss_period="1500"
+                    app:iss_placeholder="@drawable/placeholder"
+                    app:iss_selected_dot="@drawable/default_selected_dot"
+                    app:iss_unselected_dot="@drawable/default_unselected_dot" />
 
                 <LinearLayout
                     android:layout_width="match_parent"

@@ -109,8 +109,9 @@ public class ProfileActivity extends AppCompatActivity {
                     if (binding.nameEdt.getText().toString().length() > 0 && binding.emailEdt.getText().toString().length() > 0 &&
                             binding.mobileEdt.getText().toString().length() > 0 && binding.apartbuildingEdt.getText().toString().length() > 0 &&
 //                        binding.apartnameEdt.getSelectedItem().toString().equalsIgnoreCase(Constant.APARTMENTNAME)
-                            binding.apartnameEdt.getText().toString().length() > 0 && binding.flatnoEdt.getText().toString().length() > 0 &&
-                            binding.gstEdt.getText().toString().length() > 0) {
+                            binding.apartnameEdt.getText().toString().length() > 0 && binding.flatnoEdt.getText().toString().length() > 0
+                            //binding.gstEdt.getText().toString().length() > 0
+                    ) {
                         if (binding.mobileEdt.getText().length() == 10) {
                             if (emailValidator(binding.emailEdt.getText().toString())) {
                                 workUpdate();

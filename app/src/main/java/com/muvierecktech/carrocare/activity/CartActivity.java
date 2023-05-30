@@ -62,7 +62,7 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
     SQLiteDatabase sqLiteDatabase;
     Cursor cursor;
 
-    String type, customerid, token, carprice, carid, paidMonths, fineAmount, gst, gstAmount, totalAmountStr, subtotal, date, time;
+    String action, customerid, token, carprice, carid, paidMonths, fineAmount, gst, gstAmount, totalAmountStr, subtotal, date, time;
 
     @SuppressLint("LongLogTag")
     @Override
@@ -270,7 +270,7 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
             if (cursor.moveToFirst()) {
                 do {
 
-                    String type = cursor.getString(0);
+                    String action = cursor.getString(0);
                     String carprice = cursor.getString(4);
                     String carid = cursor.getString(5);
                     String paidMonths = cursor.getString(6);
@@ -282,8 +282,23 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
                     String date = cursor.getString(12);
                     String time = cursor.getString(13);
 
+                    final String[] split = action.split("=");
+                    String type = split[0];
 
-                    if (type.equalsIgnoreCase("onetime_wash_payment")) {
+                    String package_type = "";
+                    if(split[1].equalsIgnoreCase(Constant.WASH)){
+                        package_type = "Car Wash";
+                    } else if(split[1].equalsIgnoreCase(Constant.BWASH)){
+                        package_type = "Bike Wash";
+                    } else if(split[1].equalsIgnoreCase(Constant.ADDON)){
+                        package_type = "Wax Polish";
+                    } else if(split[1].equalsIgnoreCase(Constant.EXTRAINT)){
+                        package_type = "ExtraInterior";
+                    } else if(split[1].equalsIgnoreCase(Constant.DISINSFECTION)){
+                        package_type = "Disinfection";
+                    }
+
+                    if (type.equalsIgnoreCase(Constant.ACTIONWASHONE)) {
                         final KProgressHUD hud = KProgressHUD.create(CartActivity.this)
                                 .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
                                 .setCancellable(true)
@@ -304,6 +319,7 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
                                 gstAmount + "",
                                 totalAmountStr + "",
                                 "Wash",
+                                package_type+"",
                                 "onetime_wash_payment");
                         call.enqueue(new Callback<JsonObject>() {
                             @Override
@@ -336,7 +352,7 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
                             }
                         });
 
-                    } else if (type.equalsIgnoreCase("onetime_wax_payment")) {
+                    } else if (type.equalsIgnoreCase(Constant.ACTIONEXTRAONE)) {
                         final KProgressHUD hud = KProgressHUD.create(CartActivity.this)
                                 .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
                                 .setCancellable(true)
@@ -357,6 +373,7 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
                                 gstAmount + "",
                                 totalAmountStr + "",
                                 "AddOn",
+                                package_type+"",
                                 date + "",
                                 time + "",
                                 "onetime_wash_payment");
@@ -388,7 +405,7 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
                             }
                         });
 
-                    } else if (type.equalsIgnoreCase("onetime_payment")) {
+                    } else if (type.equalsIgnoreCase(Constant.ACTIONONE)) {
                         final KProgressHUD hud = KProgressHUD.create(CartActivity.this)
                                 .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
                                 .setCancellable(true)
@@ -400,7 +417,7 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
                                 Constant.RAZOR_PAY_ORDER_ID + "",
                                 customerid + "",
                                 token + "",
-                                "ExtraInterior",
+                                package_type+"",
                                 carprice + "",
                                 carid + "",
                                 "AddOn",
@@ -442,7 +459,7 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
                         });
 
                     }
-                    if (type.equalsIgnoreCase("onetime_disinsfection_payment")) {
+                    if (type.equalsIgnoreCase(Constant.ACTIONDISONE)) {
                         final KProgressHUD hud = KProgressHUD.create(CartActivity.this)
                                 .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
                                 .setCancellable(true)
@@ -454,10 +471,10 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
                                 Constant.RAZOR_PAY_ORDER_ID + "",
                                 customerid + "",
                                 token + "",
-                                "Wash",
+                                package_type+"",
                                 carprice + "",
                                 carid + "",
-                                "Disinsfection",
+                                "AddOn",
                                 subtotal + "",
                                 gst + "",
                                 gstAmount + "",
@@ -596,7 +613,7 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
             if (cursor.moveToFirst()) {
                 do {
 
-                    type = cursor.getString(0);
+                    action = cursor.getString(0);
                     carprice = cursor.getString(4);
                     carid = cursor.getString(5);
                     paidMonths = cursor.getString(6);
@@ -608,15 +625,30 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
                     date = cursor.getString(12);
                     time = cursor.getString(13);
 
+                    final String[] split = action.split("=");
+                    String type = split[0];
 
-                    if (type.equalsIgnoreCase("onetime_wash_payment")) {
-                        PlaceOrderOneTimeWash(razorpayid);
-                    } else if (type.equalsIgnoreCase("onetime_wax_payment")) {
-                        PlaceOrderOneTimeAddOn(razorpayid);
-                    } else if (type.equalsIgnoreCase("onetime_payment")) {
-                        PlaceOrderOneTime(razorpayid);
-                    } else if (type.equalsIgnoreCase("onetime_disinsfection_payment")) {
-                        PlaceOrderOneTimeDisinsfecion(razorpayid);
+                    String package_type = "";
+                    if(split[1].equalsIgnoreCase(Constant.WASH)){
+                        package_type = "Car Wash";
+                    } else if(split[1].equalsIgnoreCase(Constant.BWASH)){
+                        package_type = "Bike Wash";
+                    } else if(split[1].equalsIgnoreCase(Constant.ADDON)){
+                        package_type = "Wax Polish";
+                    } else if(split[1].equalsIgnoreCase(Constant.EXTRAINT)){
+                        package_type = "ExtraInterior";
+                    } else if(split[1].equalsIgnoreCase(Constant.DISINSFECTION)){
+                        package_type = "Disinfection";
+                    }
+
+                    if (type.equalsIgnoreCase(Constant.ACTIONWASHONE)) {
+                        PlaceOrderOneTimeWash(razorpayid, package_type);
+                    } else if (type.equalsIgnoreCase(Constant.ACTIONEXTRAONE)) {
+                        PlaceOrderOneTimeAddOn(razorpayid, package_type);
+                    } else if (type.equalsIgnoreCase(Constant.ACTIONONE)) {
+                        PlaceOrderOneTime(razorpayid, package_type);
+                    } else if (type.equalsIgnoreCase(Constant.ACTIONDISONE)) {
+                        PlaceOrderOneTimeDisinsfecion(razorpayid, package_type);
                     }
 
 
@@ -650,7 +682,7 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
     }
 
 
-    private void PlaceOrderOneTimeWash(String razorpayid) {
+    private void PlaceOrderOneTimeWash(String razorpayid, String package_type) {
         final KProgressHUD hud = KProgressHUD.create(CartActivity.this)
                 .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
                 .setCancellable(true)
@@ -671,7 +703,8 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
                 gst + "",
                 gstAmount + "",
                 totalAmountStr + "",
-                "Wash");
+                "Wash",
+                package_type+"");
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
@@ -709,7 +742,7 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
         });
     }
 
-    private void PlaceOrderOneTimeAddOn(String razorpayid) {
+    private void PlaceOrderOneTimeAddOn(String razorpayid, String package_type) {
         final KProgressHUD hud = KProgressHUD.create(CartActivity.this)
                 .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
                 .setCancellable(true)
@@ -731,6 +764,7 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
                 gstAmount + "",
                 totalAmountStr + "",
                 "AddOn",
+                package_type+"",
                 date + "",
                 time + "");
         call.enqueue(new Callback<JsonObject>() {
@@ -767,7 +801,7 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
         });
     }
 
-    private void PlaceOrderOneTime(String razorpayid) {
+    private void PlaceOrderOneTime(String razorpayid, String package_type) {
 
 //        Date date = Calendar.getInstance().getTime();
 //        SimpleDateFormat df = new SimpleDateFormat("dd/MMM/yyyy");
@@ -785,7 +819,7 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
                 Constant.RAZOR_PAY_ORDER_ID + "",
                 customerid + "",
                 token + "",
-                "ExtraInterior",
+                package_type+"",
                 carprice + "",
                 carid + "",
                 "AddOn",
@@ -832,7 +866,7 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
 
     }
 
-    private void PlaceOrderOneTimeDisinsfecion(String razorpayid) {
+    private void PlaceOrderOneTimeDisinsfecion(String razorpayid, String package_type) {
         final KProgressHUD hud = KProgressHUD.create(CartActivity.this)
                 .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
                 .setCancellable(true)
@@ -845,10 +879,10 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
                 Constant.RAZOR_PAY_ORDER_ID + "",
                 customerid + "",
                 token + "",
-                "Wash",
+                package_type+"",
                 carprice + "",
                 carid + "",
-                "Disinsfection",
+                "AddOn",
                 subtotal + "",
                 gst + "",
                 gstAmount + "",

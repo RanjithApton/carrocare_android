@@ -99,6 +99,11 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST("vehicle_details.php")
+    Call<VehicleDetails> vehicledetailsExtra(@Field("customer_id") String customer_id, @Field("token") String token, @Field("category") String category,  @Field("wash_vehicles") String wash_vehicles);
+
+
+    @FormUrlEncoded
+    @POST("vehicle_details.php")
     Call<VehicleDetails> myvehicledetails(@Field("customer_id") String customer_id, @Field("token") String token);
 
 
@@ -205,7 +210,9 @@ public interface ApiInterface {
                                           @Field("gst") String gst,
                                           @Field("gst_amount") String gst_amount,
                                           @Field("tot_amt") String tot_amt,
-                                          @Field("service_type") String service_type);
+                                          @Field("service_type") String service_type,
+                                          @Field("pack_type") String pack_type
+    );
 
     @FormUrlEncoded
     @POST("save_order.php")
@@ -223,6 +230,7 @@ public interface ApiInterface {
                                            @Field("gst_amount") String gst_amount,
                                            @Field("tot_amt") String tot_amt,
                                            @Field("service_type") String service_type,
+                                           @Field("pack_type") String pack_type,
                                            @Field("schedule_date") String schedule_date,
                                            @Field("schedule_time") String schedule_time);
 
@@ -259,6 +267,7 @@ public interface ApiInterface {
                                           @Field("gst_amount") String gst_amount,
                                           @Field("tot_amt") String tot_amt,
                                           @Field("service_type") String service_type,
+                                          @Field("pack_type") String pack_type,
                                           @Field("success_action") String success_action);
 
     @FormUrlEncoded
@@ -276,6 +285,7 @@ public interface ApiInterface {
                                            @Field("gst_amount") String gst_amount,
                                            @Field("tot_amt") String tot_amt,
                                            @Field("service_type") String service_type,
+                                           @Field("pack_type") String pack_type,
                                            @Field("schedule_date") String schedule_date,
                                            @Field("schedule_time") String schedule_time,
                                            @Field("success_action") String success_action);

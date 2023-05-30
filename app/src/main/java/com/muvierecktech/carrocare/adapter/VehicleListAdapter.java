@@ -3,8 +3,6 @@ package com.muvierecktech.carrocare.adapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,16 +11,12 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.cardview.widget.CardView;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.muvierecktech.carrocare.R;
-import com.muvierecktech.carrocare.activity.CartActivity;
 import com.muvierecktech.carrocare.activity.PaymentOptionActivity;
-import com.muvierecktech.carrocare.activity.RenewActivity;
 import com.muvierecktech.carrocare.activity.VehicleListActivity;
 import com.muvierecktech.carrocare.common.Constant;
 import com.muvierecktech.carrocare.common.DatabaseHelper;
@@ -31,9 +25,6 @@ import com.muvierecktech.carrocare.common.SessionManager;
 import com.muvierecktech.carrocare.model.VehicleDetails;
 import com.squareup.picasso.Picasso;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -82,16 +73,6 @@ public class VehicleListAdapter extends RecyclerView.Adapter {
             action = Constant.ACTIONWASHONE;
         }
 
-//        if(header.equalsIgnoreCase(Constant.EXTRAINT)){
-//            viewHolder.add_smart_checkout.setVisibility(View.GONE);
-//        }else{
-//            viewHolder.add_smart_checkout.setVisibility(View.VISIBLE);
-//        }
-
-//        carimage = vecDetails.get(position).vehicle_image;
-//        carmakemodel = vecDetails.get(position).vehicle_make+"-"+vecDetails.get(position).vehicle_model;
-//        carno = vecDetails.get(position).vehicle_no;
-//        carid = vecDetails.get(position).vehicle_id;
         onetimecarprice = price;
         paidMonths = "1";
         fineAmount = "0";
@@ -144,6 +125,11 @@ public class VehicleListAdapter extends RecyclerView.Adapter {
                 .into(viewHolder.carimage);
 //        viewHolder.card.setBackground(vecDetails.get(position).vehicle_image);
 
+        int present = Integer.parseInt(databaseHelper.CheckOrder(action +"="+ type, vecDetails.get(position).vehicle_id));
+        if (present != 0 ){
+            viewHolder.add_smart_checkout.setChecked(true);
+        }
+
         viewHolder.add_smart_checkout.setTag(viewHolder);
         viewHolder.add_smart_checkout.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @SuppressLint("SetTextI18n")
@@ -152,7 +138,21 @@ public class VehicleListAdapter extends RecyclerView.Adapter {
                 MyViewHolder viewHolder = (MyViewHolder) buttonView.getTag();
                 int pos = viewHolder.getAdapterPosition();
 
-                carimage = vecDetails.get(pos).vehicle_image;
+                if (isChecked) {
+                    if (type.equalsIgnoreCase(Constant.WASH) || type.equalsIgnoreCase(Constant.BWASH)) {
+                        ((VehicleListActivity) context).showCheckoutPopupWash(type, action, vecDetails.get(pos), price);
+                    } else {
+                        ((VehicleListActivity) context).showCheckoutPopupAddon(type, action, vecDetails.get(pos), price);
+                    }
+                } else {
+                    String dBType = action +"="+ type;
+                    databaseHelper.CheckOrderExists(action, vecDetails.get(pos).vehicle_id);
+                    databaseHelper.CheckOrderExists(dBType, vecDetails.get(pos).vehicle_id);
+                    ((VehicleListActivity) context).showCartCount();
+                }
+
+
+                /*carimage = vecDetails.get(pos).vehicle_image;
                 carmakemodel = vecDetails.get(pos).vehicle_make + "-" + vecDetails.get(pos).vehicle_model;
                 carno = vecDetails.get(pos).vehicle_no;
                 carid = vecDetails.get(pos).vehicle_id;
@@ -269,65 +269,12 @@ public class VehicleListAdapter extends RecyclerView.Adapter {
                         }
                     });
 
-                    //final String servicetype,carmakemodel,carno;
-
-//                        if (!action.equalsIgnoreCase(Constant.ACTIONWASHONE)){
-//
-//                            ((VehicleListActivity)context).binding.popupCard1.setVisibility(View.VISIBLE);
-//                            ((VehicleListActivity)context).addCartWithTime(action+"",
-//                                    carimage+"",
-//                                    carmakemodel+"",
-//                                    carno+"",
-//                                    onetimecarprice+"",
-//                                    carid+"",
-//                                    paidMonths+"",
-//                                    fineAmount+"",
-//                                    tottal_amt+"");
-//
-//                        } else{
-//                            Calendar calendar = Calendar.getInstance();
-//                            calendar.add(Calendar.DAY_OF_YEAR, 1);
-//                            Date tomorrow = calendar.getTime();
-//                            SimpleDateFormat currentDate = new SimpleDateFormat("dd/MM/yyyy");
-//                            Date todayDate = new Date();
-//                            String thisDate = currentDate.format(tomorrow);
-//
-//                            int before_tax = Integer.parseInt(tottal_amt);
-//                            int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * before_tax) / 100);
-//                            int finalAmt = taxAmt + before_tax;
-//
-//                            String result = databaseHelper.AddUpdateOrder(action+"",
-//                                    carimage+"",
-//                                    carmakemodel+"",
-//                                    carno+"",
-//                                    onetimecarprice+"",
-//                                    carid+"",
-//                                    paidMonths+"",
-//                                    fineAmount+"",
-//                                    tottal_amt+"",
-//                                    Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE))+"",
-//                                    taxAmt+"",
-//                                    String.valueOf(finalAmt),
-//                                    thisDate+"",
-//                                    "Any Time");
-////
-//                            if(result.equalsIgnoreCase("1")){
-//                                Toast.makeText(context, "Added to Smart Checkout ", Toast.LENGTH_SHORT).show();
-//                                ((VehicleListActivity)context).showCartCount();
-//                            }else{
-//                                Toast.makeText(context, "Failed. ", Toast.LENGTH_SHORT).show();
-//                            }
-//
-//                            ((VehicleListActivity)context).binding.addvehicle.setVisibility(View.GONE);
-//                            ((VehicleListActivity)context).binding.makepayment.setVisibility(View.VISIBLE);
-//                        }
-
                 } else if (!isChecked) {
                     databaseHelper.CheckOrderExists(action, carid);
                     ((VehicleListActivity) context).showCartCount();
                     ((VehicleListActivity) context).binding.addvehicle.setVisibility(View.VISIBLE);
                     ((VehicleListActivity) context).binding.makepayment.setVisibility(View.GONE);
-                }
+                }*/
             }
         });
 

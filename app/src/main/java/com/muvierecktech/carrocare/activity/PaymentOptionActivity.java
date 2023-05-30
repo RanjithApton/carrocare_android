@@ -166,7 +166,7 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
             this.binding.serviceType.setText("Add On");
             this.binding.subsCard1.setVisibility(View.GONE);
         } else if (servicetype.equalsIgnoreCase(Constant.DISINSFECTION)) {
-            this.binding.serviceType.setText("Disinsfection");
+            this.binding.serviceType.setText("Disinfection");
             this.binding.subsCard1.setVisibility(View.GONE);
         }
         if (carname.startsWith("extra") || carname.startsWith("Extra") || carname.startsWith("EXTRA")) {
@@ -218,7 +218,17 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
                 }
 
                 public void onItemSelected(AdapterView<?> adapterView, View view, int i, long j) {
-                    if (i == 0) {
+                    int position = i + 1;
+                    double parseDouble = Double.parseDouble(onetimecarprice) * position;
+                    totalAmountStr = (int) parseDouble;
+                    paidMonths = String.valueOf(position);
+                    binding.total1.setText("₹ " + totalAmountStr);
+                    int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
+                    int finalAmt = taxAmt + totalAmountStr;
+                    binding.taxTotal1.setText("₹ " + taxAmt);
+                    binding.totalAmount1.setText("₹ " + finalAmt);
+                    Log.e("AMOUNTRZP", String.valueOf(parseDouble));
+                    /*if (i == 0) {
                         double parseDouble = Double.parseDouble(onetimecarprice) * 1;
                         totalAmountStr = (int) parseDouble;
                         paidMonths = "1";
@@ -457,7 +467,7 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
                         binding.taxTotal1.setText("₹ " + taxAmt);
                         binding.totalAmount1.setText("₹ " + finalAmt);
                         Log.e("AMOUNTRZP", String.valueOf(parseDouble24));
-                    }
+                    }*/
                 }
             });
             this.binding.subscriptionType.setText(Constant.MONTHLY);
@@ -598,8 +608,21 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
 
     public void checkIfExists() {
 
-        if (servicetype.equalsIgnoreCase(Constant.ADDON)) {
+        /*if (servicetype.equalsIgnoreCase(Constant.ADDON)) {
             action = Constant.ACTIONEXTRAONE;
+        } else {
+            action = Constant.ACTIONWASHONE;
+        }*/
+
+
+        String type = servicetype;
+
+        if (type.equalsIgnoreCase(Constant.ADDON)) {
+            action = Constant.ACTIONEXTRAONE;
+        } else if (type.equalsIgnoreCase(Constant.EXTRAINT)) {
+            action = Constant.ACTIONONE;
+        } else if (type.equalsIgnoreCase(Constant.DISINSFECTION)) {
+            action = Constant.ACTIONDISONE;
         } else {
             action = Constant.ACTIONWASHONE;
         }
@@ -610,8 +633,12 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
         int taxAmt = ((Constant.GST_PERCENTAGE * before_tax) / 100);
         int finalAmt = taxAmt + before_tax;
 
+        String dBType = action +"="+ type;
+        databaseHelper.CheckOrderExists(action, carid);
+        databaseHelper.CheckOrderExists(dBType, carid);
 
-        String result = databaseHelper.AddUpdateOrder(action + "",
+
+        String result = databaseHelper.AddUpdateOrder(dBType + "",
                 carimage + "",
                 carmakemodel + "",
                 carno + "",
@@ -641,23 +668,39 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
 
     public void checkIfExists1() {
 
-        if (servicetype.equalsIgnoreCase(Constant.EXTRAINT)) {
+//        if (servicetype.equalsIgnoreCase(Constant.EXTRAINT)) {
+//            action = Constant.ACTIONONE;
+//        } else {
+//            action = Constant.ACTIONDISONE;
+//        }
+
+        String type = servicetype;
+
+        if (type.equalsIgnoreCase(Constant.ADDON)) {
+            action = Constant.ACTIONEXTRAONE;
+        } else if (type.equalsIgnoreCase(Constant.EXTRAINT)) {
             action = Constant.ACTIONONE;
-        } else {
+        } else if (type.equalsIgnoreCase(Constant.DISINSFECTION)) {
             action = Constant.ACTIONDISONE;
+        } else {
+            action = Constant.ACTIONWASHONE;
         }
 
         int before_tax = Integer.parseInt(carprice);
         int taxAmt = ((Constant.GST_PERCENTAGE * before_tax) / 100);
         int finalAmt = taxAmt + before_tax;
 
-        String result = databaseHelper.AddUpdateOrder(action + "",
+        String dBType = action +"="+ type;
+        databaseHelper.CheckOrderExists(action, carid);
+        databaseHelper.CheckOrderExists(dBType, carid);
+
+        String result = databaseHelper.AddUpdateOrder(dBType + "",
                 carimage + "",
                 carmakemodel + "",
                 carno + "",
                 carprice + "",
                 carid + "",
-                "0",
+                "1",
                 "0",
                 carprice + "",
                 Constant.GST_PERCENTAGE + "",
@@ -1387,7 +1430,7 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
                 Constant.GST_PERCENTAGE + "",
                 "0",
                 totalAmountStr + "",
-                "Wash");
+                "Wash","");
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
@@ -1445,7 +1488,7 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
                 Constant.GST_PERCENTAGE + "",
                 "0",
                 totalAmountStr + "",
-                "AddOn",
+                "AddOn","",
                 binding.preferDate.getText().toString(),
                 time);
         call.enqueue(new Callback<JsonObject>() {

@@ -21,6 +21,7 @@ public class OrdersList {
         public String date_and_time;
         public String order_id;
         public String service_type;
+        public String plan;
         public String payment_type;
         public String package_type;
         public String vehicle_make;
