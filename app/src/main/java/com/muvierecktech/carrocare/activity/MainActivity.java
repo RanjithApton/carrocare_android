@@ -448,29 +448,6 @@ public class MainActivity extends AppCompatActivity {
                         OrdersList body = response.body();
                         if (body.code.equalsIgnoreCase("200")) {
                             hud.dismiss();
-                            /*order = body.orders;
-                            orderId.add(0, Constant.ORDERID);
-
-                            for (int i = 0; i < order.size(); i++) {
-                                orderId.add(order.get(i).order_id);
-                                if (order.get(i).service_type.equalsIgnoreCase("Wash")){
-                                    if(order.get(i).status.equalsIgnoreCase("Active") ||
-                                            order.get(i).status.equalsIgnoreCase("Over Due")){
-                                        ser_type_wash.add(order.get(i).service_type);
-                                    }
-                                }
-                                else {
-                                    ser_type_addon.add(order.get(i).service_type);
-                                }
-                            }
-
-                            if (!ser_type_wash.isEmpty()) {
-                                binding.orderRc.setVisibility(View.VISIBLE);
-                                binding.noorders.setVisibility(View.GONE);
-                            }else{
-                                binding.orderRc.setVisibility(View.GONE);
-                                binding.noorders.setVisibility(View.VISIBLE);
-                            }*/
 
                             if (!body.orders.isEmpty()) {
                                 binding.orderRc.setVisibility(View.VISIBLE);
@@ -633,7 +610,6 @@ public class MainActivity extends AppCompatActivity {
 
     @SuppressLint("LongLogTag")
     public void showCartCount() {
-        //int totalItemOfCart = dbAdapter.cart_count;
         int totalItemOfCart = databaseHelper.getTotalItemOfCart();
 
         if (totalItemOfCart == 0) {
@@ -641,8 +617,6 @@ public class MainActivity extends AppCompatActivity {
         } else {
             binding.cartCount.setText(String.valueOf(totalItemOfCart));
         }
-
-        Log.e("Total item of cart--->   ", "" + totalItemOfCart);
     }
 
     @Override

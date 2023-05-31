@@ -27,6 +27,7 @@ import com.muvierecktech.carrocare.model.OrdersList;
 import java.util.HashMap;
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -43,6 +44,7 @@ public class RenewOrderAdapter extends RecyclerView.Adapter {
         this.ordersList = orders;
     }
 
+    @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemLayoutView = LayoutInflater.from(parent.getContext())
@@ -104,6 +106,8 @@ public class RenewOrderAdapter extends RecyclerView.Adapter {
                 MyViewHolder viewHolder = (MyViewHolder) buttonView.getTag();
                 final int pos = viewHolder.getAdapterPosition();
 
+                viewHolder.add_smart_checkout.setChecked(false);
+
                 String type = header;
 
                 if(ordersList.get(pos).service_type.equalsIgnoreCase("Wash") &&
@@ -127,7 +131,12 @@ public class RenewOrderAdapter extends RecyclerView.Adapter {
 
                 if(ordersList.get(pos).service_type.equalsIgnoreCase("Disinsfection") ||
                         ordersList.get(pos).service_type.equalsIgnoreCase("Disinfection")){
-                    type = Constant.EXTRAINT;
+                    type = Constant.DISINSFECTION;
+                }
+
+                if(ordersList.get(pos).service_type.equalsIgnoreCase("AddOn") &&
+                        ordersList.get(pos).package_type.equalsIgnoreCase("Disinfection")){
+                    type = Constant.DISINSFECTION;
                 }
 
                 if(ordersList.get(pos).service_type.equalsIgnoreCase("AddOn") &&

@@ -76,7 +76,7 @@ public class MyOrdersAdapter extends RecyclerView.Adapter {
                 MyViewHolder viewHolder1 = (MyViewHolder) view.getTag();
                 int pos = viewHolder1.getAdapterPosition();
                 Intent intent = new Intent(context, MyOrdersDetailActivity.class);
-                intent.putExtra(Constant.DE_DATE, ordersList.get(pos).date_and_time);
+                /*intent.putExtra(Constant.DE_DATE, ordersList.get(pos).date_and_time);
                 intent.putExtra(Constant.DE_ORDERID, ordersList.get(pos).order_id);
                 intent.putExtra(Constant.DE_SERVTYPE, ordersList.get(pos).service_type);
                 intent.putExtra(Constant.DE_PAYTYPE, ordersList.get(pos).payment_type);
@@ -106,7 +106,9 @@ public class MyOrdersAdapter extends RecyclerView.Adapter {
                 intent.putExtra(Constant.DE_IMAGE, ordersList.get(pos).vehicle_image);
                 intent.putExtra(Constant.DE_IMAGE_DATE, ordersList.get(pos).image_date_and_time);
                 intent.putExtra(Constant.DE_INVOICE, ordersList.get(pos).invoice);
-                intent.putExtra(Constant.DE_PAYMENTDETAILS, (Serializable) ordersList.get(pos).payment_details);
+                intent.putExtra(Constant.DE_PAYMENTDETAILS, (Serializable) ordersList.get(pos).payment_details);*/
+                intent.putExtra("order_list", (Serializable) ordersList);
+                intent.putExtra("position", pos);
                 context.startActivity(intent);
             }
         });
@@ -117,7 +119,7 @@ public class MyOrdersAdapter extends RecyclerView.Adapter {
                 MyViewHolder viewHolder1 = (MyViewHolder) view.getTag();
                 int pos = viewHolder1.getAdapterPosition();
                 Intent intent = new Intent(context, MyOrdersDetailActivity.class);
-                intent.putExtra(Constant.DE_DATE, ordersList.get(pos).date_and_time);
+                /*intent.putExtra(Constant.DE_DATE, ordersList.get(pos).date_and_time);
                 intent.putExtra(Constant.DE_ORDERID, ordersList.get(pos).order_id);
                 intent.putExtra(Constant.DE_SERVTYPE, ordersList.get(pos).service_type);
                 intent.putExtra(Constant.DE_PAYTYPE, ordersList.get(pos).payment_type);
@@ -146,7 +148,9 @@ public class MyOrdersAdapter extends RecyclerView.Adapter {
                 intent.putExtra(Constant.DE_PAYMENT_HISTORY, ordersList.get(pos).payment_history);
                 intent.putExtra(Constant.DE_IMAGE, ordersList.get(pos).vehicle_image);
                 intent.putExtra(Constant.DE_IMAGE_DATE, ordersList.get(pos).image_date_and_time);
-                intent.putExtra(Constant.DE_PAYMENTDETAILS, (Serializable) ordersList.get(pos).payment_details);
+                intent.putExtra(Constant.DE_PAYMENTDETAILS, (Serializable) ordersList.get(pos).payment_details);*/
+                intent.putExtra("order_list", (Serializable) ordersList);
+                intent.putExtra("position", pos);
                 context.startActivity(intent);
             }
         });

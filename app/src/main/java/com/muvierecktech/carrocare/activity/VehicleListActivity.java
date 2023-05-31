@@ -63,7 +63,7 @@ public class VehicleListActivity extends AppCompatActivity {
     List<OneTimeWashCheckout.getResult> result;
     int totalAmountStr;
     String[] subsMonths = {"1 Month", "2 Months", "3 Months", "4 Months", "5 Months", "6 Months", "7 Months", "8 Months", "9 Months", "10 Months", "11 Months", "12 Months", "13 Months", "14 Months", "15 Months", "16 Months", "17 Months", "18 Months", "19 Months", "20 Months", "21 Months", "22 Months", "23 Months", "24 Months"};
-    String preTime[] = {Constant.ANYTIME, "9.00 AM - 10.00 AM", "10.00 AM - 11.00 AM", "11.00 AM - 12.00 PM", "12.00 PM - 1.00 PM", "6.00 PM - 7.00 PM", "7.00 PM - 8.00 PM"};
+    String preTime[] = {Constant.ANYTIME, "9:00 AM - 10:00 AM", "10:00 AM - 11:00 AM", "11:00 AM - 12:00 PM", "12:00 PM - 1:00 PM", "6:00 PM - 7:00 PM", "7:00 PM - 8:00 PM"};
     DatePickerDialog picker;
 
     @Override

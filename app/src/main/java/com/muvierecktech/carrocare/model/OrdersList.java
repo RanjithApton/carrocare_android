@@ -3,7 +3,7 @@ package com.muvierecktech.carrocare.model;
 import java.io.Serializable;
 import java.util.List;
 
-public class OrdersList {
+public class OrdersList implements Serializable{
     public String status;
     public String code;
     public String message;
@@ -17,7 +17,7 @@ public class OrdersList {
         public String invoice;
     }
 
-    public class Orders {
+    public class Orders implements Serializable{
         public String date_and_time;
         public String order_id;
         public String service_type;
