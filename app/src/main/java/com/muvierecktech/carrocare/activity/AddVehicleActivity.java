@@ -63,10 +63,10 @@ public class AddVehicleActivity extends AppCompatActivity implements View.OnClic
             Constant.MORNING, Constant.EVENING};
     String preMorTime[] = {
 //            Constant.PREFERTIME,
-            "5.00 AM - 6.00 AM", "6.00 AM - 7.00 AM", "7.00 AM - 8.00 AM", "8.00 AM - 9.00 AM", "9.00 AM - 10.00 AM"};
+            "5:00 AM - 6:00 AM", "6:00 AM - 7:00 AM", "7:00 AM - 8:00 AM", "8:00 AM - 9:00 AM", "9:00 AM - 10:00 AM"};
     String preEveTime[] = {
 //            Constant.PREFERTIME,
-            "5.00 PM - 6.00 PM", "6.00 PM - 7.00 PM", "7.00 PM - 8.00 PM", "8.00 PM - 9.00 PM"};
+            "5:00 PM - 6:00 PM", "6:00 PM - 7:00 PM", "7:00 PM - 8:00 PM", "8:00 PM - 9:00 PM"};
     String parkingArea[] = {
 //            Constant.PARKAREA,
             "Basement 1", "Basement 2", "Open Area", "Visitor Parking"};

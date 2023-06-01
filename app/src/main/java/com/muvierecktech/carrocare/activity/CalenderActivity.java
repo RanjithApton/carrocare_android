@@ -655,15 +655,15 @@ public class CalenderActivity extends AppCompatActivity {
                                                         previewPopup1("Inrernal Wash", "No Data Found");
                                                     } else {
                                                         String str = extraDetails.get(i).vehicle_image1;
-                                                        previewPopup(str, "Internal Wash", "Wash Date : " + extraDetails.get(i).schedule_date1, "Washed Status: Cleaned");
+                                                        previewPopup(str, "Internal Wash", "Wash Date : " + extraDetails.get(i).vehicle_image1_dateandtime, "Washed Status: Cleaned");
                                                     }
                                                     //previewPopup(extraDetails.get(i).vehicle_image1, "Internal Wash");
                                                 } else if (eventDay.getCalendar().equals(calendar1)) {
                                                     if (extraDetails.get(i).schedule_work_status2.equalsIgnoreCase("No")) {
                                                         previewPopup1("Inrernal Wash", "No Data Found");
                                                     } else {
-                                                        String str2 = extraDetails.get(i).vehicle_image1;
-                                                        previewPopup(str2, "Internal Wash", "Wash Date : " + extraDetails.get(i).schedule_date2, "Washed Status: Cleaned");
+                                                        String str2 = extraDetails.get(i).vehicle_image2;
+                                                        previewPopup(str2, "Internal Wash", "Wash Date : " + extraDetails.get(i).vehicle_image2_dateandtime, "Washed Status: Cleaned");
                                                     }
                                                     //previewPopup(extraDetails.get(i).vehicle_image2, "Internal Wash");
                                                 }
