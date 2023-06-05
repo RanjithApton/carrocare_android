@@ -298,7 +298,7 @@ public class VehicleListActivity extends AppCompatActivity {
                 customerid+"",
                 price+"",
                 vecDetails.vehicle_id+"",
-                price+""
+                "Wash"
         );
         call.enqueue(new Callback<OneTimeWashCheckout>() {
             @SuppressLint({"LongLogTag", "SetTextI18n"})
@@ -517,7 +517,7 @@ public class VehicleListActivity extends AppCompatActivity {
                 customerid+"",
                 price+"",
                 vecDetails.vehicle_id+"",
-                price+""
+                "AddOn"
         );
         call.enqueue(new Callback<OneTimeWashCheckout>() {
             @SuppressLint({"LongLogTag", "SetTextI18n"})
