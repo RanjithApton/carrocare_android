@@ -162,7 +162,6 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
             Toast.makeText(this, "Please enter coupon code", Toast.LENGTH_SHORT).show();
 
         } else {
-
             final KProgressHUD hud = KProgressHUD.create(CartActivity.this)
                     .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
                     .setCancellable(true)
@@ -183,7 +182,7 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
                                 CouponCodeModel couponCodeModel = gson.fromJson(response.body().toString(),
                                         CouponCodeModel.class);
                                     if (couponCodeModel.getCode() == 200) {
-                                        if (couponCodeModel.getStatus() == Constant.statusSuccess) {
+                                        if (couponCodeModel.getStatus().equalsIgnoreCase(Constant.statusSuccess)) {
                                             updateCouponCode(isCouponApplied,
                                                     binding.editCoupon.getText().toString(),
                                                     couponCodeModel.getCouponData().get(0).getCouponDiscount());
@@ -194,6 +193,9 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
                                                 long discountAmount =
                                                         (total * Integer.parseInt(couponCodeModel.getCouponData().get(0).getCouponDiscount())) /100;
                                                 total = Math.toIntExact(total - discountAmount);
+                                                binding.txttotal.setText("₹ " + total);
+                                                binding.txtstotal.setText("₹ " + total);
+                                                binding.txtfinaltotal.setText(databaseHelper.getTotalItemOfCart() + " Items  " + "₹ " + total);
                                             }
                                             Toast.makeText(CartActivity.this,
                                                     couponCodeModel.getCouponData().get(0).getMessage(), Toast.LENGTH_SHORT).show();
@@ -202,13 +204,12 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
                                             if (couponCodeModel.getMessage() != null && couponCodeModel.getMessage().equalsIgnoreCase(
                                                     "Coupon Already Applied")) {
                                                 if (!isCouponApplied) {
-                                                    isCouponApplied = false;
-                                                    applyText = "APPLY";
-                                                    binding.btnAppy.setText(applyText);
-                                                } else {
                                                     isCouponApplied = true;
                                                     applyText = "REMOVE";
-
+                                                    binding.btnAppy.setText(applyText);
+                                                } else {
+                                                    isCouponApplied = false;
+                                                    applyText = "APPLY";
                                                     binding.btnAppy.setText(applyText);
                                                 }
                                             }
@@ -220,7 +221,18 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
                                             }
                                         }
                                     }else{
-
+                                        if (couponCodeModel.getMessage() != null && couponCodeModel.getMessage().equalsIgnoreCase(
+                                                "Coupon Already Applied")) {
+                                            if (!isCouponApplied) {
+                                                isCouponApplied = true;
+                                                applyText = "REMOVE";
+                                                binding.btnAppy.setText(applyText);
+                                            } else {
+                                                isCouponApplied = false;
+                                                applyText = "APPLY";
+                                                binding.btnAppy.setText(applyText);
+                                            }
+                                        }
                                         Toast.makeText(CartActivity.this,
                                                 couponCodeModel.getMessage(), Toast.LENGTH_SHORT).show();
                                     }
@@ -235,7 +247,6 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
                     @Override
                     public void onFailure(Call<JsonObject> call, Throwable t) {
                         hud.dismiss();
-                        Log.e("SHAGUL", "onFailure: "+call.toString() );
                         Toast.makeText(CartActivity.this, "Timeout.Try after sometime", Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -253,7 +264,7 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
                                 CouponCodeModel couponCodeModel = gson.fromJson(response.body().toString(),
                                         CouponCodeModel.class);
                                 if (couponCodeModel.getCode() == 200) {
-                                    if (couponCodeModel.getStatus() == Constant.statusSuccess) {
+                                    if (couponCodeModel.getStatus().equalsIgnoreCase(Constant.statusSuccess)) {
                                         updateCouponCode(isCouponApplied,
                                                 binding.editCoupon.getText().toString(),
                                                 couponCodeModel.getCouponData().get(0).getCouponDiscount());
@@ -280,13 +291,12 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
                                         if (couponCodeModel.getMessage() != null && couponCodeModel.getMessage().equalsIgnoreCase(
                                                 "Coupon Already Applied")) {
                                             if (!isCouponApplied) {
-                                                isCouponApplied = false;
-                                                applyText = "APPLY";
-                                                binding.btnAppy.setText(applyText);
-                                            } else {
                                                 isCouponApplied = true;
                                                 applyText = "REMOVE";
-
+                                                binding.btnAppy.setText(applyText);
+                                            } else {
+                                                isCouponApplied = false;
+                                                applyText = "APPLY";
                                                 binding.btnAppy.setText(applyText);
                                             }
                                         }
@@ -299,7 +309,18 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
                                     }
                                 }
                                 else{
-
+                                    if (couponCodeModel.getMessage() != null && couponCodeModel.getMessage().equalsIgnoreCase(
+                                            "Coupon Already Applied")) {
+                                        if (!isCouponApplied) {
+                                            isCouponApplied = true;
+                                            applyText = "REMOVE";
+                                            binding.btnAppy.setText(applyText);
+                                        } else {
+                                            isCouponApplied = false;
+                                            applyText = "APPLY";
+                                            binding.btnAppy.setText(applyText);
+                                        }
+                                    }
                                     Toast.makeText(CartActivity.this,
                                             couponCodeModel.getMessage(), Toast.LENGTH_SHORT).show();
                                 }
@@ -367,6 +388,9 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
                 total = Math.toIntExact(total - discountAmount);
                 showCoupon = true;
                 binding.linearCoupon.setVisibility(View.VISIBLE);
+                binding.txttotal.setText("₹ " + total);
+                binding.txtstotal.setText("₹ " + total);
+                binding.txtfinaltotal.setText(databaseHelper.getTotalItemOfCart() + " Items  " + "₹ " + total);
             }
         }
 
