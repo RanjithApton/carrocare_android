@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,11 +57,23 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.viewHo
 
         databaseHelper = new MyDatabaseHelper(context);
 
-        Picasso.get()
-                .load(dbm.getImge())
-                .placeholder(R.drawable.placeholder)
-                .error(R.drawable.placeholder)
-                .into(holder.car_img);
+        try {
+            if (dbm.getImge() != null && !TextUtils.isEmpty(dbm.getImge())) {
+                Picasso.get()
+                        .load(dbm.getImge())
+                        .placeholder(R.drawable.placeholder)
+                        .error(R.drawable.placeholder)
+                        .into(holder.car_img);
+            } else {
+                Picasso.get()
+                        .load(R.drawable.placeholder)
+                        .placeholder(R.drawable.placeholder)
+                        .error(R.drawable.placeholder)
+                        .into(holder.car_img);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         holder.car_name.setText(dbm.getModel());
         holder.car_no.setText(dbm.getNumber());
@@ -88,10 +101,10 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.viewHo
         } else {
             holder.month.setText(dbm.getPaidmonth() + " Months");
         }
-        holder.pack_amount.setText("₹ " + dbm.getCarprice());
-        holder.before_total_amount.setText("₹ " + dbm.getSub_total());
-        holder.tax_percentage.setText("GST (" + dbm.getGst() + "%) :");
-        holder.tax_total_amount.setText("₹ " + dbm.getGstamount());
+        holder.pack_amount.setText("₹ " + dbm.getTotal());
+//        holder.before_total_amount.setText("₹ " + dbm.getSub_total());
+//        holder.tax_percentage.setText("GST (" + dbm.getGst() + "%) :");
+//        holder.tax_total_amount.setText("₹ " + dbm.getGstamount());
         holder.total.setText("₹ " + dbm.getTotal());
         holder.schedule_date.setText(dbm.getDate() + " " + dbm.getTime());
 
@@ -146,7 +159,10 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.viewHo
     public class viewHolder extends RecyclerView.ViewHolder {
         ImageView car_img;
         ImageView del_img;
-        TextView car_name, car_no, action, type, month, pack_amount, before_total_amount, tax_percentage, tax_total_amount, total, schedule_date;
+        TextView car_name, car_no, action, type, month, pack_amount, total, schedule_date;
+        //        before_total_amount
+//        tax_percentage
+//        tax_total_amount
         LinearLayout schedule_ll;
 
         public viewHolder(View itemView) {
@@ -160,9 +176,9 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.viewHo
             month = (TextView) itemView.findViewById(R.id.cart_sub_type);
             total = (TextView) itemView.findViewById(R.id.car_price);
             pack_amount = (TextView) itemView.findViewById(R.id.pack_amount);
-            before_total_amount = (TextView) itemView.findViewById(R.id.before_total_amount);
-            tax_total_amount = (TextView) itemView.findViewById(R.id.tax_total_amount);
-            tax_percentage = (TextView) itemView.findViewById(R.id.tax_percentage);
+//            before_total_amount = (TextView) itemView.findViewById(R.id.before_total_amount);
+//            tax_total_amount = (TextView) itemView.findViewById(R.id.tax_total_amount);
+//            tax_percentage = (TextView) itemView.findViewById(R.id.tax_percentage);
             schedule_ll = (LinearLayout) itemView.findViewById(R.id.schedule_ll);
             schedule_date = itemView.findViewById(R.id.schedule_date);
         }

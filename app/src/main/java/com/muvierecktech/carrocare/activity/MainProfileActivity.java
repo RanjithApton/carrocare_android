@@ -30,7 +30,7 @@ import java.util.HashMap;
 public class MainProfileActivity extends AppCompatActivity implements PostServiceChooseDialog.AlertPositiveListener {
     ActivityMainProfileBinding binding;
     SessionManager sessionManager;
-    String name, mobile;
+    String name, mobile,customerid,token;
     MyDatabaseHelper databaseHelper;
 
     @Override
@@ -41,6 +41,8 @@ public class MainProfileActivity extends AppCompatActivity implements PostServic
         HashMap<String, String> hashMap = sessionManager.getUserDetails();
         name = hashMap.get(SessionManager.KEY_USERNAME);
         mobile = hashMap.get(SessionManager.KEY_USERMOBILE);
+        token = hashMap.get(SessionManager.KEY_TOKEN);
+        customerid = hashMap.get(SessionManager.KEY_USERID);
 
         databaseHelper = new MyDatabaseHelper(this);
 
@@ -193,6 +195,14 @@ public class MainProfileActivity extends AppCompatActivity implements PostServic
 
             }
         });
+
+        binding.deleteAccountTxt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                deleteMyAccount();
+
+            }
+        });
     }
 
     private void rateApp() {
@@ -209,6 +219,11 @@ public class MainProfileActivity extends AppCompatActivity implements PostServic
             startActivity(new Intent(Intent.ACTION_VIEW,
                     Uri.parse("http://play.google.com/store/apps/details?id=" + getPackageName())));
         }
+    }
+
+    private void deleteMyAccount(){
+        Intent intent = new Intent(MainProfileActivity.this, DeleteAccountActivity.class);
+        startActivity(intent);
     }
 
     private void shareApp() {

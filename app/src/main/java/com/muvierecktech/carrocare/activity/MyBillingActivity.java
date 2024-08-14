@@ -39,6 +39,7 @@ import com.muvierecktech.carrocare.model.OrdersList;
 import com.muvierecktech.carrocare.restapi.ApiClient;
 import com.muvierecktech.carrocare.restapi.ApiInterface;
 
+import java.util.Arrays;
 import java.util.HashMap;
 
 import retrofit2.Call;
@@ -62,6 +63,7 @@ public class MyBillingActivity extends AppCompatActivity {
         HashMap<String, String> hashMap = sessionManager.getUserDetails();
         token = hashMap.get(SessionManager.KEY_TOKEN);
         customerid = hashMap.get(SessionManager.KEY_USERID);
+        askPermissionToUser();
         work();
 
         binding.back.setOnClickListener(new View.OnClickListener() {
@@ -166,18 +168,29 @@ public class MyBillingActivity extends AppCompatActivity {
         finish();
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        for (String permission : PERMISSIONS) {
-            if (ContextCompat.checkSelfPermission(this, permission ) != PackageManager.PERMISSION_GRANTED) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    if (PermissionUtils.neverAskAgainSelected(this, permission)) {
-                        displayNeverAskAgainDialog();
-                    } else {
-                        ActivityCompat.requestPermissions(this, PERMISSIONS,REQ_CODE);
-                    }
-                }
+    private void askPermissionToUser(){
+        if (ContextCompat.checkSelfPermission(MyBillingActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
+                || (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                new AlertDialog.Builder(this)
+                        .setTitle(getString(R.string.storage_permission))
+                        .setMessage(getString(R.string.storage_permission_message))
+                        .setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                ActivityCompat.requestPermissions(MyBillingActivity.this,
+                                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
+                                                Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                                        REQ_CODE);
+                            }
+                        })
+                        .create()
+                        .show();
+            } else {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                        0);
             }
         }
     }
@@ -190,6 +203,7 @@ public class MyBillingActivity extends AppCompatActivity {
                 Log.e("REQ_CODE ::: ", "Permission granted successfully");
                 //Toast.makeText(this, "Permission granted successfully", Toast.LENGTH_LONG).show();
             } else {
+                displayNeverAskAgainDialog();
                 for (String permission : PERMISSIONS) {
                     PermissionUtils.setShouldShowStatus(this, permission);
                 }

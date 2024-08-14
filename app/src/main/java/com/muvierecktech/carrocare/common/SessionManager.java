@@ -29,6 +29,8 @@ public class SessionManager {
     public static final String KEY_LONGITUDE = "longitude";
     public static final String USER_WANTS = "user_wants";
     public static final String GST_PERCENTAGE = "gst_percentage";
+    public static final String COUPON_CODE = "coupon_code";
+    public static final String COUPON_PERCENTAGE = "coupon_percentage";
     static SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     Context context;

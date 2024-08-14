@@ -16,7 +16,7 @@ import com.squareup.picasso.Picasso;
 
 public class CarDetailsActivity extends AppCompatActivity {
     ActivityCarDetailsBinding binding;
-    String carname, carprice, cardesc, carimage, carid, header;
+    String carname, carprice, cardesc, carimage, carid, header,displayPrice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +30,7 @@ public class CarDetailsActivity extends AppCompatActivity {
         carimage = intent.getStringExtra("carimage");
         carid = intent.getStringExtra("carid");
         header = intent.getStringExtra("header");
+        displayPrice = intent.getStringExtra("displayprice");
 
         if (header.equalsIgnoreCase(Constant.MACHINEPOLISH)) {
             binding.booknow.setText("Proceed");
@@ -37,7 +38,7 @@ public class CarDetailsActivity extends AppCompatActivity {
         binding.carName.setText(carname);
         binding.headerName.setText(header);
         binding.carDesc.setText(HtmlCompat.fromHtml(cardesc, 0));
-        binding.carPrice.setText("Total amount \n ₹ " + carprice);
+        binding.carPrice.setText("Total amount \n ₹ " + displayPrice);
         Picasso.get()
                 .load(carimage)
                 .placeholder(R.drawable.placeholder)
@@ -58,6 +59,7 @@ public class CarDetailsActivity extends AppCompatActivity {
                     intent.putExtra("carimage", carimage);
                     intent.putExtra("carid", carid);
                     intent.putExtra("header", header);
+                    intent.putExtra("displayprice", displayPrice);
                     startActivity(intent);
                 }
             }

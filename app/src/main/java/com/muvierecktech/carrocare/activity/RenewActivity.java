@@ -1,5 +1,7 @@
 package com.muvierecktech.carrocare.activity;
 
+import static com.muvierecktech.carrocare.common.Constant.OFFER_PRICE_50;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatSpinner;
@@ -18,6 +20,7 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -251,6 +254,7 @@ public class RenewActivity extends AppCompatActivity {
                             LinearLayout tax_field = dialogView.findViewById(R.id.tax_field);
                             TextView tax_percentage = dialogView.findViewById(R.id.tax_percentage);
                             TextView tax_total = dialogView.findViewById(R.id.tax_total);
+                            TextView tax_deal = dialogView.findViewById(R.id.tax_deal);
                             TextView total_amount = dialogView.findViewById(R.id.total_amount);
                             Button add_toCart = dialogView.findViewById(R.id.add_toCart);
 
@@ -274,11 +278,12 @@ public class RenewActivity extends AppCompatActivity {
                                 package_type.setText("Bike Wash");
                             }
 
-                            package_mrp.setText("₹ " + price);
+                            package_mrp.setText("₹ " + (Integer.parseInt(price) + OFFER_PRICE_50));
 
                             if (Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) != 0) {
                                 tax_field.setVisibility(View.VISIBLE);
-                                tax_percentage.setText("GST (" + Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) + "%)");
+//                                tax_percentage.setText("GST (" + Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) + "%)");
+                                tax_percentage.setText("Offer Price");
                             } else {
                                 tax_field.setVisibility(View.GONE);
                             }
@@ -288,10 +293,19 @@ public class RenewActivity extends AppCompatActivity {
                                 onetimecarprice = result.get(0).total_amount;
                                 paidMonths = "1";
                                 totalAmountStr = Integer.parseInt(result.get(0).total_amount);
-                                total.setText("₹ " + onetimecarprice);
                                 int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * Integer.parseInt(onetimecarprice)) / 100);
                                 int finalAmt = taxAmt + Integer.parseInt(onetimecarprice);
-                                tax_total.setText("₹ " + taxAmt);
+                                int offerAmount = taxAmt + Integer.parseInt(onetimecarprice) + OFFER_PRICE_50;
+//                                tax_total.setText("₹ " + taxAmt);
+                                tax_deal.setText(
+                                        Html.fromHtml( "<sup><small><small>MRP</small></small" +
+                                                "></sup>"+"<b>"+ "<strike>"+"₹ " + offerAmount
+                                                + "</strike></b>" ) );
+                                tax_total.setText(
+                                        Html.fromHtml( "<sup><small><small>DEAL</small></small>" +
+                                                "<b>"+ "₹ "+finalAmt +"</b>"  ) );
+//                                total.setText("₹ " + onetimecarprice);
+                                total.setText("₹ " + finalAmt);
                                 total_amount.setText("₹ " + finalAmt);
 
                                 //showing Discount filed
@@ -309,10 +323,20 @@ public class RenewActivity extends AppCompatActivity {
 
                                 } else {
                                     onetimecarprice = result.get(0).total_amount;
-                                    total.setText("₹ " + result.get(0).total_amount);
                                     int taxAmt1 = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * Integer.parseInt(result.get(0).total_amount)) / 100);
                                     int finalAmt1 = taxAmt1 + Integer.parseInt(result.get(0).total_amount);
-                                    tax_total.setText("₹ " + taxAmt1);
+                                    int offerAmount1 =
+                                            taxAmt1 + Integer.parseInt(result.get(0).total_amount) + OFFER_PRICE_50;
+                                    tax_deal.setText(
+                                            Html.fromHtml( "<sup><small><small>MRP</small></small" +
+                                                    "></sup>"+"<b>"+ "<strike>"+"₹ " + offerAmount1
+                                                    + "</strike></b>" ) );
+                                    tax_total.setText(
+                                            Html.fromHtml( "<sup><small><small>DEAL</small></small>" +
+                                                    "<b>"+ "₹ "+finalAmt1 +"</b>"  ) );
+//                                    tax_total.setText("₹ " + taxAmt1);
+//                                    total.setText("₹ " + result.get(0).total_amount);
+                                    total.setText("₹ " + finalAmt1);
                                     total_amount.setText("₹ " + finalAmt1);
                                 }
 
@@ -343,10 +367,20 @@ public class RenewActivity extends AppCompatActivity {
 
                                 } else {
                                     onetimecarprice = result.get(0).total_amount;
-                                    total.setText("₹ " + result.get(0).total_amount);
                                     int taxAmt2 = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * Integer.parseInt(result.get(0).total_amount)) / 100);
                                     int finalAmt2 = taxAmt2 + Integer.parseInt(result.get(0).total_amount);
-                                    tax_total.setText("₹ " + taxAmt2);
+                                    int offerAmount2 =
+                                            taxAmt2 + Integer.parseInt(result.get(0).total_amount) + OFFER_PRICE_50;
+                                    tax_deal.setText(
+                                            Html.fromHtml( "<sup><small><small>MRP</small></small" +
+                                                    "></sup>"+"<b>"+ "<strike>"+"₹ " + offerAmount2
+                                                    + "</strike></b>" ) );
+                                    tax_total.setText(
+                                            Html.fromHtml( "<sup><small><small>DEAL</small></small>" +
+                                                    "<b>"+ "₹ "+finalAmt2 +"</b>"  ) );
+//                                    tax_total.setText("₹ " + taxAmt2);
+//                                    total.setText("₹ " + result.get(0).total_amount);
+                                    total.setText("₹ " + finalAmt2);
                                     total_amount.setText("₹ " + finalAmt2);
                                 }
                             }
@@ -362,10 +396,21 @@ public class RenewActivity extends AppCompatActivity {
                                     double parseDouble = Double.parseDouble(onetimecarprice) * position;
                                     totalAmountStr = (int) parseDouble;
                                     paidMonths = String.valueOf(position);
-                                    total.setText("₹ " + totalAmountStr);
                                     int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                                     int finalAmt = taxAmt + totalAmountStr;
-                                    tax_total.setText("₹ " + taxAmt);
+                                    int offerAmount =
+                                            taxAmt + totalAmountStr + (position * OFFER_PRICE_50);
+                                    package_mrp.setText("₹ " + offerAmount);
+                                    tax_deal.setText(
+                                            Html.fromHtml( "<sup><small><small>MRP</small></small" +
+                                                    "></sup>"+"<b>"+ "<strike>"+"₹ " + offerAmount
+                                                    + "</strike></b>" ) );
+                                    tax_total.setText(
+                                            Html.fromHtml( "<sup><small><small>DEAL</small></small>" +
+                                                    "<b>"+ "₹ "+finalAmt +"</b>"  ) );
+//                                    tax_total.setText("₹ " + taxAmt);
+//                                    total.setText("₹ " + totalAmountStr);
+                                    total.setText("₹ " + finalAmt);
                                     total_amount.setText("₹ " + finalAmt);
                                     Log.e("AMOUNTRZP", String.valueOf(parseDouble));
                                 }
@@ -470,6 +515,7 @@ public class RenewActivity extends AppCompatActivity {
                             LinearLayout tax_field = dialogView.findViewById(R.id.tax_field);
                             TextView tax_percentage = dialogView.findViewById(R.id.tax_percentage);
                             TextView tax_total = dialogView.findViewById(R.id.tax_total);
+                            TextView tax_deal = dialogView.findViewById(R.id.tax_deal);
                             TextView total_amount = dialogView.findViewById(R.id.total_amount);
                             Button add_toCart = dialogView.findViewById(R.id.add_toCart);
 
@@ -495,11 +541,12 @@ public class RenewActivity extends AppCompatActivity {
                                 package_type.setText("Disinfection");
                             }
 
-                            package_mrp.setText("₹ " + price);
+                            package_mrp.setText("₹ " + (Integer.parseInt(price) + OFFER_PRICE_50));
 
                             if (Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) != 0) {
                                 tax_field.setVisibility(View.VISIBLE);
-                                tax_percentage.setText("GST (" + Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) + "%)");
+//                                tax_percentage.setText("GST (" + Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) + "%)");
+                                tax_percentage.setText("Offer Price");
                             } else {
                                 tax_field.setVisibility(View.GONE);
                             }
@@ -508,20 +555,39 @@ public class RenewActivity extends AppCompatActivity {
                             onetimecarprice = result.get(0).total_amount;
                             paidMonths = "1";
                             totalAmountStr = Integer.parseInt(result.get(0).total_amount);
-                            total.setText("₹ " + onetimecarprice);
                             int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * Integer.parseInt(onetimecarprice)) / 100);
                             int finalAmt = taxAmt + Integer.parseInt(onetimecarprice);
-                            tax_total.setText("₹ " + taxAmt);
+                            int offerAmount = taxAmt + Integer.parseInt(onetimecarprice) + OFFER_PRICE_50;
+                            tax_deal.setText(
+                                    Html.fromHtml( "<sup><small><small>MRP</small></small" +
+                                            "></sup>"+"<b>"+ "<strike>"+"₹ " + offerAmount
+                                            + "</strike></b>" ) );
+                            tax_total.setText(
+                                    Html.fromHtml( "<sup><small><small>DEAL</small></small>" +
+                                            "<b>"+ "₹ "+finalAmt +"</b>"  ) );
+//                            tax_total.setText("₹ " + taxAmt);
+//                            total.setText("₹ " + onetimecarprice);
+                            total.setText("₹ " + finalAmt);
                             total_amount.setText("₹ " + finalAmt);
 
                             if (result.get(0).total_amount.equalsIgnoreCase("0")) {
 
                             } else {
                                 onetimecarprice = result.get(0).total_amount;
-                                total.setText("₹ " + result.get(0).total_amount);
                                 int taxAmt1 = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * Integer.parseInt(result.get(0).total_amount)) / 100);
                                 int finalAmt1 = taxAmt1 + Integer.parseInt(result.get(0).total_amount);
-                                tax_total.setText("₹ " + taxAmt1);
+                                int offerAmount1 =
+                                        taxAmt1 + Integer.parseInt(result.get(0).total_amount) + OFFER_PRICE_50;
+                                tax_deal.setText(
+                                        Html.fromHtml( "<sup><small><small>MRP</small></small" +
+                                                "></sup>"+"<b>"+ "<strike>"+"₹ " + offerAmount1
+                                                + "</strike></b>" ) );
+                                tax_total.setText(
+                                        Html.fromHtml( "<sup><small><small>DEAL</small></small>" +
+                                                "<b>"+ "₹ "+finalAmt1 +"</b>"  ) );
+//                                tax_total.setText("₹ " + taxAmt1);
+//                                total.setText("₹ " + result.get(0).total_amount);
+                                total.setText("₹ " + finalAmt1);
                                 total_amount.setText("₹ " + finalAmt1);
                             }
 

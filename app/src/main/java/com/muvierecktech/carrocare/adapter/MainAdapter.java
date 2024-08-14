@@ -47,7 +47,9 @@ public class MainAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
         final MyViewHolder viewHolder = (MyViewHolder) holder;
         viewHolder.car_name.setText(services.get(position).type);
-        viewHolder.car_price.setText("₹ " + services.get(position).prices);
+        int taxAmt = ((Constant.GST_PERCENTAGE * Integer.parseInt(services.get(position).prices)) / 100);
+        int finalAmount = taxAmt + Integer.parseInt(services.get(position).prices);
+        viewHolder.car_price.setText("₹ " + finalAmount);
         viewHolder.car_desc.setText(HtmlCompat.fromHtml(services.get(position).description, 0));
         Picasso.get()
                 .load(services.get(position).image)
@@ -107,9 +109,13 @@ public class MainAdapter extends RecyclerView.Adapter {
             public void onClick(View view) {
                 MyViewHolder myViewHolder = (MyViewHolder) view.getTag();
                 int i = myViewHolder.getAdapterPosition();
+                int taxAmt =
+                        ((Constant.GST_PERCENTAGE * Integer.parseInt(services.get(i).prices)) / 100);
+                int finalAmount = taxAmt + Integer.parseInt(services.get(i).prices);
                 Intent intent = new Intent(context, CarDetailsActivity.class);
                 intent.putExtra("carname", services.get(i).type);
                 intent.putExtra("carprice", services.get(i).prices);
+                intent.putExtra("displayprice", finalAmount+"");
                 intent.putExtra("cardesc", services.get(i).description);
                 intent.putExtra("carimage", services.get(i).image);
                 intent.putExtra("carid", services.get(i).id);
@@ -122,9 +128,13 @@ public class MainAdapter extends RecyclerView.Adapter {
             public void onClick(View view) {
                 MyViewHolder myViewHolder = (MyViewHolder) view.getTag();
                 int i = myViewHolder.getAdapterPosition();
+                int taxAmt =
+                        ((Constant.GST_PERCENTAGE * Integer.parseInt(services.get(i).prices)) / 100);
+                int finalAmount = taxAmt + Integer.parseInt(services.get(i).prices);
                 Intent intent = new Intent(context, VehicleListActivity.class);
                 intent.putExtra("carname", services.get(i).type);
                 intent.putExtra("carprice", services.get(i).prices);
+                intent.putExtra("displayprice", finalAmount+"");
                 intent.putExtra("cardesc", services.get(i).description);
                 intent.putExtra("carimage", services.get(i).image);
                 intent.putExtra("carid", services.get(i).id);
@@ -137,9 +147,13 @@ public class MainAdapter extends RecyclerView.Adapter {
             public void onClick(View view) {
                 MyViewHolder myViewHolder = (MyViewHolder) view.getTag();
                 int i = myViewHolder.getAdapterPosition();
+                int taxAmt =
+                        ((Constant.GST_PERCENTAGE * Integer.parseInt(services.get(i).prices)) / 100);
+                int finalAmount = taxAmt + Integer.parseInt(services.get(i).prices);
                 Intent intent = new Intent(context, VehicleListActivity.class);
                 intent.putExtra("carname", services.get(i).type);
                 intent.putExtra("carprice", services.get(i).prices);
+                intent.putExtra("displayprice", finalAmount+"");
                 intent.putExtra("cardesc", services.get(i).description);
                 intent.putExtra("carimage", services.get(i).image);
                 intent.putExtra("carid", services.get(i).id);

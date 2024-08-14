@@ -64,7 +64,7 @@ public class InternalwashActivity extends AppCompatActivity {
     ArrayList<String> orderId;
     String order_id;
     DatePickerDialog picker;
-    String preTime[] = {Constant.ANYTIME, "9:00 AM - 10:00 AM", "10:00 AM - 11:00 AM", "11:00 AM - 12:00 PM", "12:00 PM - 1:00 PM", "6:00 PM - 7:00 PM", "7:00 PM - 8:00 PM"};
+    String preTime[] = {Constant.ANYTIME, "9:00 AM - 10:00 AM", "10:00 AM - 11:00 AM", "6:00 PM - 7:00 PM", "7:00 PM - 8:00 PM"};
     SessionManager sessionManager;
     String token;
     String vehicle_id;

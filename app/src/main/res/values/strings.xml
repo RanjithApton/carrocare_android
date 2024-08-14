@@ -15,7 +15,10 @@
     <string name="exit_msg">Please click BACK again to exit</string>
     <string name="share_via">Share via</string>
     <string name="location_permission">Location Permission</string>
+    <string name="storage_permission">Storage Permission</string>
     <string name="location_permission_message">We need location permission to get location of your work.</string>
+    <string name="storage_permission_message">We need storage permission to store invoice of your
+        work.</string>
     <string name="ok">OK</string>
     <string name="action_apartment">Apartment Service</string>
     <string name="action_doorstep">Doorstep Service</string>

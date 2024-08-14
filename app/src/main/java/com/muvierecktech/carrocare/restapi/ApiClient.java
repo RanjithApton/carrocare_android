@@ -31,7 +31,7 @@ public class ApiClient {
     public static Retrofit getClient() {
         if (retrofit == null) {
             HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
-            httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.NONE);
+            httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
             OkHttpClient client = new OkHttpClient.Builder()
                     .addInterceptor(httpLoggingInterceptor)
                     .connectTimeout(5, TimeUnit.MINUTES)

@@ -21,10 +21,13 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.text.InputFilter;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.gms.common.util.SharedPreferencesUtils;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -37,6 +40,7 @@ import com.muvierecktech.carrocare.common.MyDatabaseHelper;
 import com.muvierecktech.carrocare.common.SessionManager;
 import com.muvierecktech.carrocare.databinding.ActivityCartBinding;
 import com.muvierecktech.carrocare.model.CartList;
+import com.muvierecktech.carrocare.model.CouponCodeModel;
 import com.muvierecktech.carrocare.restapi.ApiClient;
 import com.muvierecktech.carrocare.restapi.ApiInterface;
 import com.razorpay.Checkout;
@@ -63,6 +67,10 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
     Cursor cursor;
 
     String action, customerid, token, carprice, carid, paidMonths, fineAmount, gst, gstAmount, totalAmountStr, subtotal, date, time;
+
+    boolean showCoupon = false;
+    boolean isCouponApplied = false;
+    String applyText = "APPLY";
 
     @SuppressLint("LongLogTag")
     @Override
@@ -111,6 +119,32 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
             }
         });
 
+        binding.editCoupon.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
+        binding.txtRedeem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showCoupon = !showCoupon;
+                if(showCoupon){
+                    binding.linearCoupon.setVisibility(View.VISIBLE);
+                }else{
+                    binding.linearCoupon.setVisibility(View.GONE);
+                }
+
+            }
+        });
+
+        binding.btnAppy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (arrayList.isEmpty() || total == 0) {
+                    Toast.makeText(CartActivity.this, "Please choose at least one product", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                applyCouponCode();
+            }
+        });
+
     }
 
     public void getData() {
@@ -122,21 +156,197 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
         binding.rvCartitem.setAdapter(adapter);
     }
 
+    void applyCouponCode() {
+        ///Coupon code flow start here
+        if (binding.editCoupon.getText().toString().isEmpty()) {
+            Toast.makeText(this, "Please enter coupon code", Toast.LENGTH_SHORT).show();
+
+        } else {
+
+            final KProgressHUD hud = KProgressHUD.create(CartActivity.this)
+                    .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                    .setCancellable(true)
+                    .setAnimationSpeed(2)
+                    .setDimAmount(0.5f)
+                    .show();
+            ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+            if (!isCouponApplied) {
+                Call<JsonObject> call =
+                        apiInterface.applyCouponCode(binding.editCoupon.getText().toString(), customerid);
+                call.enqueue(new Callback<JsonObject>() {
+                    @Override
+                    public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                        hud.dismiss();
+                        try {
+                            if (response.isSuccessful()) {
+                                Gson gson = new Gson();
+                                CouponCodeModel couponCodeModel = gson.fromJson(response.body().toString(),
+                                        CouponCodeModel.class);
+                                    if (couponCodeModel.getCode() == 200) {
+                                        if (couponCodeModel.getStatus() == Constant.statusSuccess) {
+                                            updateCouponCode(isCouponApplied,
+                                                    binding.editCoupon.getText().toString(),
+                                                    couponCodeModel.getCouponData().get(0).getCouponDiscount());
+                                            if (!isCouponApplied) {
+                                                isCouponApplied = true;
+                                                applyText = "REMOVE";
+                                                binding.btnAppy.setText(applyText);
+                                                long discountAmount =
+                                                        (total * Integer.parseInt(couponCodeModel.getCouponData().get(0).getCouponDiscount())) /100;
+                                                total = Math.toIntExact(total - discountAmount);
+                                            }
+                                            Toast.makeText(CartActivity.this,
+                                                    couponCodeModel.getCouponData().get(0).getMessage(), Toast.LENGTH_SHORT).show();
+
+                                        } else {
+                                            if (couponCodeModel.getMessage() != null && couponCodeModel.getMessage().equalsIgnoreCase(
+                                                    "Coupon Already Applied")) {
+                                                if (!isCouponApplied) {
+                                                    isCouponApplied = false;
+                                                    applyText = "APPLY";
+                                                    binding.btnAppy.setText(applyText);
+                                                } else {
+                                                    isCouponApplied = true;
+                                                    applyText = "REMOVE";
+
+                                                    binding.btnAppy.setText(applyText);
+                                                }
+                                            }
+                                            if (couponCodeModel.getCode() == 203) {
+                                                sessionManager.logoutUsers();
+                                            } else {
+                                                Toast.makeText(CartActivity.this,
+                                                        couponCodeModel.getMessage(), Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                    }else{
+
+                                        Toast.makeText(CartActivity.this,
+                                                couponCodeModel.getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                            } else {
+                                ApiConfig.responseToast(CartActivity.this, response.code());
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<JsonObject> call, Throwable t) {
+                        hud.dismiss();
+                        Log.e("SHAGUL", "onFailure: "+call.toString() );
+                        Toast.makeText(CartActivity.this, "Timeout.Try after sometime", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            } else {
+
+                Call<JsonObject> call =
+                        apiInterface.removeCouponCode(binding.editCoupon.getText().toString(), customerid);
+                call.enqueue(new Callback<JsonObject>() {
+                    @Override
+                    public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                        hud.dismiss();
+                        try {
+                            if (response.isSuccessful()) {
+                                Gson gson = new Gson();
+                                CouponCodeModel couponCodeModel = gson.fromJson(response.body().toString(),
+                                        CouponCodeModel.class);
+                                if (couponCodeModel.getCode() == 200) {
+                                    if (couponCodeModel.getStatus() == Constant.statusSuccess) {
+                                        updateCouponCode(isCouponApplied,
+                                                binding.editCoupon.getText().toString(),
+                                                couponCodeModel.getCouponData().get(0).getCouponDiscount());
+                                        if (isCouponApplied) {
+                                            isCouponApplied = false;
+                                            applyText = "APPLY";
+                                            binding.btnAppy.setText(applyText);
+                                            binding.editCoupon.setText("");
+                                            if (!arrayList.isEmpty()) {
+                                                total = 0;
+                                                SQLiteDatabase sQLiteDatabase = databaseHelper.getReadableDatabase();
+                                                Cursor rawQuery = sQLiteDatabase.rawQuery(" SELECT SUM (" + databaseHelper.TOTAL + ") FROM " + TABLE_NAME, null);
+                                                rawQuery.moveToFirst();
+                                                total = Integer.parseInt(String.valueOf(rawQuery.getInt(0)));
+                                                binding.txttotal.setText("₹ " + total);
+                                                binding.txtstotal.setText("₹ " + total);
+                                                binding.txtfinaltotal.setText(databaseHelper.getTotalItemOfCart() + " Items  " + "₹ " + total);
+                                            }
+                                        }
+                                        Toast.makeText(CartActivity.this,
+                                                couponCodeModel.getCouponData().get(0).getMessage(), Toast.LENGTH_SHORT).show();
+
+                                    } else {
+                                        if (couponCodeModel.getMessage() != null && couponCodeModel.getMessage().equalsIgnoreCase(
+                                                "Coupon Already Applied")) {
+                                            if (!isCouponApplied) {
+                                                isCouponApplied = false;
+                                                applyText = "APPLY";
+                                                binding.btnAppy.setText(applyText);
+                                            } else {
+                                                isCouponApplied = true;
+                                                applyText = "REMOVE";
+
+                                                binding.btnAppy.setText(applyText);
+                                            }
+                                        }
+                                        if (couponCodeModel.getCode() == 203) {
+                                            sessionManager.logoutUsers();
+                                        } else {
+                                            Toast.makeText(CartActivity.this,
+                                                    couponCodeModel.getMessage(), Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                }
+                                else{
+
+                                    Toast.makeText(CartActivity.this,
+                                            couponCodeModel.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            } else {
+                                ApiConfig.responseToast(CartActivity.this, response.code());
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<JsonObject> call, Throwable t) {
+                        hud.dismiss();
+                        Toast.makeText(CartActivity.this, "Timeout.Try after sometime", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        }
+    }
+
+    void updateCouponCode(boolean isCouponApplied, String couponCode, String percentage) {
+        if (!isCouponApplied) {
+            sessionManager.setData(SessionManager.COUPON_CODE, couponCode);
+            sessionManager.setData(SessionManager.COUPON_PERCENTAGE, percentage);
+        } else {
+            sessionManager.setData(SessionManager.COUPON_CODE, "");
+            sessionManager.setData(SessionManager.COUPON_PERCENTAGE, "");
+        }
+    }
+
     @SuppressLint("SetTextI18n")
     public void SetDataTotal() {
         SQLiteDatabase sQLiteDatabase = databaseHelper.getReadableDatabase();
         Cursor rawQuery1 = sQLiteDatabase.rawQuery(" SELECT SUM (" + databaseHelper.SUB_TOTAL + ") FROM " + TABLE_NAME, null);
         rawQuery1.moveToFirst();
-        binding.txtstotal.setText("₹ " + Integer.parseInt(String.valueOf(rawQuery1.getInt(0))));
+//        binding.txtstotal.setText("₹ " + Integer.parseInt(String.valueOf(rawQuery1.getInt(0))));
 
         Cursor rawQuery2 = sQLiteDatabase.rawQuery(" SELECT SUM (" + databaseHelper.GST_AMOUNT + ") FROM " + TABLE_NAME, null);
         rawQuery2.moveToFirst();
-        binding.txttaxtotal.setText("₹ " + Integer.parseInt(String.valueOf(rawQuery2.getInt(0))));
+//        binding.txttaxtotal.setText("₹ " + Integer.parseInt(String.valueOf(rawQuery2.getInt(0))));
 
         Cursor rawQuery = sQLiteDatabase.rawQuery(" SELECT SUM (" + databaseHelper.TOTAL + ") FROM " + TABLE_NAME, null);
         rawQuery.moveToFirst();
         total = Integer.parseInt(String.valueOf(rawQuery.getInt(0)));
         binding.txttotal.setText("₹ " + total);
+        binding.txtstotal.setText("₹ " + total);
         binding.txtfinaltotal.setText(databaseHelper.getTotalItemOfCart() + " Items  " + "₹ " + total);
 
         final ArrayList<String> idslist = databaseHelper.getCartList();
@@ -146,6 +356,18 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
         } else {
             binding.novehicle.setVisibility(View.GONE);
             binding.lyttotal.setVisibility(View.VISIBLE);
+            String couponCode = sessionManager.getData(SessionManager.COUPON_CODE);
+            String percentage = sessionManager.getData(SessionManager.COUPON_PERCENTAGE);
+            if (couponCode != null && !TextUtils.isEmpty(couponCode) && percentage != null && !TextUtils.isEmpty(percentage) && total != 0) {
+                binding.editCoupon.setText(couponCode);
+                isCouponApplied = true;
+                applyText = "REMOVE";
+                binding.btnAppy.setText(applyText);
+                long discountAmount = (total * Integer.parseInt(percentage)) / 100;
+                total = Math.toIntExact(total - discountAmount);
+                showCoupon = true;
+                binding.linearCoupon.setVisibility(View.VISIBLE);
+            }
         }
 
     }
@@ -352,7 +574,8 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
                             }
                         });
 
-                    } else if (type.equalsIgnoreCase(Constant.ACTIONEXTRAONE)) {
+                    }
+                    else if (type.equalsIgnoreCase(Constant.ACTIONEXTRAONE)) {
                         final KProgressHUD hud = KProgressHUD.create(CartActivity.this)
                                 .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
                                 .setCancellable(true)
@@ -405,7 +628,8 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
                             }
                         });
 
-                    } else if (type.equalsIgnoreCase(Constant.ACTIONONE)) {
+                    }
+                    else if (type.equalsIgnoreCase(Constant.ACTIONONE)) {
                         final KProgressHUD hud = KProgressHUD.create(CartActivity.this)
                                 .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
                                 .setCancellable(true)
@@ -588,7 +812,8 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
             razorpayid = razorpayPaymentID;
             Log.e("razorpayPaymentID>>>>>>>>>>>>>>>>>>>>>>>>>  :  ", "" + razorpayid);
             Log.e("razorpaytempID>>>>>>>>>>>>>>>>>>>>>>>>>  :  ", "" + Constant.RAZOR_PAY_ORDER_ID);
-            workPlaceOrder(razorpayid);
+            //workPlaceOrder(razorpayid);
+            paymentSuccess();
         } catch (Exception e) {
             Log.e("TAG onPaymentSuccess  ", e.getMessage());
         }
@@ -598,6 +823,11 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
     public void onPaymentError(int i, String response) {
         try {
             //Toast.makeText(this, response, Toast.LENGTH_LONG).show();
+            // Payment failed
+            Toast.makeText(this, "Payment Failed", Toast.LENGTH_LONG).show();
+            startActivity(new Intent(CartActivity.this, MainActivity.class));
+            finish();
+            databaseHelper.DeleteAllOrderData();
             Log.e("TAG onPaymentError  ", response);
         } catch (Exception e) {
             Log.e("TAG onPaymentError  ", e.getMessage());

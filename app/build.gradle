@@ -3,14 +3,14 @@ apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'
 
 android {
-    compileSdkVersion 32
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.muvierecktech.carrocare"
-        minSdkVersion 23
-        targetSdkVersion 32
-        versionCode 24
-        versionName "1.4.1"
+        minSdk 23
+        targetSdk 34
+        versionCode 30
+        versionName "1.4.7"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -75,7 +75,7 @@ dependencies {
     implementation 'com.kaopiz:kprogresshud:1.2.0'
 
     // Razorpay
-    implementation 'com.razorpay:checkout:1.6.24'
+    implementation 'com.razorpay:checkout:1.6.35'
 
     // Calender view
     implementation 'com.applandeo:material-calendar-view:1.0.1'

@@ -34,7 +34,7 @@ import retrofit2.Response;
 
 public class ExtraInteriorActivity extends AppCompatActivity {
     ActivityExtraInteriorBinding binding;
-    String cardesc, carid, carimg, carname, carprice, description, headername;
+    String cardesc, carid, carimg, carname, carprice, description, headername,displayPrice;
     List<ServicePriceList.Services> service;
     SessionManager sessionManager;
 
@@ -94,8 +94,12 @@ public class ExtraInteriorActivity extends AppCompatActivity {
                                 if (service.get(i).type.equalsIgnoreCase("extra_interior")) {
                                     binding.carName.setText(service.get(i).type);
                                     carname = service.get(i).type;
-                                    binding.carPrice.setText("Total amount\n₹ " + service.get(i).prices);
                                     carprice = service.get(i).prices;
+                                    int taxAmt =
+                                            ((Constant.GST_PERCENTAGE * Integer.parseInt(service.get(i).prices)) / 100);
+                                    int finalAmount = taxAmt + Integer.parseInt(service.get(i).prices);
+                                    displayPrice = finalAmount+"";
+                                    binding.carPrice.setText("Total amount\n₹ " +displayPrice);
                                     binding.carDesc.setText(HtmlCompat.fromHtml(service.get(i).description, 0));
                                     cardesc = service.get(i).description;
                                     Picasso.get().load(service.get(i).image)
@@ -114,6 +118,7 @@ public class ExtraInteriorActivity extends AppCompatActivity {
                                             intent.putExtra("carimage", carimg);
                                             intent.putExtra("carid", carid);
                                             intent.putExtra("header", headername);
+                                            intent.putExtra("displayprice", displayPrice);
                                             startActivity(intent);
                                         }
                                     });

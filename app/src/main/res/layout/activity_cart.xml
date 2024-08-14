@@ -118,36 +118,36 @@
                     android:textSize="12dp" />
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/lyttax"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/lytamt"
-                android:orientation="horizontal">
+            <!--            <LinearLayout-->
+            <!--                android:id="@+id/lyttax"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_below="@+id/lytamt"-->
+            <!--                android:orientation="horizontal">-->
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.5"
-                    android:fontFamily="@font/josefinsans_regular"
-                    android:text="Tax amount"
-                    android:textSize="12dp" />
+            <!--                <TextView-->
+            <!--                    android:layout_width="0dp"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:layout_weight="0.5"-->
+            <!--                    android:fontFamily="@font/josefinsans_regular"-->
+            <!--                    android:text="Tax amount"-->
+            <!--                    android:textSize="12dp" />-->
 
-                <TextView
-                    android:id="@+id/txttaxtotal"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/josefinsans_bold"
-                    android:gravity="end"
-                    android:textSize="12dp" />
-            </LinearLayout>
+            <!--                <TextView-->
+            <!--                    android:id="@+id/txttaxtotal"-->
+            <!--                    android:layout_width="0dp"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:layout_weight="1"-->
+            <!--                    android:fontFamily="@font/josefinsans_bold"-->
+            <!--                    android:gravity="end"-->
+            <!--                    android:textSize="12dp" />-->
+            <!--            </LinearLayout>-->
 
             <LinearLayout
                 android:id="@+id/lytsubtotal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/lyttax"
+                android:layout_below="@+id/lytamt"
                 android:orientation="horizontal">
 
                 <TextView
@@ -169,6 +169,7 @@
             </LinearLayout>
 
             <RelativeLayout
+                android:id="@+id/relativeCheckout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/lytsubtotal"
@@ -211,6 +212,93 @@
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:src="@drawable/checkout" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/relativeCheckout"
+                android:layout_centerInParent="true"
+                android:layout_centerHorizontal="true"
+                android:gravity="center_horizontal"
+                android:paddingStart="5dp"
+                android:paddingTop="8dp"
+                android:paddingEnd="5dp"
+                android:paddingBottom="8dp">
+
+
+                <LinearLayout
+                    android:id="@+id/linearCheckout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/txtHaveCoupon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/josefinsans_regular"
+                        android:text="Have a coupon code? "
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColor="@color/black"
+                        android:textSize="13sp"
+                        android:textStyle="bold|italic" />
+
+                    <TextView
+                        android:id="@+id/txtRedeem"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="2dp"
+                        android:fontFamily="@font/josefinsans_regular"
+                        android:text="Redeem Now"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColor="@color/colorPrimary"
+                        android:textStyle="bold|italic" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearCoupon"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/linearCheckout"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal"
+                    android:visibility="gone"
+                    android:weightSum="2">
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/edit_coupon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:background="@drawable/edit_bg"
+                        android:fontFamily="@font/josefinsans_light"
+                        android:hint="Coupon Code"
+                        android:inputType="textCapCharacters"
+                        android:padding="20dp"
+                        android:singleLine="true"
+                        android:textAllCaps="true"
+                        android:textSize="@dimen/bigtext" />
+
+                    <Button
+                        android:id="@+id/btn_appy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin"
+                        android:layout_weight="1"
+                        android:background="@drawable/login_bg"
+                        android:fontFamily="@font/josefinsans_bold"
+                        android:text="Apply"
+                        android:textAllCaps="true"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/bigtext" />
+                </LinearLayout>
 
             </RelativeLayout>
         </RelativeLayout>

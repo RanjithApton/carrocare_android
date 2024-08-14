@@ -417,4 +417,13 @@ public interface ApiInterface {
                                     @Field("reason") String reason);
 
 
+    @FormUrlEncoded
+    @POST("apply_coupon.php")
+    Call<JsonObject> applyCouponCode(@Field("coupon_id") String coupon_id,
+                                    @Field("customer_id") String customer_id);
+
+    @FormUrlEncoded
+    @POST("remove_coupon.php")
+    Call<JsonObject> removeCouponCode(@Field("coupon_id") String coupon_id,
+                                    @Field("customer_id") String customer_id);
 }

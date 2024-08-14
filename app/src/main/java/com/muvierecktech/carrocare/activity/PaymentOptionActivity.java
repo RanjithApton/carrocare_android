@@ -12,6 +12,7 @@ import android.net.NetworkInfo;
 
 import android.os.Bundle;
 
+import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -60,6 +61,7 @@ import retrofit2.Response;
 
 import static android.icu.text.MessagePattern.ArgType.SELECT;
 import static com.google.firebase.messaging.Constants.MessagePayloadKeys.FROM;
+import static com.muvierecktech.carrocare.common.Constant.OFFER_PRICE_50;
 import static com.muvierecktech.carrocare.common.DatabaseHelper.TABLE_NAME;
 
 public class PaymentOptionActivity extends AppCompatActivity implements PaymentResultListener {
@@ -71,7 +73,7 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
     SessionManager sessionManager;
     MyDatabaseHelper databaseHelper;
     String[] subsMonths = {"1 Month", "2 Months", "3 Months", "4 Months", "5 Months", "6 Months", "7 Months", "8 Months", "9 Months", "10 Months", "11 Months", "12 Months", "13 Months", "14 Months", "15 Months", "16 Months", "17 Months", "18 Months", "19 Months", "20 Months", "21 Months", "22 Months", "23 Months", "24 Months"};
-    String preTime[] = {Constant.ANYTIME, "9:00 AM - 10:00 AM", "10:00 AM - 11:00 AM", "11:00 AM - 12:00 PM", "12:00 PM - 1:00 PM", "6:00 PM - 7:00 PM", "7:00 PM - 8:00 PM"};
+    String preTime[] = {Constant.ANYTIME, "9:00 AM - 10:00 AM", "10:00 AM - 11:00 AM", "6:00 PM - 7:00 PM", "7:00 PM - 8:00 PM"};
     int totalAmountStr;
     DatePickerDialog picker;
     List<OneTimeWashCheckout.getResult> result;
@@ -132,8 +134,10 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
         if (Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) != 0) {
             binding.taxField.setVisibility(View.VISIBLE);
             binding.taxField1.setVisibility(View.VISIBLE);
-            binding.taxPercentage.setText("GST (" + Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) + "%)");
-            binding.taxPercentage1.setText("GST (" + Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) + "%)");
+//            binding.taxPercentage.setText("GST (" + Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) + "%)");
+//            binding.taxPercentage1.setText("GST (" + Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) + "%)");
+            binding.taxPercentage.setText("Offer Price");
+            binding.taxPercentage1.setText("Offer Price");
         } else {
             binding.taxField.setVisibility(View.GONE);
             binding.taxField1.setVisibility(View.GONE);
@@ -190,7 +194,7 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
             this.binding.subsCard1.setVisibility(View.VISIBLE);
 
             binding.packageType1.setText(carcat);
-            binding.packageMrp1.setText("₹ " + carprice);
+
 
             if (servicetype.equalsIgnoreCase(Constant.ADDON)) {
                 this.binding.subsHead1.setText("One Time Subscription");
@@ -199,14 +203,23 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
                 binding.subscriptionType01.setText(Constant.ONETIME);
                 paidMonths = "1";
                 totalAmountStr = Integer.parseInt(onetimecarprice);
-                binding.total1.setText("₹ " + onetimecarprice);
                 int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * Integer.parseInt(onetimecarprice)) / 100);
                 int finalAmt = taxAmt + Integer.parseInt(onetimecarprice);
-                binding.taxTotal1.setText("₹ " + taxAmt);
+                binding.packageMrp1.setText("₹ " + (finalAmt + OFFER_PRICE_50));
+//                binding.taxTotal1.setText("₹ " + taxAmt);
+                binding.taxDeal1.setText(
+                        Html.fromHtml( "<sup><small><small>MRP</small></small" +
+                                "></sup>"+"<b>"+ "<strike>"+"₹ " + (finalAmt + OFFER_PRICE_50)
+                                + "</strike></b>" ) );
+                binding.taxTotal1.setText(
+                        Html.fromHtml( "<sup><small><small>DEAL</small></small>" +
+                                "<b>"+ "₹ "+finalAmt +"</b>"  ) );
+                binding.total1.setText("₹ " + finalAmt);
                 binding.totalAmount1.setText("₹ " + finalAmt);
                 //binding.totalAmount1.setText("₹ " + onetimecarprice);
             } else {
                 this.binding.subsHead1.setText("One Time Wash Subscription");
+                binding.packageMrp1.setText("₹ " + (Integer.parseInt(carprice) + OFFER_PRICE_50));
             }
 
 
@@ -222,10 +235,18 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
                     double parseDouble = Double.parseDouble(onetimecarprice) * position;
                     totalAmountStr = (int) parseDouble;
                     paidMonths = String.valueOf(position);
-                    binding.total1.setText("₹ " + totalAmountStr);
                     int taxAmt = ((Integer.parseInt(sessionManager.getData(SessionManager.GST_PERCENTAGE)) * totalAmountStr) / 100);
                     int finalAmt = taxAmt + totalAmountStr;
-                    binding.taxTotal1.setText("₹ " + taxAmt);
+//                    binding.taxTotal1.setText("₹ " + taxAmt);
+                    binding.packageMrp1.setText("₹ " + (finalAmt + (Integer.parseInt(paidMonths) * OFFER_PRICE_50)));
+                    binding.taxDeal1.setText(
+                            Html.fromHtml( "<sup><small><small>MRP</small></small" +
+                                    "></sup>"+"<b>"+ "<strike>"+"₹ " + (finalAmt + (Integer.parseInt(paidMonths) * OFFER_PRICE_50))
+                                    + "</strike></b>" ) );
+                    binding.taxTotal1.setText(
+                            Html.fromHtml( "<sup><small><small>DEAL</small></small>" +
+                                    "<b>"+ "₹ "+finalAmt +"</b>"  ) );
+                    binding.total1.setText("₹ " + finalAmt);
                     binding.totalAmount1.setText("₹ " + finalAmt);
                     Log.e("AMOUNTRZP", String.valueOf(parseDouble));
                 }
@@ -243,11 +264,19 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
         time = Constant.ANYTIME;
 
         binding.packageType.setText(carcat);
-        binding.packageMrp.setText("₹ " + carprice);
-        binding.total.setText("₹ " + carprice);
+
         int taxAmt = ((Constant.GST_PERCENTAGE * Integer.parseInt(carprice)) / 100);
         int finalAmt = taxAmt + Integer.parseInt(carprice);
-        binding.taxTotal.setText("₹ " + taxAmt);
+        binding.packageMrp.setText("₹ " + (finalAmt + OFFER_PRICE_50));
+//        binding.taxTotal.setText("₹ " + taxAmt);
+        binding.taxDeal.setText(
+                Html.fromHtml( "<sup><small><small>MRP</small></small" +
+                        "></sup>"+"<b>"+ "<strike>"+"₹ " + (finalAmt + OFFER_PRICE_50)
+                        + "</strike></b>" ) );
+        binding.taxTotal.setText(
+                Html.fromHtml( "<sup><small><small>DEAL</small></small>" +
+                        "<b>"+ "₹ "+finalAmt +"</b>"  ) );
+        binding.total.setText("₹ " + finalAmt);
         binding.totalAmount.setText("₹ " + finalAmt);
         //binding.totalAmount.setText("₹ "+carprice);
         Picasso.get().
@@ -559,10 +588,17 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
                                         //Log.e("is 0","Price"+onetimecarprice);
                                     } else {
                                         onetimecarprice = result.get(i).total_amount;
-                                        binding.total1.setText("₹ " + result.get(i).total_amount);
                                         int taxAmt = ((Constant.GST_PERCENTAGE * Integer.parseInt(result.get(i).total_amount)) / 100);
                                         int finalAmt = taxAmt + Integer.parseInt(result.get(i).total_amount);
-                                        binding.taxTotal1.setText("₹ " + taxAmt);
+//                                        binding.taxTotal1.setText("₹ " + taxAmt);
+                                        binding.taxDeal1.setText(
+                                                Html.fromHtml( "<sup><small><small>MRP</small></small" +
+                                                        "></sup>"+"<b>"+ "<strike>"+"₹ " + (finalAmt + OFFER_PRICE_50)
+                                                        + "</strike></b>" ) );
+                                        binding.taxTotal1.setText(
+                                                Html.fromHtml( "<sup><small><small>DEAL</small></small>" +
+                                                        "<b>"+ "₹ "+finalAmt +"</b>"  ) );
+                                        binding.total1.setText("₹ " + finalAmt);
                                         binding.totalAmount1.setText("₹ " + finalAmt);
                                         //Log.e("not 0","Price"+onetimecarprice);
                                     }
@@ -633,10 +669,17 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
                                         //Log.e("is 0","Price"+onetimecarprice);
                                     } else {
                                         onetimecarprice = result.get(i).total_amount;
-                                        binding.total1.setText("₹ " + result.get(i).total_amount);
                                         int taxAmt = ((Constant.GST_PERCENTAGE * Integer.parseInt(result.get(i).total_amount)) / 100);
                                         int finalAmt = taxAmt + Integer.parseInt(result.get(i).total_amount);
-                                        binding.taxTotal1.setText("₹ " + taxAmt);
+//                                        binding.taxTotal1.setText("₹ " + taxAmt);
+                                        binding.taxDeal1.setText(
+                                                Html.fromHtml( "<sup><small><small>MRP</small></small" +
+                                                        "></sup>"+"<b>"+ "<strike>"+"₹ " + (finalAmt + OFFER_PRICE_50)
+                                                        + "</strike></b>" ) );
+                                        binding.taxTotal1.setText(
+                                                Html.fromHtml( "<sup><small><small>DEAL</small></small>" +
+                                                        "<b>"+ "₹ "+finalAmt +"</b>"  ) );
+                                        binding.total1.setText("₹ " + finalAmt);
                                         binding.totalAmount1.setText("₹ " + finalAmt);
                                         //binding.totalAmount1.setText("₹ " +result.get(i).total_amount);
                                         //Log.e("not 0","Price"+onetimecarprice);
@@ -679,10 +722,17 @@ public class PaymentOptionActivity extends AppCompatActivity implements PaymentR
                                         onetimecarprice.equals(carprice);
                                     } else {
                                         onetimecarprice = result.get(i).total_amount;
-                                        binding.total1.setText("₹ " + result.get(i).total_amount);
                                         int taxAmt = ((Constant.GST_PERCENTAGE * Integer.parseInt(result.get(i).total_amount)) / 100);
                                         int finalAmt = taxAmt + Integer.parseInt(result.get(i).total_amount);
-                                        binding.taxTotal1.setText("₹ " + taxAmt);
+//                                        binding.taxTotal1.setText("₹ " + taxAmt);
+                                        binding.taxDeal1.setText(
+                                                Html.fromHtml( "<sup><small><small>MRP</small></small" +
+                                                        "></sup>"+"<b>"+ "<strike>"+"₹ " + (finalAmt + OFFER_PRICE_50)
+                                                        + "</strike></b>" ) );
+                                        binding.taxTotal1.setText(
+                                                Html.fromHtml( "<sup><small><small>DEAL</small></small>" +
+                                                        "<b>"+ "₹ "+finalAmt +"</b>"  ) );
+                                        binding.total1.setText("₹ " + finalAmt);
                                         binding.totalAmount1.setText("₹ " + finalAmt);
                                     }
 

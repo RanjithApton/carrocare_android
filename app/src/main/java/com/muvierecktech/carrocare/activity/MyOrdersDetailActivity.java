@@ -662,7 +662,7 @@ public class MyOrdersDetailActivity extends AppCompatActivity {
             if (ContextCompat.checkSelfPermission(this, permission ) != PackageManager.PERMISSION_GRANTED) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     if (PermissionUtils.neverAskAgainSelected(this, permission)) {
-                        displayNeverAskAgainDialog();
+//                        displayNeverAskAgainDialog();
                     } else {
                         ActivityCompat.requestPermissions(this, PERMISSIONS,REQ_CODE);
                     }
