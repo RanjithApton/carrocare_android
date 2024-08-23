@@ -6,9 +6,15 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import okhttp3.Credentials;
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -27,7 +33,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.google.android.gms.common.util.SharedPreferencesUtils;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -41,6 +46,12 @@ import com.muvierecktech.carrocare.common.SessionManager;
 import com.muvierecktech.carrocare.databinding.ActivityCartBinding;
 import com.muvierecktech.carrocare.model.CartList;
 import com.muvierecktech.carrocare.model.CouponCodeModel;
+import com.muvierecktech.carrocare.razorpay.PlanItem;
+import com.muvierecktech.carrocare.razorpay.PlanRequest;
+import com.muvierecktech.carrocare.razorpay.PlanResponse;
+import com.muvierecktech.carrocare.razorpay.RazorpayService;
+import com.muvierecktech.carrocare.razorpay.SubscriptionRequest;
+import com.muvierecktech.carrocare.razorpay.SubscriptionResponse;
 import com.muvierecktech.carrocare.restapi.ApiClient;
 import com.muvierecktech.carrocare.restapi.ApiInterface;
 import com.razorpay.Checkout;
@@ -49,6 +60,7 @@ import com.razorpay.PaymentResultListener;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -70,7 +82,12 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
 
     boolean showCoupon = false;
     boolean isCouponApplied = false;
+    boolean isAutoPayChecked = false;
     String applyText = "APPLY";
+    static String subscriptionID = "";
+
+    static String planID = "";
+    String serviceMonth = "0";
 
     @SuppressLint("LongLogTag")
     @Override
@@ -141,7 +158,31 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
                     Toast.makeText(CartActivity.this, "Please choose at least one product", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                applyCouponCode();
+                if (isNetworkAvailable() && arrayList.size() == 1) {
+
+                    sqLiteDatabase = databaseHelper.getReadableDatabase();
+                    cursor = sqLiteDatabase.rawQuery(" SELECT * FROM " + TABLE_NAME, null);
+                    if (cursor.moveToFirst()) {
+                        do {
+                            serviceMonth = cursor.getString(6);
+
+                        } while (cursor.moveToNext());
+                    }
+                    serviceMonth = serviceMonth.replaceAll("[^\\d.]","").trim();
+                    if(serviceMonth != null && !serviceMonth.equals("0") && Integer.parseInt(serviceMonth) >= 3){
+                        applyCouponCode();
+                    }else{
+                        Toast.makeText(CartActivity.this, "Service month should be at least 3 month or above",
+                                Toast.LENGTH_SHORT).show();
+                    }
+
+
+                }else{
+                    Toast.makeText(CartActivity.this, "You can't apply coupon code for multiple items",
+                            Toast.LENGTH_SHORT).show();
+                }
+
+
             }
         });
 
@@ -393,6 +434,16 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
                 binding.txtfinaltotal.setText(databaseHelper.getTotalItemOfCart() + " Items  " + "₹ " + total);
             }
         }
+
+        sqLiteDatabase = databaseHelper.getReadableDatabase();
+        cursor = sqLiteDatabase.rawQuery(" SELECT * FROM " + TABLE_NAME, null);
+        if (cursor.moveToFirst()) {
+            do {
+                serviceMonth = cursor.getString(6);
+
+            } while (cursor.moveToNext());
+        }
+        serviceMonth = serviceMonth.replaceAll("[^\\d.]","").trim();
 
     }
 
@@ -792,14 +843,148 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
         }
     }
 
+    public void createPlan() {
+        OkHttpClient client = new OkHttpClient.Builder()
+                .addInterceptor(new Interceptor() {
+                    @Override
+                    public okhttp3.Response intercept(Chain chain) throws IOException {
+                        Request original = chain.request();
+                        Request.Builder requestBuilder = original.newBuilder()
+                                .header("Authorization",
+                                        Credentials.basic(Constant.RAZOR_PAY_KEY_VALUE,
+                                                Constant.RAZOR_PAY_KEY_SECRET))
+                                .method(original.method(), original.body());
+                        Request request = requestBuilder.build();
+                        return chain.proceed(request);
+                    }
+                })
+                .build();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://api.razorpay.com/v1/")
+                .client(client)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        RazorpayService razorpayService = retrofit.create(RazorpayService.class);
+
+        // Create a PlanRequest object
+        PlanItem planItem = new PlanItem("Monthly Subscription", total, "INR");  // Amount is in
+        // paise
+        PlanRequest planRequest = new PlanRequest("monthly",Integer.parseInt(serviceMonth) , planItem);
+
+        // Make the API call
+        Call<PlanResponse> call = razorpayService.createPlan(planRequest);
+        call.enqueue(new Callback<PlanResponse>() {
+            @Override
+            public void onResponse(Call<PlanResponse> call, Response<PlanResponse> response) {
+                if (response.isSuccessful()) {
+                    PlanResponse planResponse = response.body();
+                    if (planResponse != null) {
+                        planID = planResponse.getId();
+                        Log.e("SHAGUL", "onResponse: "+planResponse.getId() );
+                        createSubscription();
+                    }
+                } else {
+                    Toast.makeText(getApplicationContext(), "Something went wrong, can't enable " +
+                            "auto pay now, try " +
+                            "again later", Toast.LENGTH_SHORT).show();
+                    Log.e("SHAGUL", "onError: "+response.code() + " - " + response.message() );
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PlanResponse> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "Something went wrong, can't enable auto " +
+                        "pay now, try " +
+                        "again later", Toast.LENGTH_SHORT).show();
+                t.printStackTrace();
+            }
+        });
+    }
+    private void createSubscription() {
+        // Set up OkHttpClient with Basic Authentication
+        OkHttpClient client = new OkHttpClient.Builder()
+                .addInterceptor(new Interceptor() {
+                    @Override
+                    public okhttp3.Response intercept(Chain chain) throws IOException {
+                        Request original = chain.request();
+                        Request.Builder requestBuilder = original.newBuilder()
+                                .header("Authorization",
+                                        Credentials.basic(Constant.RAZOR_PAY_KEY_VALUE,
+                                                Constant.RAZOR_PAY_KEY_SECRET))
+                                .method(original.method(), original.body());
+                        Request request = requestBuilder.build();
+                        return chain.proceed(request);
+                    }
+                })
+                .build();
+
+        // Set up Retrofit
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://api.razorpay.com/v1/")
+                .client(client)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        // Create a service instance
+        RazorpayService razorpayService = retrofit.create(RazorpayService.class);
+
+        // Create subscription request body
+        SubscriptionRequest subscriptionRequest = new SubscriptionRequest(planID, 1, 1);
+
+        // Make the API call
+        Call<SubscriptionResponse> call = razorpayService.createSubscription(subscriptionRequest);
+        call.enqueue(new Callback<SubscriptionResponse>() {
+            @Override
+            public void onResponse(Call<SubscriptionResponse> call, retrofit2.Response<SubscriptionResponse> response) {
+                if (response.isSuccessful()) {
+                    SubscriptionResponse subscriptionResponse = response.body();
+                    subscriptionID = subscriptionResponse.getId();
+                    Log.e("SHAGUL", "onResponse: "+subscriptionID );
+                    startPayment();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Something went wrong, can't enable " +
+                            "auto pay now, try " +
+                            "again later", Toast.LENGTH_SHORT).show();
+                    Log.e("SHAGUL", "onError: "+response.code() + " - " + response.message() );
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SubscriptionResponse> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "Something went wrong, can't enable auto " +
+                        "pay now, try " +
+                        "again later", Toast.LENGTH_SHORT).show();
+                t.printStackTrace();
+            }
+        });
+    }
 
     public void startwashonetimepayment() {
+        isAutoPayChecked = binding.checkBoxAutoPay.isChecked();
+
+        if(isAutoPayChecked){
+            createPlan();
+        }else{
+            subscriptionID = "";
+            planID = "";
+            startPayment();
+        }
+    }
+
+    public void startPayment(){
+        if(isAutoPayChecked && TextUtils.isEmpty(subscriptionID)){
+            Toast.makeText(this, "Something went wrong, can't enable auto pay now, try " +
+                    "again later", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         final Activity activity = this;
         Checkout checkout = new Checkout();
         checkout.setKeyID(Constant.RAZOR_PAY_KEY_VALUE);
         checkout.setImage(R.drawable.logo5234);
         try {
             JSONObject jSONObject = new JSONObject();
+            jSONObject.put("subscription_id", subscriptionID);
             jSONObject.put("name", "Carro Care");
             jSONObject.put("description", Constant.RAZOR_PAY_ORDER_ID);
             jSONObject.put("order_id", Constant.RAZOR_PAY_ORDER_ID);
@@ -848,6 +1033,8 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
         try {
             //Toast.makeText(this, response, Toast.LENGTH_LONG).show();
             // Payment failed
+            subscriptionID = "";
+            planID = "";
             Toast.makeText(this, "Payment Failed", Toast.LENGTH_LONG).show();
             startActivity(new Intent(CartActivity.this, MainActivity.class));
             finish();
@@ -1180,6 +1367,8 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
     }
 
     public void paymentSuccess() {
+        subscriptionID = "";
+                planID = "";
         startActivity(new Intent(CartActivity.this, CongratsActivity.class));
         finish();
         databaseHelper.DeleteAllOrderData();
@@ -1188,8 +1377,17 @@ public class CartActivity extends AppCompatActivity implements PaymentResultList
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        subscriptionID = "";
+        planID = "";
         Intent intent = new Intent(CartActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        subscriptionID = "";
+        planID = "";
     }
 }

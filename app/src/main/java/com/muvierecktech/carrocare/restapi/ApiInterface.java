@@ -254,7 +254,8 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST("save_order.php")
-    Call<JsonObject> tempWashOrderOneTime(@Field("action") String action,
+    Call<JsonObject>
+    tempWashOrderOneTime(@Field("action") String action,
                                           @Field("rzp_order_id") String rzp_order_id,
                                           @Field("customer_id") String customer_id,
                                           @Field("token") String token,

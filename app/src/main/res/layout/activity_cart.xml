@@ -167,12 +167,39 @@
                     android:textColor="@color/black"
                     android:textStyle="bold" />
             </LinearLayout>
+            <LinearLayout
+                android:id="@+id/linearAutoPay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_below="@+id/lytsubtotal"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/checkBoxAutoPay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:value="false"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:fontFamily="@font/josefinsans_regular"
+                    android:text="Enable AutoPay"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:textStyle="bold|italic" />
+            </LinearLayout>
 
             <RelativeLayout
                 android:id="@+id/relativeCheckout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/lytsubtotal"
+                android:layout_below="@+id/linearAutoPay"
                 android:layout_marginTop="5dp"
                 android:background="@drawable/bg_button"
                 android:paddingStart="5dp"
